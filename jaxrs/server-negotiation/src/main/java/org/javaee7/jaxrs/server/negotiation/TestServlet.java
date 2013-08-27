@@ -49,6 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import org.glassfish.jersey.filter.LoggingFilter;
 
 /**
  * @author Arun Gupta
@@ -78,7 +79,9 @@ public class TestServlet extends HttpServlet {
         out.println("<h1>Server-side Content Preference</h1>");
         out.println("Initializing client...<br>");
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://"
+        WebTarget target = client.
+                register(LoggingFilter.class)
+                .target("http://"
                 + request.getServerName()
                 + ":"
                 + request.getServerPort()
@@ -88,7 +91,7 @@ public class TestServlet extends HttpServlet {
         // GET
         out.print("GETTing...<br>");
         String string = target.request().get(String.class);
-        out.format("GOT preferred representation: " + string);
+        out.format("GOT the representation: " + string);
         out.println("<br>... done.<br>");
 
         out.println("</body>");
