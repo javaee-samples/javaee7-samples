@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Getting Started with Batch API - Custom Checkpoint!</title>
+        <title>Batch - Custom Checkpoint!</title>
     </head>
     <body>
-        <h1>Getting Started with Batch API - Custom Checkpoint!</h1>
+        <h1>Batch - Custom Checkpoint!</h1>
         Start the <a href="${pageContext.request.contextPath}/TestServlet"/>job</a>.
     </body>
 </html>
