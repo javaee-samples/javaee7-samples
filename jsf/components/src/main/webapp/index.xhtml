@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>JSF Components</h1>
+        <h:form prependId="false">
+            <b>commandButton</b><br/>
+            <h:commandButton value="Next" action="next"/>
+
+            <p/><b>commandLink</b><br/>
+            <h:commandLink value="myLink" action="next"/>
+
+            <p/><b>dataTable</b><br/>
+            <h:dataTable value="#{myBean.list}" var="p">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                        #{p.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                        #{p.name}
+                </h:column>
+            </h:dataTable>
+
+            <p/><b>graphicImage</b><br/>
+            <h:graphicImage value="/images/glassfish.png"/>
+
+            <p/><b>inputHidden</b><br/>
+            <h:inputHidden value="myHiddenValue"/>
+
+            <p/><b>inputSecret</b><br/>
+            <h:inputSecret value="#{myBean.password}"/>
+
+            <p/><b>inputText</b><br/>
+            <h:inputText id="myInputText" value="#{myBean.inputText}"/>
+
+            <p/><b>inputTextArea</b><br/>
+            <h:inputTextarea value="#{myBean.inputTextarea}"/>
+
+            <p/><b>button</b><br/>
+            <h:button value="myButton" outcome="next"/>
+
+            <p/><b>link</b><br/>
+            <h:link value="Next" outcome="next">
+                <f:param name="foo" value="bar"/>
+            </h:link>
+
+            <p/><b>outputFormat</b><br/>
+            <h:outputFormat value="Hello {0}">
+                <f:param value="Duke"/>
+            </h:outputFormat>
+
+            <p/><b>outputLabel</b><br/>
+            <h:outputLabel for="inputTextId" value="myLabel"/>
+            <h:inputText id="inputTextId" value="myInputText"/>
+
+            <p/><b>outputLink</b><br/>
+            <h:outputLink value="next.xhtml">myOutput</h:outputLink>
+
+            <p/><b>outputText</b><br/>
+            <h:outputText value="myOutputText"/>
+
+            <p/><b>outputScript</b><br/>
+            <h:outputScript library="scripts" name="main.js"/>
+
+            <p/><b>outputStylesheet</b><br/>
+            <h:outputStylesheet library="stylesheets" name="main.css"/>
+
+            <p/><b>panelGrid</b><br/>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="inputText1" value="myLabel1"/>
+                <h:inputText id="inputText1" value="#{myBean.inputText}"/>
+                <h:outputLabel for="inputText2" value="myLabel2"/>
+                <h:inputText id="inputText2" value="#{myBean.inputText}"/>
+            </h:panelGrid>
+
+            <p/><b>selectBooleanCheckbox</b><br/>
+            <h:selectBooleanCheckbox value="#{myBean.selectBooleanCheckbox}"/>
+
+            <p/><b>selectOneRadio</b><br/>
+            <h:selectOneRadio value="#{myBean.selectBooleanCheckbox}">
+                <f:selectItem itemValue="red" itemLabel="Red"/>
+                <f:selectItem itemValue="green" itemLabel="Green"/>
+                <f:selectItem itemValue="blue" itemLabel="Blue"/>                
+            </h:selectOneRadio>
+
+            <p/><b>selectOneListbox</b><br/>
+            <h:selectOneListbox value="#{myBean.selectBooleanCheckbox}">
+                <f:selectItem itemValue="red" itemLabel="Red"/>
+                <f:selectItem itemValue="green" itemLabel="Green"/>
+                <f:selectItem itemValue="blue" itemLabel="Blue"/>                
+            </h:selectOneListbox>
+
+            <p/><b>selectOneMenu</b><br/>
+            <h:selectOneMenu value="#{myBean.selectBooleanCheckbox}">
+                <f:selectItem itemValue="red" itemLabel="Red"/>
+                <f:selectItem itemValue="green" itemLabel="Green"/>
+                <f:selectItem itemValue="blue" itemLabel="Blue"/>                
+            </h:selectOneMenu>
+
+            <p/><b>selectManyCheckbox</b><br/>
+            <h:selectManyCheckbox value="#{myBean.selectManyCheckbox}">
+                <f:selectItem itemValue="red" itemLabel="Red"/>
+                <f:selectItem itemValue="green" itemLabel="Green"/>
+                <f:selectItem itemValue="blue" itemLabel="Blue"/>
+            </h:selectManyCheckbox>
+
+            <p/><b>selectManyListbox</b><br/>
+            <h:selectManyListbox value="#{myBean.selectBooleanCheckbox}" size="2">
+                <f:selectItem itemValue="red" itemLabel="Red"/>
+                <f:selectItem itemValue="green" itemLabel="Green"/>
+                <f:selectItem itemValue="blue" itemLabel="Blue"/>                
+                <f:selectItem itemValue="yellow" itemLabel="yellow"/>                
+                <f:selectItem itemValue="orange" itemLabel="Orange"/>                
+            </h:selectManyListbox>
+
+            <p/><b>selectManyMenu</b><br/>
+            <h:selectManyMenu value="#{myBean.selectBooleanCheckbox}">
+                <f:selectItem itemValue="red" itemLabel="Red"/>
+                <f:selectItem itemValue="green" itemLabel="Green"/>
+                <f:selectItem itemValue="blue" itemLabel="Blue"/>                
+                <f:selectItem itemValue="yellow" itemLabel="yellow"/>                
+                <f:selectItem itemValue="orange" itemLabel="Orange"/>                
+            </h:selectManyMenu>
+        </h:form>
+    </h:body>
+</html>
+

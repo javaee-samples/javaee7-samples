@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Ajax using JavaScript</h1>
+        <h:outputScript
+            name="jsf.js"
+            library="javax.faces"
+            target="body"/>
+
+        <h:form prependId="false">
+            Name: <h:inputText value="#{user.name}" id="name"/><br/>
+            Password: <h:inputText value="#{user.password}" id="password"/><br/>
+            <h:commandButton value="Login"
+                             type="button"
+                             actionListener="#{user.login}"
+                             onclick="jsf.ajax.request(this, event, {execute:
+                                                 'name password', render: 'status'});
+                                     return false;"/>
+            <h:outputText value="#{user.status}" id="status"/>
+        </h:form>
+        <h1>Declarative Ajax</h1>
+        <h:form prependId="false">
+            Name: <h:inputText value="#{user.name}" id="name2"/><br/>
+            Password: <h:inputText value="#{user.password}" id="password2"/><br/>
+            <h:commandButton value="Login" type="button" actionListener="#{user.login}">
+                <f:ajax execute="name2 password2" render="status2"/>
+            </h:commandButton>
+            <h:outputText value="#{user.status}" id="status2"/>
+        </h:form>
+    </h:body>
+</html>
+

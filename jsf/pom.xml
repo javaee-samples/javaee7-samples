@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>javaee7-samples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.javaee7.jsf</groupId>
+    <artifactId>jsf-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>bean-validation</module>
+        <module>contracts</module>
+        <module>contracts-library</module>
+        <module>contracts-library-impl</module>
+        <module>flows-simple</module>
+        <module>flows-mixed</module>
+        <module>flows-programmatic</module>
+        <module>flows-declarative</module>
+        <module>passthrough</module>
+        <module>radio-buttons</module>
+        <module>viewscoped</module>
+        <module>file-upload</module>
+        <module>components</module>
+        <module>resource-handling</module>
+        <module>simple-facelet</module>
+        <module>composite-component</module>
+        <module>ajax</module>
+        <module>http-get</module>
+        <module>server-extension</module>
+    </modules>
+
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>javaee7-samples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.javaee7.cdi</groupId>
+    <artifactId>cdi-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>vetoed</module>
+        <module>pkg-level</module>
+        <module>decorators</module>
+        <module>bean-discovery-all</module>
+        <module>bean-discovery-annotated</module>
+        <module>bean-discovery-none</module>
+        <module>exclude-filter</module>
+        <module>built-in</module>
+        <module>interceptors</module>
+        <module>nobeans-xml</module>
+        <module>beansxml-noversion</module>
+    <module>beanmanager</module>
+  </modules>
+</project>

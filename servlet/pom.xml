@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>javaee7-samples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.javaee7.servlet</groupId>
+    <artifactId>servlet-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>cookies</module>
+        <module>async-servlet</module>
+        <module>error-mapping</module>
+        <module>event-listeners</module>
+	<!--
+        <module>form-based-security</module>
+	-->
+        <module>metadata-complete</module>
+        <module>nonblocking</module>
+        <module>protocol-handler</module>
+        <module>resource-packaging</module>
+        <module>servlet-security</module>
+        <module>servlet-filters</module>
+        <module>file-upload</module>
+        <module>web-fragment</module>
+    </modules>
+
+</project>

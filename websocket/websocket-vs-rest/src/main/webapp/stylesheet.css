@@ -1,0 +1,8 @@
+progress {
+    -webkit-appearance: progress-bar;
+    background-color:red;
+    color: red;
+    
+    height: 3em;
+    width: 30em;
+}

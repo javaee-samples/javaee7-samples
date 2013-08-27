@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>javaee7-samples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.javaee7.batch</groupId>
+    <artifactId>batch-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+
+    <modules>
+        <module>batchlet-simple</module>
+        <module>chunk-checkpoint</module>
+        <module>chunk-csv-database</module>
+        <module>chunk-exception</module>
+        <module>chunk-mapper</module>
+        <module>chunk-optional-processor</module>
+        <module>chunk-partition</module>
+        <module>chunk-simple</module>
+        <module>decision</module>
+        <module>flow</module>
+        <module>listeners</module>
+        <module>multiple-steps</module>
+        <module>split</module>
+        <module>chunk-simple-nobeans</module>
+    </modules>
+
+</project>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>File Upload</title>
+        <script type="text/javascript">
+            var onload_cb = function() {
+            }
+            function statusUpdate(data) {
+                var statusArea = document.getElementById("status");
+                var text = statusArea.value;
+                text = text + "Name: " + data.source.id;
+                if (data.type === "event") {
+                    text = text + " Event: " + data.status + " ";
+                }
+                statusArea.value = text;
+            }
+        </script>
+    </h:head>
+    <h:body>
+        <h1>Ajax File Upload</h1>
+
+        <h:form>
+            <h:commandButton value="Traditional File Upload" action="ajax-upload"/><p/>
+        </h:form>
+
+        Pick a text file:
+        <h:form enctype="multipart/form-data" prependId="false">
+            <h:inputFile value="#{fileUploadBean.file}"/><br/>
+
+            <h:commandButton value="Upload">
+                <f:ajax execute="@all" render="@all" onevent="statusUpdate"/>
+            </h:commandButton><p/>
+            
+            <h2>File Contents:</h2>
+            <h:outputText value="#{fileUploadBean.text}"/>
+        </h:form>
+        <h2>Status:</h2>
+        <textarea id="status" cols="40" rows="10" readonly="readonly" />
+    </h:body>
+</html>
+

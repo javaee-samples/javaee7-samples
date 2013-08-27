@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>javaee7-samples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.javaee7.websocket</groupId>
+    <artifactId>websocket-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>binary</module>
+        <module>chat</module>
+        <module>encoder</module>
+        <module>encoder-client</module>
+        <module>encoder-programmatic</module>
+        <module>endpoint</module>
+        <module>endpoint-async</module>
+        <module>endpoint-javatypes</module>
+        <!--<module>endpoint-partial</module>-->
+        <module>endpoint-config</module>
+        <module>endpoint-programmatic</module>
+        <module>endpoint-programmatic-async</module>
+        <module>endpoint-programmatic-config</module>
+        <module>endpoint-programmatic-injection</module>
+        <!--<module>endpoint-programmatic-partial</module>-->
+        <module>endpoint-security</module>
+        <module>httpsession</module>
+        <module>injection</module>
+        <module>javase-client</module>
+        <module>messagesize</module>
+        <module>parameters</module>
+        <module>properties</module>
+        <module>websocket-vs-rest</module>
+        <module>subprotocol</module>
+        <module>websocket-client</module>
+        <module>websocket-client-config</module>
+        <module>websocket-client-programmatic</module>
+        <module>websocket-client-programmatic-config</module>
+        <module>websocket-client-programmatic-encoders</module>
+        <module>whiteboard</module>
+    </modules>
+
+</project>

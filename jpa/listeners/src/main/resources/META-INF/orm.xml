@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+          http://java.sun.com/xml/ns/persistence/orm/orm_2_0.xsd"
+        version="2.0">
+    <persistence-unit-metadata>
+        <!-- Uncomment this fragment for enabling default entity listeners for all the entities -->
+        <!--        
+        <persistence-unit-defaults>
+            <entity-listeners>
+                <entity-listener class="org.glassfish.listeners.MovieListener"/>
+            </entity-listeners>
+        </persistence-unit-defaults>
+        -->
+        <!-- Uncomment this fragment for enabling specific entity listeners for the entity -->
+        <!--
+        <entity class="org.glassfish.listeners.Movie">
+            <entity-listeners>
+                <entity-listener class="org.glassfish.listeners.MovieListener">
+                    <post-load method-name="newMovieLoad"/>
+                    <pre-persist method-name="newMovieAlertBefore"/>
+                    <post-persist method-name="newMovieAlertAfter"/>
+                    <pre-update method-name="updateMovieAlertBefore"/>
+                    <post-update method-name="updateMovieAlertAfter"/>
+                    <pre-remove method-name="deleteMovieAlertBefore"/>
+                    <post-remove method-name="deleteMovieAlertAfter"/>
+                </entity-listener>
+            </entity-listeners>
+        </entity>
+            -->
+    </persistence-unit-metadata>
+</entity-mappings>

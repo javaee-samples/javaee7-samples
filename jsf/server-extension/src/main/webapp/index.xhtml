@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Server-side Extension</title>
+    </h:head>
+    <h:body>
+        <h1>Server-side Extension</h1>
+        <h2>f:validateLength and f:convertNumber</h2>
+        <h:form>
+            Enter a number: <h:inputText value="#{user.age}" id="age">
+                <f:validateLength minimum="1" maximum="3" for="age"/>
+                <f:convertNumber integerOnly="true" minIntegerDigits="1" maxIntegerDigits="999" for="age"/>
+            </h:inputText>
+            <h:commandButton value="Submit"/>
+        </h:form>
+
+        <h2>Custom Converter</h2>
+        <h:form>
+            Enter a number: <h:inputText value="#{userAge}" id="age">
+                <f:converter converterId="myConverter"/>
+            </h:inputText>
+            <h:commandButton value="Submit" action="converter"/>
+        </h:form>
+
+        <h2>Custom Validator</h2>
+        <h:form>
+            <h:inputText value="#{user.name}" id="name">
+                <f:validator id="nameValidator"/>
+            </h:inputText>
+            <h:commandButton value="Submit"/>
+        </h:form>
+    </h:body>
+</html>
+

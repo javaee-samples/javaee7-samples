@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h:inputText value="#{myBean.value}"/> <br/>
+                    View-scoped value: <h:outputText value="#{myBean.value}"/> <p/>
+                    <h:commandButton value="Next" action="index2" />
+                    <h:commandButton value="Refresh" action="index" />
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

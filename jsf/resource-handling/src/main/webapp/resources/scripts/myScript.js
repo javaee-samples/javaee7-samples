@@ -1,0 +1,1 @@
+document.write("Hello, this is from JavaScript bundled in resources!");
