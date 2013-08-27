@@ -84,6 +84,7 @@ public class TestServlet extends HttpServlet {
             out.println("Got the job operator: " + jo + "<br>");
             jo.start("myJob", new Properties());
             out.println("Job submitted<br>");
+            out.println("<br><br>Check server.log for output");
             out.println("</body>");
             out.println("</html>");
         } catch (JobStartException ex) {
