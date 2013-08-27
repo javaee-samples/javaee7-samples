@@ -41,13 +41,15 @@ package org.javaee7.jaxrs.resource.validation;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 /**
  * @author Arun Gupta
  */
-//@Path("/names")
+@Path("/names")
 public class NameResource {
 
     @NotNull
@@ -70,6 +72,12 @@ public class NameResource {
     @Email
     public String getEmail() {
         return email;
+    }
+    
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+    public String registerUser() {
+        return firstName + " " + lastName + " with email " + email + " registered";
     }
     
 }
