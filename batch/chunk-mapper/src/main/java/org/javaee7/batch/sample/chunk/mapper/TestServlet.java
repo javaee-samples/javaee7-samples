@@ -95,6 +95,7 @@ public class TestServlet extends HttpServlet {
             for (String j : jo.getJobNames()) {
                 out.println("--> " + j + "<br>");
             }
+            out.println("<br><br>Check server.log for output");
             out.println("</body>");
             out.println("</html>");
         } catch (JobStartException | JobSecurityException ex) {
