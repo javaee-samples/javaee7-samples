@@ -41,10 +41,12 @@
 package org.javaee7.batch.flow;
 
 import javax.batch.api.AbstractBatchlet;
+import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
+@Named
 public class MyBatchlet2 extends AbstractBatchlet {
 
     @Override
