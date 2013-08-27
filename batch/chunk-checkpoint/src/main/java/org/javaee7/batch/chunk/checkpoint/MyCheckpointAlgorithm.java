@@ -46,7 +46,7 @@ import javax.inject.Named;
 /**
  * @author Arun Gupta
  */
- @Named
+@Named
 public class MyCheckpointAlgorithm extends AbstractCheckpointAlgorithm {
 
     @Override
