@@ -40,7 +40,7 @@
 */
 -->
 
-<job id="myJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+<job id="myJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
     <step id="step1" next="decider1">
         <batchlet ref="myBatchlet1"/>
     </step>
