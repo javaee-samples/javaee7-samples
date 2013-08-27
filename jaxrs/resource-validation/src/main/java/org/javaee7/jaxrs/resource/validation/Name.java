@@ -39,23 +39,56 @@
  */
 package org.javaee7.jaxrs.resource.validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Arun Gupta
  */
-public class EmailValidator
-        implements ConstraintValidator<Email, String> {
+@XmlRootElement
+public class Name {
 
-    @Override
-    public void initialize(Email constraintAnnotation) {
-        System.out.println("EmailValidator.initialize");
+    @NotNull
+    @Size(min = 1)
+    private String firstName;
+
+    @NotNull
+    @Size(min = 1)
+    private String lastName;
+
+    @Email
+    private String email;
+    
+    public Name() { }
+    
+    public Name(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
     
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        System.out.println("EmailValidator.isValid: " + value);
-        return value != null && value.contains("@") && value.contains(".com");
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

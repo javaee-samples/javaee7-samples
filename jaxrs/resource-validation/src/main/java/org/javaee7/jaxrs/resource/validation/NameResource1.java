@@ -49,8 +49,8 @@ import javax.ws.rs.Path;
 /**
  * @author Arun Gupta
  */
-@Path("/names")
-public class NameResource {
+@Path("/names1")
+public class NameResource1 {
 
     @NotNull
     @Size(min = 1)
@@ -65,11 +65,11 @@ public class NameResource {
     private String email;
 
     @FormParam("email")
-    public void setEmail(String email) {
+    public void setEmail(@Email String email) {
         this.email = email;
     }
 
-    @Email
+//    @Email
     public String getEmail() {
         return email;
     }

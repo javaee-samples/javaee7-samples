@@ -39,23 +39,22 @@
  */
 package org.javaee7.jaxrs.resource.validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import javax.validation.Valid;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 
 /**
  * @author Arun Gupta
  */
-public class EmailValidator
-        implements ConstraintValidator<Email, String> {
+@Path("/nameadd")
+public class NameAddResource {
 
-    @Override
-    public void initialize(Email constraintAnnotation) {
-        System.out.println("EmailValidator.initialize");
+    @POST
+    @Consumes("application/json")
+    public String addUser(@Valid Name name) {
+        System.out.println("addUser");
+        return name.getFirstName() + " " + name.getLastName() + " with email " + name.getEmail() + " added";
     }
     
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        System.out.println("EmailValidator.isValid: " + value);
-        return value != null && value.contains("@") && value.contains(".com");
-    }
 }
