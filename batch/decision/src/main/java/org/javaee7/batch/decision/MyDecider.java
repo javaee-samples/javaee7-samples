@@ -41,10 +41,12 @@ package org.javaee7.batch.decision;
 
 import javax.batch.api.Decider;
 import javax.batch.runtime.StepExecution;
+import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
+@Named
 public class MyDecider implements Decider {
 
     @Override
