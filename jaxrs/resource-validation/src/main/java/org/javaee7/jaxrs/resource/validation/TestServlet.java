@@ -41,6 +41,8 @@ package org.javaee7.jaxrs.resource.validation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,9 +62,8 @@ import javax.ws.rs.core.Response;
 public class TestServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -80,45 +81,63 @@ public class TestServlet extends HttpServlet {
         out.println("<body>");
         out.println("<h1>Resource Validation in JAX-RS</h1>");
         Client client = ClientBuilder.newClient();
-        WebTarget target = client
+        List<WebTarget> targets = new ArrayList<>();
+
+        targets.add(client
                 .target("http://"
                 + request.getServerName()
                 + ":"
                 + request.getServerPort()
                 + request.getContextPath()
-                + "/webresources/");
+                + "/webresources/names"));
 
-        MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();
-        
-        out.print("<br><br>POSTing with invalid (null) \"firstName\" ...<br>");
-        map.add("firstName", null);
-        map.add("lastName", "Duke");
-        map.add("email", "random@example.com");
-        Response r = target.path("names2").request().post(Entity.form(map));
-        out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
-        
-        out.print("<br><br>POSTing with invalid (null) \"lastName\" ...<br>");
-        map.putSingle("firstName", "Duke");
-        map.putSingle("lastName", null);
-        r = target.path("names2").request().post(Entity.form(map));
-        out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
-        
-        out.print("<br><br>POSTing with invalid (missing @) email \"email\" ...<br>");
-        map.putSingle("lastName", "Duke");
-        map.putSingle("email", "randomexample.com");
-        r = target.path("names2").request().post(Entity.form(map));
-        out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
-        
-        out.print("<br><br>POSTing with invalid (missing .com) email \"email\" ...<br>");
-        map.putSingle("email", "random@examplecom");
-        r = target.path("names2").request().post(Entity.form(map));
-        out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
-        
-        out.print("<br><br>POSTing with valid data ...<br>");
-        map.putSingle("email", "random@example.com");
-        r = target.path("names2").request().post(Entity.form(map));
-        out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
-        
+        targets.add(client
+                .target("http://"
+                + request.getServerName()
+                + ":"
+                + request.getServerPort()
+                + request.getContextPath()
+                + "/webresources/names2"));
+
+        for (WebTarget target : targets) {
+            out.println("<h2>Using target: " + target.getUri() + "</h2>");
+            MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();
+
+            out.print("<br><br>POSTing with invalid (null) \"firstName\" ...<br>");
+            map.add("firstName", null);
+            map.add("lastName", "Duke");
+            map.add("email", "random@example.com");
+            Response r = target.request().post(Entity.form(map));
+            out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
+            out.println("<br>Received 400 status code ?");
+
+            out.print("<br><br>POSTing with invalid (null) \"lastName\" ...<br>");
+            map.putSingle("firstName", "Duke");
+            map.putSingle("lastName", null);
+            r = target.request().post(Entity.form(map));
+            out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
+            out.println("<br>Received 400 status code ?");
+
+            out.print("<br><br>POSTing with invalid (missing @) email \"email\" ...<br>");
+            map.putSingle("lastName", "Duke");
+            map.putSingle("email", "randomexample.com");
+            r = target.request().post(Entity.form(map));
+            out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
+            out.println("<br>Received 400 status code ?");
+
+            out.print("<br><br>POSTing with invalid (missing .com) email \"email\" ...<br>");
+            map.putSingle("email", "random@examplecom");
+            r = target.request().post(Entity.form(map));
+            out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
+            out.println("<br>Received 400 status code ?");
+
+            out.print("<br><br>POSTing with valid data ...<br>");
+            map.putSingle("email", "random@example.com");
+            r = target.request().post(Entity.form(map));
+            out.println("Received status code: " + r.getStatus() + ", reason: " + r.getStatusInfo().getReasonPhrase());
+            out.println("<br>Received 200 status code ?");
+        }
+
         out.println("<br>... done.<br>");
 
         out.println("</body>");
@@ -127,8 +146,7 @@ public class TestServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -142,8 +160,7 @@ public class TestServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
