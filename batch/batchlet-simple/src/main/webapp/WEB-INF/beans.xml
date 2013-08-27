@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -37,23 +39,11 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
-package org.javaee7.batch.batchlet.simple;
-
-import javax.batch.api.AbstractBatchlet;
-import javax.inject.Named;
-
-/**
- * @author Arun Gupta
- */
-@Named
-public class MyBatchlet extends AbstractBatchlet {
-
-    @Override
-    public String process() {
-        System.out.println("Running inside a batchlet");
-        
-        return "COMPLETED";
-    }
-
-}
+-->
+<beans
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                      http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+    bean-discovery-mode="all">
+</beans>
