@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Batch Split</title>
+        <title>Batch - Split</title>
     </head>
     <body>
-        <h1>Batch Split</h1>
+        <h1>Batch - Split</h1>
         Start the <a href="${pageContext.request.contextPath}/TestServlet"/>job</a>.
     </body>
 </html>
