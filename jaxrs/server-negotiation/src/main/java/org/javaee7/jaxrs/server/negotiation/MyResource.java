@@ -49,7 +49,7 @@ import javax.ws.rs.Produces;
 @Path("persons")
 public class MyResource {
     @GET
-    @Produces({"application/xml; qs=1", "application/json; qs=2"})
+    @Produces({"application/xml; qs=0.75", "application/json; qs=1.0"})
 //    @Produces({"application/xml", "application/json"})
     public Person[] getList() {
         Person[] list = new Person[3];
