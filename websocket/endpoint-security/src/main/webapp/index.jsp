@@ -45,11 +45,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Security</title>
+        <title>WebSocket : Security</title>
 
     </head>
     <body>
-        <h1>WebSocket Security</h1>
+        <h1>WebSocket : Security</h1>
 
         <div style="text-align: center;">
             <form action=""> 
@@ -59,7 +59,7 @@
         </div>
         <p/>If you see this page that means you've entered the username/password 
         credentials correctly. Make sure to create the user by giving the command<p/><p/>
-        <code>asadmin create-file-user --groups g1 u1</code>
+        <code>asadmin create-file-user --groups g1 u1</code>. Give the password as <code>p1</code>.
         <div id="output"></div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>
