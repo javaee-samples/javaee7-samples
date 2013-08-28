@@ -45,16 +45,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Programmatic Endpoint</title>
+        <title>WebSocket : Programmatic Endpoint</title>
 
     </head>
     <body>
-        <h1>WebSocket Programmatic Endpoint</h1>
+        <h1>WebSocket : Programmatic Endpoint</h1>
 
         <div style="text-align: center;">
             <form action=""> 
                 <h2>Text Data</h2>
-                <input onclick="sayHello();" value="Say Hello" type="button"> 
+                <input onclick="sayHello();" value="Echo" type="button"> 
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
             <form action=""> 
