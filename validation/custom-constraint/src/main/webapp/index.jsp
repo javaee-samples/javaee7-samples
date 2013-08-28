@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Validation using Custom Constraint</title>
+        <title>Bean Validation : Custom Constraint</title>
     </head>
     <body>
-        <h1>Validation using Custom Constraint</h1>
+        <h1>Bean Validation : Custom Constraint</h1>
         Call <a href="${pageContext.request.contextPath}/TestServlet">servlet</a> that invokes a bean which triggers validation.<br/>
     </body>
 </html>

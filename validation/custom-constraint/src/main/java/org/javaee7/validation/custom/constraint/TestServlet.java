@@ -83,7 +83,7 @@ public class TestServlet extends HttpServlet {
             } catch (ConstraintViolationException e) {
                 out.println("ConstraintViolationException expected and caught");
             }
-            out.println("Was ConstraintViolationException caught ?");
+            out.println("<br><br>Was ConstraintViolationException caught ?");
             out.println("</body>");
             out.println("</html>");
         }
