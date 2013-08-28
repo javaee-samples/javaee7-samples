@@ -46,7 +46,7 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/websocket")
+@ServerEndpoint("/websocket")
 public class MyEndpoint {
     
     @OnOpen
