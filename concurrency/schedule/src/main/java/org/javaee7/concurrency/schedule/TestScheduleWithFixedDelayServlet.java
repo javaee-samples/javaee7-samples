@@ -77,13 +77,13 @@ public class TestScheduleWithFixedDelayServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestScheduleWithFixedDelayServlet</title>");            
+            out.println("<title>Schedule with fixed delay</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Schedule tasks with fixed delay</h1>");
             
             executor.scheduleWithFixedDelay(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
-            out.println("Check server.log for output");
+            out.println("<br><br>Check server.log for output");
             System.out.println("Runnable Task submitted");
             
             out.println("</body>");

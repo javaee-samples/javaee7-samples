@@ -83,6 +83,7 @@ public class TestTriggerServlet extends HttpServlet {
             for (int i=0; i<5; i++) {
                 executor.schedule(new MyRunnableTask(i), new MyTrigger());
             }
+            out.println("<br><br>Check server.log for output");
             
             out.println("</body>");
             out.println("</html>");
