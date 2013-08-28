@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Interceptors</title>
+        <title>CDI : Interceptors</title>
     </head>
     <body>
-        <h1>Interceptors</h1>
+        <h1>CDI : Interceptors</h1>
         Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>client</a>.
     </body>
 </html>
