@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Built-in Beans</title>
+        <title>CDI : Built-in Beans</title>
     </head>
     <body>
-        <h1>Built-in Beans</h1>
+        <h1>CDI : Built-in Beans</h1>
         Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting Service</a>.
     </body>
 </html>
