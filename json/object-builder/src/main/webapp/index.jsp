@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSON DOM Generator</title>
+        <title>JSON Object Builder: DOM Generator</title>
     </head>
     <body>
-        <h1>JSON DOM Generator</h1>
+        <h1>JSON Object Builder: DOM Generator</h1>
         
         Generate JSON using <a href="${pageContext.request.contextPath}/DOMGeneratorServlet">DOM generator</a><br/>
     </body>
