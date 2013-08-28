@@ -59,10 +59,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/TestMultipleInterfaceServlet"})
 public class TestMultipleInterfaceServlet extends HttpServlet {
 
-    @Resource(name = "java:comp/DefaultManagedThreadFactory")
+//    @Resource(name = "java:comp/DefaultManagedThreadFactory")
+    @Resource
     ManagedThreadFactory factory;
     
-    @Resource(name = "java:comp/DefaultContextService")
+//    @Resource(name = "java:comp/DefaultContextService")
+    @Resource
     ContextService service;
     
 
@@ -82,12 +84,11 @@ public class TestMultipleInterfaceServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Creating contextual proxy (with multiple interfaces)</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Creating contextual proxy (with multiple interfaces)</h1>");
 
-            out.println("Creating contextual proxy<br>");
             Object proxy = service.createContextualProxy(new MyRunnableWork(), Runnable.class, MyWork.class);
             out.println("Calling MyWork interface<br>");
             ((MyWork)proxy).myWork();

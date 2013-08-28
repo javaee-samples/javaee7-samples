@@ -59,10 +59,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
 
-    @Resource(name = "DefaultManagedThreadFactory")
+//    @Resource(name = "DefaultManagedThreadFactory")
+    @Resource
     ManagedThreadFactory factory;
     
-    @Resource(name = "DefaultContextService")
+//    @Resource(name = "DefaultContextService")
+    @Resource
     ContextService service;
     
 
@@ -82,19 +84,18 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Creating contextual proxy</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Creating contextual proxy</h1>");
 
-            out.println("Creating contextual proxy<br>");
             Runnable proxy = service.createContextualProxy(new MyRunnable(), Runnable.class);
             out.println("Creating Java SE style ExecutorService<br>");
             ExecutorService executor = Executors.newFixedThreadPool(10, factory);
             out.println("Submitting the task<br>");
             Future f = executor.submit(proxy);
-            out.println("done<br><br>");
-            out.println("Check server.log for output from the task.");
+            out.println("done");
+            out.println("<br><br>Check server.log for output from the task.");
             out.println("</body>");
             out.println("</html>");
         }

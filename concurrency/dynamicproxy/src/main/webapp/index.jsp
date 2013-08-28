@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Concurrency Utilities for Java EE - ContextService</title>
+        <title>Concurrency Utilities for Java EE : ContextService</title>
     </head>
     <body>
-        <h1>Concurrency Utilities for Java EE - ContextService</h1>
+        <h1>Concurrency Utilities for Java EE : ContextService</h1>
         
         Run a task using <a href="${pageContext.request.contextPath}/TestServlet">contextual object</a> (only Runnable)<br/>
         Run a Runnable task using <a href="${pageContext.request.contextPath}/TestMultipleInterfaceServlet">contextual object</a> (Runnable and MyWork)<br/>
