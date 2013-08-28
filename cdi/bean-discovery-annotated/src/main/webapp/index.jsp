@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI Bean Discovery - Annotated</title>
+        <title>CDI : Bean Discovery Mode = Annotated</title>
     </head>
     <body>
-        <h1>CDI Bean Discovery - Annotated</h1>
+        <h1>CDI : Bean Discovery Mode = Annotated</h1>
         Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting</a>.
     </body>
 </html>
