@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Client - Encoder &amp; Decoder</title>
+        <title>WebSocket : Client Encoder &amp; Decoder</title>
     </head>
     <body>
-        <h1>WebSocket Client - Encoder &amp; Decoder</h1>
+        <h1>WebSocket : Client Encoder &amp; Decoder</h1>
         
         Call <a href="${pageContext.request.contextPath}/TestClient">client</a><br/>
     </body>

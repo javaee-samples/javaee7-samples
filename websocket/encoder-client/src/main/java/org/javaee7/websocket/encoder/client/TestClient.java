@@ -75,16 +75,16 @@ public class TestClient extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Encoder and Decoder in WebSocket Java Client</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Encoder and Decoder in WebSocket Java Client</h1>");
             
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
             String uri = "ws://localhost:8080" + request.getContextPath() + "/websocket";
             out.println("Connecting to " + uri);
             container.connectToServer(MyClient.class, URI.create(uri));
-            out.println("<br><br>Look in server.log for log messages from message exchange between client/server.");
+            out.println("<br><br>Check in server.log for log messages from message exchange between client/server.");
             
             out.println("</body>");
             out.println("</html>");
