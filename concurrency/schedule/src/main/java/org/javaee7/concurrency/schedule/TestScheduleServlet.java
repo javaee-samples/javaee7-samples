@@ -82,10 +82,11 @@ public class TestScheduleServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestScheduleServlet</title>");
+            out.println("<title>Schedule using Callable after 5 seconds</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Schedule tasks</h1>");
+            out.println("<h1>Schedule using Callable after 5 seconds</h1>");
+            out.println("<h2>Scheduling tasks using Callable</h2>");
             ScheduledFuture<Product> future = executor.schedule(new MyCallableTask(5), 5, TimeUnit.SECONDS);
             while (true) {
                 if (future.isDone()) {
@@ -97,6 +98,7 @@ public class TestScheduleServlet extends HttpServlet {
             }
             out.println("Callable Task completed: " + future.get().getId());
             
+            out.println("<h2>Scheduling tasks using Runnable</h2>");
             ScheduledFuture<?> f = executor.schedule(new MyRunnableTask(10), 5, TimeUnit.SECONDS);
             while (true) {
                 if (f.isDone()) {
@@ -106,7 +108,8 @@ public class TestScheduleServlet extends HttpServlet {
                     Thread.sleep(1000);
                 }
             }
-            out.println("Callable Task completed: " + future.get().getId());
+            out.println("Runnable Task completed: " + future.get().getId());
+            out.println("<br><br>Check server.log for output");
             out.println("</body>");
             out.println("</html>");
         } catch (InterruptedException | ExecutionException ex) {
