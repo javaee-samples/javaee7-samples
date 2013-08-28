@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI Bean Discovery - All</title>
+        <title>CDI : Bean Discovery Mode = All</title>
     </head>
     <body>
-        <h1>CDI Bean Discovery - All</h1>
+        <h1>CDI : Bean Discovery Mode = All</h1>
         Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting</a>.
     </body>
 </html>
