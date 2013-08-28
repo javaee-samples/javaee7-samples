@@ -46,12 +46,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI BeanManager</title>
+        <title>CDI : BeanManager</title>
     </head>
     <body>
-        <h1>CDI BeanManager</h1>
+        <h1>CDI : BeanManager</h1>
 
-        Show the <a href="${pageContext.request.contextPath}/TestServlet"/>list of beans</a>.<p/>
+        Show the list of beans using BeanManager by:
+        <ol>
+            <li><a href="${pageContext.request.contextPath}/TestServletInject"/>injection</a>
+            <li><a href="${pageContext.request.contextPath}/TestServletCurrent"/>CDI.current</a>
+            <li><a href="${pageContext.request.contextPath}/TestServletJNDI"/>JNDI</a>
+        </ol>
 
 </body>
 </html>

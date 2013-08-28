@@ -42,9 +42,12 @@ package org.javaee7.cdisamples.beanmanager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -54,11 +57,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
-public class TestServlet extends HttpServlet {
-    
-    // First way to get BeanManager
-    @Inject BeanManager bm;
+@WebServlet(urlPatterns = {"/TestServletJNDI"})
+public class TestServletJNDI extends HttpServlet {
     
     /**
      * Processes requests for both HTTP
@@ -77,22 +77,18 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>BeanManager using JNDI</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
-            // Second way to get BeanManager
-//            BeanManager bm = CDI.current().getBeanManager();
-            
+            out.println("<h1>BeanManager using JNDI</h1>");
             // Third way to get BeanManager
-//            BeanManager bm = null;
-//            try {
-//                InitialContext context = new InitialContext();
-//                bm = (BeanManager)context.lookup("java:comp/BeanManager");
-//            } catch (NamingException | NullPointerException ex) {
-//                Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
-//                ex.printStackTrace(out);
-//            }
+            BeanManager bm = null;
+            try {
+                InitialContext context = new InitialContext();
+                bm = (BeanManager)context.lookup("java:comp/BeanManager");
+            } catch (NamingException | NullPointerException ex) {
+                ex.printStackTrace(out);
+            }
             Set<Bean<?>> beans = bm.getBeans(Greeting.class);
             for (Bean<?> b : beans) {
                 out.println(b.getBeanClass().getName() + "<br>");
