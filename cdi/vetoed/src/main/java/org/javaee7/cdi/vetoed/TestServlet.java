@@ -73,10 +73,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Two implementations, one @Vetoed, other injected</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Two implementations, one @Vetoed, other injected</h1>");
             out.println(greeting.greet("Duke"));
             out.println("</body>");
             out.println("</html>");

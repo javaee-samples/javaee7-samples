@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>@Vetoed</title>
+        <title>CDI @Vetoed</title>
     </head>
     <body>
-        <h1>@Vetoed</h1>
+        <h1>CDI @Vetoed</h1>
         Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting Service</a>.
     </body>
 </html>
