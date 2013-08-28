@@ -45,16 +45,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Annotated Async Endpoint</title>
+        <title>WebSocket : Annotated Async Endpoint</title>
 
     </head>
     <body>
-        <h1>Annotated Async Endpoint</h1>
+        <h1>WebSocket : Annotated Async Endpoint</h1>
 
         <div style="text-align: center;">
             <form action=""> 
-                <h2>Text Data</h2>
-                <input onclick="sayHello();" value="Say Hello" type="button"> 
+                <input onclick="echoText();" value="Echo Text" type="button"> 
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
         </div>

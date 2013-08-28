@@ -47,22 +47,10 @@ websocket.onerror = function(evt) { onError(evt) };
 
 var output = document.getElementById("output");
 
-function sayHello() {
-    console.log("sayHello: " + myField.value);
+function echoText() {
+    console.log("echoText: " + myField.value);
     websocket.send(myField.value);
     writeToScreen("SENT (text): " + myField.value);
-}
-
-function echoBinary() {
-//                alert("Sending " + myField2.value.length + " bytes")
-    var buffer = new ArrayBuffer(myField2.value.length);
-    var bytes = new Uint8Array(buffer);
-    for (var i=0; i<bytes.length; i++) {
-        bytes[i] = i;
-    }
-//                alert(buffer);
-    websocket.send(buffer);
-    writeToScreen("SENT (binary): " + buffer.byteLength + " bytes");
 }
 
 function onOpen() {
@@ -71,11 +59,7 @@ function onOpen() {
 }
 
 function onMessage(evt) {
-    if (typeof evt.data == "string") {
-        writeToScreen("RECEIVED (text): " + evt.data);
-    } else {
-        writeToScreen("RECEIVED (binary): " + evt.data);
-    }
+    writeToScreen("RECEIVED (text): " + evt.data);
 }
 
 function onError(evt) {
