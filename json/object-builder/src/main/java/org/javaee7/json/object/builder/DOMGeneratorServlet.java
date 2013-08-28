@@ -39,9 +39,9 @@
  */
 package org.javaee7.json.object.builder;
 
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -74,42 +74,45 @@ public class DOMGeneratorServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DOMTestServlet</title>");            
+            out.println("<title>Using JSON DOMGenerator</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DOMTestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Using JSON DOMGenerator</h1>");
             
-            out.println("Creating an empty object (using DOM generator)...<br>");
+            out.println("Creating an empty object ...<br>");
             JsonObject jsonObject = Json.createObjectBuilder().build();
-//            try (JsonWriter writer = Json.createWriter(response.getOutputStream())) {
-            try (JsonWriter writer = Json.createWriter(System.out)) {
+            StringWriter w = new StringWriter();
+            try (JsonWriter writer = Json.createWriter(w)) {
                 writer.write(jsonObject);
             }
+            out.println(w);
             out.println("<br>...done<br>");
 
-            out.println("<br>Creating a simple object (using DOM generator)...<br>");
+            out.println("<br>Creating a simple object ...<br>");
             jsonObject = Json.createObjectBuilder()
                     .add("apple", "red")
                     .add("banana", "yellow")
                     .build();
-//            try (JsonWriter writer = Json.createWriter(response.getOutputStream())) {
-            try (JsonWriter writer = Json.createWriter(System.out)) {
+            w = new StringWriter();
+            try (JsonWriter writer = Json.createWriter(w)) {
                 writer.write(jsonObject);
             }
+            out.println(w);
             out.println("<br>...done<br>");
             
-            out.println("<br>Creating a simple array (using streaming generator)...<br>");
+            out.println("<br>Creating a simple array ...<br>");
             JsonArray jsonArray = Json.createArrayBuilder()
                     .add(Json.createObjectBuilder().add("apple","red"))
                     .add(Json.createObjectBuilder().add("banana","yellow"))
                     .build();
-//            try (JsonWriter writer = Json.createWriter(response.getOutputStream())) {
-            try (JsonWriter writer = Json.createWriter(System.out)) {
+            w = new StringWriter();
+            try (JsonWriter writer = Json.createWriter(w)) {
                 writer.write(jsonArray);
             }
+            out.println(w);
             out.println("<br>...done<br>");
             
-            out.println("Creating a nested structure (using builder)...<br>");
+            out.println("<br>Creating a nested structure ...<br>");
             jsonObject = Json.createObjectBuilder()
                         .add("title", "The Matrix")
                         .add("year", 1999)
@@ -118,10 +121,11 @@ public class DOMGeneratorServlet extends HttpServlet {
                             .add("Laurence Fishburne")
                             .add("Carrie-Anne Moss"))
                 .build();
-//            try (JsonWriter writer = Json.createWriter(response.getOutputStream())) {
-            try (JsonWriter writer = Json.createWriter(System.out)) {
+            w = new StringWriter();
+            try (JsonWriter writer = Json.createWriter(w)) {
                 writer.write(jsonObject);
             }
+            out.println(w);
             out.println("<br>...done<br>");
             out.println("</body>");
             out.println("</html>");
