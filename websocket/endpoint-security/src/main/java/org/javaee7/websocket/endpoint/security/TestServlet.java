@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javaee7.websocket.endpoint;
+package org.javaee7.websocket.endpoint.security;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.websocket.endpoint;
+package org.javaee7.websocket.endpoint.security;
 
 import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
