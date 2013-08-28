@@ -50,7 +50,7 @@
         <title>Concurrency Utilities for Java EE</title>
     </head>
     <body>
-        <h1>Concurrency Utilities for Java EE - ManagedExecutor</h1>
+        <h1>Concurrency Utilities for Java EE : ManagedExecutor</h1>
         
         Schedule using Callable <a href="${pageContext.request.contextPath}/TestScheduleServlet">after 5 seconds</a><br/>
         Schedule <a href="${pageContext.request.contextPath}/TestScheduleFixedRateServlet">at fixed rate</a><br/>
