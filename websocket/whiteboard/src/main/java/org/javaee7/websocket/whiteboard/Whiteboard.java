@@ -59,7 +59,7 @@ import javax.websocket.server.ServerEndpoint;
         decoders = {FigureDecoder.class})
 public class Whiteboard {
 
-    private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
+    private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 
     @OnOpen
     public void onOpen(Session peer) {
