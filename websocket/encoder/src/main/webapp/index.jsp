@@ -45,13 +45,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>WebSocket : Encoder and Decoder</title>
 
         
     </head>
     <body>
-        <h1>WebSocket - Encoder and Decoder</h1>
+        <h1>WebSocket : Encoder and Decoder</h1>
 
+        Type valid JSON in the textbox and click on "Echo JSON" button.<br><br>
         <div style="text-align: center;">
             <form action=""> 
                 <input onclick="echoJson()" value="Echo JSON" type="button"> 
