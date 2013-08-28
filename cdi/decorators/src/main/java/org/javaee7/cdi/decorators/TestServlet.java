@@ -76,7 +76,7 @@ public class TestServlet extends HttpServlet {
             out.println("<title>Servlet TestServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Part of the greeting coming from Decorator</h1>");
             out.println(greeting.greet("Duke"));
             out.println("</body>");
             out.println("</html>");
