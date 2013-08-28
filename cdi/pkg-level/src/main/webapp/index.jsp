@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Package Level Annotations</title>
+        <title>CDI Package Level Annotations</title>
     </head>
     <body>
-        <h1>Package Level Annotations</h1>
+        <h1>CDI  Package Level Annotations</h1>
         Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting Service</a>.
     </body>
 </html>
