@@ -41,9 +41,9 @@
 var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
 console.log("Connecting to " + wsUri);
 var websocket = new WebSocket(wsUri);
-websocket.onopen = function(evt) { onOpen(evt) };
-websocket.onmessage = function(evt) { onMessage(evt) };
-websocket.onerror = function(evt) { onError(evt) };
+websocket.onopen = function(evt) { onOpen(evt); };
+websocket.onmessage = function(evt) { onMessage(evt); };
+websocket.onerror = function(evt) { onError(evt); };
 
 var output = document.getElementById("output");
 
