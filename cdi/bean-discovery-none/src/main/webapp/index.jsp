@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI Bean Discovery - None</title>
+        <title>CDI : Bean Discovery Mode = None</title>
     </head>
     <body>
-        <h1>CDI Bean Discovery - None</h1>
+        <h1>CDI : Bean Discovery Mode = None</h1>
         Try to <a href="${pageContext.request.contextPath}/TestServlet"/>inject beans</a>.
     </body>
 </html>

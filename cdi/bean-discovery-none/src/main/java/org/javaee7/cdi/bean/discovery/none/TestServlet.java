@@ -74,10 +74,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>bean-discovery-mode=none</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>bean-discovery-mode=none</h1>");
             try {
                 out.println(greeting.greet("Duke"));
             } catch (NullPointerException e) {
