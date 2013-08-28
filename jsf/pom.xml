@@ -15,25 +15,25 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>ajax</module>
         <module>bean-validation</module>
+        <module>components</module>
+        <module>composite-component</module>
         <module>contracts</module>
         <module>contracts-library</module>
         <module>contracts-library-impl</module>
+        <module>file-upload</module>
         <module>flows-simple</module>
         <module>flows-mixed</module>
         <module>flows-programmatic</module>
         <module>flows-declarative</module>
+        <module>http-get</module>
         <module>passthrough</module>
         <module>radio-buttons</module>
-        <module>viewscoped</module>
-        <module>file-upload</module>
-        <module>components</module>
         <module>resource-handling</module>
         <module>simple-facelet</module>
-        <module>composite-component</module>
-        <module>ajax</module>
-        <module>http-get</module>
         <module>server-extension</module>
+        <module>viewscoped</module>
     </modules>
 
 </project>
