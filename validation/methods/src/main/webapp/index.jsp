@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Method Validation in BV 1.1</title>
+        <title>Bean Validation : Method Validation</title>
     </head>
     <body>
-        <h1>Method Validation in BV 1.1</h1>
+        <h1>Bean Validation : Method Validation</h1>
         <a href="${pageContext.request.contextPath}/TestClient">Method parameter validation</a><br/>
     </body>
 </html>
