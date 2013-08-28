@@ -60,7 +60,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestInvokeAllServlet", urlPatterns = {"/TestInvokeAllServlet"})
+@WebServlet(urlPatterns = {"/TestInvokeAllServlet"})
 public class TestInvokeAllServlet extends HttpServlet {
 
 //    @Resource(name = "concurrent/myExecutor2")
@@ -84,10 +84,10 @@ public class TestInvokeAllServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestInvokeAllServlet</title>");
+            out.println("<title>Submit tasks using invokeAll</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestInvokeAllServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Submit tasks using invokeAll</h1>");
             Collection<Callable<Product>> tasks = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
                 out.format("Adding task(%d) to the list<br>", i);
@@ -102,6 +102,7 @@ public class TestInvokeAllServlet extends HttpServlet {
             } catch (InterruptedException | ExecutionException ex) {
                 Logger.getLogger(TestInvokeAllServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            out.println("<br><br>Check server.log for output");
             
             out.println("</body>");
             out.println("</html>");

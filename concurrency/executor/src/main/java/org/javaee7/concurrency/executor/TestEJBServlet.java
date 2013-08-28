@@ -75,10 +75,10 @@ public class TestEJBServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestEJBServlet</title>");
+            out.println("<title>Run managed threads in EJB</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestEJBServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Run managed threads in EJB</h1>");
             out.println("Submitting tasks using ManagedExecutorService in EJB<br>");
             bean.run();
             out.println("all tasks submitted<br/><br/>");

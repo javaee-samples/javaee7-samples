@@ -81,7 +81,7 @@ public class TestResourceServlet extends HttpServlet {
             out.println("<title>Servlet TestServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Get ManagedExecutor using @Resource</h1>");
 
             System.out.println("Getting ManagedExecutorService using @Resource");
             for (int i = 0; i < 5; i++) {

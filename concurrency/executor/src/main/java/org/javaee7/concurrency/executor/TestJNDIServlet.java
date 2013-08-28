@@ -55,7 +55,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestJNDIServlet", urlPatterns = {"/TestJNDIServlet"})
+@WebServlet(urlPatterns = {"/TestJNDIServlet"})
 public class TestJNDIServlet extends HttpServlet {
 
     /**
@@ -75,10 +75,10 @@ public class TestJNDIServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestJNDIServlet</title>");
+            out.println("<title>Get ManagedExecutor using JNDI Context</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestJNDIServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Get ManagedExecutor using JNDI Context</h1>");
             System.out.println("Getting ManagedExecutorService using JNDI lookup");
             try {
                 InitialContext ctx = new InitialContext();

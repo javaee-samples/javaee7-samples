@@ -52,7 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestListenerServlet", urlPatterns = {"/TestListenerServlet"})
+@WebServlet(urlPatterns = {"/TestListenerServlet"})
 public class TestListenerServlet extends HttpServlet {
 
 //    @Resource(name = "concurrent/myExecutor2")
@@ -76,10 +76,10 @@ public class TestListenerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestListenerServlet</title>");
+            out.println("<title>Submit tasks with ManagedTaskListener</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestListenerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Submit tasks with ManagedTaskListener</h1>");
             
             System.out.println("Getting ManagedExecutorService using @Resource");
             for (int i = 0; i < 5; i++) {
@@ -87,7 +87,7 @@ public class TestListenerServlet extends HttpServlet {
                 executor.submit(new MyTaskWithListener(i));
             }
             out.println("all tasks submitted<br/><br/>");
-            
+            out.println("<br><br>Check server.log for output from the task.");
             out.println("</body>");
             out.println("</html>");
         }

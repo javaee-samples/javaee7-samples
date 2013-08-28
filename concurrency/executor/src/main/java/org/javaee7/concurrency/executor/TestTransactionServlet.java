@@ -52,7 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestTransactionServlet", urlPatterns = {"/TestTransactionServlet"})
+@WebServlet(urlPatterns = {"/TestTransactionServlet"})
 public class TestTransactionServlet extends HttpServlet {
 
 //    @Resource(name = "concurrent/myExecutor2")
@@ -76,17 +76,18 @@ public class TestTransactionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestTransactionServlet</title>");
+            out.println("<title>Run task with a UserTransaction</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestTransactionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Run task with a UserTransaction</h1>");
 
             System.out.println("Running tasks with a UserTransaction");
             for (int i = 0; i < 5; i++) {
                 out.format("submitting runnable(%d)<br>", i);
                 executor.submit(new MyTaskWithTransaction(i));
             }
-            out.println("all tasks submitted<br/><br/>");
+            out.println("all tasks submitted");
+            out.println("<br/><br/>Check server.log for output from the task.");
             
             out.println("</body>");
             out.println("</html>");
