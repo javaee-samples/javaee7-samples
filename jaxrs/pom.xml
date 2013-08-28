@@ -28,26 +28,26 @@
         <module>async-client</module>
         <module>async-server</module>
         <module>beanvalidation</module>
-        <module>client</module>
         <module>dynamicfilter</module>
-        <module>endpoint</module>
         <module>filter</module>
         <module>filter-interceptor</module>
         <module>interceptor</module>
         <module>invocation</module>
         <module>invocation-async</module>
+        <module>jaxrs-client</module>
+        <module>jaxrs-endpoint</module>
+        <module>jsonp</module>
         <module>link</module>
+        <module>mapping-exceptions</module>
+        <module>moxy</module>
         <module>readerwriter</module>
         <module>readerwriter-json</module>
+        <module>request-binding</module>
+        <module>resource-validation</module>
+        <module>server-negotiation</module>
         <module>server-sent-event</module>
-        <module>jsonp</module>
-        <module>moxy</module>
         <module>singleton-application</module>
         <module>singleton-annotation</module>
-        <module>server-negotiation</module>
-        <module>request-binding</module>
-        <module>mapping-exceptions</module>
-        <module>resource-validation</module>
     </modules>
 
 </project>
