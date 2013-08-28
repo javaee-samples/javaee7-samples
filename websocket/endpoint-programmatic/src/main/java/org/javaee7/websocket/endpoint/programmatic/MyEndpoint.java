@@ -37,33 +37,67 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.glassfish.endpoint.programmatic;
+package org.javaee7.websocket.endpoint.programmatic;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.websocket.CloseReason;
 import javax.websocket.Endpoint;
-import javax.websocket.server.ServerApplicationConfig;
-import javax.websocket.server.ServerEndpointConfig;
+import javax.websocket.EndpointConfig;
+import javax.websocket.MessageHandler;
+import javax.websocket.PongMessage;
+import javax.websocket.Session;
 
 /**
  * @author Arun Gupta
  */
-public class MyApplicationConfig implements ServerApplicationConfig {
+public class MyEndpoint extends Endpoint {
 
     @Override
-    public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
-        return new HashSet<ServerEndpointConfig>() {
-            {
-                add(ServerEndpointConfig.Builder
-                    .create(MyEndpoint.class, "/websocket")
-                    .build());
+    public void onOpen(final Session session, EndpointConfig ec) {
+        session.addMessageHandler(new MessageHandler.Whole<String>() {
+
+            @Override
+            public void onMessage(String text) {
+                try {
+                    session.getBasicRemote().sendText(text);
+                } catch (IOException ex) {
+                    Logger.getLogger(MyEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        };
+        });
+        
+        session.addMessageHandler(new MessageHandler.Whole<ByteBuffer>() {
+
+            @Override
+            public void onMessage(ByteBuffer t) {
+                try {
+                    session.getBasicRemote().sendBinary(t);
+                } catch (IOException ex) {
+                    Logger.getLogger(MyEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        session.addMessageHandler(new MessageHandler.Whole<PongMessage>() {
+
+            @Override
+            public void onMessage(PongMessage t) {
+                System.out.println("PongMessage received: " + t.getApplicationData());
+            }
+        });
+        
     }
 
     @Override
-    public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> set) {
-        return Collections.emptySet();
+    public void onClose(Session session, CloseReason closeReason) {
+        System.out.println("Closing: " + closeReason.getReasonPhrase());
+    }
+
+    @Override
+    public void onError(Session session, Throwable t) {
+        System.out.println("Error: " + t.getLocalizedMessage());
     }
 }
