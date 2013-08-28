@@ -57,6 +57,7 @@
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
         </div>
+        <br><br>Click on the button and check for output on server.log
         <div id="output"></div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>
