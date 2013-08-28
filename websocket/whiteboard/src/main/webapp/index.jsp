@@ -50,7 +50,7 @@
         <title>Collaborative White Board</title>
     </head>
     <body>
-        <h1>Collaborative White Board - Using JSR 356 and WebSocket</h1>
+        <h1>Collaborative White Board</h1>
         <table>
             <tr>
                 <td>
