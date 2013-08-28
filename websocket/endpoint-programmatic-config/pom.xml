@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>org.javaee7.websocket</groupId>
-    <artifactId>encoding-programmatic-config</artifactId>
+    <artifactId>endpoint-programmatic-config</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 </project>
