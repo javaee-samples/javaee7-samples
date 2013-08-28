@@ -45,11 +45,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Annotated Endpoint Configuration</title>
+        <title>WebSocket : Annotated Endpoint Configuration</title>
 
     </head>
     <body>
-        <h1>Annotated Endpoint Configuration</h1>
+        <h1>WebSocket : Annotated Endpoint Configuration</h1>
 
         <div style="text-align: center;">
             <form action=""> 
@@ -57,6 +57,7 @@
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
         </div>
+        <br><br>Check server.log for output
         <div id="output"></div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>
