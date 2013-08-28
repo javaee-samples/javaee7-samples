@@ -45,20 +45,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Annotated Endpoint</title>
+        <title>WebSocket : Simple Annotated Endpoint</title>
 
     </head>
     <body>
-        <h1>Annotated Endpoint</h1>
+        <h1>WebSocket : Simple Annotated Endpoint</h1>
 
         <div style="text-align: center;">
+            <h2>Text Data</h2>
             <form action=""> 
-                <h2>Text Data</h2>
                 <input onclick="sayHello();" value="Say Hello" type="button"> 
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
+            <h2>Binary Data</h2>
             <form action=""> 
-                <h2>Binary Data</h2>
                 <input onclick="echoBinary();" value="Echo" type="button"> 
                 <input id="myField2" value="12345678" type="text"><br>
             </form>
