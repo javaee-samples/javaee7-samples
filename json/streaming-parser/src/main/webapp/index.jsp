@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSON DOM Generator</title>
+        <title>JSON Object Model : DOM Generator</title>
     </head>
     <body>
-        <h1>JSON DOM Generator</h1>
+        <h1>JSON Object Model : DOM Generator</h1>
         
         Read JSON using <a href="${pageContext.request.contextPath}/JsonParserFromReader">JsonParser</a> (using Reader)<br/>
         Read JSON using <a href="${pageContext.request.contextPath}/JsonParserFromStream">JsonParser</a> (using Stream)<br/>
