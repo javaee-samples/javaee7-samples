@@ -46,13 +46,13 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/websocket-ejb")
+@ServerEndpoint("/websocket-ejb")
 public class MyEndpointWithEJB {
     
     @Inject MySessionBean bean;
     
     @OnMessage
     public String sayHello(String name) {
-        return bean.sayHello(name);
+        return bean.sayHello(name + " (from EJB)");
     }
 }
