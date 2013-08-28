@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Injection without any beans.xml</title>
+        <title>CDI : Injection without any beans.xml</title>
     </head>
     <body>
-        <h1>Injection without any beans.xml</h1>
+        <h1>CDI : Injection without any beans.xml</h1>
         <a href="${pageContext.request.contextPath}/TestServlet"/>Inject the bean</a>.
     </body>
 </html>

@@ -51,7 +51,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
+@WebServlet(urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
     
     @Inject MyBean bean;
@@ -73,10 +73,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Only CDI scoped beans are injected</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Only CDI scoped beans are injected</h1>");
             out.println(bean.sayHello("Duke"));
             out.println("</body>");
             out.println("</html>");
