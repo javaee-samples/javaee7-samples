@@ -39,9 +39,11 @@
  */
 package org.javaee7.jsf.server.extension;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 /**
@@ -54,7 +56,11 @@ public class MyConverter implements Converter {
     public Object getAsObject(FacesContext context,
             UIComponent component,
             String value) {
-        return new UserAge(Integer.parseInt(value.trim()));
+        try {
+            return new UserAge(Integer.parseInt(value.trim()));
+        } catch (NumberFormatException e) {
+            throw new ConverterException(new FacesMessage(e.toString()), e);
+        }
     }
 
     @Override
