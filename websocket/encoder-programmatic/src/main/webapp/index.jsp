@@ -50,14 +50,14 @@
         
     </head>
     <body>
-        <h1>WebSocket - Encoder and Decoder</h1>
+        <h1>WebSocket : Encoder and Decoder in Programmatic Endpoint</h1>
 
+        Type some JSON in the text box and click on "Echo JSON".<br/><br/>
         <div style="text-align: center;">
             <form action=""> 
                 <input onclick="echoJson()" value="Echo JSON" type="button"> 
                 <input id="dataField" name="name" value="{}" type="text"><br>
             </form>
-            <p/>Type some JSON in the text box and click on "Echo JSON".<p/>
         </div>
         <div id="output"></div>
         
