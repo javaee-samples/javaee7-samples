@@ -45,15 +45,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Getting Started with JSR 356 - EJB Injection</title>
+        <title>WebSocket - Endpoint Programmatic Async</title>
 
     </head>
     <body>
-        <h1>Getting Started with JSR 356 - multi-part message</h1>
+        <h1>WebSocket - Endpoint Programmatic Async</h1>
 
         <div style="text-align: center;">
             <form action=""> 
-                <h2>Text Data</h2>
                 <input onclick="echoText();" value="Echo Text" type="button"> 
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
