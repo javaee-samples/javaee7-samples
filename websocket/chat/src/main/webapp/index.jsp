@@ -45,10 +45,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Chat</title>
+        <title>WebSocket : Chat</title>
     </head>
     <body>
-        <h1>WebSocket Chat</h1>
+        <h1>WebSocket : Chat</h1>
         <div style="text-align: center;">
             <form action=""> 
                 
