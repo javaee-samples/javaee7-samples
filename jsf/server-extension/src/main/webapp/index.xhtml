@@ -9,15 +9,17 @@
     <h:body>
         <h1>Server-side Extension</h1>
         <h2>f:validateLength and f:convertNumber</h2>
+        Enter 1 to 3 characters, integer only, everything else triggers validation
         <h:form>
             Enter a number: <h:inputText value="#{user.age}" id="age">
                 <f:validateLength minimum="1" maximum="3" for="age"/>
-                <f:convertNumber integerOnly="true" minIntegerDigits="1" maxIntegerDigits="999" for="age"/>
+                <f:convertNumber integerOnly="true" for="age"/>
             </h:inputText>
             <h:commandButton value="Submit"/>
         </h:form>
 
         <h2>Custom Converter</h2>
+        Converts the entered characters to number
         <h:form>
             Enter a number: <h:inputText value="#{userAge}" id="age">
                 <f:converter converterId="myConverter"/>
@@ -26,6 +28,7 @@
         </h:form>
 
         <h2>Custom Validator</h2>
+        Enter &lt; 3 characters to trigger validation
         <h:form>
             <h:inputText value="#{user.name}" id="name">
                 <f:validator validatorId="nameValidator"/>
