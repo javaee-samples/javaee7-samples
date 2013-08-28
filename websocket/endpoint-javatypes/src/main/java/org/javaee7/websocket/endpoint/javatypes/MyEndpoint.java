@@ -39,11 +39,6 @@
  */
 package org.javaee7.websocket.endpoint.javatypes;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.CharBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
 
@@ -53,35 +48,9 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/websocket")
 public class MyEndpoint {
     
-//    @WebSocketMessage
-//    public String echoText(String text) {
-//        System.out.println("echoText");
-//        return text;
-//    }
-//    
-//    @WebSocketMessage
-//    public int echoInt(int i) {
-//        System.out.println("echoInt");
-//        return i;
-//    }
-//    
-//    @WebSocketMessage
-//    public float echoFloat(Float f) {
-//        System.out.println("echoFloat");
-//        return f;
-//    }
-    
     @OnMessage
-    public String echoReader(Reader reader) {
-        System.out.println("echoReader");
-        CharBuffer buffer = CharBuffer.allocate(20);
-        try {
-            reader.read(buffer);
-        } catch (IOException ex) {
-            Logger.getLogger(MyEndpoint.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        
-        return new String(buffer.array());
+    public String echoText(String text) {
+        System.out.println("echoText");
+        return text;
     }
 }

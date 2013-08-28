@@ -38,18 +38,48 @@
  * holder.
  */
 
-var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
-console.log("Connecting to " + wsUri);
-var websocket = new WebSocket(wsUri);
-websocket.onopen = function(evt) { onOpen(evt) };
-websocket.onmessage = function(evt) { onMessage(evt) };
-websocket.onerror = function(evt) { onError(evt) };
+var wsUri = "ws://" + document.location.host + document.location.pathname;
+var websocket = new WebSocket(wsUri + "websocket");
+var websocket_int = new WebSocket(wsUri + "websocket-int");
+var websocket_float = new WebSocket(wsUri + "websocket-float");
+var websocket_reader = new WebSocket(wsUri + "websocket-reader");
+
+websocket.onopen = function(evt) { onOpen(evt); };
+websocket.onmessage = function(evt) { onMessage(evt); };
+websocket.onerror = function(evt) { onError(evt); };
+
+websocket_int.onopen = function(evt) { onOpen(evt); };
+websocket_int.onmessage = function(evt) { onMessage(evt); };
+websocket_int.onerror = function(evt) { onError(evt); };
+
+websocket_float.onopen = function(evt) { onOpen(evt); };
+websocket_float.onmessage = function(evt) { onMessage(evt); };
+websocket_float.onerror = function(evt) { onError(evt); };
+
+websocket_reader.onopen = function(evt) { onOpen(evt); };
+websocket_reader.onmessage = function(evt) { onMessage(evt); };
+websocket_reader.onerror = function(evt) { onError(evt); };
 
 var output = document.getElementById("output");
 
 function echoText() {
     websocket.send(myField.value);
-    writeToScreen("SENT: " + myField.value);
+    writeToScreen("SENT (echoText): " + myField.value);
+}
+
+function echoInt() {
+    websocket_int.send(myField.value);
+    writeToScreen("SENT (echoInt): " + myField.value);
+}
+
+function echoFloat() {
+    websocket_float.send(myField.value);
+    writeToScreen("SENT (echoFloat): " + myField.value);
+}
+
+function echoReader() {
+    websocket_reader.send(myField.value);
+    writeToScreen("SENT (echoReader): " + myField.value);
 }
 
 function onOpen() {

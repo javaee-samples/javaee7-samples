@@ -1,4 +1,3 @@
-<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -38,30 +37,20 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
+package org.javaee7.websocket.endpoint.javatypes;
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket : Java Types</title>
+import javax.websocket.OnMessage;
+import javax.websocket.server.ServerEndpoint;
 
-    </head>
-    <body>
-        <h1>WebSocket : Java Types</h1>
-
-        <div style="text-align: center;">
-            <form action=""> 
-                <input onclick="echoText();" value="Echo Text" type="button"> 
-                <input onclick="echoInt();" value="Echo Int" type="button"> 
-                <input onclick="echoFloat();" value="Echo Float" type="button"> 
-                <input onclick="echoReader();" value="Echo Reader" type="button"> 
-                <input id="myField" value="WebSocket" type="text"><br>
-            </form>
-        </div>
-        <div id="output"></div>
-        <script language="javascript" type="text/javascript" src="websocket.js">
-        </script>
-    </body>
-</html>
+/**
+ * @author Arun Gupta
+ */
+@ServerEndpoint("/websocket-int")
+public class MyEndpointInt {
+    
+    @OnMessage
+    public int echoInt(int i) {
+        System.out.println("echoInt");
+        return i;
+    }
+}
