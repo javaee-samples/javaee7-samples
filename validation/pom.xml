@@ -13,11 +13,10 @@
     <artifactId>validation-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>validation</name>
 
     <modules>
         <module>methods</module>
-    <module>custom-constraint</module>
-  </modules>
+        <module>custom-constraint</module>
+    </modules>
 
 </project>
