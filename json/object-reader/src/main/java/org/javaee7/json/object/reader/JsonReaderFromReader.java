@@ -91,8 +91,6 @@ public class JsonReaderFromReader extends HttpServlet {
                     + "  \"banana\":\"yellow\""
                     + "}"));
             json = jsonReader.readObject();
-            out.println("Apple: " + json.getString("apple")+"<br>");
-            out.println("Banana: " + json.getString("banana")+"<br>");
             out.println(json);
 
             out.println("<br><br>Reading an array with two objects<br>");
