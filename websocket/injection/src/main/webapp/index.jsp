@@ -45,11 +45,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Getting Started with JSR 356 - EJB and CDI</title>
+        <title>WebSocket : Dependency Injection</title>
 
     </head>
     <body>
-        <h1>Getting Started with JSR 356 - EJB and CDI</h1>
+        <h1>WebSocket : Dependency Injection</h1>
 
         <div style="text-align: center;">
             <form action=""> 
