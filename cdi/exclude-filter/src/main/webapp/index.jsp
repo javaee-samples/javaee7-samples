@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI Exclude Filter</title>
+        <title>CDI : Exclude Filter</title>
     </head>
     <body>
-        <h1>CDI Exclude Filter</h1>
+        <h1>CDI : Exclude Filter</h1>
         <a href="${pageContext.request.contextPath}/TestServlet"/>Invoke</a> the bean.
     </body>
 </html>

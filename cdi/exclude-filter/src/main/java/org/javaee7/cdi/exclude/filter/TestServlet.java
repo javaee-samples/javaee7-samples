@@ -74,10 +74,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Excluded bean implementation using <exclude> in beans.xml</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Excluded bean implementation using <exclude> in beans.xml</h1>");
             out.println(greeting.greet("Duke"));
             out.println("</body>");
             out.println("</html>");
