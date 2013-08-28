@@ -47,8 +47,8 @@ websocket.onerror = function(evt) { onError(evt) };
 
 var output = document.getElementById("output");
 
-function sayHello() {
-    console.log("sayHello: " + myField.value);
+function echoText() {
+    console.log("echoText: " + myField.value);
     websocket.send(myField.value);
     writeToScreen("SENT: " + myField.value);
 }
