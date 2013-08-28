@@ -83,10 +83,10 @@ public class JsonParserFromReader extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet JsonParserFromReader</title>");
+            out.println("<title>Streaming Reading of JSON from Reader</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet JsonParserFromReader at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Streaming Reading of JSON from Reader</h1>");
 
             String json = "{}";
             out.println("Reading an empty object: " + json + "<br>");
