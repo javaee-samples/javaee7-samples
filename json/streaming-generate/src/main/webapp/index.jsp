@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSON Streaming Generator</title>
+        <title>JSON : Generate using JsonGeneratorFactory</title>
     </head>
     <body>
-        <h1>JSON Streaming Generator</h1>
+        <h1>JSON : Generate using JsonGeneratorFactory</h1>
         
         Generate JSON using <a href="${pageContext.request.contextPath}/StreamingGeneratorServlet">streaming generator</a><br/>
     </body>

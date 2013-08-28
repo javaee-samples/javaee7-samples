@@ -75,7 +75,7 @@ public class StreamingGeneratorServlet extends HttpServlet {
             out.println("<title>Create JSON structures</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Generate JSON using JsonGeneratorFactory</h1>");
 //            JsonGeneratorFactory factory = Json.createGeneratorFactory(new JsonConfiguration().withPrettyPrinting());
             JsonGeneratorFactory factory = Json.createGeneratorFactory(null);
 //            JsonGenerator gen = factory.createGenerator(System.out);
