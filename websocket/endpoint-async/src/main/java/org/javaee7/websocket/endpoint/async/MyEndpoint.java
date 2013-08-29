@@ -37,19 +37,20 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.websocket.endpoint;
+package org.javaee7.websocket.endpoint.async;
 
 import javax.websocket.OnMessage;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/websocket")
+@ServerEndpoint("/websocket")
 public class MyEndpoint {
     
     @OnMessage
-    public String echoText(String name) {
-        return name;
+    public void echoText(String test, Session session) {
+        session.getAsyncRemote().sendText(test);
     }
 }
