@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Servlet Event Listeners</title>
+        <title>Servlet : Event Listeners</title>
     </head>
     <body>
-        <h1>Servlet Event Listeners</h1>
+        <h1>Servlet : Event Listeners</h1>
         Call the <a href="${pageContext.request.contextPath}/TestServlet"/>servlet</a> to set/update/remove attributes.
     </body>
 </html>
