@@ -53,8 +53,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
-    @Inject MySingleton bean;
-    @Inject MySingletonBeanManagedConcurrency bean2;
+
+    @Inject
+    MySingleton bean;
+    @Inject
+    MySingletonBeanManagedConcurrency bean2;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -72,7 +75,7 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Singleton Bean</title>");            
+            out.println("<title>Singleton Bean</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Singleton Bean</h1>");
