@@ -86,26 +86,26 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>@TransactionScope</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>@TransactionScope</h1>");
             try {
-                out.println("<b>Scenario 1</b>: Bean1 injected twice, same id<br>");
+                out.println("<h2>Scenario 1: Bean1 injected twice, same id</h2>");
                 ut.begin();
                 out.println("Bean1: " + bean.getId() + "<br>");
                 out.println("Bean2: " + bean2.getId());
                 ut.commit();
-                out.println("Object ids same, right ?");
+                out.println("<br><br>Object ids same, right ?");
                 
-                out.println("<p><p>S<b>cenario 2</b>: Repeat of Scenario 1, different transaction, different ids<br>");
+                out.println("<h2>Scenario 2: Repeat of Scenario 1, different transaction, different ids</h2>");
                 ut.begin();
                 out.println("Bean1: " + bean.getId() + "<br>");
                 out.println("Bean2: " + bean2.getId());
                 ut.commit();
-                out.println("Object ids same, but different from Scenario 1, right ?");
+                out.println("<br><br>Object ids same, but different from Scenario 1, right ?");
                 
-                out.println("<p><p><b>Scenario 3</b>: Bean outside a transaction<br>");
+                out.println("<h2>Scenario 3</b>: Bean outside a transaction</h2>");
                 try {
                     bean.getId();
                 } catch (ContextNotActiveException ex) {

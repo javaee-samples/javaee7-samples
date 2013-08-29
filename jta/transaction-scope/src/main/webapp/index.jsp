@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>TransactionScope beans in 3 different scenarios</title>
+        <title>JTA : @TransactionScope beans in 3 different scenarios</title>
     </head>
     <body>
-        <h1>TransactionScope beans in 3 different scenarios</h1>
+        <h1>JTA : @TransactionScope beans in 3 different scenarios</h1>
         Execute <a href="${pageContext.request.contextPath}/TestServlet"/>3 scenarios</a><br/>
     </body>
 </html>
