@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client.programmatic.configuration;
 
 import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
@@ -46,7 +46,7 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/websocket")
+@ServerEndpoint("/websocket")
 public class MyEndpoint {
     
     @OnMessage

@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Client - Programmatic</title>
+        <title>WebSocket : Programmatic Client Configuration</title>
     </head>
     <body>
-        <h1>WebSocket Client - Programmatic</h1>
+        <h1>WebSocket : Programmatic Client Configuration</h1>
         
         <a href="${pageContext.request.contextPath}/TestClient">Call endpoint</a><br/>
     </body>
