@@ -41,7 +41,6 @@ package org.javaee7.jms.send.receive;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -89,7 +88,7 @@ public class TestServletSendSync extends HttpServlet {
             out.println("<title>JMS2 Send Message (Sync)</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>JMS2 Send/Receive (Sync) " + request.getContextPath() + "</h1>");
+            out.println("<h1>JMS2 Send/Receive (Sync)</h1>");
             String m = "Hello there";
             sender.sendMessage(m);
             out.format("Message sent: %1$s.<br>", m);

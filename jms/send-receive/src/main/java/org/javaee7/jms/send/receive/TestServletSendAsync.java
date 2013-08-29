@@ -90,7 +90,7 @@ public class TestServletSendAsync extends HttpServlet {
             out.println("<title>JMS2 Send Message (Async)</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>JMS2 Send/Receive (Async) " + request.getContextPath() + "</h1>");
+            out.println("<h1>JMS2 Send/Receive (Async)</h1>");
             out.println("<b>Async send not permitted in Java EE, using sync send instead</b><br><br>");
             String m = "Hello there";
             sender.sendMessage(m);

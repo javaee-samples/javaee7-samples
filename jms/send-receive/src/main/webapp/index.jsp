@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>JMS 2 : Send and Receive - Sync and Async</title>
     </head>
     <body>
-        <h1>JMS 2 Send Message</h1>
+        <h1>JMS 2 : Send and Receive - Sync and Async</h1>
         <a href="${pageContext.request.contextPath}/TestServletSendSync">Send synchronously</a> and receive message<br/>
         <a href="${pageContext.request.contextPath}/TestServletSendAsync">Send asynchronously</a> and receive message<br/>
     </body>
