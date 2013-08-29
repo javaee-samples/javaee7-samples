@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Metadata Complete</title>
+        <title>Servlet : Metadata Complete</title>
     </head>
     <body>
-        <h1>Metadata Complete</h1>
+        <h1>Servlet : Metadata Complete</h1>
         Call the <a href="${pageContext.request.contextPath}/TestServlet"/>servlet</a>. <br><br>@WebServlet is ignored, instead the servlet-mapping from "web.xml" is used.
     </body>
 </html>
