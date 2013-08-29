@@ -9,14 +9,16 @@
     <h:body>
         <h1>HTTP GET</h1>
 
-        Invoke a page with <a href="#{facesContext.externalContext.requestContextPath}/index2.xhtml?name=jack">URL parameters</a>
-        <br/><br/>
         h:link <h:link value="Login" outcome="login"/><br/><br/>
 
         h:link with f:param: <h:link value="Login" outcome="login">
             <f:param name="name" value="Jack"/>
         </h:link><br/><br/>
+        h:link with f:param <h:link value="pre-process params before rendering" outcome="index2" >
+            <f:param name="name" value="Jack"/>
+        </h:link>
         
+        <br/><br/>
         h:button: <h:button value="login"/>
     </h:body>
 </html>
