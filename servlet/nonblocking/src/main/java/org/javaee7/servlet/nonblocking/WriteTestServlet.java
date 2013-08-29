@@ -72,10 +72,10 @@ public class WriteTestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet WriteServlet</title>");            
+            out.println("<title>Writing Asynchronously</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet WriteServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Writing Asynchronously</h1>");
             
             AsyncContext context = request.startAsync();
             ServletOutputStream output = response.getOutputStream();

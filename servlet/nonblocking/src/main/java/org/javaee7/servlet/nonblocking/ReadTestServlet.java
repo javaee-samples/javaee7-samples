@@ -71,10 +71,10 @@ public class ReadTestServlet extends HttpServlet {
         try (PrintWriter output = response.getWriter()) {
             output.println("<html>");
             output.println("<head>");
-            output.println("<title>Servlet ReadTestServlet</title>");
+            output.println("<title>Reading asynchronously</title>");
             output.println("</head>");
             output.println("<body>");
-            output.println("<h1>Servlet ReadTestServlet at " + request.getContextPath() + "</h1>");
+            output.println("<h1>Reading asynchronously</h1>");
 
             AsyncContext context = request.startAsync();
             ServletInputStream input = request.getInputStream();

@@ -46,7 +46,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Non-blocking I/O using Servlet 3.1</title>
+        <title>Servlet : Non-blocking I/O</title>
     </head>
     <body>
         <h1>Non-blocking I/O using Servlet 3.1</h1>

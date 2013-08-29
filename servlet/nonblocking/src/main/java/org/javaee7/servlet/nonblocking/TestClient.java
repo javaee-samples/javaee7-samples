@@ -75,10 +75,10 @@ public class TestClient extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestClient</title>");
+            out.println("<title>Invoke the servlet clients</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestClient at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Invoke the servlet clients</h1>");
 
             String path = "http://"
                     + request.getServerName()
@@ -107,7 +107,7 @@ public class TestClient extends HttpServlet {
                 output.flush();
                 output.close();
             }
-            out.println("<br><br>Check GlassFish server.log");
+            out.println("<br><br>Check server.log for output");
             out.println("</body>");
             out.println("</html>");
         } catch (InterruptedException | IOException ex) {
