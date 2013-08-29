@@ -39,21 +39,32 @@
  */
 package org.javaee7.jta.tx.exception;
 
-import java.io.Serializable;
-import javax.enterprise.context.SessionScoped;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 /**
  * @author Arun Gupta
  */
-@SessionScoped
-public class MyDataBean implements Serializable {
-    int value;
-
-    public int getValue() {
-        return value;
+public class EmployeeBean {
+    @PersistenceContext
+    EntityManager em;
+    
+    @Transactional
+    public void addAndThrowChecked() throws Exception {
+        em.persist(new Employee(8, "Priya"));
+        throw new Exception();
     }
-
-    public void setValue(int value) {
-        this.value = value;
+    
+    @Transactional
+    public void addAndThrowRuntime() {
+        em.persist(new Employee(9, "Priya"));
+        throw new RuntimeException();
+    }    
+    
+    public List<Employee> getEmployees() {
+        System.out.println("getEmployees");
+        return em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
     }
 }

@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Checked and Runtime Exceptions</title>
+        <title>JTA : Checked and Runtime Exceptions</title>
     </head>
     <body>
-        <h1>Checked and Runtime Exceptions</h1>
+        <h1>JTA : Checked and Runtime Exceptions</h1>
         <a href="${pageContext.request.contextPath}/TestServlet"/>Call bean</a> that throws exceptions<br/>
     </body>
 </html>

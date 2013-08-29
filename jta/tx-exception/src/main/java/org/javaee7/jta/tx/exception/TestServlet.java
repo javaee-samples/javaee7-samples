@@ -1,6 +1,41 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of either the GNU
+ * General Public License Version 2 only ("GPL") or the Common Development
+ * and Distribution License("CDDL") (collectively, the "License").  You
+ * may not use this file except in compliance with the License.  You can
+ * obtain a copy of the License at
+ * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * or packager/legal/LICENSE.txt.  See the License for the specific
+ * language governing permissions and limitations under the License.
+ *
+ * When distributing the software, include this License Header Notice in each
+ * file and include the License file at packager/legal/LICENSE.txt.
+ *
+ * GPL Classpath Exception:
+ * Oracle designates this particular file as subject to the "Classpath"
+ * exception as provided by Oracle in the GPL Version 2 section of the License
+ * file that accompanied this code.
+ *
+ * Modifications:
+ * If applicable, add the following below the License Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyright [year] [name of copyright owner]"
+ *
+ * Contributor(s):
+ * If you wish your version of this file to be governed by only the CDDL or
+ * only the GPL Version 2, indicate your decision by adding "[Contributor]
+ * elects to include this software in this distribution under the [CDDL or GPL
+ * Version 2] license."  If you don't indicate a single choice of license, a
+ * recipient has the option to distribute your version of this file under
+ * either the CDDL, the GPL Version 2 or to extend the choice of license to
+ * its licensees as provided above.  However, if you add GPL Version 2 code
+ * and therefore, elected the GPL Version 2 license, then the option applies
+ * only if the new code is made subject to such option by the copyright
+ * holder.
  */
 package org.javaee7.jta.tx.exception;
 
@@ -14,23 +49,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.Transaction;
 
 /**
- *
- * @author arungup
+ * @author Arun Gupta
  */
-@WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
+@WebServlet(urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
     
-    @Inject MyDataBean dataBean;
-    
-    @Inject MyLogicBean logicBean;
+    @Inject EmployeeBean bean;
     
     /**
      * Processes requests for both HTTP
@@ -49,27 +75,37 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Checked and Runtime Exception in JTA Transactions</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
-            dataBean.setValue(10);
-            out.println("Bean value before throwChecked: " + dataBean.getValue() + "<br>");
-            try {
-                logicBean.throwChecked();
-            } catch (Exception ex) {
-                Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
+            out.println("<h1>Checked and Runtime Exception in JTA Transactions</h1>");
+            out.println("<h2>List employees (before checked exception)</h2>");
+            out.println("<ol>");
+            for (Employee e : bean.getEmployees()) {
+                out.println("<li>" + e);
             }
-            out.println("Bean value after throwChecked: " + dataBean.getValue() + "<p>");
+            out.println("</ol>");
+            out.println("Number of employees is 7 ?");
+            
+            try {
+                bean.addAndThrowChecked();
+            } catch (Exception ex) { }
+            
+            out.println("<h2>List employees (after checked and before runtime exception)</h2>");
+            out.println("<ol>");
+            for (Employee e : bean.getEmployees()) {
+                out.println("<li>" + e);
+            }
+            out.println("</ol>");
+            out.println("Number of employees is 8 (new employee is Priya) ?");
 
-            out.println("Bean value before throwRuntime: " + dataBean.getValue() + "<br>");
-            try {
-                logicBean.throwRuntime();
-            } catch (Exception ex) {
-                Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
+            out.println("<h2>List employees (after runtime exception)</h2>");
+            out.println("<ol>");
+            for (Employee e : bean.getEmployees()) {
+                out.println("<li>" + e);
             }
-            out.println("Bean value after throwRuntime: " + dataBean.getValue());
-            out.println("<br><br>Not sure what the right checks should be ??");
+            out.println("</ol>");
+            out.println("Number of employees is 8 (no new employee is added because of runtime exception) ?");
             out.println("</body>");
             out.println("</html>");
         }

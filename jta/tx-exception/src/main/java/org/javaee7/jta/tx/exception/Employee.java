@@ -8,7 +8,7 @@
  * and Distribution License("CDDL") (collectively, the "License").  You
  * may not use this file except in compliance with the License.  You can
  * obtain a copy of the License at
- * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * http://glassfish.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  *
@@ -39,25 +39,59 @@
  */
 package org.javaee7.jta.tx.exception;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * @author Arun Gupta
  */
-public class MyLogicBean {
-    @Inject MyDataBean myBean;
+@Entity
+@Table(name="EMPLOYEE_SCHEMA_JTA")
+@NamedQueries({
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+})
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    private int id;
     
-    @Transactional
-    public void throwChecked() throws Exception {
-        myBean.setValue(20);
-        throw new Exception();
+    @Column(length=50)
+    private String name;
+    
+    public Employee() { }
+    
+    public Employee(String name) {
+        this.name = name;
     }
     
-    @Transactional
-    public void throwRuntime() {
-        myBean.setValue(30);
-        throw new RuntimeException();
+    public Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    @Override
+    public String toString() {
+        return name;
     }
 }
-
