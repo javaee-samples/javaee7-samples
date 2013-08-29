@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client.configuration;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Client Configuration</title>
+        <title>WebSocket : Client Configuration</title>
     </head>
     <body>
-        <h1>WebSocket Client Configuration</h1>
+        <h1>WebSocket : Client Configuration</h1>
         
         Call <a href="${pageContext.request.contextPath}/TestClient">endpoint</a><br/>
     </body>
