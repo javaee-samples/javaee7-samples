@@ -60,7 +60,8 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    // Both process and process2 are valid method signatures
     public void process(ComponentSystemEvent event) throws AbortProcessingException {
         System.out.println("process called");
         name = name.toUpperCase();
