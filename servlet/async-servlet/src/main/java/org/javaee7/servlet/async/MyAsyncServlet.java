@@ -78,10 +78,10 @@ public class MyAsyncServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Async Servlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Async Servlet</h1>");
             AsyncContext ac = request.startAsync();
 
             ac.addListener(new AsyncListener() {
