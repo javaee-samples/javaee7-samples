@@ -45,11 +45,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Message Size</title>
+        <title>WebSocket : Message Size</title>
 
     </head>
     <body>
-        <h1>WebSocket Message Size (max=6)</h1>
+        <h1>WebSocket : Message Size (max=6)</h1>
 
         <div style="text-align: center;">
             <form action=""> 
