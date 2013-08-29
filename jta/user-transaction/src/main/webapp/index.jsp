@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>UserTransaction</title>
+        <title>JTA : UserTransaction</title>
     </head>
     <body>
-        <h1>UserTransaction</h1>
+        <h1>JTA : UserTransaction</h1>
         Invoke a Servlet with UserTransaction obtained using <a href="${pageContext.request.contextPath}/TestCDIServlet"/>@Inject</a><br/>
         Invoke a Servlet with UserTransaction obtained using <a href="${pageContext.request.contextPath}/TestJNDIServlet"/>JNDI</a><br/>
     </body>

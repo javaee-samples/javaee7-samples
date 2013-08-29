@@ -79,10 +79,10 @@ public class TestJNDIServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>UserTransaction obtained using JNDI Lookup</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>UserTransaction obtained using JNDI Lookup</h1>");
             try {
                 Context context = new InitialContext();
                 UserTransaction ut = (UserTransaction)context.lookup("java:comp/UserTransaction");
