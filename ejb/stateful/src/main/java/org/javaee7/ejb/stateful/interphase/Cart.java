@@ -1,4 +1,3 @@
-<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -38,20 +37,23 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+package org.javaee7.ejb.stateful.interphase;
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EJB : Stateful</title>
-    </head>
-    <body>
-        <h1>EJB : Stateful</h1>
-        
-        Call beans <a href="${pageContext.request.contextPath}/TestServlet"/>no-interface</a>
-        and <a href="${pageContext.request.contextPath}/TestServletWithInterface"/>with-interface</a>.
-    </body>
-</html>
+import java.util.List;
+import javax.ejb.Remote;
+
+/**
+ * @author Arun Gupta
+ */
+@Remote
+public interface Cart {
+
+    public void addItem(String item);
+
+    public void removeItem(String item);
+
+    public void purchase();
+    
+    public List<String> getItems();
+
+}
