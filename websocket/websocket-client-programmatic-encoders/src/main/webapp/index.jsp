@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Client Programmatic Encoders</title>
+        <title>WebSocket : Programmatic Client Encoders</title>
     </head>
     <body>
-        <h1>WebSocket Client Programmatic Encoders</h1>
+        <h1>WebSocket : Programmatic Client Encoders</h1>
         
         <a href="${pageContext.request.contextPath}/TestClient">Call endpoint</a><br/>
     </body>

@@ -37,22 +37,28 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client.programmatic.encoders;
 
-import javax.websocket.OnMessage;
-import javax.websocket.server.ServerEndpoint;
-
+import javax.websocket.EncodeException;
+import javax.websocket.Encoder;
+import javax.websocket.EndpointConfig;
 
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/websocket")
-public class MyEndpoint {
-    
-    @OnMessage
-    public String echoText(String text) {
-        System.out.println("Received message in endpoint : " + text);
-        return text;
+public class MyMessageEncoder implements Encoder.Text<MyMessage> {
+    @Override
+    public String encode(MyMessage myMessage) throws EncodeException {
+        return myMessage.getJsonObject().toString();
     }
     
+    @Override
+    public void init(EndpointConfig ec) {
+//        System.out.println("init");
+    }
+
+    @Override
+    public void destroy() {
+//        System.out.println("desroy");
+    }    
 }

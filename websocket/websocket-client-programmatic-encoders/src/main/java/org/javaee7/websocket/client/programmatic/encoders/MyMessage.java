@@ -37,37 +37,42 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client.programmatic.encoders;
 
 import java.io.StringReader;
 import javax.json.Json;
-import javax.websocket.DecodeException;
-import javax.websocket.Decoder;
-import javax.websocket.EndpointConfig;
+import javax.json.JsonObject;
 
 /**
  * @author Arun Gupta
  */
-public class MyMessageDecoder implements Decoder.Text<MyMessage> {
+public class MyMessage {
+    
+    private JsonObject jsonObject;
 
-    @Override
-    public MyMessage decode(String string) throws DecodeException {
-        MyMessage myMessage = new MyMessage(Json.createReader(new StringReader(string)).readObject());
-        return myMessage;
+    public MyMessage() {
+    }
+    
+    public MyMessage(String string) {
+        jsonObject = Json.createReader(new StringReader(string)).readObject();
     }
 
-    @Override
-    public boolean willDecode(String string) {
-        return true;
+    public MyMessage(JsonObject jsonObject) {
+        this.jsonObject = jsonObject;
+    }
+
+    public JsonObject getJsonObject() {
+        return jsonObject;
+    }
+
+    public void setJsonObject(JsonObject jsonObject) {
+        this.jsonObject = jsonObject;
     }
     
     @Override
-    public void init(EndpointConfig ec) {
-//        System.out.println("init");
+    public String toString() {
+        return jsonObject.toString();
     }
-
-    @Override
-    public void destroy() {
-//        System.out.println("desroy");
-    }
+    
 }
+

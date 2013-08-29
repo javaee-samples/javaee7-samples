@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client.programmatic.encoders;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -96,7 +96,10 @@ public class TestClient extends HttpServlet {
             String uri = "ws://localhost:8080" + request.getContextPath() + "/websocket";
             out.println("Connecting to " + uri);
             container.connectToServer(MyClient.class, 
-                    ClientEndpointConfig.Builder.create().encoders(encoders).decoders(decoders).build(),
+                    ClientEndpointConfig.Builder.create()
+                    .encoders(encoders)
+                    .decoders(decoders)
+                    .build(),
                     URI.create(uri));
             out.println("<br><br>Look in server.log for message exchange between client/server.");
             

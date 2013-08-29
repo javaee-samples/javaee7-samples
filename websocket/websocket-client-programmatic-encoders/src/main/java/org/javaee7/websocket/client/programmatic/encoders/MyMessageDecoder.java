@@ -37,19 +37,28 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client.programmatic.encoders;
 
-import javax.websocket.EncodeException;
-import javax.websocket.Encoder;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.websocket.DecodeException;
+import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
 /**
  * @author Arun Gupta
  */
-public class MyMessageEncoder implements Encoder.Text<MyMessage> {
+public class MyMessageDecoder implements Decoder.Text<MyMessage> {
+
     @Override
-    public String encode(MyMessage myMessage) throws EncodeException {
-        return myMessage.getJsonObject().toString();
+    public MyMessage decode(String string) throws DecodeException {
+        MyMessage myMessage = new MyMessage(Json.createReader(new StringReader(string)).readObject());
+        return myMessage;
+    }
+
+    @Override
+    public boolean willDecode(String string) {
+        return true;
     }
     
     @Override
@@ -60,5 +69,5 @@ public class MyMessageEncoder implements Encoder.Text<MyMessage> {
     @Override
     public void destroy() {
 //        System.out.println("desroy");
-    }    
+    }
 }
