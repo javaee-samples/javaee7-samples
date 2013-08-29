@@ -51,6 +51,5 @@ import javax.persistence.PersistenceContext;
 public class ProducerBean {
 
     static @Produces @PersistenceContext(unitName = "defaultPU") @DefaultDatabase EntityManager defaultEM;
-    static @Produces @PersistenceContext(unitName = "samplePU") @SampleDatabase EntityManager sampleEM;
 
 }

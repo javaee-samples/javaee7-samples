@@ -43,7 +43,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  * @author Arun Gupta
@@ -54,20 +53,10 @@ public class MySessionBean {
     @Inject @DefaultDatabase
     EntityManager defaultEM;
 
-    @Inject @SampleDatabase
-    EntityManager sampleEM;
-
 //    @PersistenceContext(unitName = "defaultPU")
 //    EntityManager defaultEM;
 //
-//    @PersistenceContext(unitName = "samplePU")
-//    EntityManager sampleEM;
-
     public List<Movie> listMovies() {
         return defaultEM.createNamedQuery("Movie.findAll", Movie.class).getResultList();
-    }
-    
-    public List<ProductCode> listProductCode() {
-        return sampleEM.createNamedQuery("ProductCode.findAll", ProductCode.class).getResultList();
     }
 }

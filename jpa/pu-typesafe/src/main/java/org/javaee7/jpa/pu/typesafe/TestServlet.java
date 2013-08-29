@@ -82,17 +82,12 @@ public class TestServlet extends HttpServlet {
             out.println("<title>Servlet TestServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>List products from two different databases/PUs</h1>");
+            out.println("<h1>Typesafe injection of Persistence Unit</h1>");
 
             out.println("--> Listing movies<br>");
             for (Movie m : bean.listMovies()) {
                 out.println(m.getName() + "<br>");
             }
-            out.println("<br>--> Listing product code<br>");
-            for (ProductCode p : bean.listProductCode()) {
-                out.println(p.getProdCode() + "<br>");
-            }
-            
             out.println("</body>");
             out.println("</html>");
         }
