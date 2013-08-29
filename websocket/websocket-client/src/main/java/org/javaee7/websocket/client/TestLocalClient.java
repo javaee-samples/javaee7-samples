@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,8 +56,8 @@ import javax.websocket.WebSocketContainer;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestRemoteClient", urlPatterns = {"/TestRemoteClient"})
-public class TestRemoteClient extends HttpServlet {
+@WebServlet(urlPatterns = {"/TestLocalClient"})
+public class TestLocalClient extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -72,18 +72,16 @@ public class TestRemoteClient extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            out.println("<!DOCTYPE html>");
+        try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestRemoteClient</title>");            
+            out.println("<title>Servlet TestServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestRemoteClient at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
             
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-            String uri = "ws://echo.websocket.org:80/";
+            String uri = "ws://localhost:8080" + request.getContextPath() + "/websocket";
             out.println("Connecting to " + uri);
             container.connectToServer(MyClient.class, URI.create(uri));
             out.println("<br><br>Look in server.log for log messages from message exchange between client/server.");
@@ -91,9 +89,7 @@ public class TestRemoteClient extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         } catch (DeploymentException ex) {
-            Logger.getLogger(TestRemoteClient.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
-            out.close();
+            Logger.getLogger(TestLocalClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

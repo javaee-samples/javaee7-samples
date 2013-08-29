@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.client;
+package org.javaee7.websocket.client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,8 +56,8 @@ import javax.websocket.WebSocketContainer;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestLocalClient"})
-public class TestLocalClient extends HttpServlet {
+@WebServlet(urlPatterns = {"/TestRemoteClient"})
+public class TestRemoteClient extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -73,15 +73,16 @@ public class TestLocalClient extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Servlet TestRemoteClient</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TestRemoteClient at " + request.getContextPath() + "</h1>");
             
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-            String uri = "ws://localhost:8080" + request.getContextPath() + "/websocket";
+            String uri = "ws://echo.websocket.org:80/";
             out.println("Connecting to " + uri);
             container.connectToServer(MyClient.class, URI.create(uri));
             out.println("<br><br>Look in server.log for log messages from message exchange between client/server.");
@@ -89,7 +90,7 @@ public class TestLocalClient extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         } catch (DeploymentException ex) {
-            Logger.getLogger(TestLocalClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestRemoteClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
