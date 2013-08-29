@@ -17,5 +17,6 @@
         <module>embeddable</module>
         <module>timer</module>
         <module>lifecycle</module>
+        <module>stateful</module>
     </modules>
 </project>
