@@ -73,25 +73,28 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>CRUD using JPA Criteria</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>CRUD using JPA Criteria</h1>");
 
-            out.println("Listing movies<br>");
+            out.println("<h2>Listing movies</h2>");
             for (Movie m : bean.listMovies()) {
                 out.println(m.getName() + "<br>");
             }
             
-            out.println("<p>Updating a movie<br>");
+            out.println("<h2>Updating a movie</h2>");
             bean.updateMovie();
             out.println("Listing movies");
             for (Movie m : bean.listMovies()) {
                 out.println(m.getName() + "<br>");
             }
-            out.println("<p>Deleting a movie<br>");
+            
+            out.println("<h2>Deleting a movie</h2>");
             bean.deleteMovie();
-            out.println("Listing movies<br>");
+            out.println("done");
+            
+            out.println("<h2>Listing movies</h2>");
             for (Movie m : bean.listMovies()) {
                 out.println(m.getName() + "<br>");
             }
