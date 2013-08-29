@@ -75,10 +75,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>JMSContext Injection</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>JMSContext Injection</h1>");
             sender.sendMessage("foobar");
             out.println("Message sent<br><br>");
             out.println("Message received: " + receiver.receiveMessage());

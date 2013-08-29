@@ -39,7 +39,6 @@
  */
 package org.javaee7.jms.jmscontext.cdi;
 
-import java.io.Serializable;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
