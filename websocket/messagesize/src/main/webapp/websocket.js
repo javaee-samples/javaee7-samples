@@ -41,10 +41,10 @@
 var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
 console.log("Connecting to " + wsUri);
 var websocket = new WebSocket(wsUri);
-websocket.onopen = function(evt) { onOpen(evt) };
-websocket.onmessage = function(evt) { onMessage(evt) };
-websocket.onerror = function(evt) { onError(evt) };
-websocket.onclose = function(evt) { onClose(evt) };
+websocket.onopen = function(evt) { onOpen(evt); };
+websocket.onmessage = function(evt) { onMessage(evt); };
+websocket.onerror = function(evt) { onError(evt); };
+websocket.onclose = function(evt) { onClose(evt); };
 
 var output = document.getElementById("output");
 
@@ -70,7 +70,7 @@ function onOpen() {
 }
 
 function onMessage(evt) {
-    if (typeof evt.data == "string") {
+    if (typeof evt.data === "string") {
         writeToScreen("RECEIVED (text): " + evt.data);
     } else {
         writeToScreen("RECEIVED (binary): " + evt.data);
