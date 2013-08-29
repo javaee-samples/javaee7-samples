@@ -45,11 +45,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket Subprotocols</title>
+        <title>WebSocket : Subprotocols</title>
 
     </head>
     <body>
-        <h1>WebSocket Subprotocols</h1>
+        <h1>WebSocket : Subprotocols</h1>
 
         <div style="text-align: center;">
             <form action=""> 
@@ -57,6 +57,7 @@
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
         </div>
+        <br><br>Look for on-the-wire messages for subprotocol negotiation
         <div id="output"></div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>
