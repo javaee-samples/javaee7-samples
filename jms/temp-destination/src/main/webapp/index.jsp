@@ -46,11 +46,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>JMS 2 : Temporary Destination</title>
     </head>
     <body>
-        <h1>JMS 2 Send Message</h1>
-        <a href="${pageContext.request.contextPath}/TestServletSendSync">Send synchronously</a> and receive message<br/>
-        <a href="${pageContext.request.contextPath}/TestServletSendAsync">Send asynchronously</a> and receive message<br/>
+        <h1>JMS 2 : Temporary Destination</h1>
+        
+        <h2>Still need to figure out how this is expected to work!!</h2>
     </body>
 </html>
