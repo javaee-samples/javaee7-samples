@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>@Transactional</title>
+        <title>JTA : @Transactional</title>
     </head>
     <body>
-        <h1>@Transactional</h1>
+        <h1>JTA : @Transactional</h1>
         Invoke <a href="${pageContext.request.contextPath}/TestServlet"/>CDI bean</a> with @Transactional.<br/>
     </body>
 </html>
