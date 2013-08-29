@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Injecting PU typesafely using CDI</title>
+        <title>JPA : Injecting PU typesafely using CDI</title>
     </head>
     <body>
-        <h1>Injecting PU typesafely using CDI</h1>
-        <a href="${pageContext.request.contextPath}/TestServlet"/>List entities</a> from two different PUs.
+        <h1>JPA : Injecting PU typesafely using CDI</h1>
+        <a href="${pageContext.request.contextPath}/TestServlet"/>List entities</a>.
     </body>
 </html>
