@@ -40,8 +40,6 @@
 package org.javaee7.websocket.websocket.vs.rest;
 
 import javax.ws.rs.POST;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
