@@ -15,8 +15,10 @@
 
     <modules>
         <module>embeddable</module>
-        <module>timer</module>
         <module>lifecycle</module>
+        <module>singleton</module>
         <module>stateful</module>
+        <module>stateless</module>
+        <module>timer</module>
     </modules>
 </project>
