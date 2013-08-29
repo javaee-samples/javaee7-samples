@@ -46,11 +46,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cookies</title>
+        <title>Servlet : Cookies</title>
         
     </head>
     <body>
-        <h1>Cookies</h1>
+        <h1>Servlet : Cookies</h1>
 
         Call <a href="${pageContext.request.contextPath}/TestServlet">Servlet</a> to see the pre-defined cookie, and set two cookies - one normal, another HttpOnly.
         </form>
