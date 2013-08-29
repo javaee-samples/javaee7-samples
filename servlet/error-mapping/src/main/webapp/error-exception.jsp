@@ -51,6 +51,8 @@
     <body>
         <h1>Error Mapping Sample - Exception Mapping</h1>
         
+        This page is shown when a java.lang.RuntimeException is thrown.<br><br>
+        
         Go <a href="${pageContext.request.contextPath}/index.jsp">home</a>.
     </body>
 </html>

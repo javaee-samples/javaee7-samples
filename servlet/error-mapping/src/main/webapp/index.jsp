@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error Mapping</title>
+        <title>Servlet : Error Mapping</title>
     </head>
     <body>
-        <h1>Error Mapping</h1>
+        <h1>Servlet : Error Mapping</h1>
 
         Go to a page that <a href="404.jsp">does not exist</a>.<br><br>
         Call a Servlet that <a href="${pageContext.request.contextPath}/TestServlet">throws exception</a>
