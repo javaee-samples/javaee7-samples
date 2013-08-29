@@ -71,10 +71,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Adding/Removing items from Stateful Bean</title>");            
+            out.println("<title>Adding/Removing items from Stateful Bean (No Interface)</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Adding/Removing items from Stateful Bean</h1>");
+            out.println("<h1>Adding/Removing items from Stateful Bean (No Interface)</h1>");
             out.println("<h2>Adding items</h2>");
             bean.addItem("apple");
             bean.addItem("banana");
