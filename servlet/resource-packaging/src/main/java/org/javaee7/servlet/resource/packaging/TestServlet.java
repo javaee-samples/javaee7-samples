@@ -74,15 +74,15 @@ public class TestServlet extends HttpServlet {
             out.println("<title>Servlet TestServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Reading the Resource</h1>");
+            out.println("<h1>Reading and Printing the Resource</h1>");
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                     request.getServletContext().getResourceAsStream("/styles.css")))) {
                 for (String line = br.readLine(); line != null; line = br.readLine()) {
-                    out.println(line);
+                    out.println(line + "<br>");
                 }
             }
-            out.println("<br><br>Finished printing WEB-INF/lib/resources.jar/META-INF/resources/styles.css");
+            out.println("<br><br>Finished printing WEB-INF/lib/myResources.jar/META-INF/resources/styles.css");
             out.println("</body>");
             out.println("</html>");
         }

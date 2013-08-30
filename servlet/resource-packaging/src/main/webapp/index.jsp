@@ -46,11 +46,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Resource Packaging</title>
+        <title>Servlet : Resource Packaging</title>
         <link rel="stylesheet" type="text/css" href="styles.css"/>
     </head>
     <body>
-        <h1>Resource Packaging</h1>
+        <h1>Servlet : Resource Packaging</h1>
         
         Resources (stylesheet) are packaged in a JAR file.<br><br>
         Read the resource from a <a href="${pageContext.request.contextPath}/TestServlet">Servlet</a>
