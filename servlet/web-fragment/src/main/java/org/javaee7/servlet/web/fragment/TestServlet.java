@@ -39,9 +39,7 @@
  */
 package org.javaee7.servlet.web.fragment;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,10 +69,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Web Fragment with output from Servlet Filter</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Web Fragment</h1>");
+            out.println("<h1>Web Fragment with output from Servlet Filter</h1>");
             out.println("<br><br>Check \"server.log\" for output from LoggingFilter");
             out.println("</body>");
             out.println("</html>");

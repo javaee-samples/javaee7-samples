@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Web Fragment</title>
+        <title>Servlet : Web Fragment</title>
     </head>
     <body>
-        <h1>Web Fragment</h1>
+        <h1>Servlet : Web Fragment</h1>
         
         Do you see output from Servlet Filter ?<br><br>
         Access a <a href="${pageContext.request.contextPath}/TestServlet">Servlet</a> and check output in "server.log".
