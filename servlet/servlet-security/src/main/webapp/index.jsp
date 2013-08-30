@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Servlet Security</title>
+        <title>Servlet : Security</title>
     </head>
     <body>
-        <h1>Servlet Security</h1>
+        <h1>Servlet : Security</h1>
         
         <p>Make sure to invoke "./bin/asadmin create-file-user --groups g1 u1" and use the password "p1" when prompted.
         Then call the <a href="${pageContext.request.contextPath}/SecureServlet">GET</a> method.<br/>

@@ -73,7 +73,8 @@ public class SecureServlet extends HttpServlet {
             out.println("<title>Servlet SecureServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SecureServlet at " + request.getContextPath() + " (" + method + ")</h1>");
+            out.println("<h1>Basic Auth with File-base Realm (" + method + ")</h1>");
+            out.println("<h2>Were you prompted for username/password ?</h2>");
             out.println("</body>");
             out.println("</html>");
         }
