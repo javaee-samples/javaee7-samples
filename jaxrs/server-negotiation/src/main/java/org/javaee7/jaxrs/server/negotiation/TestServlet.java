@@ -92,7 +92,8 @@ public class TestServlet extends HttpServlet {
         out.print("GETTing...<br>");
         String string = target.request().get(String.class);
         out.format("GOT the representation: " + string);
-        out.println("<br>... done.<br>");
+        out.format("<br><br>Did you get the JSON representation ?");
+        out.println("<br><br>... done.<br>");
 
         out.println("</body>");
         out.println("</html>");
