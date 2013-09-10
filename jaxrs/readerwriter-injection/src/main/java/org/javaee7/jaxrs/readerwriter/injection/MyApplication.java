@@ -37,30 +37,23 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jaxrs.readerwriter.pu;
+package org.javaee7.jaxrs.readerwriter.injection;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import java.util.Set;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 
 /**
  * @author Arun Gupta
  */
-@Path("fruits")
-public class MyResource {
-    private final String[] RESPONSE = { "apple", "banana", "mango" };
-    
-    @POST
-    @Consumes(value=MyObject.MIME_TYPE)
-    public String getFruit(MyObject mo) {
-        System.out.println("endpoint invoked (getFruit(" + mo.getIndex() + "))");
-        
-        return RESPONSE[Integer.valueOf(mo.getIndex()) % 3];
-    }
-    
-    @POST
-    @Path("fruitInt")
-    public String getFruit2(int index) {
-        return RESPONSE[index % 3];
+@ApplicationPath("webresources")
+public class MyApplication extends Application {
+    @Override
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> resources = new java.util.HashSet<>();
+        resources.add(MyResource.class);
+        resources.add(MyReader.class);
+        resources.add(MyWriter.class);
+        return resources;
     }
 }

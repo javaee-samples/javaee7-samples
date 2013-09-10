@@ -8,7 +8,7 @@
  * and Distribution License("CDDL") (collectively, the "License").  You
  * may not use this file except in compliance with the License.  You can
  * obtain a copy of the License at
- * http://glassfish.java.net/public/CDDL+GPL_1_1.html
+ * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  *
@@ -37,51 +37,30 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jaxrs.readerwriter.pu;
+package org.javaee7.jaxrs.readerwriter.injection;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 
 /**
  * @author Arun Gupta
  */
-@Entity
-@Table(name="EMPLOYEE_SCHEMA_READER_WRITER_PU")
-@NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-})
-public class Employee implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    private int id;
+@Path("fruits")
+public class MyResource {
+    private final String[] RESPONSE = { "apple", "banana", "mango" };
     
-    @Column(length=50)
-    private String name;
-    
-    public Employee() { }
-    
-    public Employee(String name) {
-        this.name = name;
+    @POST
+    @Consumes(value=MyObject.MIME_TYPE)
+    public String getFruit(MyObject mo) {
+        System.out.println("endpoint invoked (getFruit(" + mo.getIndex() + "))");
+        
+        return RESPONSE[Integer.valueOf(mo.getIndex()) % 3];
     }
     
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @POST
+    @Path("fruitInt")
+    public String getFruit2(int index) {
+        return RESPONSE[index % 3];
     }
 }

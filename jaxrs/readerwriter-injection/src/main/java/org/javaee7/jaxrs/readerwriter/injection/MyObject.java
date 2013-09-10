@@ -37,52 +37,30 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jaxrs.readerwriter.pu;
+package org.javaee7.jaxrs.readerwriter.injection;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.MessageBodyReader;
-import javax.ws.rs.ext.Provider;
+import java.io.Serializable;
 
 /**
  * @author Arun Gupta
  */
-@Provider
-@Consumes(MyObject.MIME_TYPE)
-public class MyReader implements MessageBodyReader<MyObject> {
+public class MyObject implements Serializable {
+    public static final String MIME_TYPE = "application/myType";
 
-    @PersistenceContext
-    EntityManager em;
+    private int index;
 
-    @Override
-    public boolean isReadable(Class<?> type, Type type1, Annotation[] antns, MediaType mt) {
-        return MyObject.class.isAssignableFrom(type);
+    public MyObject() {
     }
 
-    @Override
-    public MyObject readFrom(Class<MyObject> type,
-            Type type1,
-            Annotation[] antns,
-            MediaType mt, MultivaluedMap<String, String> mm,
-            InputStream in) throws IOException, WebApplicationException {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(in);
-            System.out.println("List of employees: " + em.createNamedQuery("Employee.findAll", Employee.class).getResultList());
-            return (MyObject) ois.readObject();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MyReader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    public MyObject(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

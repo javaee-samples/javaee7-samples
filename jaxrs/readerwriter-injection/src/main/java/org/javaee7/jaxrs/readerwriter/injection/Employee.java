@@ -8,7 +8,7 @@
  * and Distribution License("CDDL") (collectively, the "License").  You
  * may not use this file except in compliance with the License.  You can
  * obtain a copy of the License at
- * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * http://glassfish.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  *
@@ -37,30 +37,51 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jaxrs.readerwriter.pu;
+package org.javaee7.jaxrs.readerwriter.injection;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * @author Arun Gupta
  */
-public class MyObject implements Serializable {
-    public static final String MIME_TYPE = "application/myType";
-
-    private int index;
-
-    public MyObject() {
+@Entity
+@Table(name="EMPLOYEE_SCHEMA_READER_WRITER_PU")
+@NamedQueries({
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+})
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    private int id;
+    
+    @Column(length=50)
+    private String name;
+    
+    public Employee() { }
+    
+    public Employee(String name) {
+        this.name = name;
+    }
+    
+    public int getId() {
+        return id;
     }
 
-    public MyObject(int index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getIndex() {
-        return index;
+    public String getName() {
+        return name;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setName(String name) {
+        this.name = name;
     }
 }

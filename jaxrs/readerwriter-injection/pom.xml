@@ -9,7 +9,7 @@
     </parent>
         
     <groupId>org.javaee7.jaxrs</groupId>
-    <artifactId>readerwriter-pu</artifactId>
+    <artifactId>readerwriter-injection</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 </project>
