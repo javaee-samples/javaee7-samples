@@ -44,6 +44,7 @@
         <module>websocket-client-programmatic-config</module>
         <module>websocket-client-programmatic-encoders</module>
         <module>whiteboard</module>
+        <module>endpoint-singleton</module>
     </modules>
 
 </project>
