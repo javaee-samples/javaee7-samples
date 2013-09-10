@@ -48,6 +48,7 @@
         <module>server-sent-event</module>
         <module>singleton-application</module>
         <module>singleton-annotation</module>
+        <module>readerwriter-injection</module>
     </modules>
 
 </project>
