@@ -51,7 +51,7 @@ import javax.persistence.Table;
  * @author Arun Gupta
  */
 @Entity
-@Table(name="EMPLOYEE_SCHEMA_GEN_SCRIPTS")
+@Table(name="EMPLOYEE_SCHEMA_READER_WRITER_PU")
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 })
