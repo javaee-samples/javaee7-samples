@@ -50,6 +50,7 @@
     </head>
     <body>
         <h1>JAX-RS 2 Client API</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Client API</a>.
+        Invoke using <a href="${pageContext.request.contextPath}/TestJAXRS2Client"/>JAX-RS 2 Client API</a>.<br><br>
+        Invoke using <a href="${pageContext.request.contextPath}/TestURLConnectionClient"/>HttpUrlConnection</a>.
     </body>
 </html>
