@@ -78,7 +78,7 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Sending email using JavaMail API</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Sending email using JavaMail API</h1>");
@@ -122,7 +122,7 @@ public class TestServlet extends HttpServlet {
 //                Transport t = session.getTransport();
 //                t.connect(creds.getProperty("username"), creds.getProperty("password"));
 //                t.send(message);
-                Transport.send(message);
+                Transport.send(message, message.getAllRecipients());
 
                 out.println("message sent!");
 
