@@ -25,6 +25,7 @@
         <module>interceptors</module>
         <module>nobeans-xml</module>
         <module>beansxml-noversion</module>
-    <module>beanmanager</module>
-  </modules>
+        <module>beanmanager</module>
+        <module>extension</module>
+    </modules>
 </project>
