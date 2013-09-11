@@ -52,7 +52,7 @@ public class MyExtension implements Extension {
     
     <T> void processAnnotatedType(@Observes ProcessAnnotatedType<T> pat) {
         Logger.getAnonymousLogger().log(Level.INFO,
-                "processing annotation: {0}",
+                "CDI Extension Processing Annotation -> {0}",
                 pat.
                 getAnnotatedType().
                 getJavaClass().
