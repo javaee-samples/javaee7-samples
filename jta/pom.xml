@@ -18,5 +18,6 @@
     <module>transaction-scope</module>
     <module>tx-exception</module>
     <module>user-transaction</module>
+    <module>transactional-scope</module>
   </modules>
 </project>
