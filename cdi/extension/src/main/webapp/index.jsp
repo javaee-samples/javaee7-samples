@@ -46,11 +46,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI : Bean Discovery Mode = All</title>
+        <title>CDI Extension</title>
     </head>
     <body>
-        <h1>CDI : Bean Discovery Mode = All</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting</a>.
-    <br><br>Check "server.log" for output from the extension.
+        <h1>CDI  Extension</h1>
+        Check "server.log" for output from the CDI extension (implemented in "extension-impl").
+        
+        <br><br>Optionally invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting</a>.
+    
     </body>
 </html>
