@@ -39,18 +39,18 @@
  */
 package org.javaee7.javamail.definition;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
-import java.util.Properties;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.MailSessionDefinition;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.URLName;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
@@ -64,21 +64,25 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/AnnotatedEmailServlet"})
 @MailSessionDefinition(name = "java:comp/myMailSession",
-        host = "smtp.gmail.com",
-        transportProtocol = "smtps",
+                host = "smtp.gmail.com",
+                transportProtocol = "smtps",
+//        host = "stbeehive.oracle.com",
+        //        transportProtocol = "smtps",
         properties = {
-//            "mail.smtp.host=smtp.gmail.com",
-//            "mail.smtp.ssl.enable=true",
-//            "mail.smtp.auth=true",
-//            "mail.transport.protocol=smtp",
+            //            "mail.smtp.host=smtp.gmail.com",
+            //            "mail.smtp.host=stbeehive.oracle.com",
+            //            "mail.smtp.ssl.enable=true",
+            //            "mail.smtp.auth=true",
+//            "mail.transport.protocol=smtps",
             "mail.debug=true"
         })
 public class AnnotatedEmailServlet extends HttpServlet {
 
     @Resource(lookup = "java:comp/myMailSession")
     Session session;
-    
-    @Inject Credentials creds;
+
+    @Inject
+    Credentials creds;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -100,21 +104,26 @@ public class AnnotatedEmailServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Sending email using @MailSessionDefinition</h1>");
-            
+
             try {
-                out.println("Sending message using gmail...<br>");
+                out.println("Sending message from \""
+                        + creds.getFrom()
+                        + "\" to \""
+                        + creds.getTo()
+                        + "\"...<br>");
+
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(creds.getUsername()));
+                message.setFrom(new InternetAddress(creds.getFrom()));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(creds.getTo()));
-                message.setSubject("Sending message using Annotated JavaMail " 
+                message.setSubject("Sending message using Annotated JavaMail "
                         + Calendar.getInstance().getTime());
                 message.setText("Java EE 7 is cool!");
 
+//                session.setPasswordAuthentication(new URLName("smtp", "stbeehive.oracle.com", -1, "/", creds.getFrom(), creds.getTo()), 
+//                        new PasswordAuthentication(creds.getFrom(), creds.getPassword()));
                 Transport t = session.getTransport();
-                t.connect(creds.getUsername(), creds.getPassword());
+                t.connect(creds.getFrom(), creds.getPassword());
                 t.send(message, message.getAllRecipients());
-
-//                Transport.send(message, message.getAllRecipients());
 
                 out.println("message sent!");
 
