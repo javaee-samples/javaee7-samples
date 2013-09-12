@@ -6,7 +6,7 @@
     <artifactId>javaee7-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>javaee7-samples</name>
+    <name>Java EE 7 Samples</name>
 
     <properties>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
