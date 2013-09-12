@@ -59,8 +59,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServlet"})
-public class TestServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/ProgrammaticEmailServlet"})
+public class ProgrammaticEmailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

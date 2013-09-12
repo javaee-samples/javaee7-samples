@@ -56,6 +56,10 @@
             <li>password</li>
             <li>to</li>
         </ul>
-        Send an email from "username" to "to" using <a href="${pageContext.request.contextPath}/TestServlet"/>programmatic session</a> or <a href="${pageContext.request.contextPath}/TestServlet2"/>declarative session</a>.
+        Send an email from "username" to "to" using:
+        <ol>
+            <li><a href="${pageContext.request.contextPath}/ProgrammaticEmailServlet"/>Programmatic Session</a></li>
+            <li><a href="${pageContext.request.contextPath}/AnnotatedEmailServlet"/>Declarative Session</a></li>
+        </ol>
     </body>
 </html>
