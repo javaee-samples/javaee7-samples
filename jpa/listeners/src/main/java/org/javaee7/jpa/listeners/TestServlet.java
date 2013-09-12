@@ -80,15 +80,14 @@ public class TestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>JPA Listeners</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>JPA Listeners</h1>");
 
             System.out.println("--> Listing movies");
             for (Movie m : bean.listMovies()) {
@@ -112,12 +111,10 @@ public class TestServlet extends HttpServlet {
             for (Movie m : bean.listMovies()) {
                 System.out.println(m.getName());
             }
-            out.println("Check server.log for log messages");
+            out.println("Check \"server.log\" for output messages from listeners.");
             
             out.println("</body>");
             out.println("</html>");
-        } finally {
-            out.close();
         }
     }
 
