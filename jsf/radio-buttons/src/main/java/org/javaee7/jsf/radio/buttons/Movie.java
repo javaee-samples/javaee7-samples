@@ -37,40 +37,58 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jsf.select.items;
+package org.javaee7.jsf.radio.buttons;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Arun Gupta
  */
-@Named
-@SessionScoped
-public class MovieBean implements Serializable {
+public class Movie {
+    @Id
+    @NotNull
+    private Integer id;
+    
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String name;
+    
+    @NotNull
+    @Size(min = 1, max = 200)
+    private String actors;
 
-    private static final List<Movie> list = Arrays.asList(
-            new Movie(1, "The Matrix", "Keanu Reeves"),
-            new Movie(2, "The Lord of the Rings", "Elijah Wood"),
-            new Movie(3, "The Inception", "Leonardo Dicaprio"));
-    int selected;
-
-    public int getSelected() {
-        return selected;
+    public Movie() {
     }
 
-    public void setSelected(int selected) {
-        this.selected = selected;
+    public Movie(Integer id, String name, String actors) {
+        this.id = id;
+        this.name = name;
+        this.actors = actors;
+    }
+    
+    public Integer getId() {
+        return id;
     }
 
-    public List<Movie> getAll() {
-        return list;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Movie getSelectedMovie() {
-        return list.get(selected-1);
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }    
 }
