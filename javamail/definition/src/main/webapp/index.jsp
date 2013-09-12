@@ -52,7 +52,7 @@
         <h1>JavaMail Definition</h1>
         Make sure "<%= System.getProperty("user.home") %><%= System.getProperty("file.separator") %>.javamail" contains the following name/value pairs:<p/><p/>
         <ul>
-            <li>username</li>
+            <li>from</li>
             <li>password</li>
             <li>to</li>
         </ul>
