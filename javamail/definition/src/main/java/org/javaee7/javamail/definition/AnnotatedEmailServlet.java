@@ -42,8 +42,10 @@ package org.javaee7.javamail.definition;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Properties;
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.mail.MailSessionDefinition;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -75,6 +77,8 @@ public class AnnotatedEmailServlet extends HttpServlet {
 
     @Resource(lookup = "java:comp/myMailSession")
     Session session;
+    
+    @Inject Credentials creds;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -96,23 +100,18 @@ public class AnnotatedEmailServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Sending email using @MailSessionDefinition</h1>");
-
-            final Properties creds = new Properties();
-            creds.load(new FileInputStream(System.getProperty("user.home")
-                    + System.getProperty("file.separator")
-                    + ".javamail"));
             
             try {
                 out.println("Sending message using gmail...<br>");
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(creds.getProperty("username")));
+                message.setFrom(new InternetAddress(creds.getUsername()));
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(creds.getProperty("to")));
-                message.setSubject("Sending message using JavaMail");
+                        InternetAddress.parse(creds.getTo()));
+                message.setSubject("Sending message using Annotated JavaMail " + Calendar.getInstance().getTime());
                 message.setText("Java EE 7 is cool!");
 
                 Transport t = session.getTransport();
-                t.connect(creds.getProperty("username"), creds.getProperty("password"));
+                t.connect(creds.getUsername(), creds.getPassword());
                 t.send(message, message.getAllRecipients());
 
 //                Transport.send(message, message.getAllRecipients());

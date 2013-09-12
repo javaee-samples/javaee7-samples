@@ -39,10 +39,11 @@
  */
 package org.javaee7.javamail.definition;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Properties;
+import javax.inject.Inject;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -61,6 +62,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/ProgrammaticEmailServlet"})
 public class ProgrammaticEmailServlet extends HttpServlet {
+    
+    @Inject Credentials creds;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -90,16 +93,12 @@ public class ProgrammaticEmailServlet extends HttpServlet {
             props.put("mail.transport.protocol", "smtp");
             props.put("mail.debug", "true");
 
-            final Properties creds = new Properties();
-            creds.load(new FileInputStream(System.getProperty("user.home")
-                    + System.getProperty("file.separator")
-                    + ".javamail"));
 
             Session session = Session.getInstance(props,
                     new javax.mail.Authenticator() {
                         @Override
                         protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(creds.getProperty("username"), creds.getProperty("password"));
+                            return new PasswordAuthentication(creds.getUsername(), creds.getPassword());
                         }
                     });
 //            Session session = Session.getInstance(props);
@@ -107,16 +106,16 @@ public class ProgrammaticEmailServlet extends HttpServlet {
             try {
 
                 out.println("Sending message from \"" 
-                        + creds.getProperty("username") 
+                        + creds.getUsername()
                         + "\" to \"" 
-                        + creds.getProperty("to") 
+                        + creds.getTo()
                         + "\"...<br>");
 
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(creds.getProperty("username")));
+                message.setFrom(new InternetAddress(creds.getUsername()));
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(creds.getProperty("to")));
-                message.setSubject("Sending message using JavaMail");
+                        InternetAddress.parse(creds.getTo()));
+                message.setSubject("Sending message using Programmatic JavaMail " + Calendar.getInstance().getTime());
                 message.setText("Java EE 7 is cool!");
 
 //                Transport t = session.getTransport();
