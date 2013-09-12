@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.glassfish.sample.twitter.search;
+package org.javaee7.json.twitter.search;
 
 import java.io.IOException;
 import java.io.PrintWriter;
