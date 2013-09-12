@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI Decorators</title>
+        <title>CDI : Decorators</title>
     </head>
     <body>
-        <h1>CDI Decorators</h1>
+        <h1>CDI : Decorators</h1>
         Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>bean</a>.
     </body>
 </html>
