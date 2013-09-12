@@ -64,13 +64,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/AnnotatedEmailServlet"})
 @MailSessionDefinition(name = "java:comp/myMailSession",
-//        host = "smtp.gmail.com",
-//        transportProtocol = "smtps",
+        host = "smtp.gmail.com",
+        transportProtocol = "smtps",
         properties = {
-            "mail.smtp.host=smtp.gmail.com",
-            "mail.smtp.ssl.enable=true",
-            "mail.smtp.auth=true",
-            "mail.transport.protocol=smtp",
+//            "mail.smtp.host=smtp.gmail.com",
+//            "mail.smtp.ssl.enable=true",
+//            "mail.smtp.auth=true",
+//            "mail.transport.protocol=smtp",
             "mail.debug=true"
         })
 public class AnnotatedEmailServlet extends HttpServlet {
@@ -105,9 +105,9 @@ public class AnnotatedEmailServlet extends HttpServlet {
                 out.println("Sending message using gmail...<br>");
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(creds.getUsername()));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(creds.getTo()));
-                message.setSubject("Sending message using Annotated JavaMail " + Calendar.getInstance().getTime());
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(creds.getTo()));
+                message.setSubject("Sending message using Annotated JavaMail " 
+                        + Calendar.getInstance().getTime());
                 message.setText("Java EE 7 is cool!");
 
                 Transport t = session.getTransport();
