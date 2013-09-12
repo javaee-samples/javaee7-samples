@@ -55,6 +55,8 @@ import javax.servlet.http.HttpServletResponse;
 public class TestServlet extends HttpServlet {
     
     @EJB EmployeeBean bean;
+    
+    private static final String[] NAMES = { "Penny", "Leonard", "Howard", "Sheldon", "Raj" };
 
     /**
      * Processes requests for both HTTP
@@ -72,12 +74,12 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>List of Employees</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>List of Employees</h1>");
             for (int i=0; i<5; i++) {
-                bean.persist(new Employee("Name" + i));
+                bean.persist(new Employee(NAMES[i]));
             }
             for (Employee e : bean.get()) {
                 out.println(e.getName() + "<br>");
