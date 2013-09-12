@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Multiple Persistence Units in a persistence.xml</title>
+        <title>JPA : Multiple Persistence Units in a persistence.xml</title>
     </head>
     <body>
-        <h1>Multiple Persistence Units in a persistence.xml</h1>
+        <h1>JPA : Multiple Persistence Units in a persistence.xml</h1>
         <a href="${pageContext.request.contextPath}/TestServlet"/>List entities</a> from two different PUs.
     </body>
 </html>
