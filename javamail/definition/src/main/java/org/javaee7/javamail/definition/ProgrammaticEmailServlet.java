@@ -88,6 +88,7 @@ public class ProgrammaticEmailServlet extends HttpServlet {
 
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
+//            props.put("mail.smtp.host", "stbeehive.oracle.com");
             props.put("mail.smtp.ssl.enable", "true");
             props.put("mail.smtp.auth", "true");
             props.put("mail.transport.protocol", "smtp");
@@ -98,7 +99,7 @@ public class ProgrammaticEmailServlet extends HttpServlet {
                     new javax.mail.Authenticator() {
                         @Override
                         protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(creds.getUsername(), creds.getPassword());
+                            return new PasswordAuthentication(creds.getFrom(), creds.getPassword());
                         }
                     });
 //            Session session = Session.getInstance(props);
@@ -106,13 +107,13 @@ public class ProgrammaticEmailServlet extends HttpServlet {
             try {
 
                 out.println("Sending message from \"" 
-                        + creds.getUsername()
+                        + creds.getFrom()
                         + "\" to \"" 
                         + creds.getTo()
                         + "\"...<br>");
 
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(creds.getUsername()));
+                message.setFrom(new InternetAddress(creds.getFrom()));
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse(creds.getTo()));
                 message.setSubject("Sending message using Programmatic JavaMail " + Calendar.getInstance().getTime());

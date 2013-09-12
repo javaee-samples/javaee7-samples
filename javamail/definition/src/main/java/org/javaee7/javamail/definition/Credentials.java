@@ -52,7 +52,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class Credentials {
 
-    private String username;
+    private String from;
     private String password;
     private String to;
 
@@ -62,7 +62,7 @@ public class Credentials {
             creds.load(new FileInputStream(System.getProperty("user.home")
                     + System.getProperty("file.separator")
                     + ".javamail"));
-            username = creds.getProperty("username");
+            from = creds.getProperty("from");
             password = creds.getProperty("password");
             to = creds.getProperty("to");
         } catch (IOException ex) {
@@ -71,12 +71,12 @@ public class Credentials {
 
     }
 
-    public String getUsername() {
-        return username;
+    public String getFrom() {
+        return from;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getPassword() {
@@ -94,10 +94,10 @@ public class Credentials {
     public void setTo(String to) {
         this.to = to;
     }
-    
+
     @Override
     public String toString() {
-        return "username: " + username + ", password: " + password + ", to: " + to;
+        return "from: " + from + ", password: <HIDDEN>, to: " + to;
     }
 
 }
