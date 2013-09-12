@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Batch Partition</title>
+        <title>Batch : Partition</title>
     </head>
     <body>
-        <h1>Batch Partition</h1>
+        <h1>Batch : Partition</h1>
         Start the <a href="${pageContext.request.contextPath}/TestServlet"/>job</a>.
     </body>
 </html>
