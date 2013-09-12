@@ -47,10 +47,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JTA : @TransactionScope beans in 3 different scenarios</title>
+        <title>JTA : @TransactionScoped beans in 3 different scenarios</title>
     </head>
     <body>
-        <h1>JTA : @TransactionScope beans in 3 different scenarios</h1>
-        Execute <a href="${pageContext.request.contextPath}/TestServlet"/>3 scenarios</a><br/>
+        <h1>JTA : @TransactionScoped beans in 3 different scenarios</h1>
+        Execute 3 scenarios with:
+        <ol>
+            <li><a href="${pageContext.request.contextPath}/TransactionalBeanClient"/>container-managed transaction</a></li>
+            <li><a href="${pageContext.request.contextPath}/UserTransactionClient"/>user-managed transaction</a></li>
+        </ol>
+        
+    
+    
     </body>
 </html>

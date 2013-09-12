@@ -60,8 +60,8 @@ import javax.transaction.UserTransaction;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServlet"})
-public class TestServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/UserTransactionClient"})
+public class UserTransactionClient extends HttpServlet {
     
     @Inject MyBean bean;
     
@@ -86,10 +86,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>@TransactionScope</title>");            
+            out.println("<title>JTA 1.2 UserTransaction and @TransactionScoped</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>@TransactionScope</h1>");
+            out.println("<h1>JTA 1.2 UserTransaction and @TransactionScoped</h1>");
             try {
                 out.println("<h2>Scenario 1: Bean1 injected twice, same id</h2>");
                 ut.begin();
@@ -118,7 +118,7 @@ public class TestServlet extends HttpServlet {
                     | HeuristicRollbackException 
                     | SecurityException 
                     | IllegalStateException ex) {
-                Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UserTransactionClient.class.getName()).log(Level.SEVERE, null, ex);
             }
             out.println("</body>");
             out.println("</html>");
