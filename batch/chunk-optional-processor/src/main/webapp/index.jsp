@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>GOptional Processor in Chunk!</title>
+        <title>Batch : Optional Processor in Chunk</title>
     </head>
     <body>
-        <h1>Optional Processor in Chunk!</h1>
+        <h1>Batch : Optional Processor in Chunk</h1>
         Start the <a href="${pageContext.request.contextPath}/TestServlet"/>job</a>.
     </body>
 </html>
