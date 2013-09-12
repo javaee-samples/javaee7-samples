@@ -1,1 +1,0 @@
-CREATE TABLE CHUNK_CSV_DATABASE ("NAME" VARCHAR(50) not null primary key, "HIREDATE" VARCHAR(50) not null)
