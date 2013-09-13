@@ -4,12 +4,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-<!--    <resource-env-ref>
+    <resource-env-ref>
         <resource-env-ref-name>
             concurrent/myExecutor2
         </resource-env-ref-name>
         <resource-env-ref-type>
             javax.enterprise.concurrent.ManagedExecutorService
         </resource-env-ref-type>
-    </resource-env-ref>-->
+    </resource-env-ref>
 </web-app>
