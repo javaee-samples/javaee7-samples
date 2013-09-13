@@ -37,10 +37,11 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
+package org.javaee7.concurrency.managedexecutor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.Future;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.servlet.ServletException;
@@ -52,12 +53,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/ExecutorTaskWithTransactionServlet"})
-public class ExecutorTaskWithTransactionServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/ExecutorResourceServlet"})
+public class ExecutorResourceServlet extends HttpServlet {
 
 //    @Resource(name = "concurrent/myExecutor2")
-    @Resource(name = "DefaultManagedExecutorService")
+//    @Resource(name = "DefaultManagedExecutorService")
+    @Resource(name = "java:comp/DefaultManagedExecutorService")
     ManagedExecutorService executor;
+    
 
     /**
      * Processes requests for both HTTP
@@ -73,22 +76,24 @@ public class ExecutorTaskWithTransactionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Run task with a UserTransaction</title>");
+            out.println("<title>Servlet TestServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Run task with a UserTransaction</h1>");
+            out.println("<h1>Get ManagedExecutor using @Resource</h1>");
 
-            System.out.println("Running tasks with a UserTransaction");
+            System.out.println("Getting ManagedExecutorService using @Resource");
             for (int i = 0; i < 5; i++) {
                 out.format("submitting runnable(%d)<br>", i);
-                executor.submit(new MyTaskWithTransaction(i));
+                Future<?> f = executor.submit(new MyRunnableTask(i));
+                out.format("executing runnable(%d)<br>", i);
+                executor.execute(new MyRunnableTask(i));
+                out.format("submitting callable(%d)<br>", i);
+                Future<Product> f2 = executor.submit(new MyCallableTask(i));
             }
-            out.println("all tasks submitted");
-            out.println("<br/><br/>Check server.log for output from the task.");
-            
+            out.println("all tasks submitted<br/><br/>");
+            out.println("Check server.log for output from the task.");
             out.println("</body>");
             out.println("</html>");
         }
@@ -134,4 +139,5 @@ public class ExecutorTaskWithTransactionServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

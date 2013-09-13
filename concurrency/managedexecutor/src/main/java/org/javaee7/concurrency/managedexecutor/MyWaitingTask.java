@@ -37,47 +37,16 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
+package org.javaee7.concurrency.managedexecutor;
 
 /**
  * @author Arun Gupta
  */
-public class MyTaskWithTransaction implements Runnable {
+public class MyWaitingTask implements Runnable {
 
-    private int id;
-
-    public MyTaskWithTransaction() {
-    }
-
-    public MyTaskWithTransaction(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-//    @Resource UserTransaction tx;
     @Override
-    @Transactional
     public void run() {
-        System.out.format("%d (within a transaction): running", id);
+        System.out.println("MyWaitingTask.run");
     }
-
+    
 }

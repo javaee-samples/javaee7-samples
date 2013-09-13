@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
+package org.javaee7.concurrency.managedexecutor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,12 +53,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/ExecutorResourceServlet"})
-public class ExecutorResourceServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/ExecutorResourceNoNameServlet"})
+public class ExecutorResourceNoNameServlet extends HttpServlet {
 
-//    @Resource(name = "concurrent/myExecutor2")
-//    @Resource(name = "DefaultManagedExecutorService")
-    @Resource(name = "java:comp/DefaultManagedExecutorService")
+    @Resource
     ManagedExecutorService executor;
     
 
@@ -81,9 +79,9 @@ public class ExecutorResourceServlet extends HttpServlet {
             out.println("<title>Servlet TestServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Get ManagedExecutor using @Resource</h1>");
+            out.println("<h1>Get ManagedExecutor using @Resource with no name</h1>");
 
-            System.out.println("Getting ManagedExecutorService using @Resource");
+            System.out.println("Getting ManagedExecutorService using @Resource with no name");
             for (int i = 0; i < 5; i++) {
                 out.format("submitting runnable(%d)<br>", i);
                 Future<?> f = executor.submit(new MyRunnableTask(i));

@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
+package org.javaee7.concurrency.managedexecutor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,8 +52,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/ExecutorListenerServlet"})
-public class ExecutorListenerServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/ExecutorTaskWithTransactionServlet"})
+public class ExecutorTaskWithTransactionServlet extends HttpServlet {
 
 //    @Resource(name = "concurrent/myExecutor2")
     @Resource(name = "DefaultManagedExecutorService")
@@ -76,18 +76,19 @@ public class ExecutorListenerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Submit tasks with ManagedTaskListener</title>");
+            out.println("<title>Run task with a UserTransaction</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Submit tasks with ManagedTaskListener</h1>");
-            
-            System.out.println("Getting ManagedExecutorService using @Resource");
+            out.println("<h1>Run task with a UserTransaction</h1>");
+
+            System.out.println("Running tasks with a UserTransaction");
             for (int i = 0; i < 5; i++) {
-                out.format("submitting task with listener(%d)<br>", i);
-                executor.submit(new MyTaskWithListener(i));
+                out.format("submitting runnable(%d)<br>", i);
+                executor.submit(new MyTaskWithTransaction(i));
             }
-            out.println("all tasks submitted<br/><br/>");
-            out.println("<br><br>Check server.log for output from the task.");
+            out.println("all tasks submitted");
+            out.println("<br/><br/>Check server.log for output from the task.");
+            
             out.println("</body>");
             out.println("</html>");
         }

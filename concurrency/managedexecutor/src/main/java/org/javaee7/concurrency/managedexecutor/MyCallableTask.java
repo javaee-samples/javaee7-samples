@@ -37,60 +37,33 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
+package org.javaee7.concurrency.managedexecutor;
 
-import java.util.Map;
-import java.util.concurrent.Future;
-import javax.enterprise.concurrent.ManagedExecutorService;
-import javax.enterprise.concurrent.ManagedTask;
-import javax.enterprise.concurrent.ManagedTaskListener;
+import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Arun Gupta
  */
-public class MyTaskWithListener implements Runnable, ManagedTask, ManagedTaskListener {
+public class MyCallableTask implements Callable<Product> {
 
     private int id;
-
-    public MyTaskWithListener() {
-    }
-
-    public MyTaskWithListener(int id) {
+    
+    public MyCallableTask(int id) {
         this.id = id;
     }
-
+    
     @Override
-    public void run() {
-        System.out.println("running");
-    }
-
-    @Override
-    public void taskAborted(Future<?> future, ManagedExecutorService mes, Object o, Throwable t) {
-        System.out.println("aborted");
-    }
-
-    @Override
-    public void taskDone(Future<?> future, ManagedExecutorService mes, Object o, Throwable t) {
-        System.out.println("done");
-    }
-
-    @Override
-    public void taskStarting(Future<?> future, ManagedExecutorService mes, Object o) {
-        System.out.println("starting");
-    }
-
-    @Override
-    public void taskSubmitted(Future<?> future, ManagedExecutorService mes, Object o) {
-        System.out.println("submitted");
-    }
-
-    @Override
-    public ManagedTaskListener getManagedTaskListener() {
-        return this;
-    }
-
-    @Override
-    public Map<String, String> getExecutionProperties() {
-        return null;
+    public Product call() {
+        try {
+            System.out.format("%d (callable): starting", id);
+            System.out.format("%d (callable): sleeping 2 seconds", id);
+            Thread.sleep(2000);
+            System.out.format("%d (callable): complete", id);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ExecutorResourceServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new Product(id);
     }
 }

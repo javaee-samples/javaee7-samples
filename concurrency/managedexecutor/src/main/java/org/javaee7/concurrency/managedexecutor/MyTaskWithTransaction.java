@@ -37,31 +37,47 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
+package org.javaee7.concurrency.managedexecutor;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.Transactional;
+import javax.transaction.UserTransaction;
 
 /**
  * @author Arun Gupta
  */
-public class MyRunnableTask implements Runnable {
+public class MyTaskWithTransaction implements Runnable {
 
     private int id;
 
-    public MyRunnableTask(int id) {
+    public MyTaskWithTransaction() {
+    }
+
+    public MyTaskWithTransaction(int id) {
         this.id = id;
     }
 
-    @Override
-    public void run() {
-        try {
-            System.out.format("%d (runnable): starting", id);
-            System.out.format("%d (runnable): sleeping 2 seconds", id);
-            Thread.sleep(2000);
-            System.out.format("%d (runnable): complete", id);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ExecutorResourceServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+//    @Resource UserTransaction tx;
+    @Override
+    @Transactional
+    public void run() {
+        System.out.format("%d (within a transaction): running", id);
+    }
+
 }

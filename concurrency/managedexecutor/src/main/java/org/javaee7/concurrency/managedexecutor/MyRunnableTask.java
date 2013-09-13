@@ -37,33 +37,31 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
+package org.javaee7.concurrency.managedexecutor;
 
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * @author Arun Gupta
  */
-public class MyCallableTask implements Callable<Product> {
+public class MyRunnableTask implements Runnable {
 
     private int id;
-    
-    public MyCallableTask(int id) {
+
+    public MyRunnableTask(int id) {
         this.id = id;
     }
-    
+
     @Override
-    public Product call() {
+    public void run() {
         try {
-            System.out.format("%d (callable): starting", id);
-            System.out.format("%d (callable): sleeping 2 seconds", id);
+            System.out.format("%d (runnable): starting", id);
+            System.out.format("%d (runnable): sleeping 2 seconds", id);
             Thread.sleep(2000);
-            System.out.format("%d (callable): complete", id);
+            System.out.format("%d (runnable): complete", id);
         } catch (InterruptedException ex) {
             Logger.getLogger(ExecutorResourceServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new Product(id);
     }
 }

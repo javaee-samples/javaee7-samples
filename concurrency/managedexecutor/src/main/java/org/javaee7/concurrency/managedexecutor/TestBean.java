@@ -37,26 +37,24 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.executor;
+package org.javaee7.concurrency.managedexecutor;
+
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.enterprise.concurrent.ManagedExecutorService;
 
 /**
  * @author Arun Gupta
  */
-public class Product {
-    private int id;
+@Stateless
+public class TestBean {
+//    @Resource(name = "concurrent/myExecutor")
+    @Resource(name = "DefaultManagedExecutorService")
+    ManagedExecutorService executor;
 
-    public Product() {
-    }
-
-    public Product(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            executor.submit(new MyRunnableTask(i));
+        }
     }
 }
