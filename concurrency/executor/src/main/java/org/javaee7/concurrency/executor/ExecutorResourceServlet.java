@@ -41,7 +41,9 @@ package org.javaee7.concurrency.executor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
+import java.util.concurrent.Future;
+import javax.annotation.Resource;
+import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,14 +51,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author Arun
+ * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestEJBServlet"})
-public class TestEJBServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/ExecutorResourceServlet"})
+public class ExecutorResourceServlet extends HttpServlet {
 
-    @EJB
-    TestBean bean;
+//    @Resource(name = "concurrent/myExecutor2")
+//    @Resource(name = "DefaultManagedExecutorService")
+    @Resource(name = "java:comp/DefaultManagedExecutorService")
+    ManagedExecutorService executor;
+    
 
     /**
      * Processes requests for both HTTP
@@ -72,18 +76,24 @@ public class TestEJBServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Run managed threads in EJB</title>");
+            out.println("<title>Servlet TestServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Run managed threads in EJB</h1>");
-            out.println("Submitting tasks using ManagedExecutorService in EJB<br>");
-            bean.run();
+            out.println("<h1>Get ManagedExecutor using @Resource</h1>");
+
+            System.out.println("Getting ManagedExecutorService using @Resource");
+            for (int i = 0; i < 5; i++) {
+                out.format("submitting runnable(%d)<br>", i);
+                Future<?> f = executor.submit(new MyRunnableTask(i));
+                out.format("executing runnable(%d)<br>", i);
+                executor.execute(new MyRunnableTask(i));
+                out.format("submitting callable(%d)<br>", i);
+                Future<Product> f2 = executor.submit(new MyCallableTask(i));
+            }
             out.println("all tasks submitted<br/><br/>");
             out.println("Check server.log for output from the task.");
-
             out.println("</body>");
             out.println("</html>");
         }
@@ -129,4 +139,5 @@ public class TestEJBServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

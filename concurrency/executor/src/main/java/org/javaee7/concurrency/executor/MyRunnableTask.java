@@ -61,7 +61,7 @@ public class MyRunnableTask implements Runnable {
             Thread.sleep(2000);
             System.out.format("%d (runnable): complete", id);
         } catch (InterruptedException ex) {
-            Logger.getLogger(TestResourceServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExecutorResourceServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

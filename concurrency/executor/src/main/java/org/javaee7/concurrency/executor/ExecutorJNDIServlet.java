@@ -41,8 +41,11 @@ package org.javaee7.concurrency.executor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.annotation.Resource;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.concurrent.ManagedExecutorService;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,12 +55,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestListenerServlet"})
-public class TestListenerServlet extends HttpServlet {
-
-//    @Resource(name = "concurrent/myExecutor2")
-    @Resource(name = "DefaultManagedExecutorService")
-    ManagedExecutorService executor;
+@WebServlet(urlPatterns = {"/ExecutorJNDIServlet"})
+public class ExecutorJNDIServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -76,18 +75,27 @@ public class TestListenerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Submit tasks with ManagedTaskListener</title>");
+            out.println("<title>Get ManagedExecutor using JNDI Context</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Submit tasks with ManagedTaskListener</h1>");
-            
-            System.out.println("Getting ManagedExecutorService using @Resource");
-            for (int i = 0; i < 5; i++) {
-                out.format("submitting task with listener(%d)<br>", i);
-                executor.submit(new MyTaskWithListener(i));
+            out.println("<h1>Get ManagedExecutor using JNDI Context</h1>");
+            System.out.println("Getting ManagedExecutorService using JNDI lookup");
+            try {
+                InitialContext ctx = new InitialContext();
+                
+//                ManagedExecutorService executor = (ManagedExecutorService) ctx.lookup("java:comp/env/concurrent/myExecutor2");
+                ManagedExecutorService executor = (ManagedExecutorService) ctx.lookup("java:comp/DefaultManagedExecutorService");
+                for (int i = 0; i < 5; i++) {
+                    out.format("submitting runnable(%d)<br>", i);
+                    executor.submit(new MyRunnableTask(i));
+                    out.format("submitting callable(%d)<br>", i);
+                    executor.submit(new MyCallableTask(i));
+                }
+            } catch (NamingException ex) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, null, ex);
             }
             out.println("all tasks submitted<br/><br/>");
-            out.println("<br><br>Check server.log for output from the task.");
+            out.println("Check server.log for output from the task.");
             out.println("</body>");
             out.println("</html>");
         }

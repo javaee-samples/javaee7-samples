@@ -52,8 +52,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestTransactionServlet"})
-public class TestTransactionServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/ExecutorListenerServlet"})
+public class ExecutorListenerServlet extends HttpServlet {
 
 //    @Resource(name = "concurrent/myExecutor2")
     @Resource(name = "DefaultManagedExecutorService")
@@ -76,19 +76,18 @@ public class TestTransactionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Run task with a UserTransaction</title>");
+            out.println("<title>Submit tasks with ManagedTaskListener</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Run task with a UserTransaction</h1>");
-
-            System.out.println("Running tasks with a UserTransaction");
-            for (int i = 0; i < 5; i++) {
-                out.format("submitting runnable(%d)<br>", i);
-                executor.submit(new MyTaskWithTransaction(i));
-            }
-            out.println("all tasks submitted");
-            out.println("<br/><br/>Check server.log for output from the task.");
+            out.println("<h1>Submit tasks with ManagedTaskListener</h1>");
             
+            System.out.println("Getting ManagedExecutorService using @Resource");
+            for (int i = 0; i < 5; i++) {
+                out.format("submitting task with listener(%d)<br>", i);
+                executor.submit(new MyTaskWithListener(i));
+            }
+            out.println("all tasks submitted<br/><br/>");
+            out.println("<br><br>Check server.log for output from the task.");
             out.println("</body>");
             out.println("</html>");
         }

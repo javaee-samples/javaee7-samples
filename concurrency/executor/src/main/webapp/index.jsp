@@ -47,17 +47,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Concurrency Utilities for Java EE</title>
+        <title>Concurrency Utilities for Java EE : ManagedExecutor</title>
     </head>
     <body>
         <h1>Concurrency Utilities for Java EE : ManagedExecutor</h1>
         
-        Get ManagedExecutor using <a href="${pageContext.request.contextPath}/TestResourceServlet">@Resource</a> (in Servlet)<br/>
-        Get ManagedExecutor using <a href="${pageContext.request.contextPath}/TestJNDIServlet">JNDI Context</a> (in Servlet)<br/>
-        Run <a href="${pageContext.request.contextPath}/TestEJBServlet">managed threads in EJB</a><br/>
-        Submit tasks using <a href="${pageContext.request.contextPath}/TestInvokeAllServlet">invokeAll</a><br/>
-        Submit tasks using <a href="${pageContext.request.contextPath}/TestInvokeAnyServlet">invokeAny</a><br/>
-        Submit tasks <a href="${pageContext.request.contextPath}/TestListenerServlet">with ManagedTaskListener</a><br/>
-        Run task <a href="${pageContext.request.contextPath}/TestTransactionServlet">with a UserTransaction</a><br/>
+        Get ManagedExecutor using <a href="${pageContext.request.contextPath}/ExecutorResourceServlet">@Resource</a> (in Servlet)<br/>
+        Get ManagedExecutor using <a href="${pageContext.request.contextPath}/ExecutorJNDIServlet">JNDI Context</a> (in Servlet)<br/>
+        Run <a href="${pageContext.request.contextPath}/ManagedExecutorInEJBServlet">managed threads in EJB</a><br/>
+        Submit tasks using <a href="${pageContext.request.contextPath}/ExecutorInvokeAllServlet">invokeAll</a><br/>
+        Submit tasks using <a href="${pageContext.request.contextPath}/ExecutorInvokeAnyServlet">invokeAny</a><br/>
+        Submit tasks <a href="${pageContext.request.contextPath}/ExecutorListenerServlet">with ManagedTaskListener</a><br/>
+        Run task <a href="${pageContext.request.contextPath}/ExecutorTaskWithTransactionServlet">with a UserTransaction</a><br/>
     </body>
 </html>

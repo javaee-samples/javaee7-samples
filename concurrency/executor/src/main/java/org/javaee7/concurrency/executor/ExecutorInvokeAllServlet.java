@@ -41,7 +41,14 @@ package org.javaee7.concurrency.executor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.servlet.ServletException;
@@ -53,14 +60,12 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestResourceServlet"})
-public class TestResourceServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/ExecutorInvokeAllServlet"})
+public class ExecutorInvokeAllServlet extends HttpServlet {
 
 //    @Resource(name = "concurrent/myExecutor2")
-//    @Resource(name = "DefaultManagedExecutorService")
-    @Resource(name = "java:comp/DefaultManagedExecutorService")
+    @Resource(name = "DefaultManagedExecutorService")
     ManagedExecutorService executor;
-    
 
     /**
      * Processes requests for both HTTP
@@ -76,24 +81,29 @@ public class TestResourceServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Submit tasks using invokeAll</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Get ManagedExecutor using @Resource</h1>");
-
-            System.out.println("Getting ManagedExecutorService using @Resource");
+            out.println("<h1>Submit tasks using invokeAll</h1>");
+            Collection<Callable<Product>> tasks = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
-                out.format("submitting runnable(%d)<br>", i);
-                Future<?> f = executor.submit(new MyRunnableTask(i));
-                out.format("executing runnable(%d)<br>", i);
-                executor.execute(new MyRunnableTask(i));
-                out.format("submitting callable(%d)<br>", i);
-                Future<Product> f2 = executor.submit(new MyCallableTask(i));
+                out.format("Adding task(%d) to the list<br>", i);
+                tasks.add(new MyCallableTask(i));
             }
-            out.println("all tasks submitted<br/><br/>");
-            out.println("Check server.log for output from the task.");
+            try {
+                out.format("invokeAll<br>");
+                List<Future<Product>> results = executor.invokeAll(tasks);
+                for (Future<Product> f : results) {
+                    out.format("got response: %d<br>", f.get().getId());
+                }
+            } catch (InterruptedException | ExecutionException ex) {
+                Logger.getLogger(ExecutorInvokeAllServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            out.println("<br><br>Check server.log for output");
+            
             out.println("</body>");
             out.println("</html>");
         }
@@ -139,5 +149,4 @@ public class TestResourceServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
