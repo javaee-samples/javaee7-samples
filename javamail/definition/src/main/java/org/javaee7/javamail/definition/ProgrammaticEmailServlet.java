@@ -88,7 +88,6 @@ public class ProgrammaticEmailServlet extends HttpServlet {
 
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
-//            props.put("mail.smtp.host", "stbeehive.oracle.com");
             props.put("mail.smtp.ssl.enable", "true");
             props.put("mail.smtp.auth", "true");
             props.put("mail.transport.protocol", "smtp");
@@ -120,8 +119,8 @@ public class ProgrammaticEmailServlet extends HttpServlet {
                 message.setText("Java EE 7 is cool!");
 
 //                Transport t = session.getTransport();
-//                t.connect(creds.getProperty("username"), creds.getProperty("password"));
-//                t.send(message);
+//                t.connect(creds.getFrom(), creds.getTo());
+//                t.sendMessage(message, message.getAllRecipients());
                 Transport.send(message, message.getAllRecipients());
 
                 out.println("message sent!");
