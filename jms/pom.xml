@@ -12,6 +12,7 @@
     <artifactId>jms-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Java EE 7 JMS Samples</name>
 
     <modules>
         <module>send-receive-simple</module>

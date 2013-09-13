@@ -12,6 +12,7 @@
     <artifactId>ejb-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Java EE 7 EJB Samples</name>
 
     <modules>
         <module>embeddable</module>

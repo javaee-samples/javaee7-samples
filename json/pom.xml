@@ -12,6 +12,7 @@
     <artifactId>json-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Java EE 7 JSON-P Samples</name>
 
     <modules>
         <module>object-builder</module>
