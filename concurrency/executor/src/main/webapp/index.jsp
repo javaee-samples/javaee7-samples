@@ -53,6 +53,7 @@
         <h1>Concurrency Utilities for Java EE : ManagedExecutor</h1>
         
         Get ManagedExecutor using <a href="${pageContext.request.contextPath}/ExecutorResourceServlet">@Resource</a> (in Servlet)<br/>
+        Get ManagedExecutor using <a href="${pageContext.request.contextPath}/ExecutorResourceNoNameServlet">@Resource</a> (in Servlet, no name specified)<br/>
         Get ManagedExecutor using <a href="${pageContext.request.contextPath}/ExecutorJNDIServlet">JNDI Context</a> (in Servlet)<br/>
         Run <a href="${pageContext.request.contextPath}/ManagedExecutorInEJBServlet">managed threads in EJB</a><br/>
         Submit tasks using <a href="${pageContext.request.contextPath}/ExecutorInvokeAllServlet">invokeAll</a><br/>
