@@ -14,7 +14,8 @@
     <packaging>pom</packaging>
     <name>Java EE 7 Extra Samples</name>
 
-  <modules>
-    <module>quartz</module>
-  </modules>
+    <modules>
+        <module>quartz</module>
+        <module>twitter-search</module>
+    </modules>
 </project>

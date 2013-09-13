@@ -19,7 +19,6 @@
         <module>object-reader</module>
         <module>streaming-generate</module>
         <module>streaming-parser</module>
-        <module>twitter-search</module>
     </modules>
 
 </project>
