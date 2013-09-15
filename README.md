@@ -1,32 +1,27 @@
-Java EE 7 Samples
-=================
+# Java EE 7 Samples #
 
 This workspace consists of Java EE 7 Samples. They are divided in different directories, one for each JSR.
 
-How to run ?
-============
-How I run the samples ?
------------------------
+## How to run ? ##
+
+### How I run them ? ###
 
 1. Open the sample in NetBeans 7.4 beta+
 2. Click on "Run" (sample is built and deployed, main page shows up)
 3. Main page tells what the feature is about and what to do to execute the sample and see the output
 
-Alternative way
----------------
+### Alternative way ###
 1. mvn clean package
 2. asadmin deploy target/XXX.war
 3. Access http://localhost:8080/XXX/ (main page shows up)
 4. Same as 3 in the previous one
 
-TBD
----
+### TBD ###
 
 1. Configure GlassFish Embedded to run the samples automatically
 2. Configure Cargo to run the samples
 
-List of Samples
-===============
+## List of Samples ##
 
 The following script will generate the complete list of samples.
 
