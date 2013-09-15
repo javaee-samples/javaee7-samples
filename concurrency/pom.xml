@@ -16,10 +16,10 @@
     <name>Java EE 7 Concurrency Samples</name>
 
     <modules>
+        <module>managedexecutor</module>
+        <module>managedscheduledexecutor</module>
+        <module>manageablethread</module>
         <module>dynamicproxy</module>
-        <module>executor</module>
-        <module>schedule</module>
-        <module>threads</module>
     </modules>
 
 </project>
