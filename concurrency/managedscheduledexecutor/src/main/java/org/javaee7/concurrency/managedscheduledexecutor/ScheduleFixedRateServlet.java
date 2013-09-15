@@ -41,6 +41,7 @@ package org.javaee7.concurrency.managedscheduledexecutor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedScheduledExecutorService;
@@ -81,15 +82,15 @@ public class ScheduleFixedRateServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Schedule at fixed rate</h1>");
-//            ScheduledFuture<?> f = executor.scheduleAtFixedRate(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(TestScheduleFixedRateServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            f.cancel(true);
-            
-            executor.scheduleWithFixedDelay(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
+            ScheduledFuture<?> f = executor.scheduleAtFixedRate(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
+////            try {
+////                Thread.sleep(1000);
+////            } catch (InterruptedException ex) {
+////                Logger.getLogger(TestScheduleFixedRateServlet.class.getName()).log(Level.SEVERE, null, ex);
+////            }
+////            f.cancel(true);
+//            
+//            executor.scheduleWithFixedDelay(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
             System.out.println("Runnable Task completed");
             out.println("<br><br>Check server.log for output");
             out.println("</body>");
