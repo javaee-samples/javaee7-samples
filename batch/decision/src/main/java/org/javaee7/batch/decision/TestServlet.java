@@ -76,16 +76,16 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Batch Decision</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Batch Decision</h1>");
             out.println("About to start the job<br>");
             JobOperator jo = BatchRuntime.getJobOperator();
             out.println("Got the job operator: " + jo + "<br>");
             jo.start("myJob", new Properties());
             out.println("Job submitted<br>");
-            out.println("<br><br>Check server.log for output");
+            out.println("<br><br>Check server.log for output, also look at \"myJob.xml\" for Job XML.");
             out.println("</body>");
             out.println("</html>");
         } catch (JobStartException | JobSecurityException ex) {

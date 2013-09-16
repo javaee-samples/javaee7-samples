@@ -76,10 +76,10 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Batch Flow</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Batch Flow</h1>");
             out.println("About to start the job<br>");
             JobOperator jo = BatchRuntime.getJobOperator();
             out.println("Got the job operator: " + jo + "<br>");
