@@ -12,6 +12,8 @@ This workspace consists of Java EE 7 Samples. They are divided in different dire
 
 ### Cargo ###
 
+Make sure to edit ``glassfish.home`` property value in the top-level pom.xml.
+
 1. In one terminal, anywhere in the project with a pom.xml: "mvn cargo:run" to start GlassFish server
 2. In another terminal, in the actual sample directory
     1. ``mvn package cargo:deploy`` to deploy for the first time
