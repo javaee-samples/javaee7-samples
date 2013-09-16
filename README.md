@@ -12,11 +12,9 @@ This workspace consists of Java EE 7 Samples. They are divided in different dire
 
 ### Cargo ###
 
-By default, all samples are deployed on GlassFish 4. They can be deployed on Widlfly 8 by adding ``-P wildfly`` to all maven commands.
+By default, all samples are deployed on GlassFish 4. They can be deployed on Widlfly 8 by adding ``-P wildfly`` to all maven commands. Make sure to edit ``glassfish.home`` or ``wildfly.home`` property value in the top-level ``pom.xml`` to point to your local GlassFish or Wildfly directory respectively.
 
-Make sure to edit ``glassfish.home`` or ``wildfly.home`` property value in the top-level pom.xml to point to your local GlassFish or Wildfly installations respectively.
-
-1. In one terminal, anywhere in the project with a pom.xml: "mvn cargo:run" to start GlassFish server
+1. In one terminal, anywhere in the project with a ``pom.xml``: ``mvn cargo:run`` to start GlassFish server or ``mvn -P wildfly`` to start Wildfly server. They are both configured to run on port 8080 so only one can run at a given time.
 2. In another terminal, in the actual sample directory
     1. ``mvn package cargo:deploy`` to deploy for the first time
     2. ``mvn package cargo:redeploy`` to redeploy subsequently
@@ -27,7 +25,7 @@ Make sure to edit ``glassfish.home`` or ``wildfly.home`` property value in the t
 ### Manual ###
 
 1. ``mvn clean package``
-2. ``asadmin deploy target/XXX.war`` to deploy the WAR file
+2. Deploy on GlassFish using ``asadmin deploy target/XXX.war`` or deploy on Wildfly using ``TBD``
 3. Access http://localhost:8080/XXX/ (main page shows up)
 4. Same as 3 in the first one
 
