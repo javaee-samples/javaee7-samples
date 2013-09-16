@@ -9,6 +9,8 @@
     <name>Java EE 7 Samples</name>
 
     <properties>
+        <cargo.container.id>glassfish4x</cargo.container.id>
+        <glassfish.home>/Users/arungup/tools/glassfish/4.0/final/glassfish4</glassfish.home>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
     
@@ -38,6 +40,23 @@
                 <version>2.1.1</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.4</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <container>
+                        <containerId>${cargo.container.id}</containerId>
+                        <type>installed</type>
+                        <home>${glassfish.home}</home>
+                    </container>
+                    <configuration>
+                        <type>standalone</type>
+                        <home>${glassfish.home}/glassfish/domains</home>
+                    </configuration>
                 </configuration>
             </plugin>
         </plugins>
