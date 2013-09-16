@@ -90,7 +90,7 @@ public class TestServlet extends HttpServlet {
                 Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             out.println("Job submitted<br>");
-            out.println("<br><br>Check server.log for output");
+            out.println("<br><br>Check server.log for output, also look at \"myJob.xml\" for Job XML.");
             out.println("</body>");
             out.println("</html>");
         } catch (JobStartException ex) {

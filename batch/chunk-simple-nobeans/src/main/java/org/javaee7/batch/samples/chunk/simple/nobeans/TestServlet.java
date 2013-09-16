@@ -77,10 +77,10 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Batch - No beans.xml, default injection of beans</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Batch - No beans.xml, default injection of beans</h1>");
             out.println("About to start the job<br>");
             JobOperator jo = BatchRuntime.getJobOperator();
             out.println("Got the job operator: " + jo + "<br>");
@@ -95,7 +95,7 @@ public class TestServlet extends HttpServlet {
             for (String j : jo.getJobNames()) {
                 out.println("--> " + j + "<br>");
             }
-            out.println("<br><br>Check server.log for output");
+            out.println("<br><br>Check server.log for output, also look at \"myJob.xml\" for Job XML.");
             out.println("</body>");
             out.println("</html>");
         } catch (JobStartException | JobSecurityException ex) {

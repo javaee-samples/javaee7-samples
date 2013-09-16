@@ -87,7 +87,7 @@ public class TestServlet extends HttpServlet {
             JobOperator jo = BatchRuntime.getJobOperator();
             long jid = jo.start("myJob", new Properties());
             out.println("Job submitted: " + jid + "<br>");
-            out.println("Check server.log for output");
+            out.println("<br><br>Check server.log for output, also look at \"myJob.xml\" for Job XML.");
             out.println("</body>");
             out.println("</html>");
         } catch (JobStartException | JobSecurityException ex) {
