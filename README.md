@@ -6,31 +6,30 @@ This workspace consists of Java EE 7 Samples. They are divided in different dire
 
 ### How I run them ? ###
 
-1. Open the sample in NetBeans 7.4 beta+
-2. Click on "Run" (sample is built and deployed, main page shows up)
-3. Main page provides feature name, what to do to run the sample, and displays the output
+1. Open the sample in NetBeans 7.4 beta+ (Download from [http://bits.netbeans.org/dev/nightly/latest/])
+2. Click on "Run" (sample is built and deployed on GlassFish 4, main page shows up)
+3. Main page provides feature name, how to run the sample, and displays the output
 
 ### Cargo ###
 
-Make sure to edit ``glassfish.home`` property value in the top-level pom.xml.
+By default, all samples are deployed on GlassFish 4. They can be deployed on Widlfly 8 by adding ``-P wildfly`` to all maven commands.
+
+Make sure to edit ``glassfish.home`` or ``wildfly.home`` property value in the top-level pom.xml to point to your local GlassFish or Wildfly installations respectively.
 
 1. In one terminal, anywhere in the project with a pom.xml: "mvn cargo:run" to start GlassFish server
 2. In another terminal, in the actual sample directory
     1. ``mvn package cargo:deploy`` to deploy for the first time
-    2. ``mvn package cargo:redeploy`` to redeploy (or use this all the time)
+    2. ``mvn package cargo:redeploy`` to redeploy subsequently
     3. ``mvn cargo:undeploy`` to undeploy 
 3. Check for application name printed by Cargo output. Access the application at http://localhost:8080/<APP-NAME>
 4. Same as 3 in the first one
 
 ### Manual ###
+
 1. ``mvn clean package``
 2. ``asadmin deploy target/XXX.war`` to deploy the WAR file
 3. Access http://localhost:8080/XXX/ (main page shows up)
 4. Same as 3 in the first one
-
-### TBD ###
-
-1. Configure GlassFish Embedded to run the samples automatically
 
 ## List of Samples ##
 
