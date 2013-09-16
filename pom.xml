@@ -9,9 +9,10 @@
     <name>Java EE 7 Samples</name>
 
     <properties>
-        <cargo.container.id>glassfish4x</cargo.container.id>
+        <cargo.container.glassfish.id>glassfish4x</cargo.container.glassfish.id>
         <glassfish.home>/Users/arungup/tools/glassfish/4.0/final/glassfish4</glassfish.home>
-        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+        <cargo.container.wildfly.id>wildfly8x</cargo.container.wildfly.id>
+        <wildfly.home>/Users/arungup/tools/wildfly/wildfly-8.0.0.Alpha4</wildfly.home>
     </properties>
     
     <dependencies>
@@ -42,25 +43,62 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.4.4</version>
-                <inherited>true</inherited>
-                <configuration>
-                    <container>
-                        <containerId>${cargo.container.id}</containerId>
-                        <type>installed</type>
-                        <home>${glassfish.home}</home>
-                    </container>
-                    <configuration>
-                        <type>standalone</type>
-                        <home>${glassfish.home}/glassfish/domains</home>
-                    </configuration>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+    
+    <profiles>
+        <profile>
+            <id>glassfish</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.4.4</version>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <container>
+                                <containerId>${cargo.container.glassfish.id}</containerId>
+                                <type>installed</type>
+                                <home>${glassfish.home}</home>
+                            </container>
+                            <configuration>
+                                <type>standalone</type>
+                                <home>${glassfish.home}/glassfish/domains</home>
+                            </configuration>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>wildfly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.4.4</version>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <container>
+                                <containerId>${cargo.container.wildfly.id}</containerId>
+                                <type>installed</type>
+                                <home>${wildfly.home}</home>
+                            </container>
+                            <configuration>
+                                <type>standalone</type>
+                                <home>${wildfly.home}/glassfish/domains</home>
+                            </configuration>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <modules>
         <module>batch</module>
