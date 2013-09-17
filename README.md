@@ -2,11 +2,13 @@
 
 This workspace consists of Java EE 7 Samples. They are categorized in different directories, one for each JSR.
 
+I don't plan to write any formal documentation, read the code. [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) refer to some of these samples and provide an extensive explanation. However if you are interested in adding javadocs, send a pull request.
+
 ## How to run ? ##
 
 ### How I run them ? ###
 
-1. Open the sample in NetBeans 7.4 beta+ (Download from http://bits.netbeans.org/dev/nightly/latest)
+1. Open the sample in [NetBeans 7.4 nightly](http://bits.netbeans.org/dev/nightly/latest)
 2. Click on "Run" (sample is built and deployed on GlassFish 4, main page shows up)
 3. Main page provides feature name, how to run the sample, and displays the output
 
@@ -36,6 +38,4 @@ The following script will generate the complete list of samples.
 ``find . -name pom.xml -depth 3 -maxdepth 3 | sed 's|\./||g' | sed 's|\/pom.xml||g'``
 
 There are 161 samples as of 9/16.
-
-I don't plan to write any formal documentation, let the code talk. [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) refer to some of these samples and provide an extensive explanation.
 
