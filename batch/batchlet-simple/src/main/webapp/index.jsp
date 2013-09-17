@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Batch - Simple Batchlet!</title>
+        <title>Batch - Simple Batchlet</title>
     </head>
     <body>
-        <h1>Batch - Simple Batchlet!</h1>
+        <h1>Batch - Simple Batchlet</h1>
         Start the <a href="${pageContext.request.contextPath}/TestServlet"/>job</a>.
     </body>
 </html>
