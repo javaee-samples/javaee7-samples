@@ -2,7 +2,7 @@
 
 This workspace consists of Java EE 7 Samples. They are categorized in different directories, one for each JSR.
 
-I don't plan to write any formal documentation, read the code. [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) refer to some of these samples and provide an extensive explanation. However if you are interested in adding javadocs, send a pull request.
+I don't plan to write any formal documentation, read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to some of these samples and provide an explanation. However if you are interested in adding javadocs, send a pull request.
 
 ## How to run ? ##
 
