@@ -118,3 +118,4 @@
 /concurrency/managedexecutor/target/
 /concurrency/managedscheduledexecutor/target/
 /concurrency/manageablethread/target/
+/batch/chunk-simple/target/
