@@ -13,6 +13,7 @@
         <glassfish.home>/Users/arungup/tools/glassfish/4.0/final/glassfish4</glassfish.home>
         <cargo.container.wildfly.id>wildfly8x</cargo.container.wildfly.id>
         <wildfly.home>/Users/arungup/tools/wildfly/wildfly-8.0.0.Alpha4</wildfly.home>
+        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
     
     <dependencies>
