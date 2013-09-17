@@ -73,12 +73,12 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>CDI Interceptors</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>CDI Interceptors</h1>");
             out.println(greeting.greet("Duke"));
-            out.println("<p><p>Look for output in server.log");
+            out.println("<p><p>Look for output in \"server.log\".");
             out.println("</body>");
             out.println("</html>");
         }
