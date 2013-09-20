@@ -93,15 +93,15 @@ public class TestServlet extends HttpServlet {
         String fruit = target
                 .request()
                 .post(Entity.entity(new MyObject(1), MyObject.MIME_TYPE), String.class);
-        out.println("Received response (with custom mime type): " + fruit + "<br><br>");
-        out.println("Another POST...");
+        out.println("<br>Received response (with custom mime type): " + fruit + "<br><br>");
+        out.println("<h2>Another POST request</h2>");
         fruit = target
                 .path("fruitInt")
                 .request()
                 .post(Entity.text("1"), String.class);
-        out.println("Received response: " + fruit + "<br><br>");
+        out.println("<br>Received response: " + fruit);
 
-        out.println("Check \"server.log\" for client/server interceptor output.");
+        out.println("<br><br>Check \"server.log\" for client/server interceptor output.");
         out.println("</body>");
         out.println("</html>");
     }
