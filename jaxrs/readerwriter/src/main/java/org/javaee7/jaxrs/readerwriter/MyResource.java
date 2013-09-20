@@ -48,7 +48,7 @@ import javax.ws.rs.Path;
  */
 @Path("fruits")
 public class MyResource {
-    private String[] response = { "apple", "banana", "mango" };
+    private final String[] response = { "apple", "banana", "mango" };
     
     @POST
     @Consumes(value=MyObject.MIME_TYPE)
