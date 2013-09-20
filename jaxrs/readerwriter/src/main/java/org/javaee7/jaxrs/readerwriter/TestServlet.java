@@ -73,10 +73,10 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet TestServlet</title>");
+        out.println("<title>JAX-RS Entity Providers</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+        out.println("<h1>JAX-RS Entity Providers</h1>");
         Client client = ClientBuilder.newClient();
         client
                 .register(MyReader.class)
@@ -88,18 +88,20 @@ public class TestServlet extends HttpServlet {
                 + request.getServerPort()
                 + request.getContextPath()
                 + "/webresources/fruits");
-        System.out.println("POST request");
+        out.println("<h2>POST request</h2>");
+        out.println("Sending an object of custom mimetype");
         String fruit = target
                 .request()
                 .post(Entity.entity(new MyObject(1), MyObject.MIME_TYPE), String.class);
-        out.println("Received response: " + fruit + "<br><br>");
+        out.println("Received response (with custom mime type): " + fruit + "<br><br>");
+        out.println("Another POST...");
         fruit = target
                 .path("fruitInt")
                 .request()
                 .post(Entity.text("1"), String.class);
         out.println("Received response: " + fruit + "<br><br>");
 
-        out.println("Check server.log for client/server interceptor output.");
+        out.println("Check \"server.log\" for client/server interceptor output.");
         out.println("</body>");
         out.println("</html>");
     }
