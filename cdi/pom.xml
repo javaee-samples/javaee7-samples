@@ -28,5 +28,6 @@
         <module>beansxml-noversion</module>
         <module>beanmanager</module>
         <module>extension</module>
+        <module>scopes</module>
     </modules>
 </project>
