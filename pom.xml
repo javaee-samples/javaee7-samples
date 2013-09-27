@@ -25,6 +25,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.8.2.2</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -46,6 +52,31 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.5-SNAPSHOT</version>
+                <configuration>
+                    <container>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.derby</groupId>
+                                <artifactId>derby</artifactId>
+                            </dependency>
+                        </dependencies>
+                        <systemProperties>
+                            <derby.system.home>${project.build.directory}/derby</derby.system.home>
+                        </systemProperties>
+                    </container>
+                    <configuration>
+                        <properties>
+                            <cargo.datasource.datasource.derby>
+                                cargo.datasource.driver=org.apache.derby.jdbc.EmbeddedDriver| cargo.datasource.url=jdbc:derby:derbyDB;create=true| cargo.datasource.jndi=jdbc/__default| cargo.datasource.username=APP| cargo.datasource.password=APP
+                            </cargo.datasource.datasource.derby>
+                        </properties>
+                    </configuration>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     
@@ -60,18 +91,30 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.4</version>
+                        <version>1.4.5-SNAPSHOT</version>
                         <inherited>true</inherited>
                         <configuration>
                             <container>
                                 <containerId>${cargo.container.glassfish.id}</containerId>
                                 <type>installed</type>
                                 <home>${glassfish.home}</home>
+                                <artifactInstaller>
+                                    <groupId>org.glassfish.main.distributions</groupId>
+                                    <artifactId>glassfish</artifactId>
+                                    <version>4.0</version>
+                                </artifactInstaller>
                             </container>
-                            <configuration>
+                            <dependencies>
+                                <dependency>
+                                    <groupId>org.apache.derby</groupId>
+                                    <artifactId>derby</artifactId>
+                                    <classpath>none</classpath>
+                                </dependency>
+                            </dependencies>
+                            <!--                            <configuration>
                                 <type>standalone</type>
                                 <home>${glassfish.home}/glassfish/domains</home>
-                            </configuration>
+                            </configuration>-->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -84,7 +127,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.4</version>
+                        <version>1.4.5-SNAPSHOT</version>
                         <inherited>true</inherited>
                         <configuration>
                             <container>
@@ -108,7 +151,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.4</version>
+                        <version>1.4.5-SNAPSHOT</version>
                         <inherited>true</inherited>
                         <configuration>
                             <container>
