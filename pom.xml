@@ -10,11 +10,8 @@
 
     <properties>
         <cargo.container.glassfish.id>glassfish4x</cargo.container.glassfish.id>
-        <glassfish.home>/Users/arungup/tools/glassfish/4.0/final/glassfish4</glassfish.home>
         <cargo.container.wildfly.id>wildfly8x</cargo.container.wildfly.id>
-        <wildfly.home>/Users/arungup/tools/wildfly/wildfly-8.0.0.Alpha4</wildfly.home>
         <cargo.container.tomcat.id>tomcat8x</cargo.container.tomcat.id>
-        <tomcat.home>/Users/arungup/tools/tomcat/apache-tomcat-8.0.0-RC1</tomcat.home>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
     
@@ -99,7 +96,11 @@
                     <configuration>
                         <properties>
                             <cargo.datasource.datasource.derby>
-                                cargo.datasource.driver=org.apache.derby.jdbc.EmbeddedDriver| cargo.datasource.url=jdbc:derby:derbyDB;create=true| cargo.datasource.jndi=jdbc/__default| cargo.datasource.username=APP| cargo.datasource.password=APP
+                                cargo.datasource.driver=org.apache.derby.jdbc.EmbeddedDriver|
+                                cargo.datasource.url=jdbc:derby:derbyDB;create=true|
+                                cargo.datasource.jndi=jdbc/__default|
+                                cargo.datasource.username=APP|
+                                cargo.datasource.password=APP
                             </cargo.datasource.datasource.derby>
                         </properties>
                     </configuration>
@@ -119,30 +120,22 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.5-SNAPSHOT</version>
-                        <inherited>true</inherited>
                         <configuration>
                             <container>
                                 <containerId>${cargo.container.glassfish.id}</containerId>
-                                <type>installed</type>
-                                <home>${glassfish.home}</home>
                                 <artifactInstaller>
                                     <groupId>org.glassfish.main.distributions</groupId>
                                     <artifactId>glassfish</artifactId>
                                     <version>4.0</version>
                                 </artifactInstaller>
+                                <dependencies>
+                                    <dependency>
+                                        <groupId>org.apache.derby</groupId>
+                                        <artifactId>derby</artifactId>
+                                        <classpath>none</classpath>
+                                    </dependency>
+                                </dependencies>
                             </container>
-                            <dependencies>
-                                <dependency>
-                                    <groupId>org.apache.derby</groupId>
-                                    <artifactId>derby</artifactId>
-                                    <classpath>none</classpath>
-                                </dependency>
-                            </dependencies>
-                            <!--                            <configuration>
-                                <type>standalone</type>
-                                <home>${glassfish.home}/glassfish/domains</home>
-                            </configuration>-->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -155,18 +148,15 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.5-SNAPSHOT</version>
-                        <inherited>true</inherited>
                         <configuration>
                             <container>
                                 <containerId>${cargo.container.wildfly.id}</containerId>
-                                <type>installed</type>
-                                <home>${wildfly.home}</home>
+                                <artifactInstaller>
+                                    <groupId>org.wildfly</groupId>
+                                    <artifactId>wildfly-dist</artifactId>
+                                    <version>8.0.0.Alpha4</version>
+                                </artifactInstaller>
                             </container>
-                            <configuration>
-                                <type>standalone</type>
-                                <home>${wildfly.home}</home>
-                            </configuration>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -179,18 +169,13 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.5-SNAPSHOT</version>
-                        <inherited>true</inherited>
                         <configuration>
                             <container>
                                 <containerId>${cargo.container.tomcat.id}</containerId>
-                                <type>installed</type>
-                                <home>${tomcat.home}</home>
+                                <zipUrlInstaller>
+                                    <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.0-RC3/bin/apache-tomcat-8.0.0-RC3.zip</url>
+                                </zipUrlInstaller>
                             </container>
-                            <configuration>
-                                <type>standalone</type>
-                                <home>${tomcat.home}/temp</home>
-                            </configuration>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -219,3 +204,4 @@
     </modules>
 
 </project>
+
