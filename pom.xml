@@ -10,8 +10,12 @@
 
     <properties>
         <cargo.container.glassfish.id>glassfish4x</cargo.container.glassfish.id>
+        <cargo.container.glassfish.home>/Users/arungup/tools/glassfish/4.0/final/glassfish4</cargo.container.glassfish.home>
         <cargo.container.wildfly.id>wildfly8x</cargo.container.wildfly.id>
+        <cargo.container.wildfly.home>/Users/arungup/tools/wildfly/wildfly-8.0.0.Alpha4</cargo.container.wildfly.home>
         <cargo.container.tomcat.id>tomcat8x</cargo.container.tomcat.id>
+        <cargo.container.weblogic.id>weblogic12x</cargo.container.weblogic.id>
+        <cargo.container.weblogic.home>/Users/arungup/tools/weblogic/12c/wlserver</cargo.container.weblogic.home>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
     
@@ -121,14 +125,20 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.4.5-SNAPSHOT</version>
                         <configuration>
                             <container>
                                 <containerId>${cargo.container.glassfish.id}</containerId>
+                                <type>installed</type>
+                                <home>${cargo.container.glassfish.home}</home>
+                                <!--         
+                                Use this fragment if want to download/run the app server on demand                       
                                 <artifactInstaller>
                                     <groupId>org.glassfish.main.distributions</groupId>
                                     <artifactId>glassfish</artifactId>
                                     <version>4.0</version>
                                 </artifactInstaller>
+                                -->
                                 <dependencies>
                                     <dependency>
                                         <groupId>org.apache.derby</groupId>
@@ -152,11 +162,16 @@
                         <configuration>
                             <container>
                                 <containerId>${cargo.container.wildfly.id}</containerId>
+                                <type>installed</type>
+                                <home>${cargo.container.wildfly.home}</home>
+                                <!--
+                                Use this fragment if want to download/run the app server on demand
                                 <artifactInstaller>
                                     <groupId>org.wildfly</groupId>
                                     <artifactId>wildfly-dist</artifactId>
                                     <version>8.0.0.Alpha4</version>
                                 </artifactInstaller>
+                                -->
                             </container>
                         </configuration>
                     </plugin>
@@ -176,6 +191,24 @@
                                 <zipUrlInstaller>
                                     <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.0-RC3/bin/apache-tomcat-8.0.0-RC3.zip</url>
                                 </zipUrlInstaller>
+                            </container>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>weblogic</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <configuration>
+                            <container>
+                                <containerId>${cargo.container.weblogic.id}</containerId>
+                                <type>installed</type>
+                                <home>${cargo.container.weblogic.home}</home>
                             </container>
                         </configuration>
                     </plugin>
