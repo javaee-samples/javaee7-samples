@@ -80,10 +80,10 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>CSV-to-Database Chunk Job</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Running the job</h1>");
+            out.println("<h1>CSV-to-Database Chunk Job</h1>");
             JobOperator jo = BatchRuntime.getJobOperator();
             long jid = jo.start("myJob", new Properties());
             out.println("Job submitted: " + jid + "<br>");
