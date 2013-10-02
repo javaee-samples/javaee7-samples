@@ -52,7 +52,7 @@ import javax.persistence.Table;
 /**
  * @author Arun Gupta
  */
-@Entity()
+@Entity
 @Table(name = "EMPLOYEE_SCHEMA_GEN")
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
