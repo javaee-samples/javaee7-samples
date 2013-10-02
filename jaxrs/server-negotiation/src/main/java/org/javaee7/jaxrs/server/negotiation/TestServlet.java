@@ -90,7 +90,7 @@ public class TestServlet extends HttpServlet {
 
         // GET
         out.print("GETTing...<br>");
-        String string = target.request().get(String.class);
+        String string = target.request().accept("application/*").get(String.class);
         out.format("GOT the representation: " + string);
         out.format("<br><br>Did you get the JSON representation ?");
         out.println("<br><br>... done.<br>");
