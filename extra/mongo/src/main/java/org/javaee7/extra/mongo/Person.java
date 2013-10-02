@@ -89,12 +89,12 @@ public class Person {
     }
 
     public static Person fromDBObject(DBObject doc) {
-        Person m = new Person();
+        Person p = new Person();
 
-        m.name = (String) doc.get("name");
-        m.age = (int) doc.get("age");
+        p.name = (String) doc.get("name");
+        p.age = (int) doc.get("age");
 
-        return m;
+        return p;
     }
 
     @Override
