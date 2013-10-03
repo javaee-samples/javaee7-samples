@@ -11,11 +11,10 @@
             <ui:define name="content">
                 <h:form>
                     Name: <h:inputText value="#{person.name}" size="20"/><br/>
-                    Age: <h:inputText value="#{person.age}" size="6"/><br/>
+                    Age: <h:inputText value="#{person.age}" size="6"/><br/><br/>
                     <h:commandButton actionListener="#{personSessionBean.createPerson()}" 
                                      action="show" 
-                                     title="Add"
-                                     value="Submit"/>
+                                     value="Add"/>
                 </h:form>
                 <br/>
                 Make sure to <a href="http://www.couchbase.com/docs/couchbase-manual-1.8/couchbase-admin-basics-running-macosx.html">start Couchbase server</a>. Confirm by visiting <a href="http://localhost:8091/pools/">pools</a> and look for output as:
