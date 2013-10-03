@@ -99,7 +99,7 @@ public class PersonSessionBean {
     }
 
     public void createPerson() {
-        client.set(person.getName(), person);
+        client.set(person.getName(), new Person(person.getName(), person.getAge()));
         set.add(person.getName());
     }
 
