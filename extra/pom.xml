@@ -19,5 +19,6 @@
         <module>twitter-search</module>
         <module>mongo</module>
         <module>couchbase</module>
+        <module>redis</module>
     </modules>
 </project>
