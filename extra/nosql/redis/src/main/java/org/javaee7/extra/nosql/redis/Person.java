@@ -37,54 +37,56 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.extra.redis;
+package org.javaee7.extra.nosql.redis;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import java.util.StringTokenizer;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import redis.clients.jedis.Jedis;
+import javax.validation.constraints.Size;
 
 /**
  * @author Arun Gupta
  */
 @Named
-@Stateless
-public class PersonSessionBean {
+@ApplicationScoped
+public class Person {
 
-    @Inject
-    Person person;
-    
-    Jedis jedis;
-    
-    Set<String> set = new HashSet<>();
+    @Size(min = 1, max = 20)
+    private String name;
 
-    @PostConstruct
-    private void initDB() {
-//         Start embedded Redis
-        jedis = new Jedis("localhost", 6379);
-    }
-    
-    @PreDestroy
-    private void stopDB() {
-        jedis.shutdown();
+    private int age;
+
+    public Person() {
     }
 
-    public void createPerson() {
-        jedis.set(person.getName(), new Person(person.getName(), person.getAge()).toString());
-        set.add(person.getName());
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
-    public List<Person> getPersons() {
-        List<Person> persons = new ArrayList<>();
-        for (String key : set) {
-            persons.add(Person.fromString(jedis.get(key)));
-        }
-        return persons;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return name + ", " + age;
+    }
+    
+    public static Person fromString(String string) {
+        StringTokenizer tokens = new StringTokenizer(string, ",");
+        return new Person(tokens.nextToken(), Integer.parseInt(tokens.nextToken().trim()));
     }
 }

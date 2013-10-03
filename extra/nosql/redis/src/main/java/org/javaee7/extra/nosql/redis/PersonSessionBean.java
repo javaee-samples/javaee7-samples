@@ -37,56 +37,54 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.extra.redis;
+package org.javaee7.extra.nosql.redis;
 
-import java.util.StringTokenizer;
-import javax.enterprise.context.ApplicationScoped;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.Size;
+import redis.clients.jedis.Jedis;
 
 /**
  * @author Arun Gupta
  */
 @Named
-@ApplicationScoped
-public class Person {
+@Stateless
+public class PersonSessionBean {
 
-    @Size(min = 1, max = 20)
-    private String name;
+    @Inject
+    Person person;
+    
+    Jedis jedis;
+    
+    Set<String> set = new HashSet<>();
 
-    private int age;
-
-    public Person() {
-    }
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return name + ", " + age;
+    @PostConstruct
+    private void initDB() {
+//         Start embedded Redis
+        jedis = new Jedis("localhost", 6379);
     }
     
-    public static Person fromString(String string) {
-        StringTokenizer tokens = new StringTokenizer(string, ",");
-        return new Person(tokens.nextToken(), Integer.parseInt(tokens.nextToken().trim()));
+    @PreDestroy
+    private void stopDB() {
+        jedis.shutdown();
+    }
+
+    public void createPerson() {
+        jedis.set(person.getName(), new Person(person.getName(), person.getAge()).toString());
+        set.add(person.getName());
+    }
+
+    public List<Person> getPersons() {
+        List<Person> persons = new ArrayList<>();
+        for (String key : set) {
+            persons.add(Person.fromString(jedis.get(key)));
+        }
+        return persons;
     }
 }
