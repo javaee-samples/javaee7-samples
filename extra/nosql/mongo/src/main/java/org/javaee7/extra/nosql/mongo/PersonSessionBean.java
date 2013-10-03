@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.extra.mongo;
+package org.javaee7.extra.nosql.mongo;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
