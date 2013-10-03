@@ -18,5 +18,6 @@
         <module>quartz</module>
         <module>twitter-search</module>
         <module>mongo</module>
+        <module>couchbase</module>
     </modules>
 </project>
