@@ -39,6 +39,7 @@
  */
 package org.javaee7.extra.couchbase;
 
+import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
@@ -48,7 +49,7 @@ import javax.validation.constraints.Size;
  */
 @Named
 @ApplicationScoped
-public class Person {
+public class Person implements Serializable {
     
     @Size(min = 1, max = 20)
     private String name;
