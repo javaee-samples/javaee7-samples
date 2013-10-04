@@ -42,14 +42,16 @@ package org.javaee7.extra.nosql.cassandra;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;
 import com.datastax.driver.core.Metadata;
+import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.exceptions.AlreadyExistsException;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
@@ -71,6 +73,9 @@ public class PersonSessionBean {
     private Cluster cluster;
     private Session session;
 
+    private PreparedStatement selectAllPersons;
+    private PreparedStatement insertPerson;
+
     @PostConstruct
     private void initDB() {
         cluster = Cluster.builder()
@@ -84,21 +89,19 @@ public class PersonSessionBean {
                     host.getDatacenter(), host.getAddress(), host.getRack());
         }
         session = cluster.connect();
-        try {
-        session.execute("CREATE KEYSPACE test WITH replication "
-                + "= {'class':'SimpleStrategy', 'replication_factor':3};");
-        } catch (AlreadyExistsException e) {
-            System.out.println(e.getLocalizedMessage() + " ... keep moving!");
-        }
-        try {
+        session.execute("CREATE KEYSPACE IF NOT EXISTS test WITH replication "
+                + "= {'class':'SimpleStrategy', 'replication_factor':1};");
+
         session.execute(
-                "CREATE TABLE test.person ("
+                "CREATE TABLE IF NOT EXISTS test.person ("
                 + "name text PRIMARY KEY,"
                 + "age int"
                 + ");");
-        } catch (AlreadyExistsException e) {
-            System.out.println(e.getLocalizedMessage() + " ... keep moving!");
-        }
+        
+        selectAllPersons = session.prepare("SELECT * FROM test.person");
+        insertPerson = session.prepare(
+                "INSERT INTO test.person (name, age) VALUES (?, ?);"
+        );
     }
 
     @PreDestroy
@@ -107,18 +110,13 @@ public class PersonSessionBean {
     }
 
     public void createPerson() {
-        session.execute(
-                "INSERT INTO test.person (name, age) "
-                + "VALUES ("
-                + "'" + person.getName() + "',"
-                + person.getAge() + ")"
-                + ";");
-//        set.add(person.getName());
+        session.execute(insertPerson.bind(person.getName(), person.getAge()));
+//      set.add(person.getName());
     }
 
     public List<Person> getPersons() {
         List<Person> persons = new ArrayList<>();
-        ResultSet results = session.execute("SELECT * FROM test.person;");
+        ResultSet results = session.execute(selectAllPersons.bind());
         for (Row row : results) {
             persons.add(new Person(row.getString("name"), row.getInt("age")));
         }
