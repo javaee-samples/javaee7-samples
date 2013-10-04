@@ -48,9 +48,7 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -67,8 +65,6 @@ public class PersonSessionBean {
 
     @Inject
     Person person;
-
-    Set<String> set = new HashSet<>();
 
     private Cluster cluster;
     private Session session;
@@ -111,7 +107,6 @@ public class PersonSessionBean {
 
     public void createPerson() {
         session.execute(insertPerson.bind(person.getName(), person.getAge()));
-//      set.add(person.getName());
     }
 
     public List<Person> getPersons() {
