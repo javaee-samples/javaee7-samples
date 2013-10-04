@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    Name: <h:inputText value="#{person.name}" size="20"/><br/>
+                    Age: <h:inputText value="#{person.age}" size="6"/><br/><br/>
+                    <h:commandButton actionListener="#{personSessionBean.createPerson()}" 
+                                     action="show" 
+                                     value="Add"/>
+                </h:form>
+                <br/>
+                <ul>
+                    <li>Make sure to <a href="http://www.apache.org/dyn/closer.cgi?path=/cassandra/2.0.1/apache-cassandra-2.0.1-bin.tar.gz">download latest Cassandra server</a> and untar.</li>
+                    <li>Follow the instructions in the bundled README.txt to start the server:
+                        <ul>
+                            <li>sudo mkdir -p /var/log/cassandra</li>
+                            <li>sudo chown -R `whoami` /var/log/cassandra</li>
+                            <li>sudo mkdir -p /var/lib/cassandra</li>
+                            <li>sudo chown -R `whoami` /var/lib/cassandra</li>
+                            <li>bin/cassandra -f</li></ul>
+                    </li>
+                    <li>Look for message as:
+                        <pre>
+INFO 16:39:08,258 Binding thrift service to localhost/127.0.0.1:9160
+INFO 16:39:08,266 Using synchronous/threadpool thrift server on localhost : 9160
+INFO 16:39:08,293 Listening for thrift clients...
+                        </pre>
+                    </li>
+                </ul>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

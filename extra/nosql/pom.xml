@@ -18,5 +18,6 @@
         <module>mongo</module>
         <module>couchbase</module>
         <module>redis</module>
+        <module>cassandra</module>
     </modules>
 </project>
