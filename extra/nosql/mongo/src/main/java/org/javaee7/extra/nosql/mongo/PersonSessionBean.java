@@ -45,21 +45,12 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
-import com.mongodb.MongoException;
-import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodProcess;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
-import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -76,39 +67,21 @@ public class PersonSessionBean {
 
     DBCollection personCollection;
 
-    private MongodExecutable mongodExe;
-    private MongodProcess mongod;
-    private final int MONGO_PORT = 12345;
-
     @PostConstruct
     private void initDB() {
-        try {
-            // Start embedded Mongo
-            MongodStarter runtime = MongodStarter.getDefaultInstance();
-            mongodExe = runtime.prepare(new MongodConfigBuilder()
-                    .version(Version.Main.PRODUCTION)
-                    .net(new Net(MONGO_PORT, Network.localhostIsIPv6()))
-                    .build());
-            mongod = mongodExe.start();
-                        
+        try {                        
             // Get an instance of Mongo
-            Mongo m = new Mongo("localhost", MONGO_PORT);
+            Mongo m = new Mongo("localhost", 27017);
             DB db = m.getDB("personDB");
             personCollection = db.getCollection("persons");
             if (personCollection == null) {
                 personCollection = db.createCollection("persons", null);
             }
-        } catch (MongoException | IOException ex) {
+        } catch (UnknownHostException ex) {
             Logger.getLogger(PersonSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    @PreDestroy
-    private void stopDB() {
-        mongod.stop();
-        mongodExe.stop();
-    }
-
     public void createPerson() {
         BasicDBObject doc = person.toDBObject();
         personCollection.insert(doc);
