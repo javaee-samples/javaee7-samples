@@ -42,9 +42,6 @@ package org.javaee7.extra.nosql.neo4j;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -78,7 +75,6 @@ public class PersonSessionBean {
     Node secondNode;
 
     private static enum RelTypes implements RelationshipType {
-
         SPOUSE, BROTHER, SISTER
     }
 
@@ -88,15 +84,13 @@ public class PersonSessionBean {
     private void initDB() {
         try {
             Path tempDir = Files.createTempDirectory("test-neo4j");
-//            Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rwxr-x---");
-//            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(perms);
-//            Files.createDirectories(DB_PATH, attr);
             graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(tempDir.toString());
             try (Transaction tx = graphDb.beginTx()) {
                 firstNode = graphDb.createNode();
                 secondNode = graphDb.createNode();
+                tx.success();
             }
-        }   catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(PersonSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -127,21 +121,24 @@ public class PersonSessionBean {
 
     public List<BackingBean> getPersons() {
         List<BackingBean> beans = new ArrayList();
-        for (String key : firstNode.getPropertyKeys()) {
-            BackingBean bean = new BackingBean();
-            Person p = Person.fromString((String)firstNode.getProperty(key));
-            bean.setName(p.getName());
-            bean.setAge(p.getAge());
-            for (Relationship r : firstNode.getRelationships(RelTypes.SPOUSE, RelTypes.SISTER, RelTypes.BROTHER)) {
-                if (r.isType(RelTypes.SPOUSE)) {
-                    bean.setRelationship("spouse");
-                } else if (r.isType(RelTypes.SISTER)) {
-                    bean.setRelationship("sister");
-                } else if (r.isType(RelTypes.BROTHER)) {
-                    bean.setRelationship("brother");
+        try (Transaction tx = graphDb.beginTx()) {
+            for (String key : firstNode.getPropertyKeys()) {
+                BackingBean bean = new BackingBean();
+                Person p = Person.fromString((String) firstNode.getProperty(key));
+                bean.setName(p.getName());
+                bean.setAge(p.getAge());
+                for (Relationship r : firstNode.getRelationships(RelTypes.SPOUSE, RelTypes.SISTER, RelTypes.BROTHER)) {
+                    if (r.isType(RelTypes.SPOUSE)) {
+                        bean.setRelationship("spouse");
+                    } else if (r.isType(RelTypes.SISTER)) {
+                        bean.setRelationship("sister");
+                    } else if (r.isType(RelTypes.BROTHER)) {
+                        bean.setRelationship("brother");
+                    }
                 }
+                beans.add(bean);
             }
-            beans.add(bean);
+            tx.success();
         }
         return beans;
     }
