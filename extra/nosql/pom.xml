@@ -19,5 +19,6 @@
         <module>couchbase</module>
         <module>redis</module>
         <module>cassandra</module>
+        <module>neo4j</module>
     </modules>
 </project>
