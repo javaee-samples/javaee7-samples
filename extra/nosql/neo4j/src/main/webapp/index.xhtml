@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    Name: <h:inputText value="#{backingBean.name}" size="20"/><br/>
+                    Age: <h:inputText value="#{backingBean.age}" size="6"/><br/><br/>
+                    Related as:             
+                    <h:selectOneRadio value="#{backingBean.relationship}">
+                        <f:selectItem itemValue="spouse" itemLabel="Spouse"/>
+                        <f:selectItem itemValue="brother" itemLabel="Brother"/>
+                        <f:selectItem itemValue="sister" itemLabel="Sister"/>                
+                    </h:selectOneRadio><br/><br/>
+
+                    Name2: <h:inputText value="#{backingBean.name2}" size="20"/><br/>
+                    Age2: <h:inputText value="#{backingBean.age2}" size="6"/><br/><br/>
+                    <h:commandButton actionListener="#{personSessionBean.createPerson()}" 
+                                     action="show" 
+                                     value="Add"/>
+                </h:form>
+                <br/>
+                Download <a href="http://www.neo4j.org/download">Neo4j Community version</a>. Untar and start the server as "bin/neo4j start".
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
