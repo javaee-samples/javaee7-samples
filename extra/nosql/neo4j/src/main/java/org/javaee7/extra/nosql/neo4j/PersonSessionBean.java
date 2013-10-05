@@ -130,10 +130,13 @@ public class PersonSessionBean {
                 for (Relationship r : firstNode.getRelationships(RelTypes.SPOUSE, RelTypes.SISTER, RelTypes.BROTHER)) {
                     if (r.isType(RelTypes.SPOUSE)) {
                         bean.setRelationship("spouse");
+                        break;
                     } else if (r.isType(RelTypes.SISTER)) {
                         bean.setRelationship("sister");
+                        break;
                     } else if (r.isType(RelTypes.BROTHER)) {
                         bean.setRelationship("brother");
+                        break;
                     }
                 }
                 beans.add(bean);
