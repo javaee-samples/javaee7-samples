@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    Name: <h:inputText value="#{person.name}" size="20"/><br/>
+                    Age: <h:inputText value="#{person.age}" size="6"/><br/><br/>
+                    <h:commandButton actionListener="#{personSessionBean.createPerson()}" 
+                                     action="show" 
+                                     value="Add"/>
+                </h:form>
+                <br/>
+                <br/><br/>
+                <ul>
+                    <li>Download <a href="http://apache.mirrors.lucidnetworks.net/hbase/stable/">HBase stable</a> and <code>tar xzvf</code>.</li>
+                    <li>Start HBase: <code>./bin/start-hbase.sh</code></li>
+                    <li>Look for messages like:<br/>
+                        starting master, logging to /Users/arungup/tools/hbase/hbase-0.94.12/bin/../logs/hbase-arungup-master-arungup-mac.local.out
+                    </li>
+                </ul>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
