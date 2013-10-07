@@ -20,5 +20,7 @@
         <module>redis</module>
         <module>cassandra</module>
         <module>neo4j</module>
+        <module>hbase</module>
+        <module>voldemort</module>
     </modules>
 </project>
