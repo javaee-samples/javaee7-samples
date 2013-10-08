@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    Name: <h:inputText value="#{person.name}" size="20"/><br/>
+                    Age: <h:inputText value="#{person.age}" size="6"/><br/><br/>
+                    <h:commandButton actionListener="#{personSessionBean.createPerson()}" 
+                                     action="show" 
+                                     value="Add"/>
+                </h:form>
+                <br/>
+                <ul>
+                    <li>Download <a href="http://docs.basho.com/riak/latest/downloads/">binary for 10.8.x</a> or <a href="http://docs.basho.com/riak/latest/ops/building/installing/mac-osx/#From-Source">build from source for 10.7.x</a>.</li>
+                </ul>
+                
+                    <ul>Build from source (<a href="http://riak-users.197444.n3.nabble.com/Riak-on-Mac-OSX-10-7-5-td4029375.html">more details</a>)
+                        <li><a href="http://docs.basho.com/riak/latest/ops/building/installing/erlang/">Install Erlang</a> (<a href="http://docs.basho.com/riak/latest/ops/building/installing/erlang/">more details</a>)</li>
+                        <ul>
+                            <li>curl -O http://erlang.org/download/otp_src_R15B01.tar.gz</li>
+                            <li>tar zxvf otp_src_R15B01.tar.gz</li>
+                            <li>cd otp_src_R15B01</li>
+                            <li>export CFLAGS=-O0</li>
+                            <li>./configure --disable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --enable-darwin-64bit</li>
+                            <li>unset CFLAGS</li>
+                            <li>make</li>
+                            <li>make install</li>
+                        </ul>
+                        <li>wget http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.2/riak-1.4.2.tar.gz</li>
+                        <li>tar zxvf riak-1.4.2.tar.gz</li>
+                        <li>cd riak-1.4.2</li>
+                        <li>make rel</li>
+                        <li>cd rel/riak</li>
+                        <li>./bin/riak start</li>
+                        <li>./bin/riak ping (to verify)</li>
+                </ul> 
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
