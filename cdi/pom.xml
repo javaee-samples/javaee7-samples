@@ -29,5 +29,6 @@
         <module>beanmanager</module>
         <module>extension</module>
         <module>scopes</module>
+        <module>alternatives</module>
     </modules>
 </project>
