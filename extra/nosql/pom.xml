@@ -22,5 +22,6 @@
         <module>neo4j</module>
         <module>hbase</module>
         <module>voldemort</module>
+        <module>riak</module>
     </modules>
 </project>
