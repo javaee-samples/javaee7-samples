@@ -81,14 +81,15 @@ public class MyItemReader extends AbstractItemReader {
             if (i < end)
                 builder.append(",");
         }
-        tokens = new StringTokenizer(builder.toString(), ",");        
+        tokens = new StringTokenizer(builder.toString(), ",");
     }
     
     @Override
     public MyInputRecord readItem() {
         if (tokens.hasMoreTokens()) {
-            System.out.format("readItem (%d): %d", context.getExecutionId(), Integer.valueOf(tokens.nextToken()));
-            return new MyInputRecord(Integer.valueOf(tokens.nextToken()));
+            int token = Integer.valueOf(tokens.nextToken());
+            System.out.format("readItem (%d): %d", context.getExecutionId(), token);
+            return new MyInputRecord(token);
         }
         return null;
     }
