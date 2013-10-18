@@ -44,7 +44,6 @@ import javax.enterprise.inject.Alternative;
 /**
  * @author Arun Gupta
  */
-@Fancy
 @Alternative
 public class FancyGreeting implements Greeting {
 
