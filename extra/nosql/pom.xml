@@ -23,6 +23,8 @@
         <module>hbase</module>
         <module>voldemort</module>
         <module>riak</module>
+<!--
         <module>oracle</module>
+-->
     </modules>
 </project>
