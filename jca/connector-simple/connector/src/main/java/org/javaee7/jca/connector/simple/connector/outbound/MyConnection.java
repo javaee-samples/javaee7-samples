@@ -62,7 +62,6 @@ public class MyConnection implements Connection {
 
     @Override
     public void close() throws ResourceException {
-        myManagedConnection;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

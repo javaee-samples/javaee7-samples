@@ -16,7 +16,9 @@
 
     <modules>
         <module>quartz</module>
+<!--
         <module>twitter-search</module>
+-->
         <module>nosql</module>
     </modules>
 </project>
