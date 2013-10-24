@@ -90,7 +90,7 @@
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.4.5-SNAPSHOT</version>
+                <version>1.4.5</version>
                 <configuration>
                     <container>
                         <dependencies>
@@ -157,7 +157,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.5-SNAPSHOT</version>
+                        <version>1.4.5</version>
                         <configuration>
                             <container>
                                 <containerId>${cargo.container.glassfish.id}</containerId>
