@@ -60,8 +60,10 @@ public class FileUploadBean {
     }
 
     public void setFile(Part file) {
+        System.out.println("Got file ...");
         this.file = file;
         if (null != file) {
+            System.out.println("... and trying to read it ...");
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
                 String string = reader.readLine();
@@ -72,12 +74,16 @@ public class FileUploadBean {
                 }
                 text = builder.toString();
             } catch (IOException ex) {
-                
+                ex.printStackTrace(System.err);
             }
+            System.out.println("... completed reading file.");
+        } else {
+            System.out.println("... but its null.");
         }
     }
 
     public String getText() {
+        System.out.println("Complete text: " + text);
         return text;
     }
 }
