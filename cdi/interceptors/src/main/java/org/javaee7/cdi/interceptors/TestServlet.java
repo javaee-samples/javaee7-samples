@@ -78,7 +78,7 @@ public class TestServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>CDI Interceptors</h1>");
             out.println(greeting.greet("Duke"));
-            out.println("<p><p>Look for output in \"server.log\".");
+            out.println("<p><p>Look for output on server with \"MyInterceptor: greet  Duke\".");
             out.println("</body>");
             out.println("</html>");
         }
