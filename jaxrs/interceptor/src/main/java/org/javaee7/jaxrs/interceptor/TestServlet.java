@@ -99,7 +99,9 @@ public class TestServlet extends HttpServlet {
                 .post(Entity.text("1"), String.class);
         out.println("Received response: " + result + "<br><br>");
         
-        out.println("Check server.log for client/server interceptor output.");
+        out.println("Check server.log for client/server interceptor output."
+                + "Only ServerWriter and ClientReader invoked for GET."
+                + "ClientWriter, ServerReader, ServerWriter, and ClientReader are invoked for POST.");
         out.println("</body>");
         out.println("</html>");
     }
