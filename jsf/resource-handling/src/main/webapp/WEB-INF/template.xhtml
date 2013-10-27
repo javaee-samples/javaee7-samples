@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>JSF Resource Handling</title>
         <h:outputScript
             name="myScript.js"
             library="scripts"
@@ -19,7 +19,7 @@
 
         <div id="top">
             <ui:insert name="top"><h1>Simple Facelet</h1>
-                <img src="#{resource['glassfish.png']}"/>
+                <img src="#{resource['wildfly.png']}"/>
             </ui:insert>
         </div>
 
@@ -28,7 +28,7 @@
         </div>
 
         <div id="bottom">
-            <ui:insert name="bottom"><center>Powered by GlassFish 4</center></ui:insert>
+            <ui:insert name="bottom"><center>Powered by WildFly</center></ui:insert>
         </div>
 
     </h:body>
