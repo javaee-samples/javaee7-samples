@@ -75,10 +75,10 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Request Binding</title>");
+        out.println("<title>Mapping Exceptions</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>Request Binding</h1>");
+        out.println("<h1>Mapping Exceptions</h1>");
         Client client = ClientBuilder.newClient();
         WebTarget target = client
                 .register(new LoggingFilter(Logger.getAnonymousLogger(), true))
