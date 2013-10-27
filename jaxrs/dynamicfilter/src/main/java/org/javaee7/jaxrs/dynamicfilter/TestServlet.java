@@ -72,10 +72,10 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet TestServlet</title>");
+        out.println("<title>Dynamic JAX-RS Filter</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+        out.println("<h1>Dynamic JAX-RS Filter</h1>");
         Client client = ClientBuilder.newClient();
 //        client.configuration().register(ClientLoggingFilter.class);
         WebTarget target = client.target("http://"
@@ -89,7 +89,9 @@ public class TestServlet extends HttpServlet {
         out.println("POSTing a request<br>");
         target.request().post(null);
         out.println("POSTed<br>");
-        out.println("Check server.log for client/server filter output. Filter output for GET only.");
+        out.println("<br><br>Check server log for server filter output. "
+                + "Look for statements starting with ContainerRequestFilter&lt;start>"
+                + "and ContainerResponseFilter&lt;start>    ");
         out.println("</body>");
         out.println("</html>");
     }
