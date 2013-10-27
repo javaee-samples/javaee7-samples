@@ -39,6 +39,7 @@
  */
 package org.javaee7.jsf.viewscoped;
 
+import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -47,7 +48,7 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class MyBean {
+public class MyBean implements Serializable {
     private int value;
 
     public int getValue() {
