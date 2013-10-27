@@ -97,7 +97,7 @@ public class TestServlet extends HttpServlet {
         out.println("Received response (POST): " + result + "<br><br>");
 
         out.println("Received response: " + result + "<br><br>");
-        out.println("Check server.log for client/server filter output.");
+        out.println("<br><br>Check server log for client/server filter output, prints headers and entity body.");
         out.println("</body>");
         out.println("</html>");
     }
