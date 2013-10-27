@@ -56,6 +56,7 @@ public class MyConverter implements Converter {
     public Object getAsObject(FacesContext context,
             UIComponent component,
             String value) {
+        System.out.println("Received: " + value);
         try {
             return new UserAge(Integer.parseInt(value.trim()));
         } catch (NumberFormatException e) {
