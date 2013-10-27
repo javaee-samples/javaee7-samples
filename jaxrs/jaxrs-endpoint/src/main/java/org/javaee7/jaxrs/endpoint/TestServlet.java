@@ -76,10 +76,10 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>JAX-RS Endpoint</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>JAX-RS Endpoint</h1>");
             Client client = ClientBuilder.newClient();
             client.register(new LoggingFilter(Logger.getAnonymousLogger(), true));
             WebTarget target = client.target("http://" 
@@ -88,6 +88,7 @@ public class TestServlet extends HttpServlet {
                     + request.getServerPort()
                     + request.getContextPath()
                     + "/webresources/fruit");
+            out.print("Got a target<br><br>");
 
             // POST
             out.print("POSTing...<br>");
