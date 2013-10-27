@@ -74,10 +74,10 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet TestServlet</title>");
+        out.println("<title>JAX-RS Reader/Writer w/ JSON</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+        out.println("<h1>JAX-RS Reader/Writer w/ JSON</h1>");
         Client client = ClientBuilder.newClient();
         client
                 .register(MyReader.class)
@@ -89,13 +89,12 @@ public class TestServlet extends HttpServlet {
                 + request.getServerPort()
                 + request.getContextPath()
                 + "/webresources/endpoint");
-        System.out.println("POST request");
+        out.println("POST request");
         MyObject mo = target
                 .request()
                 .post(Entity.entity(new MyObject("Duke", 18), MediaType.APPLICATION_JSON), MyObject.class);
         out.println("Received response: " + mo.getName() + ", " + mo.getAge() + "<br><br>");
-
-        out.println("Check server.log for client/server interceptor output.");
+        out.println("Message exchanged using application/json type.");
         out.println("</body>");
         out.println("</html>");
     }
