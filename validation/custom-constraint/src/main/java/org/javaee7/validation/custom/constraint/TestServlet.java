@@ -73,10 +73,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Custom Constraint in Bean Validation</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Custom Constraint in Bean Validation</h1>");
             out.println(bean.saveZip("95051") + "<br>");
             try {
                 out.println(bean.saveZipIndia("95051"));
