@@ -79,7 +79,7 @@ public class TestServlet extends HttpServlet {
             ELProcessor elp = new ELProcessor();
             out.println("Simple array access<br>");
             out.println((elp.eval("a = [1, 2, 3]; a[1]")) + "<br>");
-            out.println("Lamda expressions<br>");
+            out.println("Lambda expressions<br>");
             out.println(((elp.eval("((x,y) -> x+y)(4, 5)"))) + "<br>");            
             out.println("</body>");
             out.println("</html>");
