@@ -50,7 +50,7 @@
         <ui:composition template="./WEB-INF/template.xhtml">
 
             <ui:define name="content">
-                <mc:login username="#{user.name}" 
+                <mc:login name="#{user.name}" 
                           password="#{user.password}" 
                           actionListener="#{userService.register}"/>
             </ui:define>
