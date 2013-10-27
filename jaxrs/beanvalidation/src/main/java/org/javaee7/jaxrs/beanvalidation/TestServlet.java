@@ -75,10 +75,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>BeanValidation with JAX-RS</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>BeanValidation with JAX-RS</h1>");
             Client client = ClientBuilder.newClient();
             WebTarget target = client.target("http://" 
                     + request.getServerName() 
