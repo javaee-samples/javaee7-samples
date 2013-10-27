@@ -75,10 +75,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>bean-discovery-mode=all</title>");
+            out.println("<title>CDI Extension</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>bean-discovery-mode=all</h1>");
+            out.println("<h1>CDI Extension/h1>");
             out.println(greeting.greet("Duke"));
             out.println("</body>");
             out.println("</html>");
