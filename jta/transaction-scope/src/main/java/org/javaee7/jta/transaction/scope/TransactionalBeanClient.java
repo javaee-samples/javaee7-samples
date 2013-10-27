@@ -83,7 +83,7 @@ public class TransactionalBeanClient extends HttpServlet {
             bean.scenario2();
             out.println("<h2>Scenario 3: Bean outside a transaction</h2>");
             bean.scenario3();
-            out.println("Check server.log for output");
+            out.println("Check server log for output");
             out.println("</body>");
             out.println("</html>");
         }
