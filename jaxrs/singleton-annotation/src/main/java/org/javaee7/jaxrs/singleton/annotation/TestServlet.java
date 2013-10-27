@@ -75,10 +75,10 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>JAX-RS 2 Client API</title>");
+        out.println("<title>JAX-RS 2 Singleton (with annotation)</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>JAX-RS 2 Client API at " + request.getContextPath() + "</h1>");
+        out.println("<h1>JAX-RS 2 Singleton (with annotation) at " + request.getContextPath() + "</h1>");
         out.println("Initializing client...<br>");
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://"
