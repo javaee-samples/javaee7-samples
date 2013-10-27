@@ -12,9 +12,9 @@
         <java.min.version>1.7</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <cargo.container.glassfish.id>glassfish4x</cargo.container.glassfish.id>
-        <cargo.container.glassfish.home>/Users/arungup/tools/glassfish/4.0/final/glassfish4</cargo.container.glassfish.home>
+        <cargo.container.glassfish.home>/home/argupta/tools/glassfish-4.0</cargo.container.glassfish.home>
         <cargo.container.wildfly.id>wildfly8x</cargo.container.wildfly.id>
-        <cargo.container.wildfly.home>/Users/arungup/tools/wildfly/wildfly-8.0.0.Alpha4</cargo.container.wildfly.home>
+        <cargo.container.wildfly.home>/home/argupta/tools/wildfly-8.0.0.Beta1</cargo.container.wildfly.home>
         <cargo.container.tomcat.id>tomcat8x</cargo.container.tomcat.id>
         <cargo.container.weblogic.id>weblogic12x</cargo.container.weblogic.id>
         <cargo.container.weblogic.home>/Users/arungup/tools/weblogic/12c/wlserver</cargo.container.weblogic.home>
