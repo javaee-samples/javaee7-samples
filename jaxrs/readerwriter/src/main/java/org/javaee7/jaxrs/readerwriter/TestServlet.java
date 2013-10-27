@@ -100,8 +100,6 @@ public class TestServlet extends HttpServlet {
                 .request()
                 .post(Entity.text("1"), String.class);
         out.println("<br>Received response: " + fruit);
-
-        out.println("<br><br>Check \"server.log\" for client/server interceptor output.");
         out.println("</body>");
         out.println("</html>");
     }
