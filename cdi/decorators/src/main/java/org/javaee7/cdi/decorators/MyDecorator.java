@@ -54,7 +54,7 @@ public class MyDecorator implements Greeting {
     
     @Override
     public String greet(String name) {
-        return greeting.greet(name + " very much!");
+        return greeting.greet(name + " <b>very much!</b>");
     }
     
 }
