@@ -117,7 +117,7 @@ public class TestServlet extends HttpServlet {
             }
             out.println("No stack trace, right ?<p/>");
             
-            out.println("</h2>Transactional.TxType.NEVER</h2>");
+            out.println("<h2>Transactional.TxType.NEVER</h2>");
             try {
                 bean.never();
             } catch (Exception e) {
