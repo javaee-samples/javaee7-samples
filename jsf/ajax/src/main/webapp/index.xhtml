@@ -4,10 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>JSF 2 Ajax</title>
     </h:head>
     <h:body>
-        <h1>Ajax using JavaScript</h1>
+        <h1>Ajax in JSF</h1>
+        Username and password must be same for login to succeed, otherwise it fails.
+        <br/>
+        <br/>
+        <h2>Ajax using JavaScript</h2>
         <h:outputScript
             name="jsf.js"
             library="javax.faces"
@@ -24,7 +28,7 @@
                                      return false;"/>
             <h:outputText value="#{user.status}" id="status"/>
         </h:form>
-        <h1>Declarative Ajax</h1>
+        <h2>Declarative Ajax</h2>
         <h:form prependId="false">
             Name: <h:inputText value="#{user.name}" id="name2"/><br/>
             Password: <h:inputText value="#{user.password}" id="password2"/><br/>
