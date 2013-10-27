@@ -50,7 +50,7 @@
     </head>
     <body>
         <h1>CDI  Extension</h1>
-        Check "server.log" for output from the CDI extension (implemented in "extension-impl").
+        Check "server.log" for output with "CDI Extension Processing Annotation" string. The CDI extension (implemented in "extension-impl") prints all the annotations processed by CDI.
         
         <br><br>Optionally invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting</a>.
     
