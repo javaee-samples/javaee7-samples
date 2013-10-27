@@ -73,10 +73,10 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet TestServlet</title>");
+        out.println("<title>JAX-RS Client/Server Filter</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+        out.println("<h1>JAX-RS Client/Server Filter</h1>");
         Client client = ClientBuilder.newClient();
         client.register(ClientLoggingFilter.class);
         WebTarget target = client.target("http://"
@@ -97,7 +97,7 @@ public class TestServlet extends HttpServlet {
         out.println("Received response (POST): " + result + "<br><br>");
 
         out.println("Received response: " + result + "<br><br>");
-        out.println("Check server.log for client/server filter output.");
+        out.println("<br><br>Check server log for client/server filter output such as &lt;start>ClientRequestFilter and &lt;start>ContainerRequestFilter");
         out.println("</body>");
         out.println("</html>");
     }
