@@ -73,10 +73,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>CDI Decorators/title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Part of the greeting coming from Decorator</h1>");
+            out.println("<h1>Bold part of the greeting is coming from the decorator</h1>");
             out.println(greeting.greet("Duke"));
             out.println("</body>");
             out.println("</html>");
