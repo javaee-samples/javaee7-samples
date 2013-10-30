@@ -8,7 +8,7 @@
  * and Distribution License("CDDL") (collectively, the "License").  You
  * may not use this file except in compliance with the License.  You can
  * obtain a copy of the License at
- * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * http://glassfish.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  *
@@ -40,57 +40,43 @@
 package org.javaee7.jpa.jndi.context;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * @author Arun Gupta
  */
 @Entity
-@Table(name = "MOVIE_LISTENER")
+@Table(name = "EMPLOYEE_SCHEMA_GEN")
 @NamedQueries({
-    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
-    @NamedQuery(name = "Movie.findById", query = "SELECT m FROM Movie m WHERE m.id = :id"),
-    @NamedQuery(name = "Movie.findByName", query = "SELECT m FROM Movie m WHERE m.name = :name"),
-    @NamedQuery(name = "Movie.findByActors", query = "SELECT m FROM Movie m WHERE m.actors = :actors")})
-public class Movie implements Serializable {
-
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+})
+public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @NotNull
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Column(length=40)
     private String name;
     
-    @NotNull
-    @Size(min = 1, max = 200)
-    private String actors;
-
-    public Movie() {
-    }
-
-    public Movie(Integer id) {
-        this.id = id;
-    }
-
-    public Movie(Integer id, String name, String actors) {
-        this.id = id;
+    public Employee() { }
+    
+    public Employee(String name) {
         this.name = name;
-        this.actors = actors;
     }
-
-    public Integer getId() {
+    
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -100,18 +86,5 @@ public class Movie implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getActors() {
-        return actors;
-    }
-
-    public void setActors(String actors) {
-        this.actors = actors;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

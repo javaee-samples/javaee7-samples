@@ -41,14 +41,7 @@ package org.javaee7.jpa.jndi.context;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +55,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TestServlet extends HttpServlet {
 
     @EJB
-    MovieBean bean;
+    EmployeeBean bean;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -77,23 +70,19 @@ public class TestServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Context context = new InitialContext();
-            EntityManager em = (EntityManager) context.lookup("java:comp/env/persistence/myJNDI");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Getting PersistenceContext using JNDI</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Getting PersistenceContext using JNDI</h1>");
-            out.println("--> Listing movies<br>");
-            for (Movie m : bean.listMovies()) {
+            out.println("--> Listing employees<br>");
+            for (Employee m : bean.get()) {
                 out.println(m.getName() + "<br>");
             }
             out.println("</body>");
             out.println("</html>");
-        } catch (NamingException ex) {
-            Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
