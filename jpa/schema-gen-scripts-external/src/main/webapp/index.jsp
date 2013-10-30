@@ -53,10 +53,12 @@
         
         <a href="${pageContext.request.contextPath}/TestServlet"/>List</a> employees.
 
+
     <br><br>
         If you see this page, that means database tables are created 
-        using JPA 2.1 standard properties. Look for table name "EMPLOYEE_SCHEMA_GEN_SCRIPTS_EXTERNAL" in the 
-        database resource identified by "jdbc:derby://localhost:1527/sun-appserv-samples". If this application 
-        is deployed on GlassFish, then this is the default JavaDB database.
+        using JPA 2.1 standard properties. Look for table name "Employee" in the 
+        default database configured for your application server. <br><br>
+        WildFly8: in-memory database is used.<br>
+        GlassFish4: connect to "jdbc:derby://localhost:1527/sun-appserv-samples"
     </body>
 </html>
