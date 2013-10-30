@@ -56,7 +56,8 @@
     <br><br>
         If you see this page, that means database tables are created 
         using JPA 2.1 standard properties. Look for table name "Employee" in the 
-        database resource identified by "jdbc:derby://localhost:1527/sun-appserv-samples". If this application 
-        is deployed on GlassFish, then this is the default JavaDB database.
+        default database configured for your application server. <br><br>
+        For WildFly8, in-memory database is used.<br>
+        For GlassFish: connect to "jdbc:derby://localhost:1527/sun-appserv-samples"
     </body>
 </html>
