@@ -78,6 +78,7 @@ public class TestServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
 
+            bean.addMovies();
             out.println("Listing movies<br>");
             for (Movie m : bean.listMovies()) {
                 out.println(m.getName() + "<br>");
