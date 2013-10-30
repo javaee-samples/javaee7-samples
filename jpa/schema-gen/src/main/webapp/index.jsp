@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JPA 2.1 Schema Generation</title>
+        <title>JPA 2.1 Schema Generation (using metadata)</title>
     </head>
     <body>
-        <h1>JPA 2.1 Schema Generation</h1>
+        <h1>JPA 2.1 Schema Generation (using metadata)</h1>
         
         <a href="${pageContext.request.contextPath}/TestServlet"/>Create and List</a> employees.
 
