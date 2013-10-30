@@ -57,7 +57,7 @@
         If you see this page, that means database tables are created 
         using JPA 2.1 standard properties. Look for table name "Employee" in the 
         default database configured for your application server. <br><br>
-        For WildFly8, in-memory database is used.<br>
-        For GlassFish: connect to "jdbc:derby://localhost:1527/sun-appserv-samples"
+        WildFly8: in-memory database is used.<br>
+        GlassFish4: connect to "jdbc:derby://localhost:1527/sun-appserv-samples"
     </body>
 </html>
