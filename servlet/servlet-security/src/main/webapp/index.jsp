@@ -52,7 +52,10 @@
     <body>
         <h1>Servlet : Security</h1>
         
-        <p>Make sure to invoke "./bin/asadmin create-file-user --groups g1 u1" and use the password "p1" when prompted.
+        Make sure to create a user:<br><br>
+        
+        For WildFly: Invoke "./add-user.sh -g g1-u u1 -p p1"<br>
+        For GlassFish: Invoke "./bin/asadmin create-file-user --groups g1 u1" and use the password "p1" when prompted.<br><br>
         Then call the <a href="${pageContext.request.contextPath}/SecureServlet">GET</a> method.<br/>
     </body>
 </html>
