@@ -76,11 +76,14 @@ public class TestServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>File Upload Servlet</h1>");
-            out.println("Receiving the uploaded file ...");
+            out.println("Receiving the uploaded file ...<br>");
+            out.println("Received " + request.getParts().size() + " parts ...<br>");
             String fileName = "";
             for (Part part : request.getParts()) {
                 fileName = part.getSubmittedFileName();
+                out.println("... writing " + fileName + " part<br>");
                 part.write(fileName);
+                out.println("... written<br>");
             }
             out.println("... uploaded to: /tmp/" + fileName);
             out.println("</body>");
