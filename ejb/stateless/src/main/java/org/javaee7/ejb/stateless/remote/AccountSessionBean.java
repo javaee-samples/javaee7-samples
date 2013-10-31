@@ -37,18 +37,24 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.ejb.stateful.remote;
+package org.javaee7.ejb.stateless.remote;
 
-import javax.ejb.Remote;
+import javax.ejb.Stateless;
 
 /**
  * @author Arun Gupta
  */
-@Remote
-public interface Account {
+@Stateless
+public class AccountSessionBean implements Account {
 
-    public float withdraw();
+    @Override
+    public float withdraw() {
+        System.out.println("withdraw");
+        return (float)0.0;
+    }
 
-    public void deposit(float amount);
-
+    @Override
+    public void deposit(float amount) {
+        System.out.println("deposit: " + amount);
+    }
 }
