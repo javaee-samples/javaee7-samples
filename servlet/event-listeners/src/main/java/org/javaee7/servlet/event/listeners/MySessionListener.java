@@ -48,7 +48,7 @@ import javax.servlet.http.HttpSessionListener;
  *
  * @author Arun Gupta
  */
-@WebListener()
+@WebListener
 public class MySessionListener implements HttpSessionListener {
 
     @Override

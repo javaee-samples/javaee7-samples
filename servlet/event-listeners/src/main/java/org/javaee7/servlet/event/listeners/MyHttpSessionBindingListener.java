@@ -48,7 +48,7 @@ import javax.servlet.http.HttpSessionBindingListener;
  *
  * @author Arun Gupta
  */
-@WebListener()
+@WebListener
 public class MyHttpSessionBindingListener implements HttpSessionBindingListener {
 
     @Override
