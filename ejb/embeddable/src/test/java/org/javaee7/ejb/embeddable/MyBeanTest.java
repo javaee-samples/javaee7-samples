@@ -73,7 +73,7 @@ public class MyBeanTest {
     /**
      * Test of sayHello method, of class MyBean.
      */
-//    @org.junit.Test
+    @org.junit.Test
     public void testSayHello() throws Exception {
         System.out.println("sayHello");
         String name = "Duke";
