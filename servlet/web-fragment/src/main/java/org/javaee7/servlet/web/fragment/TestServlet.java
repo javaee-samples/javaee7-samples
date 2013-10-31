@@ -73,7 +73,7 @@ public class TestServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Web Fragment with output from Servlet Filter</h1>");
-            out.println("<br><br>Check \"server.log\" for output from LoggingFilter");
+            out.println("<br><br>Check server log for output from LoggingFilter");
             out.println("</body>");
             out.println("</html>");
         }

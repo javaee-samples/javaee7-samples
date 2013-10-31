@@ -51,7 +51,7 @@
     <body>
         <h1>Servlet : Web Fragment</h1>
         
-        Do you see output from Servlet Filter ?<br><br>
-        Access a <a href="${pageContext.request.contextPath}/TestServlet">Servlet</a> and check output in "server.log".
+        Do you see output from Servlet Filter (packaged in web fragment)? <br><br>
+        Access the <a href="${pageContext.request.contextPath}/TestServlet">Servlet</a> and check output in server log.
     </body>
 </html>
