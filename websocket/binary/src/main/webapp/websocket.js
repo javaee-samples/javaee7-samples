@@ -38,33 +38,89 @@
  * holder.
  */
 
-var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
-console.log("Connecting to " + wsUri);
-var websocket = new WebSocket(wsUri);
-websocket.binaryType = "arraybuffer";
-websocket.onopen = function(evt) { onOpen(evt) };
-websocket.onmessage = function(evt) { onMessage(evt) };
-websocket.onerror = function(evt) { onError(evt) };
+var wsByteArrayUri = "ws://" + document.location.host + document.location.pathname + "bytearray";
+var wsByteBufferUri = "ws://" + document.location.host + document.location.pathname + "bytebuffer";
+var wsInputStreamUri = "ws://" + document.location.host + document.location.pathname + "inputstream";
+
+console.log("Connecting to " + wsByteArrayUri);
+
+var websocketByteArray = new WebSocket(wsByteArrayUri);
+var websocketByteBuffer = new WebSocket(wsByteBufferUri);
+var websocketInputStream = new WebSocket(wsInputStreamUri);
+
+websocketByteArray.binaryType = "arraybuffer";
+websocketByteBuffer.binaryType = "arraybuffer";
+websocketInputStream.binaryType = "arraybuffer";
+
+websocketByteArray.onopen = function(evt) { onOpenByteArray(evt); };
+websocketByteArray.onmessage = function(evt) { onMessageByteArray(evt); };
+websocketByteArray.onerror = function(evt) { onError(evt); };
+
+websocketByteBuffer.onopen = function(evt) { onOpenByteBuffer(evt); };
+websocketByteBuffer.onmessage = function(evt) { onMessageByteBuffer(evt); };
+websocketByteBuffer.onerror = function(evt) { onError(evt); };
+
+websocketInputStream.onopen = function(evt) { onOpenInputStream(evt); };
+websocketInputStream.onmessage = function(evt) { onMessageInputStream(evt); };
+websocketInputStream.onerror = function(evt) { onError(evt); };
 
 var output = document.getElementById("output");
 
-function echoBinary() {
+function onOpenByteArray() {
+    console.log("onOpen (byte])");
+    writeToScreen("CONNECTED (byte[])");
+}
+
+function onOpenByteBuffer() {
+    console.log("onOpen (ByteBuffer)");
+    writeToScreen("CONNECTED (ByteBuffer)");
+}
+
+function onOpenInputStream() {
+    console.log("onOpen (InputStream)");
+    writeToScreen("CONNECTED (InputStream)");
+}
+
+function echoBinaryByteArray() {
     var buffer = new ArrayBuffer(myField.value.length);
     var bytes = new Uint8Array(buffer);
     for (var i=0; i<bytes.length; i++) {
         bytes[i] = i;
     }
-    websocket.send(buffer);
-    writeToScreen("SENT (binary): " + buffer.byteLength + " bytes");
+    websocketByteArray.send(buffer);
+    writeToScreen("SENT (byte[]): " + buffer.byteLength + " bytes");
 }
 
-function onOpen() {
-    console.log("onOpen");
-    writeToScreen("CONNECTED");
+function echoBinaryByteBuffer() {
+    var buffer = new ArrayBuffer(myField.value.length);
+    var bytes = new Uint8Array(buffer);
+    for (var i=0; i<bytes.length; i++) {
+        bytes[i] = i;
+    }
+    websocketByteBuffer.send(buffer);
+    writeToScreen("SENT (ByteBuffer): " + buffer.byteLength + " bytes");
 }
 
-function onMessage(evt) {
-    writeToScreen("RECEIVED (binary): " + evt.data);
+function echoBinaryInputStream() {
+    var buffer = new ArrayBuffer(myField.value.length);
+    var bytes = new Uint8Array(buffer);
+    for (var i=0; i<bytes.length; i++) {
+        bytes[i] = i;
+    }
+    websocketInputStream.send(buffer);
+    writeToScreen("SENT (InputStream): " + buffer.byteLength + " bytes");
+}
+
+function onMessageByteArray(evt) {
+    writeToScreen("RECEIVED (byte[]): " + evt.data);
+}
+
+function onMessageByteBuffer(evt) {
+    writeToScreen("RECEIVED (ByteBuffer): " + evt.data);
+}
+
+function onMessageInputStream(evt) {
+    writeToScreen("RECEIVED (InputStream): " + evt.data);
 }
 
 function onError(evt) {

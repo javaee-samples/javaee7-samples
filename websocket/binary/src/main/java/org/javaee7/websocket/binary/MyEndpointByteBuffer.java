@@ -1,4 +1,3 @@
-<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -38,37 +37,22 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
+package org.javaee7.websocket.binary;
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebSocket : Binary Messages</title>
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import javax.websocket.OnMessage;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
-    </head>
-    <body>
-        <h1>WebSocket : Binary Messages</h1>
-
-        <form action=""> 
-            <h2>Data is sent/received using byte[]</h2>
-            <input onclick="echoBinaryByteArray()" value="Echo" type="button"> 
-            <input id="myField" value="12345678" type="text"><br>
-        </form>
-        <form action=""> 
-            <h2>Data is sent/received using ByteBuffer</h2>
-            <input onclick="echoBinaryByteBuffer()" value="Echo" type="button"> 
-            <input id="myField" value="12345678" type="text"><br>
-        </form>
-        <form action=""> 
-            <h2>Data is sent/received using InputStream</h2>
-            <input onclick="echoBinaryInputStream()" value="Echo" type="button"> 
-            <input id="myField" value="12345678" type="text"><br>
-        </form>
-
-        <div id="output"></div>
-        <script language="javascript" type="text/javascript" src="websocket.js">
-        </script>
-    </body>
-</html>
+/**
+ * @author Arun Gupta
+ */
+@ServerEndpoint("/bytebuffer")
+public class MyEndpointByteBuffer {
+    @OnMessage
+    public void echoBinary(ByteBuffer data, Session session) throws IOException {
+        System.out.println("echoBinary (ByteBuffer): " + data);
+        session.getBasicRemote().sendBinary(data);
+    }
+}
