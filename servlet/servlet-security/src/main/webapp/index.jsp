@@ -54,7 +54,7 @@
         
         Make sure to create a user:<br><br>
         
-        For WildFly: Invoke "./add-user.sh -g g1-u u1 -p p1"<br>
+        For WildFly: Invoke "./bin/add-user.sh -a -u u1 -p p1 -g g1"<br>
         For GlassFish: Invoke "./bin/asadmin create-file-user --groups g1 u1" and use the password "p1" when prompted.<br><br>
         Then call the <a href="${pageContext.request.contextPath}/SecureServlet">GET</a> method.<br/>
     </body>
