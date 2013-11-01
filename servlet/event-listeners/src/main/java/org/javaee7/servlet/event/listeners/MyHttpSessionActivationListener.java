@@ -39,7 +39,6 @@
  */
 package org.javaee7.servlet.event.listeners;
 
-import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionEvent;
 
@@ -48,7 +47,6 @@ import javax.servlet.http.HttpSessionEvent;
  *
  * @author Arun Gupta
  */
-@WebListener
 public class MyHttpSessionActivationListener implements HttpSessionActivationListener {
 
     @Override
