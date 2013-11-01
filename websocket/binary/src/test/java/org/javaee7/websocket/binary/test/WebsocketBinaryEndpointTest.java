@@ -7,14 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
 
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
-import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 import org.javaee7.websocket.binary.MyEndpoint;
+import org.javaee7.websocket.binary.MyEndpointClient;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.TargetsContainer;
 import org.jboss.arquillian.junit.Arquillian;
@@ -53,7 +52,6 @@ public class WebsocketBinaryEndpointTest {
 	@Test 
 	public void testEndPointBinary() throws URISyntaxException, DeploymentException,IOException{
 		WebSocketContainer socketContainer = ContainerProvider.getWebSocketContainer();
-		Session session = socketContainer.connectToServer(MyEndpoint.class, new URI("ws://localhost:8080/binary/websockeet"));
-		session.getBasicRemote().sendBinary(ByteBuffer.wrap("Hello World".getBytes()));
+		socketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/websockeet"));
 	}
 }
