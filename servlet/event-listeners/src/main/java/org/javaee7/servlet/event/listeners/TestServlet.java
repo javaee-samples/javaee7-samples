@@ -92,7 +92,7 @@ public class TestServlet extends HttpServlet {
             out.println("<h2>Invalidating session</h2>");
             request.getSession().invalidate();
             out.println("done");
-            out.println("Check output in server.log");
+            out.println("<br><br>Check output in server log");
             out.println("</body>");
             out.println("</html>");
         }
