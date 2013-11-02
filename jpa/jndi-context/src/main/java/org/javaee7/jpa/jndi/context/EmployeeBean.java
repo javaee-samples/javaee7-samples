@@ -1,4 +1,3 @@
-<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -9,7 +8,7 @@
  * and Distribution License("CDDL") (collectively, the "License").  You
  * may not use this file except in compliance with the License.  You can
  * obtain a copy of the License at
- * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * http://glassfish.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  *
@@ -38,18 +37,39 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+package org.javaee7.jpa.jndi.context;
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JAX-RS 2 Singleton (using Application)</title>
-    </head>
-    <body>
-        <h1>JAX-RS 2 Singleton (using Application)</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>client</a>.
-    </body>
-</html>
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ * @author Arun Gupta
+ */
+@PersistenceContext(name = "persistence/myJNDI", unitName = "MyPU")
+@Stateless
+public class EmployeeBean {
+
+    EntityManager em;
+    
+    @PostConstruct
+    public void postConstruct() {
+        try {
+            Context context = new InitialContext();
+            em = (EntityManager) context.lookup("java:comp/env/persistence/myJNDI");
+        } catch (NamingException ex) {
+            Logger.getLogger(EmployeeBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public List<Employee> get() {
+        return em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
+    }
+}

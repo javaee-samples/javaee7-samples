@@ -37,40 +37,18 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jpa.jndi.context;
+package org.javaee7.ejb.stateless.remote;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.Remote;
 
 /**
  * @author Arun Gupta
  */
-@PersistenceContext(name = "persistence/myJNDI")
-@Stateless
-public class MovieBean {
+@Remote
+public interface Account {
 
-//    @PersistenceContext
-    EntityManager em;
+    public float withdraw();
 
-    @PostConstruct
-    public void postConstruct() {
-        try {
-            Context context = new InitialContext();
-            em = (EntityManager) context.lookup("java:comp/env/persistence/myJNDI");
-        } catch (NamingException ex) {
-            Logger.getLogger(MovieBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    public void deposit(float amount);
 
-    public List<Movie> listMovies() {
-        return em.createNamedQuery("Movie.findAll", Movie.class).getResultList();
-    }
 }

@@ -19,7 +19,7 @@
         <module>entitygraph</module>
         <module>listeners</module>
         <module>multiple-pu</module>
-        <module>schema-gen</module>
+        <module>schema-gen-metadata</module>
         <module>storedprocedure</module>
         <module>jndi-context</module>
         <module>locking-optimistic</module>

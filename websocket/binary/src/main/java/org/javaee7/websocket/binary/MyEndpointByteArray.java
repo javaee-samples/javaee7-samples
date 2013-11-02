@@ -37,24 +37,22 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.ejb.stateful.remote;
+package org.javaee7.websocket.binary;
 
-import javax.ejb.Stateless;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import javax.websocket.OnMessage;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
 /**
  * @author Arun Gupta
  */
-@Stateless
-public class AccountSessionBean implements Account {
-
-    @Override
-    public float withdraw() {
-        System.out.println("withdraw");
-        return (float)0.0;
-    }
-
-    @Override
-    public void deposit(float amount) {
-        System.out.println("deposit: " + amount);
+@ServerEndpoint("/bytearray")
+public class MyEndpointByteArray {
+    @OnMessage
+    public void echoBinary(byte[] data, Session session) throws IOException {
+        System.out.println("echoBinary (byte[]): " + data);
+        session.getBasicRemote().sendBinary(ByteBuffer.wrap(data));
     }
 }

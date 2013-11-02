@@ -37,63 +37,24 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jaxrs.singelton.application;
+package org.javaee7.ejb.stateless.remote;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.ejb.Stateless;
 
 /**
  * @author Arun Gupta
  */
-@Path("myresource")
-public class MyResource {
-    // Ideally this state should be stored in a database
-    // But this is a singleton resource and so state can be saved here too
-    List<String> strings;
-    
-    public MyResource() {
-        strings = new ArrayList<>();
-        System.out.println("******* init");
+@Stateless
+public class AccountSessionBean implements Account {
+
+    @Override
+    public float withdraw() {
+        System.out.println("withdraw");
+        return (float)0.0;
     }
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getAll() {
-        return strings.toString();
-    }
-    
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("{id}")
-    public String getString(@PathParam("id")int id) {
-        return strings.get(id);
-    }
-
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public void postString(String content) {
-        strings.add(content);
-    }
-
-    @PUT
-    @Consumes(MediaType.TEXT_PLAIN)
-    public void putToList(String content) {
-        strings.add(content);
-    }
-
-    @DELETE
-    @Path("{content}")
-    public void deleteFromList(@PathParam("content") String content) {
-        if (strings.contains(content))
-            strings.remove(content);
+    @Override
+    public void deposit(float amount) {
+        System.out.println("deposit: " + amount);
     }
 }

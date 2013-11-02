@@ -8,7 +8,7 @@
  * and Distribution License("CDDL") (collectively, the "License").  You
  * may not use this file except in compliance with the License.  You can
  * obtain a copy of the License at
- * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * http://glassfish.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  *
@@ -37,22 +37,54 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jaxrs.singelton.application;
+package org.javaee7.jpa.jndi.context;
 
-import java.util.Set;
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * @author Arun Gupta
  */
-@ApplicationPath("webresources")
-public class MyApplication extends Application {
+@Entity
+@Table(name = "EMPLOYEE_SCHEMA_GEN")
+@NamedQueries({
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+})
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    
+    @Column(length=40)
+    private String name;
+    
+    public Employee() { }
+    
+    public Employee(String name) {
+        this.name = name;
+    }
+    
+    public int getId() {
+        return id;
+    }
 
-    @Override
-    public Set<Object> getSingletons() {
-        Set<Object> resources = new java.util.HashSet<>();
-        resources.add(new MyResource());
-        return resources;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

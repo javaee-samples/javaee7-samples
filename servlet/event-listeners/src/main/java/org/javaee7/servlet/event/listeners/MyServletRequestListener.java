@@ -48,7 +48,7 @@ import javax.servlet.annotation.WebListener;
  *
  * @author Arun Gupta
  */
-@WebListener()
+@WebListener
 public class MyServletRequestListener implements ServletRequestListener {
 
     @Override

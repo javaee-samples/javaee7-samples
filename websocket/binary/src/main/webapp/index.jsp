@@ -51,13 +51,22 @@
     <body>
         <h1>WebSocket : Binary Messages</h1>
 
-        <div style="text-align: center;">
-            <form action=""> 
-                <h2>Data is sent/received using ArrayBuffer</h2>
-                <input onclick="echoBinary()" value="Echo" type="button"> 
-                <input id="myField" value="12345678" type="text"><br>
-            </form>
-        </div>
+        <form action=""> 
+            <h2>Data is sent/received using byte[]</h2>
+            <input onclick="echoBinaryByteArray()" value="Echo" type="button"> 
+            <input id="myField" value="12345678" type="text"><br>
+        </form>
+        <form action=""> 
+            <h2>Data is sent/received using ByteBuffer</h2>
+            <input onclick="echoBinaryByteBuffer()" value="Echo" type="button"> 
+            <input id="myField" value="12345678" type="text"><br>
+        </form>
+        <form action=""> 
+            <h2>Data is sent/received using InputStream</h2>
+            <input onclick="echoBinaryInputStream()" value="Echo" type="button"> 
+            <input id="myField" value="12345678" type="text"><br>
+        </form>
+
         <div id="output"></div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>

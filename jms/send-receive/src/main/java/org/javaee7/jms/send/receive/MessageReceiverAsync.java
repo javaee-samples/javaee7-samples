@@ -41,6 +41,7 @@ package org.javaee7.jms.send.receive;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -50,7 +51,10 @@ import javax.jms.TextMessage;
 /**
  * @author Arun Gupta
  */
-@MessageDriven(mappedName = "java:global/jms/myAsyncQueue")
+@MessageDriven(activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationLookup",
+            propertyValue = "java:global/jms/myAsyncQueue")
+})
 public class MessageReceiverAsync implements MessageListener {
 
     @Override

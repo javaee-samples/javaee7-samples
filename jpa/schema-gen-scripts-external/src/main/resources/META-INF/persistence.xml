@@ -9,9 +9,9 @@
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
       <property name="javax.persistence.schema-generation.create-source" value="script"/>
       <property name="javax.persistence.schema-generation.drop-source" value="script"/>
-      <property name="javax.persistence.schema-generation.create-script-source" value="file:/Users/arungup/code/workspaces/arun/javaee7-samples/samples/jpa/schema-gen-scripts-external/src/main/webapp/create.sql"/>
-      <property name="javax.persistence.schema-generation.drop-script-source" value="file:/Users/arungup/code/workspaces/arun/javaee7-samples/samples/jpa/schema-gen-scripts-external/src/main/webapp/drop.sql"/>
-      <property name="javax.persistence.sql-load-script-source" value="file:/Users/arungup/code/workspaces/arun/javaee7-samples/samples/jpa/schema-gen-scripts-external/src/main/webapp/load.sql"/>
+      <property name="javax.persistence.schema-generation.create-script-source" value="file:/home/argupta/workspaces/javaee7-samples/jpa/schema-gen-scripts-external/src/main/webapp/create.sql"/>
+      <property name="javax.persistence.schema-generation.drop-script-source" value="file:/home/argupta/workspaces/javaee7-samples/jpa/schema-gen-scripts-external/src/main/webapp/drop.sql"/>
+      <property name="javax.persistence.sql-load-script-source" value="file:/home/argupta/workspaces/javaee7-samples/jpa/schema-gen-scripts-external/src/main/webapp/load.sql"/>
       <property name="eclipselink.logging.level" value="FINE"/>
     </properties>
   </persistence-unit>
