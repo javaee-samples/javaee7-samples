@@ -12,8 +12,10 @@ import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
 import javax.websocket.WebSocketContainer;
 
-import org.javaee7.websocket.binary.MyEndpoint;
+import org.javaee7.websocket.binary.MyEndpointByteArray;
+import org.javaee7.websocket.binary.MyEndpointByteBuffer;
 import org.javaee7.websocket.binary.MyEndpointClient;
+import org.javaee7.websocket.binary.MyEndpointInputStream;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.TargetsContainer;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,7 +29,7 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-public class WebsocketBinaryEndpointTest {
+public class WebsocketByteBufferEndpointTest {
 	private static final String WEBAPP_SRC = "src/main/webapp";
 	
 	/**
@@ -37,21 +39,23 @@ public class WebsocketBinaryEndpointTest {
 	@Deployment(testable = false) @TargetsContainer("wildfly-arquillian")
 	public static WebArchive createDeployment(){
 		WebArchive war = ShrinkWrap.create(WebArchive.class).
-				addClass(MyEndpoint.class).
+				addClass(MyEndpointByteBuffer.class).
+				addClass(MyEndpointByteArray.class).
+				addClass(MyEndpointInputStream.class).
 				addAsWebResource(new File(WEBAPP_SRC,"index.jsp")).
 				addAsWebResource(new File(WEBAPP_SRC,"websocket.js"));
 		return war;
 	}
 	
 	/**
-	 * The basic test method for the class {@link MyEndpoint}
+	 * The basic test method for the class {@link MyEndpointByteBuffer}
 	 * @throws URISyntaxException
 	 * @throws DeploymentException
 	 * @throws IOException
 	 */
 	@Test 
-	public void testEndPointBinary() throws URISyntaxException, DeploymentException,IOException{
-		WebSocketContainer socketContainer = ContainerProvider.getWebSocketContainer();
-		socketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/websockeet"));
+	public void testEndPointByteBuffer() throws URISyntaxException, DeploymentException,IOException{
+		WebSocketContainer wSocketContainer = ContainerProvider.getWebSocketContainer();
+		wSocketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/websockeet"));
 	}
 }
