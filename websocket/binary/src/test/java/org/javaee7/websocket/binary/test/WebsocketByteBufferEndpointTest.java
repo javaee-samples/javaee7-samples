@@ -61,6 +61,6 @@ public class WebsocketByteBufferEndpointTest {
     @Test
     public void testEndPointByteBuffer() throws URISyntaxException, DeploymentException, IOException {
         WebSocketContainer wSocketContainer = ContainerProvider.getWebSocketContainer();
-        wSocketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/websockeet"));
+        wSocketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/bytearray"));
     }
 }
