@@ -37,7 +37,6 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
 package org.javaee7.jaxrs.endpoint;
 
 import java.io.IOException;
@@ -61,9 +60,8 @@ import org.glassfish.jersey.filter.LoggingFilter;
 public class TestServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -73,62 +71,60 @@ public class TestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>JAX-RS Endpoint</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>JAX-RS Endpoint</h1>");
-            Client client = ClientBuilder.newClient();
-            client.register(new LoggingFilter(Logger.getAnonymousLogger(), true));
-            WebTarget target = client.target("http://" 
-                    + request.getServerName() 
-                    + ":"
-                    + request.getServerPort()
-                    + request.getContextPath()
-                    + "/webresources/fruit");
-            out.print("Got a target<br><br>");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>JAX-RS Endpoint</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>JAX-RS Endpoint</h1>");
+        Client client = ClientBuilder.newClient();
+        client.register(new LoggingFilter(Logger.getAnonymousLogger(), true));
+        WebTarget target = client.target("http://"
+                + request.getServerName()
+                + ":"
+                + request.getServerPort()
+                + request.getContextPath()
+                + "/webresources/fruit");
+        out.print("Got a target<br><br>");
 
-            // POST
-            out.print("POSTing...<br>");
-            target.request().post(Entity.text("apple"));
-            out.format("POSTed %1$s ...<br>", "apple");
+        // POST
+        out.print("POSTing...<br>");
+        target.request().post(Entity.text("apple"));
+        out.format("POSTed %1$s ...<br>", "apple");
 
-            // PUT
-            out.print("<br>PUTing...<br>");
-            target.request().put(Entity.text("banana"));
-            out.format("PUTed %1$s ...<br>", "banana");
+        // PUT
+        out.print("<br>PUTing...<br>");
+        target.request().put(Entity.text("banana"));
+        out.format("PUTed %1$s ...<br>", "banana");
 
-            // GET (all)
-            out.print("<br>GETing...<br>");
-            String r = target.request().get(String.class);
-            out.format("GETed %1$s items ...<br>", r);
+        // GET (all)
+        out.print("<br>GETing...<br>");
+        String r = target.request().get(String.class);
+        out.format("GETed %1$s items ...<br>", r);
 
-            // GET (one)
-            out.print("<br>GETing...<br>");
-            r = target.path("apple").request().get(String.class);
-            out.format("GETed %1$s items ...<br>", r);
+        // GET (one)
+        out.print("<br>GETing...<br>");
+        r = target.path("apple").request().get(String.class);
+        out.format("GETed %1$s items ...<br>", r);
 
-            // DELETE
-            out.print("<br>DELETEing...<br>");
-            target.path("banana").request().delete();
-            out.format("DELETEed %1$s items ...<br>", "banana");
+        // DELETE
+        out.print("<br>DELETEing...<br>");
+        target.path("banana").request().delete();
+        out.format("DELETEed %1$s items ...<br>", "banana");
 
-            // GET (all)
-            out.print("<br>GETing...<br>");
-            r = target.request().get(String.class);
-            out.format("GETed %1$s items ...<br>", r);
-            
-            out.println("</body>");
-            out.println("</html>");
-        }
+        // GET (all)
+        out.print("<br>GETing...<br>");
+        r = target.request().get(String.class);
+        out.format("GETed %1$s items ...<br>", r);
+
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -142,8 +138,7 @@ public class TestServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
