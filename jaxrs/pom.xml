@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
     <name>Java EE 7 JAX-RS Samples</name>
     
-    <dependencies>
+<!--    <dependencies>
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-common</artifactId>
@@ -22,7 +22,7 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
-    </dependencies>
+    </dependencies>-->
 
 
     <modules>
