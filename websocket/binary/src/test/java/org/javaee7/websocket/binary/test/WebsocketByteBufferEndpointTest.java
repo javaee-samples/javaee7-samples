@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.javaee7.websocket.binary.test;
 
@@ -30,32 +30,37 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class WebsocketByteBufferEndpointTest {
-	private static final String WEBAPP_SRC = "src/main/webapp";
-	
-	/**
-	 * Arquillian specific method for creating a file which can be deployed while executing the test.
-	 * @return a war file
-	 */
-	@Deployment(testable = false) @TargetsContainer("wildfly-arquillian")
-	public static WebArchive createDeployment(){
-		WebArchive war = ShrinkWrap.create(WebArchive.class).
-				addClass(MyEndpointByteBuffer.class).
-				addClass(MyEndpointByteArray.class).
-				addClass(MyEndpointInputStream.class).
-				addAsWebResource(new File(WEBAPP_SRC,"index.jsp")).
-				addAsWebResource(new File(WEBAPP_SRC,"websocket.js"));
-		return war;
-	}
-	
-	/**
-	 * The basic test method for the class {@link MyEndpointByteBuffer}
-	 * @throws URISyntaxException
-	 * @throws DeploymentException
-	 * @throws IOException
-	 */
-	@Test 
-	public void testEndPointByteBuffer() throws URISyntaxException, DeploymentException,IOException{
-		WebSocketContainer wSocketContainer = ContainerProvider.getWebSocketContainer();
-		wSocketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/websockeet"));
-	}
+
+    private static final String WEBAPP_SRC = "src/main/webapp";
+
+    /**
+     * Arquillian specific method for creating a file which can be deployed
+     * while executing the test.
+     *
+     * @return a war file
+     */
+    @Deployment(testable = false)
+    @TargetsContainer("wildfly-arquillian")
+    public static WebArchive createDeployment() {
+        WebArchive war = ShrinkWrap.create(WebArchive.class).
+                addClass(MyEndpointByteBuffer.class).
+                addClass(MyEndpointByteArray.class).
+                addClass(MyEndpointInputStream.class).
+                addAsWebResource(new File(WEBAPP_SRC, "index.jsp")).
+                addAsWebResource(new File(WEBAPP_SRC, "websocket.js"));
+        return war;
+    }
+
+    /**
+     * The basic test method for the class {@link MyEndpointByteBuffer}
+     *
+     * @throws URISyntaxException
+     * @throws DeploymentException
+     * @throws IOException
+     */
+    @Test
+    public void testEndPointByteBuffer() throws URISyntaxException, DeploymentException, IOException {
+        WebSocketContainer wSocketContainer = ContainerProvider.getWebSocketContainer();
+        wSocketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/websockeet"));
+    }
 }
