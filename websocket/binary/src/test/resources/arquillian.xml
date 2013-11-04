@@ -5,7 +5,7 @@
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 	<defaultProtocol type="Servlet 3.0" />
 	<engine>
-		<property name="deploymentExportPath">${serverRoot}/deployments</property>
+		<property name="deploymentExportPath">${serverRoot}/standalone/deployments</property>
 	</engine>
 	<extension qualifier="${browser}" />
 	<container qualifier="wildfly-arquillian" default="true" mode="suite">
