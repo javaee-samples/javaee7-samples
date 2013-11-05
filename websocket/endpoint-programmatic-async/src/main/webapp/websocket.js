@@ -45,11 +45,11 @@ var websocket = new WebSocket(wsUri);
 var websocket2 = new WebSocket(wsUri2);
 
 websocket.onopen = function() { onOpen("handler") };
-websocket.onmessage = function(evt) { onMessage(evt) };
+websocket.onmessage = function(evt) { onMessageHandler(evt) };
 websocket.onerror = function(evt) { onError(evt) };
 
 websocket2.onopen = function() { onOpen("future") };
-websocket2.onmessage = function(evt) { onMessage(evt) };
+websocket2.onmessage = function(evt) { onMessageFuture(evt) };
 websocket2.onerror = function(evt) { onError(evt) };
 
 var output = document.getElementById("output");
@@ -57,16 +57,22 @@ var output = document.getElementById("output");
 function echoText() {
     console.log("echoText: " + myField.value);
     websocket.send(myField.value);
+    writeToScreen("SENT (handler): " + myField.value);
+    
     websocket2.send(myField.value);
-    writeToScreen("SENT (text): " + myField.value);
+    writeToScreen("SENT (future): " + myField.value);
 }
 
 function onOpen(evt) {
     writeToScreen("CONNECTED (" + evt + ")");
 }
 
-function onMessage(evt) {
-    writeToScreen("RECEIVED: " + evt.data);
+function onMessageHandler(evt) {
+    writeToScreen("RECEIVED (handler): " + evt.data);
+}
+
+function onMessageFuture(evt) {
+    writeToScreen("RECEIVED (future): " + evt.data);
 }
 
 function onError(evt) {
