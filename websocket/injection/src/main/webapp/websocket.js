@@ -42,7 +42,7 @@ var wsEJBUri = "ws://" + document.location.host + document.location.pathname + "
 console.log("Connecting to " + wsEJBUri);
 var websocketEJB = new WebSocket(wsEJBUri);
 websocketEJB.onopen = function(evt) { onOpenEJB(evt); };
-websocketEJB.onmessage = function(evt) { onMessage(evt); };
+websocketEJB.onmessage = function(evt) { onMessageEJB(evt); };
 websocketEJB.onerror = function(evt) { onError(evt); };
 
 
@@ -50,7 +50,7 @@ var wsCDIUri = "ws://" + document.location.host + document.location.pathname + "
 console.log("Connecting to " + wsCDIUri);
 var websocketCDI = new WebSocket(wsCDIUri);
 websocketCDI.onopen = function(evt) { onOpenCDI(evt); };
-websocketCDI.onmessage = function(evt) { onMessage(evt); };
+websocketCDI.onmessage = function(evt) { onMessageCDI(evt); };
 websocketCDI.onerror = function(evt) { onError(evt); };
 
 var output = document.getElementById("output");
@@ -73,8 +73,12 @@ function onOpenCDI() {
     writeToScreen("CONNECTED (cdi)");
 }
 
-function onMessage(evt) {
-    writeToScreen("RECEIVED (text): " + evt.data);
+function onMessageEJB(evt) {
+    writeToScreen("RECEIVED (ejb): " + evt.data);
+}
+
+function onMessageCDI(evt) {
+    writeToScreen("RECEIVED (cdi): " + evt.data);
 }
 
 function onError(evt) {
