@@ -24,6 +24,19 @@
         </dependency>
     </dependencies>-->
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>3.0.4.Final</version>
+            <scope>test</scope>
+        </dependency>
+<!--        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.3</version>
+        </dependency>-->
+    </dependencies>
 
     <modules>
         <module>async-client</module>
