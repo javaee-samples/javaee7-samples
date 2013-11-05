@@ -78,9 +78,9 @@ public class TestServlet extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>Stateless Bean (with Interface)</h1>");
-        out.println("<h2>Withdraw/Deposit</h2>");
-        bean.deposit((float) 10.0);
-        out.println("Withdrawn : " + bean.withdraw());
+        out.println("<h2>Withdraw and Deposit</h2>");
+        out.println(bean.deposit((float) 5.0));
+        out.println(bean.withdraw((float) 5.0));
         out.println("</body>");
         out.println("</html>");
     }

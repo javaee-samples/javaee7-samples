@@ -47,8 +47,8 @@ import javax.ejb.Remote;
 @Remote
 public interface Account {
 
-    public float withdraw();
+    public String withdraw(float amount);
 
-    public void deposit(float amount);
+    public String deposit(float amount);
 
 }
