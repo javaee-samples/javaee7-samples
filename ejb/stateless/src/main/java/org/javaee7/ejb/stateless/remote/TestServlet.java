@@ -53,9 +53,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/TestServletWithInterface"})
 public class TestServlet extends HttpServlet {
-    
+
     // Cannot be injected using @Inject
-    @EJB Account bean;
+    @EJB
+    Account bean;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -69,20 +70,19 @@ public class TestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Stateless Bean (with Interface)</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Stateless Bean (with Interface)</h1>");
-            out.println("<h2>Withdraw/Deposit</h2>");
-            bean.deposit((float)10.0);
-            out.println("Withdrawn : " + bean.withdraw());
-            out.println("</body>");
-            out.println("</html>");
-        }
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Stateless Bean (with Interface)</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>Stateless Bean (with Interface)</h1>");
+        out.println("<h2>Withdraw/Deposit</h2>");
+        bean.deposit((float) 10.0);
+        out.println("Withdrawn : " + bean.withdraw());
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
