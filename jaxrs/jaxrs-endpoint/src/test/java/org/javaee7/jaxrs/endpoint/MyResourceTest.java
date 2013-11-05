@@ -6,8 +6,6 @@
 
 package org.javaee7.jaxrs.endpoint;
 
-import java.io.File;
-import java.util.logging.Logger;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -36,7 +34,7 @@ public class MyResourceTest {
      *
      * @return a war file
      */
-//    @Deployment
+    @Deployment
 //    @TargetsContainer("wildfly-arquillian")
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
