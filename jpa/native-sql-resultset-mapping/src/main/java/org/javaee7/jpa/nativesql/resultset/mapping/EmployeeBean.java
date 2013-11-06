@@ -58,6 +58,6 @@ public class EmployeeBean {
     }
     
     public List<Employee> get() {
-        return em.createNativeQuery("select * from EMPLOYEE_NATIVE_SQL", "myMapping").getResultList();
+        return em.createNativeQuery("select * from EMPLOYEE_NATIVE_SQL_RESULTSET_MAPPING", "myMapping").getResultList();
     }
 }
