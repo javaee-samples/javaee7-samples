@@ -60,10 +60,8 @@ public class MyResourceTest {
      */
     @Test
     public void test1Post() {
-        System.out.println("POST");
         target.request().post(Entity.text("apple"));
         String r = target.request().get(String.class);
-        System.out.println(r);
         assertEquals("[apple]", r);
     }
 
@@ -72,10 +70,8 @@ public class MyResourceTest {
      */
     @Test
     public void test2Put() {
-        System.out.println("PUT");
         target.request().put(Entity.text("banana"));
         String r = target.request().get(String.class);
-        System.out.println(r);
         assertEquals("[apple, banana]", r);
     }
 
@@ -84,9 +80,7 @@ public class MyResourceTest {
      */
     @Test
     public void test3GetAll() {
-        System.out.println("GET All");
         String r = target.request().get(String.class);
-        System.out.println(r);
         assertEquals("[apple, banana]", r);
     }
 
@@ -95,9 +89,7 @@ public class MyResourceTest {
      */
     @Test
     public void test4GetOne() {
-        System.out.println("GET One");
         String r = target.path("apple").request().get(String.class);
-        System.out.println(r);
         assertEquals("apple", r);
     }
 
@@ -106,11 +98,12 @@ public class MyResourceTest {
      */
     @Test
     public void test5Delete() {
-        System.out.println("DELETE");
         target.path("banana").request().delete();
         String r = target.request().get(String.class);
-        System.out.println(r);
         assertEquals("[apple]", r);
+        
+        target.path("apple").request().delete();
+        r = target.request().get(String.class);
+        assertEquals("[]", r);
     }
-
 }
