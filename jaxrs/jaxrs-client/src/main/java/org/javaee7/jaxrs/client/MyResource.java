@@ -39,8 +39,6 @@
  */
 package org.javaee7.jaxrs.client;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -64,20 +62,17 @@ public class MyResource {
     @GET
     @Produces({"application/xml", "application/json"})
     public Person[] getList() {
-        Person[] list = new Person[3];
-        list[0] = new Person("Name1", 1);
-        list[1] = new Person("Name2", 2);
-        list[2] = new Person("Name3", 3);
-        
-        return list;
-//        return bean.getPersons().toArray(new Person[0]);
+        return bean.getPersons().toArray(new Person[0]);
     }
     
     @GET
     @Produces({"application/json", "application/xml"})
     @Path("{id}")
-    public Person getPerson(@PathParam("id")String id) {
-        return new Person("Name" + id, Integer.valueOf(id));
+    public Person getPerson(@PathParam("id")int id) {
+        if (id < bean.getPersons().size())
+            return bean.getPersons().get(id);
+        else
+            return null;
     }
 
     @POST
@@ -85,7 +80,6 @@ public class MyResource {
     public void addToList(@FormParam("name") String name, @FormParam("age") int age) {
         System.out.println("Creating a new item: " + name);
         bean.addPerson(new Person(name, age));
-//        System.out.format("List has %1$s item(s)", list.size());
     }
 
     @PUT
