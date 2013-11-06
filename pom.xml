@@ -183,9 +183,6 @@
 	<profiles>
 		<profile>
 			<id>glassfish</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -285,8 +282,10 @@
 		</profile>
 		<profile>
 			<id>wildfly-arquillian</id>
+			<activation>
+			 <activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
-				<browser>chromium-browser</browser>
 				<serverProfile>standalone-full.xml</serverProfile>
 				<serverRoot>/opt/programs/wildfly-8.0.0.Beta1</serverRoot>
 			</properties>

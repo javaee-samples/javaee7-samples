@@ -3,12 +3,13 @@
  */
 package org.javaee7.websocket.binary.test;
 
+import io.undertow.websockets.jsr.UndertowContainerProvider;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
@@ -32,7 +33,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class WebsocketByteBufferEndpointTest {
+public class WebsocketBinaryEndpointTest {
 	private static final String WEBAPP_SRC = "src/main/webapp";
 
 	/**
@@ -48,6 +49,7 @@ public class WebsocketByteBufferEndpointTest {
 				.addClass(MyEndpointByteBuffer.class)
 				.addClass(MyEndpointByteArray.class)
 				.addClass(MyEndpointInputStream.class)
+				.addClass(MyEndpointClient.class)
 				.addAsWebResource(new File(WEBAPP_SRC, "index.jsp"))
 				.addAsWebResource(new File(WEBAPP_SRC, "websocket.js"));
 		return war;
@@ -105,7 +107,7 @@ public class WebsocketByteBufferEndpointTest {
 	 * @throws URISyntaxException
 	 */
 	public Session connectToServer(String endpoint) throws DeploymentException,	IOException, URISyntaxException {
-		WebSocketContainer wSocketContainer = ContainerProvider.getWebSocketContainer();
+		WebSocketContainer wSocketContainer = UndertowContainerProvider.getWebSocketContainer();
 		return wSocketContainer.connectToServer(MyEndpointClient.class,	new URI("ws://localhost:8080/binary/" + endpoint));
 	}
 }
