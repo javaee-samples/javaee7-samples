@@ -66,7 +66,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<pluginRepositories>
 		<pluginRepository>
 			<id>codehaus-snapshots</id>
@@ -179,7 +178,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 	<profiles>
 		<profile>
 			<id>glassfish</id>
@@ -283,7 +281,7 @@
 		<profile>
 			<id>wildfly-arquillian</id>
 			<activation>
-			 <activeByDefault>true</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<serverProfile>standalone-full.xml</serverProfile>
@@ -410,4 +408,3 @@
 	</prerequisites>
 
 </project>
-

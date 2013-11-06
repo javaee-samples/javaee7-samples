@@ -45,16 +45,15 @@ import javax.ejb.Stateless;
  * @author Arun Gupta
  */
 @Stateless
-public class AccountSessionBean implements Account {
+public class AccountSessionBeanWithInterface implements Account {
 
     @Override
-    public float withdraw() {
-        System.out.println("withdraw");
-        return (float)0.0;
+    public String withdraw(float amount) {
+        return "Withdrawn: " + amount;
     }
 
     @Override
-    public void deposit(float amount) {
-        System.out.println("deposit: " + amount);
+    public String deposit(float amount) { 
+        return "Deposited: " + amount;
     }
 }

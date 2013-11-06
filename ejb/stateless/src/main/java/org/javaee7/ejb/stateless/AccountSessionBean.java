@@ -47,13 +47,11 @@ import javax.ejb.Stateless;
 @Stateless
 public class AccountSessionBean {
 
-    public float withdraw() {
-        System.out.println("withdraw");
-        
-        return (float)0.0;
+    public String withdraw(float amount) {
+        return "Withdrawn: " + amount;
     }
 
-    public void deposit(float amount) { 
-        System.out.println("deposit");
+    public String deposit(float amount) { 
+        return "Deposited: " + amount;
     }
 }
