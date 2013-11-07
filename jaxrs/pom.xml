@@ -8,6 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <groupId>org.javaee7.jaxrs</groupId>
     <artifactId>jaxrs-samples</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 JAX-RS Samples</name>
@@ -39,6 +40,4 @@
         <module>singleton-annotation</module>
         <module>readerwriter-injection</module>
     </modules>
-
-    <groupId>org.javaee7.jaxrs</groupId>
 </project>
