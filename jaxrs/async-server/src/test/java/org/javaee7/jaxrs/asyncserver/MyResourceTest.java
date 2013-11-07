@@ -19,9 +19,6 @@ import static org.junit.Assert.*;
 public class MyResourceTest {
     private static WebTarget target;
     
-    public MyResourceTest() {
-    }
-    
     @BeforeClass
     public static void setUpClass() {
         Client client = ClientBuilder.newClient();
