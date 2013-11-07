@@ -58,8 +58,12 @@ public class ServerLoggingFilter implements ContainerRequestFilter, ContainerRes
         System.out.println("ContainerRequestFilter<start>");
         System.out.println(crc.getMethod() + " " + crc.getUriInfo().getAbsolutePath());
         for (String key : crc.getHeaders().keySet()) {
-            System.out.println(key + ": " + crc.getHeaders().get(key));
+            System.out.println("<header(request> " + key + ": " + crc.getHeaders().get(key));
         }
+        
+        // add a header, check in test
+        crc.getHeaders().add("myHeader", "myValue");
+        
         System.out.println("ContainerRequestFilter<end>");
     }
 
@@ -67,7 +71,7 @@ public class ServerLoggingFilter implements ContainerRequestFilter, ContainerRes
     public void filter(ContainerRequestContext crc, ContainerResponseContext crc1) throws IOException {
         System.out.println("ContainerResponseFilter<start>");
         for (String key : crc1.getHeaders().keySet()) {
-            System.out.println(key + ": " + crc1.getHeaders().get(key));
+            System.out.println("<header> " + key + ": " + crc1.getHeaders().get(key));
         }
         System.out.println("ContainerResponseFilter<end>");
     }
