@@ -5,23 +5,20 @@
  */
 package org.javaee7.servlet.metadata.complete;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebConversation;
+import com.meterware.httpunit.WebResponse;
 import java.io.File;
-import java.io.PrintWriter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.TargetsContainer;
-import org.jboss.arquillian.junit.Arquillian;
+import java.io.IOException;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
+import org.xml.sax.SAXException;
 
 /**
  * @author Arun Gupta
  */
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class TestServletTest {
     
     private static final String WEBAPP_SRC = "src/main/webapp";
@@ -32,8 +29,8 @@ public class TestServletTest {
      *
      * @return a war file
      */
-    @Deployment(testable = false)
-    @TargetsContainer("wildfly-arquillian")
+//    @Deployment(testable = false)
+//    @TargetsContainer("wildfly-arquillian")
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
                 addClass(TestServlet.class).
@@ -46,13 +43,10 @@ public class TestServletTest {
      * Test of processRequest method, of class TestServlet.
      */
     @Test
-    public void testProcessRequest() throws Exception {
-        System.out.println("processRequest");
-        HttpServletRequest request = null;
-        HttpServletResponse response = null;
-        TestServlet instance = new TestServlet();
-        instance.processRequest(request, response);
-        PrintWriter writer = response.getWriter();
-//        response.
+    public void testProcessRequest() throws IOException, SAXException {
+        WebConversation conv = new WebConversation();
+        GetMethodWebRequest getRequest = new GetMethodWebRequest("http://localhost:8080/metadata-complete/TestServlet");
+        WebResponse getResponse = conv.getResponse(getRequest);
+        System.out.println(getResponse.getText());
     }
 }
