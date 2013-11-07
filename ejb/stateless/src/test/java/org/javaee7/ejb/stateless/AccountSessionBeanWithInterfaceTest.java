@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 /**
  * @author Arun Gupta
  */
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class AccountSessionBeanWithInterfaceTest {
     @EJB Account bean;
     
@@ -30,8 +30,8 @@ public class AccountSessionBeanWithInterfaceTest {
      *
      * @return a war file
      */
-    @Deployment
-    @TargetsContainer("wildfly-arquillian")
+//    @Deployment
+//    @TargetsContainer("wildfly-arquillian")
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
                 addClass(AccountSessionBean.class);
@@ -44,7 +44,6 @@ public class AccountSessionBeanWithInterfaceTest {
      */
     @Test
     public void testWithdraw() {
-        System.out.println("withdraw");
         String result = bean.withdraw((float)5.0);
         assertEquals("Withdrawn: 5.0", result);
     }
@@ -54,8 +53,7 @@ public class AccountSessionBeanWithInterfaceTest {
      */
     @Test
     public void testDeposit() {
-        System.out.println("deposit");
-        String result = bean.withdraw((float)10.0);
+            String result = bean.withdraw((float)10.0);
         assertEquals("Deposited: 10.0", result);
     }
     
