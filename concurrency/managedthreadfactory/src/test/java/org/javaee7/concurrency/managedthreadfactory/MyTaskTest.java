@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javaee7.concurrency.manageablethread;
+package org.javaee7.concurrency.managedthreadfactory;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedThreadFactory;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

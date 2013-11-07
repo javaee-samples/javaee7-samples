@@ -37,15 +37,12 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.concurrency.manageablethread;
+package org.javaee7.concurrency.managedthreadfactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedThreadFactory;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,8 +52,12 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestJNDIServlet"})
-public class TestJNDIServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/TestResourceNoNameServlet"})
+public class TestResourceNoNameServlet extends HttpServlet {
+
+    @Resource
+    ManagedThreadFactory factory;
+    
 
     /**
      * Processes requests for both HTTP
@@ -72,27 +73,18 @@ public class TestJNDIServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestJNDIServlet</title>");
+            out.println("<title>Getting ManagedThreadFactory using @Resource with no name</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Getting ManagedThreadFactory using JNDI lookup</h1>");
-            try {
-                InitialContext ctx = new InitialContext();
-                
-                ManagedThreadFactory factory = (ManagedThreadFactory) ctx.lookup("java:comp/DefaultManagedThreadFactory");
-//                ManagedExecutorService executor = (ManagedExecutorService) ctx.lookup("concurrent/myExecutor");
-                out.println("Getting ManageableThread<br>");
-                Thread thread = factory.newThread(new MyTask(2));
-                out.println("Starting thread<br>");
-                thread.start();
-                out.println("Thread started<br><br>");
-            } catch (NamingException ex) {
-                Logger.getLogger(TestResourceServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            out.println("all tasks submitted<br/><br/>");
+            out.println("<h1>Getting ManagedThreadFactory using @Resource with no name</h1>");
+
+            out.println("Getting ManageableThread<br>");
+            Thread thread = factory.newThread(new MyTask(1));
+            out.println("Starting thread<br>");
+            thread.start();
+            out.println("Thread started<br><br>");
             out.println("Check server.log for output from the task.");
             out.println("</body>");
             out.println("</html>");
@@ -139,4 +131,5 @@ public class TestJNDIServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
