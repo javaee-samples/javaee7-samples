@@ -72,10 +72,10 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet TestServlet</title>");            
+        out.println("<title>JAX-RS Async Server</title>");            
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+        out.println("<h1>JAX-RS Async Server</h1>");
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://" 
                 + request.getServerName() 
