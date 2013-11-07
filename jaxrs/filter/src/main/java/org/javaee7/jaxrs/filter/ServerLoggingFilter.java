@@ -65,6 +65,7 @@ public class ServerLoggingFilter implements ContainerRequestFilter, ContainerRes
         for (String key : crc.getHeaders().keySet()) {
             System.out.println(key + ": " + crc.getHeaders().get(key));
         }
+        crc.getHeaders().add("serverHeader", "serverHeaderValue");
         System.out.println("<end>ContainerRequestFilter");
     }
 

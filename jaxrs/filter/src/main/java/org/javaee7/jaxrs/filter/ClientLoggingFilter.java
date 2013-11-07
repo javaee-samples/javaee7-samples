@@ -58,6 +58,7 @@ public class ClientLoggingFilter implements ClientRequestFilter, ClientResponseF
         for (Entry e : crc.getHeaders().entrySet()) {
             System.out.print(e.getKey() + ": " + e.getValue());
         }
+        crc.getHeaders().add("clientHeader", "clientHeaderValue");
         System.out.println("<end>ClientRequestFilter");
     }
 
