@@ -6,15 +6,17 @@
 
 package org.javaee7.jaxrs.client.negotiation;
 
+import java.io.IOException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import org.custommonkey.xmlunit.XMLAssert;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.xml.sax.SAXException;
 
 /**
  * @author Arun Gupta
@@ -31,15 +33,15 @@ public class MyResourceTest {
     }
 
     @Test
-    public void testXML() {
+    public void testXML() throws SAXException, IOException {
         String xml = target.request("application/xml").get(String.class);
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><people><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></people>", xml);
+        XMLAssert.assertXMLEqual("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><people><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></people>", xml);
     }
 
     @Test
-    public void testJSON() {
+    public void testJSON() throws JSONException {
         String json = target.request("application/json").get(String.class);
-        assertEquals("[{\"age\":1,\"name\":\"Penny\"},{\"age\":2,\"name\":\"Leonard\"},{\"age\":3,\"name\":\"Sheldon\"}]", json);
+        JSONAssert.assertEquals("[{\"age\":1,\"name\":\"Penny\"},{\"age\":2,\"name\":\"Leonard\"},{\"age\":3,\"name\":\"Sheldon\"}]", json, false);
     }
     
 }
