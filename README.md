@@ -6,30 +6,47 @@ I don't plan to write any formal documentation, read the code. The [Java EE 7 Es
 
 ## How to run ? ##
 
-### How I run them ? ###
+### Maven Plugins ###
 
-1. Open the sample in [NetBeans 7.4 nightly](http://bits.netbeans.org/dev/nightly/latest)
+#### WildFly ####
+
+##### One time #####
+
+1. ``git clone https://github.com/wildfly/wildfly-maven-plugin``
+2. ``cd wildfly-maven-plugin``
+3. ``mvn install``
+
+##### Deploy the app, run the tests #####
+
+1. For each sample: ``mvn wildfly:start wildfly:deploy-only test -P wildfly``
+
+### NetBeans ###
+
+1. Open the sample in [NetBeans 7.4](http://netbeans.org)
 2. Click on "Run" (sample is built and deployed on GlassFish 4, main page shows up)
 3. Main page provides feature name, how to run the sample, and displays the output
 
 ### Cargo ###
 
-By default, all samples are deployed on GlassFish 4. They can be deployed on Widlfly 8 by adding ``-P wildfly`` to all maven commands. Make sure to edit ``glassfish.home`` or ``wildfly.home`` property value in the top-level ``pom.xml`` to point to your local GlassFish or Wildfly directory respectively. Only one profile can be active at a given time otherwise there will be port conflicts.
+Samples can be deployed and run on WildFly and GlassFish 4. 
 
-1. In one terminal, anywhere in the project with a ``pom.xml``: ``mvn cargo:run`` to start GlassFish server or ``mvn -P wildfly`` to start Wildfly server. 
-2. In another terminal, in the actual sample directory
+Make sure to edit ``glassfish.home`` or ``wildfly.home`` property value in the top-level ``pom.xml`` to point to your local GlassFish or Wildfly directory respectively. This is achieved using Maven profiles. Include ``-P wildfly`` on mvn CLI to run the samples on WildFly and ``-P glassfish`` fo GlassFish.
+
+Only one profile can be active at a given time otherwise there will be port conflicts.
+
+1. In one terminal, ``mvn cargo:run`` at the top-level directory to start container
+2. In the sample directory
     1. ``mvn package cargo:deploy`` to deploy for the first time
     2. ``mvn package cargo:redeploy`` to redeploy subsequently
     3. ``mvn cargo:undeploy`` to undeploy 
 3. Check for application name printed by Cargo output. Access the application at http://localhost:8080/<APP-NAME>
-4. Same as 3 in the first one
 
 ### Manual ###
 
-1. ``mvn clean package``
+1. ``mvn clean package -DskipTests``
 2. Deploy on GlassFish using ``asadmin deploy target/XXX.war`` or deploy on Wildfly using ``TBD``
 3. Access http://localhost:8080/XXX/ (main page shows up)
-4. Same as 3 in the first one
+
 
 ## List of Samples ##
 
