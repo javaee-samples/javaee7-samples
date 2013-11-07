@@ -43,6 +43,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedThreadFactory;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.container.AsyncResponse;
@@ -58,11 +60,11 @@ import javax.ws.rs.container.TimeoutHandler;
 public class MyResource {
     private final String[] response = { "apple", "banana", "mango" };
     
-    @Resource(name = "DefaultManagedThreadFactory")
-    ManagedThreadFactory threadFactory;
+//    @Resource(name = "DefaultManagedThreadFactory")
+//    ManagedThreadFactory threadFactory;
     
     @GET
-    public void getList(@Suspended final AsyncResponse ar) {
+    public void getList(@Suspended final AsyncResponse ar) throws NamingException {
         ar.setTimeoutHandler(new TimeoutHandler() {
 
             @Override
@@ -74,6 +76,9 @@ public class MyResource {
         
         ar.register(new MyCompletionCallback());
         ar.register(new MyConnectionCallback());
+        
+        ManagedThreadFactory threadFactory = (ManagedThreadFactory) new InitialContext()
+                .lookup("java:comp/DefaultManagedThreadFactory");
         
         Executors.newSingleThreadExecutor(threadFactory).submit(new Runnable() {
 
