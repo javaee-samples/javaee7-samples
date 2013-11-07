@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import javax.websocket.ClientEndpoint;
+import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
@@ -16,14 +17,19 @@ import javax.websocket.Session;
  */
 @ClientEndpoint
 public class MyEndpointClient {
+    public static byte[] response;
 
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("[Action]->Invokint method onOpen of the class:" + this.getClass().getCanonicalName());
         try {
             session.getBasicRemote().sendBinary(ByteBuffer.wrap("Hello World!".getBytes()));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+    
+    @OnMessage
+    public void processMessage(byte[] message) {
+        MyEndpointClient.response = message;
     }
 }

@@ -3,7 +3,6 @@
  */
 package org.javaee7.websocket.binary.test;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -14,8 +13,6 @@ import javax.websocket.DeploymentException;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
-import static junit.framework.Assert.assertNull;
-
 import org.javaee7.websocket.binary.MyEndpointByteArray;
 import org.javaee7.websocket.binary.MyEndpointByteBuffer;
 import org.javaee7.websocket.binary.MyEndpointClient;
@@ -25,6 +22,7 @@ import org.jboss.arquillian.container.test.api.TargetsContainer;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -32,10 +30,11 @@ import org.junit.runner.RunWith;
  * @author Nikos Ballas
  * @author Arun Gupta
  */
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class WebsocketBinaryEndpointTest {
 
     private static final String WEBAPP_SRC = "src/main/webapp";
+    private static final String RESPONSE = "Hello World!";
 
     /**
      * Arquillian specific method for creating a file which can be deployed
@@ -45,14 +44,13 @@ public class WebsocketBinaryEndpointTest {
      * arquillian.xml file.
      */
     @Deployment(testable = false)
-    @TargetsContainer("wildfly-arquillian")
+//    @TargetsContainer("wildfly-arquillian")
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
                 .addClass(MyEndpointByteBuffer.class)
                 .addClass(MyEndpointByteArray.class)
                 .addClass(MyEndpointInputStream.class)
                 .addClass(MyEndpointClient.class)
-                .addAsWebResource(new File(WEBAPP_SRC, "index.jsp"))
                 .addAsWebResource(new File(WEBAPP_SRC, "websocket.js"));
         return war;
     }
@@ -65,9 +63,13 @@ public class WebsocketBinaryEndpointTest {
      * @throws IOException
      */
     @Test
-    public void testEndpointByteBuffer() throws URISyntaxException, DeploymentException, IOException {
+    public void testEndpointByteBuffer() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         Session session = connectToServer("bytebuffer");
-        assertNull(session);
+        assertNotNull(session);
+        System.out.println("Waiting for 2 seconds to receive response");
+        Thread.sleep(2000);
+        assertNotNull(MyEndpointClient.response);
+        assertArrayEquals(RESPONSE.getBytes(), MyEndpointClient.response);
     }
 
     /**
@@ -80,9 +82,13 @@ public class WebsocketBinaryEndpointTest {
      * @throws URISyntaxException
      */
     @Test
-    public void testEndpointByteArray() throws DeploymentException, IOException, URISyntaxException {
+    public void testEndpointByteArray() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
         Session session = connectToServer("bytearray");
-        assertNull(session);
+        assertNotNull(session);
+        System.out.println("Waiting for 2 seconds to receive response");
+        Thread.sleep(2000);
+        assertNotNull(MyEndpointClient.response);
+        assertArrayEquals(RESPONSE.getBytes(), MyEndpointClient.response);
     }
 
     /**
@@ -95,9 +101,13 @@ public class WebsocketBinaryEndpointTest {
      * @throws URISyntaxException
      */
     @Test
-    public void testEndpointInputStream() throws DeploymentException, IOException, URISyntaxException {
+    public void testEndpointInputStream() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
         Session session = connectToServer("inputstream");
-        assertNull(session);
+        assertNotNull(session);
+        System.out.println("Waiting for 2 seconds to receive response");
+        Thread.sleep(2000);
+        assertNotNull(MyEndpointClient.response);
+        assertArrayEquals(RESPONSE.getBytes(), MyEndpointClient.response);
     }
 
     /**
@@ -111,7 +121,7 @@ public class WebsocketBinaryEndpointTest {
      * @throws URISyntaxException
      */
     public Session connectToServer(String endpoint) throws DeploymentException, IOException, URISyntaxException {
-        WebSocketContainer wSocketContainer = ContainerProvider.getWebSocketContainer();
-        return wSocketContainer.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/" + endpoint));
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        return container.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/" + endpoint));
     }
 }

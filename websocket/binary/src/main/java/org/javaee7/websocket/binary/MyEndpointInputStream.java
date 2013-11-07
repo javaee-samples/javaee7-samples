@@ -55,9 +55,8 @@ public class MyEndpointInputStream {
     @OnMessage
     public void echoStream(InputStream stream, Session session) throws IOException {
         System.out.println("echoStream: " + stream);
-        byte[] b = new byte[8];
-        int n = stream.read(b);
-        System.out.println("read " + n + " bytes");
+        byte[] b = new byte[12];
+        stream.read(b);
         session.getBasicRemote().sendBinary(ByteBuffer.wrap(b));
     }
 }

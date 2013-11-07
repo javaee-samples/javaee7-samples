@@ -42,7 +42,6 @@ package org.javaee7.websocket.binary;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import javax.websocket.OnMessage;
-import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 /**
@@ -51,8 +50,8 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/bytebuffer")
 public class MyEndpointByteBuffer {
     @OnMessage
-    public void echoBinary(ByteBuffer data, Session session) throws IOException {
-        System.out.println("echoBinary (ByteBuffer): " + data);
-        session.getBasicRemote().sendBinary(data);
+    public ByteBuffer echoBinary(ByteBuffer data) throws IOException {
+        System.out.println("echoBinary");
+        return data;
     }
 }

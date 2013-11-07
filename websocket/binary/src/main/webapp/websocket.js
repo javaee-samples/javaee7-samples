@@ -68,17 +68,14 @@ var output = document.getElementById("output");
 
 function onOpenByteArray() {
     console.log("onOpen (byte])");
-    writeToScreen("CONNECTED (byte[])");
 }
 
 function onOpenByteBuffer() {
     console.log("onOpen (ByteBuffer)");
-    writeToScreen("CONNECTED (ByteBuffer)");
 }
 
 function onOpenInputStream() {
     console.log("onOpen (InputStream)");
-    writeToScreen("CONNECTED (InputStream)");
 }
 
 function echoBinaryByteArray() {
