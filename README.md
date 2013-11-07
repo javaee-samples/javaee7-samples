@@ -6,25 +6,31 @@ I don't plan to write any formal documentation, read the code. The [Java EE 7 Es
 
 ## How to run ? ##
 
-### Maven Plugins ###
+### Maven Plugins (WildFly) ###
 
-#### WildFly ####
-
-##### One time #####
+#### One time ####
 
 1. ``git clone https://github.com/wildfly/wildfly-maven-plugin``
 2. ``cd wildfly-maven-plugin``
 3. ``mvn install``
 
-##### Deploy the app, run the tests #####
+#### Deploy the app, run the tests ####
 
 1. For each sample: ``mvn wildfly:start wildfly:deploy-only test -P wildfly``
+
+### Maven Plugins (GlassFish) ###
+
+TBD
 
 ### NetBeans ###
 
 1. Open the sample in [NetBeans 7.4](http://netbeans.org)
-2. Click on "Run" (sample is built and deployed on GlassFish 4, main page shows up)
+2. Click on "Run" (sample is built and deployed on GlassFish 4, main page shows up). NetBeans do not support WildFly yet.
 3. Main page provides feature name, how to run the sample, and displays the output
+
+### JBoss Tools ###
+
+### IntelliJ ###
 
 ### Cargo ###
 
