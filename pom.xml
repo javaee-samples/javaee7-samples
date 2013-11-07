@@ -77,6 +77,18 @@
             <version>1.2.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>httpunit</groupId>
+            <artifactId>httpunit</artifactId>
+            <version>1.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>rhino</groupId>
+            <artifactId>js</artifactId>
+            <version>1.7R1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <pluginRepositories>
         <pluginRepository>
@@ -306,6 +318,11 @@
                                 <version>8.0.0.Alpha4</version> </artifactInstaller> -->
                             </container>
                         </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>1.0.0.Beta1-SNAPSHOT</version>
                     </plugin>
                 </plugins>
             </build>
