@@ -49,7 +49,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import org.glassfish.jersey.filter.LoggingFilter;
 
 /**
  * @author Arun Gupta
@@ -79,8 +78,7 @@ public class TestServlet extends HttpServlet {
         out.println("<h1>Client-side Content Negotiation</h1>");
         out.println("Initializing client...<br>");
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.
-                register(LoggingFilter.class)
+        WebTarget target = client
                 .target("http://"
                 + request.getServerName()
                 + ":"
