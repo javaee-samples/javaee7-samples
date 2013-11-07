@@ -8,9 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.javaee7.websocket</groupId>
     <artifactId>javase-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
 <!--
