@@ -18,7 +18,7 @@
     <modules>
         <module>managedexecutor</module>
         <module>managedscheduledexecutor</module>
-        <module>manageablethread</module>
+        <module>managedthreadfactory</module>
         <module>dynamicproxy</module>
     </modules>
 
