@@ -10,7 +10,6 @@
 
     <groupId>org.javaee7.websocket</groupId>
     <artifactId>websocket-samples</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Java EE 7 WebSocket Samples</name>
 
@@ -47,5 +46,18 @@
         <module>whiteboard</module>
         <module>endpoint-singleton</module>
     </modules>
-
+	<dependencies>
+		<dependency>
+            <groupId>io.undertow</groupId>
+            <artifactId>undertow-core</artifactId>
+            <version>1.0.0.Beta20</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>io.undertow</groupId>
+        	<artifactId>undertow-websockets-jsr</artifactId>
+        	<version>1.0.0.Beta20</version>
+        	<scope>test</scope>
+        </dependency>
+	</dependencies>
 </project>

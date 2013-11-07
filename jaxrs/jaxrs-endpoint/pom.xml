@@ -10,4 +10,15 @@
 
     <artifactId>jaxrs-endpoint</artifactId>
     <packaging>war</packaging>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>3.0.5.Final</version>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
 </project>
