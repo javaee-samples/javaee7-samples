@@ -53,7 +53,7 @@ public class MyResource {
     public Person[] getList() {
         Person[] list = new Person[3];
         list[0] = new Person("Penny", 1);
-        list[1] = new Person("Howard", 2);
+        list[1] = new Person("Leonard", 2);
         list[2] = new Person("Sheldon", 3);
         
         return list;
