@@ -14,13 +14,13 @@ I don't plan to write any formal documentation, read the code. The [Java EE 7 Es
 2. ``cd wildfly-maven-plugin``
 3. ``mvn install``
 
-#### Deploy the app, run the tests ####
+#### For each sample ####
 
-1. For each sample: ``mvn wildfly:start wildfly:deploy-only test -P wildfly``
+1. ``mvn wildfly:start wildfly:deploy-only test -P wildfly``
 
 ### Maven Plugins (GlassFish) ###
 
-TBD
+For each sample: ``mvn embedded-glassfish:deploy test -P glassfish``
 
 ### NetBeans ###
 
@@ -28,7 +28,7 @@ TBD
 2. Click on "Run" (sample is built and deployed on GlassFish 4, main page shows up). NetBeans do not support WildFly yet.
 3. Main page provides feature name, how to run the sample, and displays the output
 
-### JBoss Tools ###
+### JBoss Tools (Eclipse) ###
 
 ### IntelliJ ###
 
@@ -52,7 +52,6 @@ Only one profile can be active at a given time otherwise there will be port conf
 1. ``mvn clean package -DskipTests``
 2. Deploy on GlassFish using ``asadmin deploy target/XXX.war`` or deploy on Wildfly using ``TBD``
 3. Access http://localhost:8080/XXX/ (main page shows up)
-
 
 ## List of Samples ##
 
