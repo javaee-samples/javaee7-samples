@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 /**
  * @author Arun Gupta
  */
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class ExecutorInvokeAllServletTest {
 
     @Resource(name = "DefaultManagedExecutorService")
@@ -36,8 +36,8 @@ public class ExecutorInvokeAllServletTest {
      *
      * @return a war file
      */
-    @Deployment
-    @TargetsContainer("wildfly-arquillian")
+//    @Deployment
+//    @TargetsContainer("wildfly-arquillian")
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
                 addClass(MyCallableTask.class).
