@@ -5,16 +5,18 @@
  */
 package org.javaee7.jaxrs.client;
 
+import static org.junit.Assert.*;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 /**
@@ -23,14 +25,12 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyResourceTest {
 
-    private static WebTarget target;
+    private WebTarget target;
+    private Client client;
 
-    public MyResourceTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-        Client client = ClientBuilder.newClient();
+    @Before
+    public void setUp() {
+        client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080/jaxrs-client/webresources/persons");
     }
 
