@@ -41,6 +41,7 @@ package org.javaee7.jaxrs.client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,6 +59,9 @@ import javax.ws.rs.core.MultivaluedHashMap;
  */
 @WebServlet(urlPatterns = {"/TestJAXRS2Client"})
 public class TestJAXRS2Client extends HttpServlet {
+
+
+    private static final long serialVersionUID = 1975269372645791816L;
 
     /**
      * Processes requests for both HTTP
@@ -114,13 +118,13 @@ public class TestJAXRS2Client extends HttpServlet {
                 .get(Person.class);
         out.print("GOT person: " + person + "<br>");
         out.println("... done.<br>");
-        
+
         // Client-driven content negotiation
         out.print("<br>Client-side content negotiation...<br>");
         String json = target.request().accept(MediaType.APPLICATION_JSON).get(String.class);
         out.print("GOT JSON: " + json + "<br>");
         out.println("... done.");
-        
+
         out.println("</body>");
         out.println("</html>");
     }

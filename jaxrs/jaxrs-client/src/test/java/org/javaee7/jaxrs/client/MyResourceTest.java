@@ -115,7 +115,7 @@ public class MyResourceTest {
     @Test
     public void test5ClientSideNegotiation() {
         String json = target.request().accept(MediaType.APPLICATION_JSON).get(String.class);
-        assertEquals("[{\"age\":1,\"name\":\"Penny\"},{\"age\":2,\"name\":\"Leonard\"},{\"age\":3,\"name\":\"Sheldon\"}]", json);
+        assertEquals("[{\"name\":\"Penny\",\"age\":1},{\"name\":\"Leonard\",\"age\":2},{\"name\":\"Sheldon\",\"age\":3}]", json);
     }
 
     @Test

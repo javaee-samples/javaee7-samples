@@ -48,6 +48,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,6 +63,8 @@ import javax.xml.bind.Unmarshaller;
  */
 @WebServlet(urlPatterns = {"/TestURLConnectionClient"})
 public class TestURLConnectionClient extends HttpServlet {
+
+    private static final long serialVersionUID = 4961659627909544506L;
 
     private static final String CHARSET = "UTF-8";
 
@@ -123,7 +126,7 @@ public class TestURLConnectionClient extends HttpServlet {
 //                is.read(bytes);
 //                out.println(new String(bytes));
 //            }
-                
+
             try {
                 JAXBContext jc = JAXBContext.newInstance(Person.class, People.class);
                 Unmarshaller um = jc.createUnmarshaller();
