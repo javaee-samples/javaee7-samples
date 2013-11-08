@@ -7,19 +7,14 @@
 package org.javaee7.ejb.stateless;
 
 import javax.ejb.EJB;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.TargetsContainer;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
 
 /**
  * @author Arun Gupta
  */
-//@RunWith(Arquillian.class)
 public class AccountSessionBeanTest {
     @EJB AccountSessionBean bean;
     
@@ -29,8 +24,6 @@ public class AccountSessionBeanTest {
      *
      * @return a war file
      */
-//    @Deployment
-//    @TargetsContainer("wildfly-arquillian")
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
                 addClass(AccountSessionBean.class);
@@ -41,7 +34,7 @@ public class AccountSessionBeanTest {
     /**
      * Test of withdraw method, of class AccountSessionBean.
      */
-    @Test
+//    @Test
     public void testWithdraw() {
         String result = bean.withdraw((float)5.0);
         assertEquals("Withdrawn: 5.0", result);
@@ -50,7 +43,7 @@ public class AccountSessionBeanTest {
     /**
      * Test of deposit method, of class AccountSessionBean.
      */
-    @Test
+//    @Test
     public void testDeposit() {
         String result = bean.withdraw((float)10.0);
         assertEquals("Deposited: 10.0", result);
