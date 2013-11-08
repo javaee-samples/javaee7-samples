@@ -51,7 +51,6 @@ import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import org.glassfish.jersey.filter.LoggingFilter;
 
 /**
  * @author Arun Gupta
@@ -81,7 +80,6 @@ public class TestServlet extends HttpServlet {
         out.println("<h1>Mapping Exceptions</h1>");
         Client client = ClientBuilder.newClient();
         WebTarget target = client
-                .register(new LoggingFilter(Logger.getAnonymousLogger(), true))
                 .target("http://"
                 + request.getServerName()
                 + ":"
