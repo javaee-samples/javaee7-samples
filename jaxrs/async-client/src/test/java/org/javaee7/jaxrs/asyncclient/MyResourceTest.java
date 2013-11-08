@@ -17,6 +17,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  * @author Arun Gupta
@@ -27,8 +28,8 @@ public class MyResourceTest {
     
     private static WebTarget target;
 
-    @BeforeClass
-    public static void setUpClass() {
+    @Before
+    public void setUpClass() {
         Client client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080/async-client/webresources/fruits");
     }
