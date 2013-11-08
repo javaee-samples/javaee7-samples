@@ -60,7 +60,8 @@ import javax.ws.rs.core.MultivaluedHashMap;
 @WebServlet(urlPatterns = {"/TestJAXRS2Client"})
 public class TestJAXRS2Client extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1975269372645791816L;
 
     /**
      * Processes requests for both HTTP
