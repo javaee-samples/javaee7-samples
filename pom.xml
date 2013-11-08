@@ -205,6 +205,18 @@
     <profiles>
         <profile>
             <id>glassfish</id>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>maven.java.net</id>
+                    <name>Java.net Repository for Maven</name>
+                    <url>https://maven.java.net/content/groups/promoted/</url>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>maven2-repository.dev.java.net</id>
+                    <name>Java.net Repository for Maven</name>
+                    <url>http://download.java.net/maven/glassfish/</url>
+                </pluginRepository>
+            </pluginRepositories>            
             <build>
                 <plugins>
                     <plugin>
@@ -229,33 +241,6 @@
                             </container>
                         </configuration>
                     </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                    <version>2.4</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>embedded-glassfish</id>
-            <build>
-                <plugins>
                     <plugin>
                         <groupId>org.glassfish.embedded</groupId>
                         <artifactId>maven-embedded-glassfish-plugin</artifactId>
@@ -300,6 +285,26 @@
                     </plugin>
                 </plugins>
             </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-container-grizzly-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-client</artifactId>
+                    <version>2.4</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>wildfly</id>
