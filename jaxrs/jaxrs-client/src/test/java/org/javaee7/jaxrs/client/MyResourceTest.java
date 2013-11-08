@@ -14,6 +14,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -26,11 +27,17 @@ import org.junit.runners.MethodSorters;
 public class MyResourceTest {
 
     private static WebTarget target;
+    private Client client;
 
     @Before
-    public void setUp() {
-        Client client = ClientBuilder.newClient();
+    public void setUp() throws Exception {
+        client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080/jaxrs-client/webresources/persons");
+    }
+
+    @After
+    public void after() {
+      client.close();
     }
 
     /**
