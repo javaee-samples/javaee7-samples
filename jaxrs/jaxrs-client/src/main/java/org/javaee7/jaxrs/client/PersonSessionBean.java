@@ -41,6 +41,7 @@ package org.javaee7.jaxrs.client;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.Singleton;
 
 /**
@@ -48,24 +49,24 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class PersonSessionBean {
-    List<Person> list;
-    
+    private final List<Person> list;
+
     public PersonSessionBean() {
         list = new ArrayList<>();
     }
-    
+
     public void addPerson(Person p) {
         list.add(p);
     }
-    
+
     public void deletePerson(String name) {
         for (Person p : list) {
-            if (p.getName().equals(name)) {
+            if (name.equals(p.getName())) {
                 list.remove(p);
             }
         }
     }
-    
+
     public List<Person> getPersons() {
         return list;
     }
