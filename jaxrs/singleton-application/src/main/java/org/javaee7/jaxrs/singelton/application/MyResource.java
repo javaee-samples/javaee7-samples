@@ -62,7 +62,6 @@ public class MyResource {
     
     public MyResource() {
         strings = new ArrayList<>();
-        System.out.println("******* init");
     }
 
     @GET
