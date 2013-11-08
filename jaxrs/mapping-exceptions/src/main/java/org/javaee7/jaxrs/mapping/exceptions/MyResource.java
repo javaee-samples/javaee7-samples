@@ -55,7 +55,7 @@ public class MyResource {
         if (id % 2 == 0) {
             throw new OrderNotFoundException(id);
         }
-        return String.valueOf("Order found: " + id);
+        return String.valueOf(id);
     }
 
 }
