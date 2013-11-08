@@ -40,40 +40,20 @@
 package org.javaee7.ejb.embeddable;
 
 import javax.ejb.embeddable.EJBContainer;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author Arun Gupta
  */
 public class MyBeanTest {
     
-    public MyBeanTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of sayHello method, of class MyBean.
+     * 
+     * Commented for now as support for this API is optional
      */
-    @org.junit.Test
+//    @Test
     public void testSayHello() throws Exception {
         System.out.println("sayHello");
         String name = "Duke";
