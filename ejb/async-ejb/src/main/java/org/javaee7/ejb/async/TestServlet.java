@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
-    @Inject MyAsyncBean bean;;
+    @Inject MyAsyncBeanMethodLevel methodBean;
+    @Inject MyAsyncBeanClassLevel classBean;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +41,8 @@ public class TestServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Asynchronous EJB</h1>");
-            Future<Integer> result = bean.addNumbers(2, 4);
+            out.println("<h2>Method-level annotation</h2>");
+            Future<Integer> result = methodBean.addNumbers(2, 4);
             while (true) {
                 out.println("<br>Waiting ...");
                 try {
@@ -59,6 +61,25 @@ public class TestServlet extends HttpServlet {
                 }
             }
             
+            out.println("<h2>Class-level annotation</h2>");
+            result = methodBean.addNumbers(2, 4);
+            while (true) {
+                out.println("<br>Waiting ...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (result.isDone()) {
+                    out.println("<br>Result is now ready...");
+                    try {
+                        out.println("<br>Got the result: " + result.get());
+                    } catch (InterruptedException | ExecutionException ex) {
+                        Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                }
+            }
             out.println("</body>");
             out.println("</html>");
         }

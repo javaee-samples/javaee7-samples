@@ -6,7 +6,7 @@
 
 package org.javaee7.ejb.async;
 
-import org.javaee7.ejb.async.MyAsyncBean;
+import org.javaee7.ejb.async.MyAsyncBeanMethodLevel;
 import javax.ejb.EJB;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @author Arun Gupta
  */
 public class AccountSessionBeanTest {
-    @EJB MyAsyncBean bean;
+    @EJB MyAsyncBeanMethodLevel bean;
     
     /**
      * Arquillian specific method for creating a file which can be deployed
@@ -27,7 +27,7 @@ public class AccountSessionBeanTest {
      */
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(MyAsyncBean.class);
+                addClass(MyAsyncBeanMethodLevel.class);
         System.out.println(war.toString(true));
         return war;
     }
