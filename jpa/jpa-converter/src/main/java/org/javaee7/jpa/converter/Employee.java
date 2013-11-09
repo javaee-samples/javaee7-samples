@@ -1,6 +1,7 @@
 package org.javaee7.jpa.converter;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -25,8 +26,8 @@ public class Employee implements Serializable {
     @Column(length=50)
     private String name;
     
-    @Convert(converter = EmployeeDateConverter.class)
-    private String dob;
+    @Convert(converter = CreditCardConverter.class)
+    private String card;
     
     public Employee() { }
     
@@ -34,10 +35,10 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public Employee(int id, String name, String dob) {
+    public Employee(int id, String name, String card) {
         this.id = id;
         this.name = name;
-        this.dob = dob;
+        this.card = card;
     }
     
     public int getId() {
@@ -56,16 +57,16 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public String getDob() {
-        return dob;
+    public String getCard() {
+        return card;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setCard(String card) {
+        this.card = card;
     }
-    
+
     @Override
     public String toString() {
-        return name + "(" + dob + ")";
+        return name + "(" + card + ")";
     }
 }
