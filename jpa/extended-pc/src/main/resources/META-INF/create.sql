@@ -1,0 +1,1 @@
+CREATE TABLE EMPLOYEE_SCHEMA_EXTENDED_PC ("ID" INTEGER not null primary key, "NAME" VARCHAR(50) not null)
