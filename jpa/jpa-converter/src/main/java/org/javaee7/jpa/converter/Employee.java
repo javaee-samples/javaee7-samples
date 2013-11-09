@@ -27,7 +27,7 @@ public class Employee implements Serializable {
     private String name;
     
     @Convert(converter = CreditCardConverter.class)
-    private String card;
+    private CreditCard card;
     
     public Employee() { }
     
@@ -35,7 +35,7 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public Employee(int id, String name, String card) {
+    public Employee(int id, String name, CreditCard card) {
         this.id = id;
         this.name = name;
         this.card = card;
@@ -57,16 +57,16 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public String getCard() {
+    public CreditCard getCard() {
         return card;
     }
 
-    public void setCard(String card) {
+    public void setCard(CreditCard card) {
         this.card = card;
     }
 
     @Override
     public String toString() {
-        return name + "(" + card + ")";
+        return name + " (" + card + ")";
     }
 }

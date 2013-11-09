@@ -6,12 +6,12 @@
 
 package org.javaee7.jpa.converter;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * @author Arun Gupta
  */
-public class CreditCard {
+public class CreditCard implements Serializable {
     String cardNumber;
 
     public CreditCard() {

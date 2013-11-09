@@ -76,14 +76,15 @@ public class TestServlet extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>JPA 2.1 Converter</h1>");
-        out.println("Original list of employees");
+        out.println("<h3>Original list of employees (" + bean.get().size() + ")</h3>");
         for (Employee e : bean.get()) {
             out.println(e + "<br>");
         }
         out.println("<h3>Adding a new employee</h3>");
-        Employee emp = new Employee(8, "Lucy", "3/31/1980");
+        Employee emp = new Employee(8, "Lucy", new CreditCard("22-44-66-88"));
         bean.persist(emp);
-        out.println("Updated list of employees");
+        out.println("Added");
+        out.println("<h3>Updated list of employees(" + bean.get().size() + ")</h3>");
         for (Employee e : bean.get()) {
             out.println(e + "<br>");
         }
