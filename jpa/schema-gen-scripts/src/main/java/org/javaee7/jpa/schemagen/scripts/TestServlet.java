@@ -72,7 +72,7 @@ public class TestServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>SList of Employees</title>");            
+            out.println("<title>List of Employees</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>List of Employees</h1>");
