@@ -16,11 +16,15 @@ I don't plan to write any formal documentation, read the code. The [Java EE 7 Es
 
 #### For each sample ####
 
-1. ``mvn wildfly:start wildfly:deploy-only test -P wildfly``
+1. ``mvn package -DskipTests``
+2. ``mvn wildfly:start wildfly:deploy-only test -P wildfly``
 
 ### Maven Plugins (GlassFish) ###
 
-For each sample: ``mvn embedded-glassfish:deploy test -P glassfish``
+#### For each sample ####
+
+1. ``mvn package -DskipTests``
+2. ``mvn embedded-glassfish:deploy test -P glassfish``
 
 ### NetBeans ###
 
