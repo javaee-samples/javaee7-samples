@@ -1,0 +1,1 @@
+CREATE TABLE EMPLOYEE_SCHEMA_CONVERTER ("ID" INTEGER not null primary key, "NAME" VARCHAR(50) not null, "DOB" VARCHAR(10) not null)
