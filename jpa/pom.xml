@@ -19,17 +19,18 @@
         <module>entitygraph</module>
         <module>listeners</module>
         <module>multiple-pu</module>
-        <module>schema-gen-metadata</module>
         <module>storedprocedure</module>
         <module>jndi-context</module>
         <module>locking-optimistic</module>
         <module>locking-pessimistic</module>
         <module>pu-typesafe</module>
+        <module>schema-gen-metadata</module>
         <module>schema-gen-scripts</module>
         <module>schema-gen-scripts-external</module>
         <module>schema-gen-scripts-generate</module>
         <module>native-sql</module>
         <module>native-sql-resultset-mapping</module>
+        <module>unsynchronized-pc</module>
     </modules>
 
 </project>
