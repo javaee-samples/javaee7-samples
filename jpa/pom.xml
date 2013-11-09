@@ -33,6 +33,7 @@
         <module>native-sql-resultset-mapping</module>
         <module>unsynchronized-pc</module>
         <module>extended-pc</module>
+        <module>jpa-converter</module>
     </modules>
 
 </project>
