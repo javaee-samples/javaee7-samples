@@ -72,15 +72,16 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>List of Employees</title>");
+        out.println("<title>Unsynchronized Persistence Context</title>");
         out.println("</head>");
         out.println("<body>");
+        out.println("<h1>Unsynchronized Persistence Context</h1>");
         listEmployees(out, "Initial list", "Total == 7?");
         Employee e = new Employee(8, "Priya");
         bean.persistWithoutJoin(e);
-        listEmployees(out, "Unsynchronized PC has not joined a transaction", "Total == 7?");
+        listEmployees(out, "PC has not joined a transaction", "Total == 7?");
         bean.persistWithJoin(e);
-        listEmployees(out, "Unsynchronized PC has joined a transaction", "Total == 8?");
+        listEmployees(out, "PC has joined a transaction", "Total == 8?");
         out.println("</body>");
         out.println("</html>");
     }
