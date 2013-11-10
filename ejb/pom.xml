@@ -21,5 +21,6 @@
         <module>stateful</module>
         <module>stateless</module>
         <module>timer</module>
+        <module>async-ejb</module>
     </modules>
 </project>
