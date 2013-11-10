@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jms.jmscontext.cdi;
+package org.javaee7.jms.jmscontext.container.managed;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,15 +53,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
-    
-    @Inject MessageSender sender;
-    
-    @Inject MessageReceiver receiver;
+
+    @Inject
+    MessageSender sender;
+
+    @Inject
+    MessageReceiver receiver;
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -70,27 +71,27 @@ public class TestServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String message = "foobar";
+        
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>JMSContext Injection</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>JMSContext Injection</h1>");
-            sender.sendMessage("foobar");
-            out.println("Message sent<br><br>");
-            out.println("Message received: " + receiver.receiveMessage());
-            out.println("</body>");
-            out.println("</html>");
-        }
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Container Managed JMSContext</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>Container Managed JMSContext</h1>");
+        sender.sendMessage(message);
+        out.println("Message sent: " + message + "<br><br>");
+        out.println("Message received: " + receiver.receiveMessage());
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -104,8 +105,7 @@ public class TestServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response

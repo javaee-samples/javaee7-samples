@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jms.jmscontext.cdi;
+package org.javaee7.jms.jmscontext.container.managed;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
