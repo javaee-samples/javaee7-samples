@@ -69,7 +69,7 @@ public class SecureServlet extends HttpServlet {
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet SecureServlet</title>");
+        out.println("<title>Servlet Security - Basic Auth with File-base Realm</title>");
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>Basic Auth with File-base Realm (" + method + ")</h1>");
