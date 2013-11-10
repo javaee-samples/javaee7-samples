@@ -18,7 +18,8 @@
         <module>send-receive-simple</module>
         <module>send-receive</module>
         <module>temp-destination</module>
-    <module>jmscontext-cdi</module>
-  </modules>
+        <module>jmscontext-container-managed</module>
+        <module>jmscontext-app-managed</module>
+    </modules>
 
 </project>
