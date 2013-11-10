@@ -51,6 +51,7 @@ import javax.inject.Named;
 @Named
 public class MyItemProcessor implements ItemProcessor {
     SimpleDateFormat format = new SimpleDateFormat("M/dd/yy");
+    private static volatile int counter = 0; // hack to make the name unique for subsequent runs
 
     @Override
     public Person processItem(Object t) {
@@ -58,7 +59,7 @@ public class MyItemProcessor implements ItemProcessor {
         
         StringTokenizer tokens = new StringTokenizer((String)t, ",");
 
-        String name = tokens.nextToken();
+        String name = tokens.nextToken() + counter++;
         String date;
         
         try {
