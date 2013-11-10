@@ -71,9 +71,8 @@ function restEchoText() {
         payload += "x";
     }
     restStartTime = new Date().getTime();
-    
     for (var i = 0; i < times.value; i++) {
-    	xhr.open("POST", restUri, false);
+        xhr.open("POST", restUri, false);
         xhr.send(payload);
         restSendBar.value += 100 / times.value;
     }
