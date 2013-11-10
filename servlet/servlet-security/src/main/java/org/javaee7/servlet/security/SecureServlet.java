@@ -54,9 +54,8 @@ import javax.servlet.http.HttpServletResponse;
 public class SecureServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -66,24 +65,22 @@ public class SecureServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String method)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SecureServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Basic Auth with File-base Realm (" + method + ")</h1>");
-            out.println("<h2>Were you prompted for username/password ?</h2>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet SecureServlet</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>Basic Auth with File-base Realm (" + method + ")</h1>");
+        out.println("<h2>Were you prompted for username/password ?</h2>");
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -97,8 +94,7 @@ public class SecureServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
