@@ -8,9 +8,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.jms</groupId>
     <artifactId>jmscontext-container-managed</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>jmscontext-container-managed</name>
 </project>
