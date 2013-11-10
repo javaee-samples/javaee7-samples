@@ -46,10 +46,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JMS 2 : JMSContext Injection</title>
+        <title>Container Managed JMSContext</title>
     </head>
     <body>
-        <h1>JMS 2 : JMSContext Injection</h1>
+        <h1>Container Managed JMSContext</h1>
         <a href="${pageContext.request.contextPath}/TestServlet"/>Send and Receive</a> message.
     </body>
 </html>
