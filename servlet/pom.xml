@@ -27,7 +27,7 @@
         <module>nonblocking</module>
         <module>protocol-handler</module>
         <module>resource-packaging</module>
-        <module>servlet-security</module>
+        <module>servlet-basicauth-file</module>
         <module>servlet-filters</module>
         <module>file-upload</module>
         <module>web-fragment</module>
