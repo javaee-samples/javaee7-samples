@@ -43,6 +43,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -62,14 +64,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Person.findByName", query = "SELECT c FROM Person c WHERE c.name = :name"),
     @NamedQuery(name = "Person.findByHiredate", query = "SELECT c FROM Person c WHERE c.hiredate = :hiredate")})
 public class Person implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "NAME")
     private String name;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -86,6 +92,14 @@ public class Person implements Serializable {
     public Person(String name, String hiredate) {
         this.name = name;
         this.hiredate = hiredate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -128,5 +142,5 @@ public class Person implements Serializable {
     public String toString() {
         return name;
     }
-    
+
 }
