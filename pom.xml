@@ -308,6 +308,38 @@
         </profile>
         <profile>
             <id>wildfly</id>
+<!--            <repositories>
+                <repository>  
+                    <id>jboss-public-repository-group</id>  
+                    <name>JBoss Public Maven Repository Group</name>  
+                    <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>  
+                    <layout>default</layout>  
+                    <releases>  
+                        <enabled>true</enabled>  
+                        <updatePolicy>never</updatePolicy>  
+                    </releases>  
+                    <snapshots>  
+                        <enabled>true</enabled>  
+                        <updatePolicy>never</updatePolicy>  
+                    </snapshots>  
+                </repository>  
+            </repositories>
+            <pluginRepositories>  
+                <pluginRepository>  
+                    <id>jboss-public-repository-group</id>  
+                    <name>JBoss Public Maven Repository Group</name>  
+                    <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>  
+                    <layout>default</layout>  
+                    <releases>  
+                        <enabled>true</enabled>  
+                        <updatePolicy>never</updatePolicy>  
+                    </releases>  
+                    <snapshots>  
+                        <enabled>true</enabled>  
+                        <updatePolicy>never</updatePolicy>  
+                    </snapshots>  
+                </pluginRepository>  
+            </pluginRepositories> -->
             <build>
                 <plugins>
                     <plugin>
@@ -332,6 +364,24 @@
                 </plugins>
             </build>
             <dependencies>
+<!--                <dependency>
+                    <groupId>org.hibernate.ogm</groupId>
+                    <artifactId>hibernate-ogm-core</artifactId>
+                    <version>4.0.0.Beta4</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.hibernate.javax.persistence</groupId>
+                    <artifactId>hibernate-jpa-2.0-api</artifactId>
+                    <version>1.0.1.Final</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.spec.javax.transaction</groupId>
+                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                    <version>1.0.0.Final</version>
+                    <scope>provided</scope>
+                </dependency>-->
+
                 <dependency>
                     <groupId>org.jboss.resteasy</groupId>
                     <artifactId>resteasy-client</artifactId>
