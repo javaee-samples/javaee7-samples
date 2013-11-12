@@ -10,7 +10,7 @@
 
     <properties>
         <java.min.version>1.7</java.min.version>
-        <maven.min.version>3.1.0</maven.min.version>
+        <maven.min.version>3.0.0</maven.min.version>
         <cargo.container.glassfish.id>glassfish4x</cargo.container.glassfish.id>
         <cargo.container.glassfish.home>/home/argupta/tools/glassfish-4.0</cargo.container.glassfish.home>
         <cargo.container.wildfly.id>wildfly8x</cargo.container.wildfly.id>
@@ -20,6 +20,7 @@
         <cargo.container.weblogic.home>/Users/arungup/tools/weblogic/12c/wlserver</cargo.container.weblogic.home>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
         <org.jboss.arquillian.version>1.1.1.Final</org.jboss.arquillian.version>
+        <org.wildfly>8.0.0.Beta1</org.wildfly>
         <!-- Plugin versions -->
         <plugin.enforcer.version>1.3.1</plugin.enforcer.version>
     </properties>
@@ -29,7 +30,7 @@
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
                 <version>${org.jboss.arquillian.version}</version>
-                <scope>test</scope>
+                <scope>import</scope>
                 <type>pom</type>
             </dependency>
         </dependencies>
@@ -56,13 +57,11 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>${org.jboss.arquillian.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-container-impl-base</artifactId>
-            <version>${org.jboss.arquillian.version}</version>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -139,35 +138,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.4.5</version>
-                <configuration>
-                    <container>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derby</artifactId>
-                            </dependency>
-                        </dependencies>
-                        <systemProperties>
-                            <derby.system.home>${project.build.directory}/derby</derby.system.home>
-                        </systemProperties>
-                    </container>
-                    <configuration>
-                        <properties>
-                            <cargo.datasource.datasource.derby>
-                                cargo.datasource.driver=org.apache.derby.jdbc.EmbeddedDriver|
-                                cargo.datasource.url=jdbc:derby:derbyDB;create=true|
-                                cargo.datasource.jndi=jdbc/__default|
-                                cargo.datasource.username=APP|
-                                cargo.datasource.password=APP
-                            </cargo.datasource.datasource.derby>
-                        </properties>
-                    </configuration>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <configuration>
                     <rules>
@@ -204,87 +174,7 @@
     </build>
     <profiles>
         <profile>
-            <id>glassfish</id>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>maven.java.net</id>
-                    <name>Java.net Repository for Maven</name>
-                    <url>https://maven.java.net/content/groups/promoted/</url>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>maven2-repository.dev.java.net</id>
-                    <name>Java.net Repository for Maven</name>
-                    <url>http://download.java.net/maven/glassfish/</url>
-                </pluginRepository>
-            </pluginRepositories>            
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.5</version>
-                        <configuration>
-                            <container>
-                                <containerId>${cargo.container.glassfish.id}</containerId>
-                                <type>installed</type>
-                                <home>${cargo.container.glassfish.home}</home>
-                                <!-- Use this fragment if want to download/run the app server on 
-                                demand <artifactInstaller> <groupId>org.glassfish.main.distributions</groupId> 
-                                <artifactId>glassfish</artifactId> <version>4.0</version> </artifactInstaller> -->
-                                <dependencies>
-                                    <dependency>
-                                        <groupId>org.apache.derby</groupId>
-                                        <artifactId>derby</artifactId>
-                                        <classpath>none</classpath>
-                                    </dependency>
-                                </dependencies>
-                            </container>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.glassfish.embedded</groupId>
-                        <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                        <version>4.0</version>
-                        <configuration>
-                            <app>target/${project.artifactId}.war</app>
-                            <port>8080</port>
-                            <ports>
-                                <https-listener>8181</https-listener>
-                            </ports>
-                        </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.glassfish.main.common</groupId>
-                                <artifactId>simple-glassfish-api</artifactId>
-                                <version>4.0</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.glassfish.main.extras</groupId>
-                                <artifactId>glassfish-embedded-all</artifactId>
-                                <version>4.0</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>start</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>undeploy</goal>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
+            <id>glassfish-embedded-arquillian</id>
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish.tyrus</groupId>
@@ -304,87 +194,40 @@
                     <version>2.4</version>
                     <scope>test</scope>
                 </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <configuration>
-                            <container>
-                                <containerId>${cargo.container.wildfly.id}</containerId>
-                                <type>installed</type>
-                                <home>${cargo.container.wildfly.home}</home>
-                                <!-- Use this fragment if want to download/run the app server on 
-                                demand <artifactInstaller> <groupId>org.wildfly</groupId> <artifactId>wildfly-dist</artifactId> 
-                                <version>8.0.0.Alpha4</version> </artifactInstaller> -->
-                            </container>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
-                        <version>1.0.0.Beta1</version>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-<!--                <dependency>
-                    <groupId>org.hibernate.ogm</groupId>
-                    <artifactId>hibernate-ogm-core</artifactId>
-                    <version>4.0.0.Beta4</version>
-                </dependency>
-
                 <dependency>
-                    <groupId>org.hibernate.javax.persistence</groupId>
-                    <artifactId>hibernate-jpa-2.0-api</artifactId>
-                    <version>1.0.1.Final</version>
+                    <groupId>org.glassfish.main.extras</groupId>
+                    <artifactId>glassfish-embedded-all</artifactId>
+                    <version>4.0</version>
                 </dependency>
                 <dependency>
-                    <groupId>org.jboss.spec.javax.transaction</groupId>
-                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-                    <version>1.0.0.Final</version>
-                    <scope>provided</scope>
-                </dependency>-->
-
-                <dependency>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-client</artifactId>
-                    <version>3.0.5.Final</version>
-                    <type>jar</type>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-jaxb-provider</artifactId>
-                    <version>3.0.5.Final</version>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                    <version>1.0.0.CR4</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
         <profile>
-            <id>wildfly-arquillian</id>
+            <id>wildfly-managed-arquillian</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
+                <browser>chromium-browser</browser>
                 <serverProfile>standalone-full.xml</serverProfile>
-                <serverRoot>/opt/programs/wildfly-8.0.0.Beta1</serverRoot>
+                <serverRoot>${project.build.directory}/wildfly-${org.wildfly}</serverRoot>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>8.0.0.Beta1</version>
+                    <version>${org.wildfly}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>org.jboss.arquillian.protocol</groupId>
-                    <artifactId>arquillian-protocol-servlet</artifactId>
-                    <version>${org.jboss.arquillian.version}</version>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-client</artifactId>
+                    <version>3.0.4.Final</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -395,42 +238,71 @@
                         <filtering>true</filtering>
                     </testResource>
                 </testResources>
-            </build>
-        </profile>
-        <profile>
-            <id>tomcat</id>
-            <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <configuration>
-                            <container>
-                                <containerId>${cargo.container.tomcat.id}</containerId>
-                                <zipUrlInstaller>
-                                    <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.0-RC3/bin/apache-tomcat-8.0.0-RC3.zip</url>
-                                </zipUrlInstaller>
-                            </container>
-                        </configuration>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.wildfly</groupId>
+                                            <artifactId>wildfly-dist</artifactId>
+                                            <version>${org.wildfly}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                       <artifactId>maven-surefire-plugin</artifactId>
+                       <configuration>
+                           <environmentVariables>
+                               <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
+                           </environmentVariables>
+                       </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
         <profile>
-            <id>weblogic</id>
+            <id>wildfly-remote-arquillian</id>
+            <properties>
+                <serverProfile>standalone-full.xml</serverProfile>
+                <serverRoot>/opt/programs/wildfly-8.0.0.Beta1</serverRoot>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <version>${org.wildfly}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-client</artifactId>
+                    <version>3.0.4.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
             <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
                 <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <configuration>
-                            <container>
-                                <containerId>${cargo.container.weblogic.id}</containerId>
-                                <type>installed</type>
-                                <home>${cargo.container.weblogic.home}</home>
-                            </container>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>

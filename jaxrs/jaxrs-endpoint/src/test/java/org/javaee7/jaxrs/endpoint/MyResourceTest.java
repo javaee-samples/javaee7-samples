@@ -6,26 +6,31 @@
 
 package org.javaee7.jaxrs.endpoint;
 
+import static org.junit.Assert.assertEquals;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.TargetsContainer;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 /**
  * @author Arun Gupta
  */
-//@RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyResourceTest {
 
@@ -37,8 +42,7 @@ public class MyResourceTest {
      *
      * @return a war file
      */
-    @Deployment
-//    @TargetsContainer("wildfly-arquillian")
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
                 addClass(MyApplication.class).
@@ -49,10 +53,13 @@ public class MyResourceTest {
         return war;
     }
     
-    @BeforeClass
-    public static void setupClass() {
+    @ArquillianResource
+    private URL base;
+
+    @Before
+    public void setupClass() throws MalformedURLException {
         Client client = ClientBuilder.newClient();
-        target = client.target("http://localhost:8080/jaxrs-endpoint/webresources/fruit");
+        target = client.target(new URL(base, "webresources/fruit").toExternalForm());
     }
     
     /**
