@@ -7,17 +7,23 @@
 package org.javaee7.jaxrs.server.negotiation;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+
 import org.custommonkey.xmlunit.XMLAssert;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.json.JSONException;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.xml.sax.SAXException;
@@ -25,15 +31,24 @@ import org.xml.sax.SAXException;
 /**
  * @author Arun Gupta
  */
+@RunWith(Arquillian.class)
 public class MyResourceTest {
 
-    WebTarget target;
-    
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+       return ShrinkWrap.create(WebArchive.class)
+             .addClasses(MyApplication.class, MyResource.class, People.class, Person.class);
+    }
+
+    @ArquillianResource
+    private URL base;
+
+    private WebTarget target;
+
     @Before
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         Client client = ClientBuilder.newClient();
-        target = client
-                .target("http://localhost:8080/server-negotiation/webresources/persons");
+        target = client.target(new URL(base, "webresources/persons").toExternalForm());
     }
 
     @Test
@@ -55,7 +70,7 @@ public class MyResourceTest {
     @Test
     public void testXml() throws JSONException, SAXException, IOException {
         String response = target.request().accept("application/xml").get(String.class);
-        XMLAssert.assertXMLEqual("<collection><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></collection>", 
+        XMLAssert.assertXMLEqual("<people><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></people>", 
                 response);
     }
     
