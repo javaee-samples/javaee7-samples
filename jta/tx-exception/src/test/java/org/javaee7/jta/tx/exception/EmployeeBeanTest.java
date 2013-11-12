@@ -24,7 +24,7 @@ public class EmployeeBeanTest {
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addClasses(EmployeeBean.class, Employee.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsManifestResource("beans.xml")
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("META-INF/create.sql")
                 .addAsResource("META-INF/load.sql")
