@@ -25,10 +25,10 @@ public class EmployeeBeanTest {
         return ShrinkWrap.create(JavaArchive.class)
                 .addClasses(EmployeeBean.class, Employee.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-                .addAsResource("META-INF/create.sql", "META-INF/create.sql")
-                .addAsResource("META-INF/load.sql", "META-INF/load.sql")
-                .addAsResource("META-INF/drop.sql", "META-INF/drop.sql");
+                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("META-INF/create.sql")
+                .addAsResource("META-INF/load.sql")
+                .addAsResource("META-INF/drop.sql");
     }
     @Inject EmployeeBean bean;
 
