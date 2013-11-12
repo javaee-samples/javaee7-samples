@@ -75,6 +75,7 @@ public class DOMGeneratorTest {
         JSONAssert.assertEquals("[{\"apple\":\"red\"},{\"banana\":\"yellow\"}]", w.toString(), JSONCompareMode.STRICT);
     }
 
+    @Test
     public void testNestedStructure() throws JSONException {
         JsonObject jsonObject = Json.createObjectBuilder()
                 .add("title", "The Matrix")
