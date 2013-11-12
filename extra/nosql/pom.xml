@@ -23,6 +23,7 @@
         <module>hbase</module>
         <module>voldemort</module>
         <module>riak</module>
+        <module>hibernate-ogm</module>
 <!--
         <module>oracle</module>
 -->
