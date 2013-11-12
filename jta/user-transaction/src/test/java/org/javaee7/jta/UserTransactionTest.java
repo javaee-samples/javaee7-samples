@@ -15,6 +15,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.transaction.*;
 
+/**
+ * @author Alexis Hassler
+ */
 @RunWith(Arquillian.class)
 public class UserTransactionTest {
     @Deployment
