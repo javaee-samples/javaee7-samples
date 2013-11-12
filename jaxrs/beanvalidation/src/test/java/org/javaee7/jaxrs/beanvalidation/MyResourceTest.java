@@ -5,32 +5,48 @@
  */
 package org.javaee7.jaxrs.beanvalidation;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import org.junit.After;
-import org.junit.AfterClass;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
 
 /**
  * @author Arun Gupta
  */
+@RunWith(Arquillian.class)
 public class MyResourceTest {
 
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+       return ShrinkWrap.create(WebArchive.class)
+             .addClasses(MyApplication.class, MyResource.class);
+    }
     private static WebTarget target;
 
-    public MyResourceTest() {
-    }
+    @ArquillianResource
+    private URL base;
 
-    @BeforeClass
-    public static void setUpClass() {
+    @Before
+    public void setUpClass() throws MalformedURLException {
         Client client = ClientBuilder.newClient();
-        target = client.target("http://localhost:8080/beanvalidation/webresources/endpoint");
+        target = client.target(new URL(base, "webresources/endpoint").toExternalForm());
     }
 
     @Test
@@ -46,7 +62,7 @@ public class MyResourceTest {
     @Test
     public void testValidRequest() {
         String r = target.request().post(Entity.text("foo"), String.class);
-        assertEquals("foo", "foo");
+        assertEquals("foo", r);
     }
 
 }

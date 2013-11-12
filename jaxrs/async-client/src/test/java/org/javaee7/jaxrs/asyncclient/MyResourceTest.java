@@ -5,33 +5,50 @@
  */
 package org.javaee7.jaxrs.asyncclient;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author Arun Gupta
  */
+@RunWith(Arquillian.class)
 public class MyResourceTest {
     
-//    @ArquillianResource URL baseURL;
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+       return ShrinkWrap.create(WebArchive.class)
+             .addClasses(MyApplication.class, MyResource.class);
+    }
+
+    @ArquillianResource
+    private URL base;
     
     private static WebTarget target;
 
     @Before
-    public void setUpClass() {
+    public void setUpClass() throws MalformedURLException {
         Client client = ClientBuilder.newClient();
-        target = client.target("http://localhost:8080/async-client/webresources/fruits");
+        target = client.target(new URL(base, "webresources/fruits").toExternalForm());
     }
 
     /**

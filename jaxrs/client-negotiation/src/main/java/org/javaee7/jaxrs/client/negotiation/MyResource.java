@@ -39,6 +39,8 @@
  */
 package org.javaee7.jaxrs.client.negotiation;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -50,12 +52,11 @@ import javax.ws.rs.Produces;
 public class MyResource {
     @GET
     @Produces({"application/xml", "application/json"})
-    public Person[] getList() {
-        Person[] list = new Person[3];
-        list[0] = new Person("Penny", 1);
-        list[1] = new Person("Leonard", 2);
-        list[2] = new Person("Sheldon", 3);
-        
-        return list;
+    public List<Person> getList() {
+        People people = new People();
+        people.add(new Person("Penny", 1));
+        people.add(new Person("Leonard", 2));
+        people.add(new Person("Sheldon", 3));
+        return people;
     }
 }
