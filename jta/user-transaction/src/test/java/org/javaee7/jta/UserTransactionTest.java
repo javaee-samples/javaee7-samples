@@ -15,13 +15,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.transaction.*;
 
+/**
+ * @author Alexis Hassler
+ */
 @RunWith(Arquillian.class)
 public class UserTransactionTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-        // WF 8.0.0.Beta1 needs the beans.xml file. Shouldn't be the case with JavaEE 7
+                         .addAsManifestResource("beans.xml");
     }
 
     @Inject UserTransaction ut;
