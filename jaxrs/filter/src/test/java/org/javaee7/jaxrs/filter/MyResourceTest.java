@@ -5,26 +5,47 @@
  */
 package org.javaee7.jaxrs.filter;
 
+import static org.junit.Assert.assertEquals;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import org.junit.BeforeClass;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
 
 /**
  * @author Arun Gupta
  */
+@RunWith(Arquillian.class)
 public class MyResourceTest {
 
-    private static WebTarget target;
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+       return ShrinkWrap.create(WebArchive.class)
+             .addClasses(MyApplication.class, MyResource.class, ServerLoggingFilter.class);
+    }
 
-    @BeforeClass
-    public static void setUpClass() {
+    private WebTarget target;
+
+    @ArquillianResource
+    private URL base;
+
+    @Before
+    public void setUpClass() throws MalformedURLException {
         Client client = ClientBuilder.newClient();
         client.register(ClientLoggingFilter.class);
-        target = client.target("http://localhost:8080/filter/webresources/fruits");
+        target = client.target(new URL(base, "webresources/fruits").toExternalForm());
     }
 
     /**
