@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2013 RWE IT Slovakia, s.r.o; RWE IT GmbH
- */
-
 package org.javaee7.jms.send.receive.simple;
 
 import org.junit.Test;
