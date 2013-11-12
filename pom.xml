@@ -296,10 +296,6 @@
         </profile>
         <profile>
             <id>wildfly-remote-arquillian</id>
-            <properties>
-                <serverProfile>standalone-full.xml</serverProfile>
-                <serverRoot>/opt/programs/wildfly-8.0.0.Beta1</serverRoot>
-            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly</groupId>
