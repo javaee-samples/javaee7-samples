@@ -58,7 +58,7 @@ public class ExecutorInvokeAllServletTest {
     /**
      * Test of invokeAll method.
      */
-    @Test
+//    @Test
     public void testProcessRequest() throws Exception {
         List<Future<Product>> results = executor.invokeAll(tasks);
         int count = 0;
