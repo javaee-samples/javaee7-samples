@@ -209,6 +209,17 @@
             </dependencies>
         </profile>
         <profile>
+            <id>glassfish-remote-arquillian</id>
+            <dependencies>
+                <dependency>
+                   <groupId>org.jboss.arquillian.container</groupId>
+                   <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                    <version>1.0.0.CR4</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>wildfly-managed-arquillian</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
