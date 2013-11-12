@@ -40,6 +40,7 @@
 package org.javaee7.jaxrs.client;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -54,7 +55,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author Arun Gupta
  */
-@Path("persons")
+@Path("persons") @RequestScoped
 public class MyResource {
     // Ideally this state should be stored in a database
     @EJB PersonSessionBean bean;
