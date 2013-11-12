@@ -5,7 +5,10 @@
  */
 package org.javaee7.jaxrs.client;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -14,24 +17,42 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 /**
  * @author Arun Gupta
  */
+@RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyResourceTest {
 
     private WebTarget target;
-    private Client client;
+
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+       return ShrinkWrap.create(WebArchive.class)
+             .addClasses(
+                   MyApplication.class, MyResource.class, People.class,
+                   Person.class, PersonSessionBean.class);
+    }
+
+    @ArquillianResource
+    private URL base;
 
     @Before
-    public void setUp() {
-        client = ClientBuilder.newClient();
-        target = client.target("http://localhost:8080/jaxrs-client/webresources/persons");
+    public void setUp() throws MalformedURLException {
+        Client client = ClientBuilder.newClient();
+        target = client.target(new URL(base, "webresources/persons").toExternalForm());
+        target.register(Person.class);
     }
 
     /**
