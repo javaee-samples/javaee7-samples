@@ -36,20 +36,34 @@ I don't plan to write any formal documentation, read the code. The [Java EE 7 Es
 
 ### IntelliJ ###
 
-### Cargo ###
+### Arquillian ###
 
-Samples can be deployed and run on WildFly and GlassFish 4. 
+Samples are tested on Wildfly and GlassFish using the Arquillian ecosystem.
 
-Make sure to edit ``glassfish.home`` or ``wildfly.home`` property value in the top-level ``pom.xml`` to point to your local GlassFish or Wildfly directory respectively. This is achieved using Maven profiles. Include ``-P wildfly`` on mvn CLI to run the samples on WildFly and ``-P glassfish`` fo GlassFish.
+Only one profile can be active at a given time otherwise there will be dependency conflicts.
 
-Only one profile can be active at a given time otherwise there will be port conflicts.
+There are 3 available profiles:
 
-1. In one terminal, ``mvn cargo:run`` at the top-level directory to start container
-2. In the sample directory
-    1. ``mvn package cargo:deploy`` to deploy for the first time
-    2. ``mvn package cargo:redeploy`` to redeploy subsequently
-    3. ``mvn cargo:undeploy`` to undeploy 
-3. Check for application name printed by Cargo output. Access the application at http://localhost:8080/<APP-NAME>
+* ``wildfly-managed-arquillian``
+    The default profile and it will install a Wildfly server and start up the server pr sample.
+    Useful for CI servers.
+
+* ``wildfly-remote-arquillian``
+    This profile requires you to start up a Wildfly server outside of the build. Each sample will then
+    reuse this instance to run the tests.
+    Useful for development to avoid the server start up cost pr sample.
+
+* ``glassfish-embedded-arquillian``
+    This profile uses the GlassFish embedded server and runs in the same JVM as the TestClass.
+    Useful for development, but has the downside of server startup pr sample.
+
+To run them in the console do:
+
+1. In the terminal, ``mvn -Pwildfly-managed-arquillian`` at the top-level directory to start the tests
+
+When developing and runing them from IDE, remember to activate the profile before running the test.
+
+To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
 
 ### Manual ###
 
