@@ -54,26 +54,17 @@ public class MyTransactionalBean {
     @Inject
     MyBean bean2;
 
-    @Transactional
-    public void scenario1() {
-        System.out.println("Scenario 1: Bean injected twice, same id");
-        System.out.println(bean1.getId());
-        System.out.println(bean2.getId());
-    }
+    String id1;
+    String id2;
 
     @Transactional
-    public void scenario2() {
-        System.out.println("Scenario 2: Repeat of Scenario 1, different transaction, different ids");
-        System.out.println(bean1.getId());
-        System.out.println(bean2.getId());
+    public void withTransaction() {
+        id1 = bean1.getId();
+        id2 = bean2.getId();
     }
 
-    public void scenario3() {
-        System.out.println("Scenario 3: Bean outside a transaction");
-        try {
-            bean1.getId();
-        } catch (ContextNotActiveException ex) {
-            System.out.println("Got expected ContextNotActiveException");
-        }
+    public void withoutTransaction() {
+        id1 = bean1.getId();
+        id2 = bean2.getId();
     }
 }
