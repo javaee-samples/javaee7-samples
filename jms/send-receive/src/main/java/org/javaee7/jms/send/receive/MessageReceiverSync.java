@@ -43,18 +43,26 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
+import javax.jms.JMSDestinationDefinition;
+import javax.jms.JMSDestinationDefinitions;
 import javax.jms.Queue;
 
 /**
  * @author Arun Gupta
  */
+@JMSDestinationDefinitions({@JMSDestinationDefinition(name = Constants.SYNC_QUEUE,
+        resourceAdapter = "jmsra",
+        interfaceName = "javax.jms.Queue",
+        destinationName="syncQueue",
+        description="My Sync Queue")
+})
 @Stateless
 public class MessageReceiverSync {
 
     @Inject
     private JMSContext context;
     
-    @Resource(mappedName="java:global/jms/mySyncQueue")
+    @Resource(mappedName=Constants.SYNC_QUEUE)
     Queue myQueue;
 
     public String receiveMessage() {

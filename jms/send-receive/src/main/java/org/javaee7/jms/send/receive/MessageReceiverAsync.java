@@ -43,6 +43,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.jms.JMSDestinationDefinition;
+import javax.jms.JMSDestinationDefinitions;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -51,9 +53,18 @@ import javax.jms.TextMessage;
 /**
  * @author Arun Gupta
  */
+@JMSDestinationDefinitions(
+    @JMSDestinationDefinition(name = Constants.ASYNC_QUEUE,
+        resourceAdapter = "jmsra",
+        interfaceName = "javax.jms.Queue",
+        destinationName="asyncQueue",
+        description="My Async Queue")
+)
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup",
-            propertyValue = "java:global/jms/myAsyncQueue")
+            propertyValue = Constants.ASYNC_QUEUE),
+    @ActivationConfigProperty(propertyName = "destinationType",
+            propertyValue = "javax.jms.Queue"),    
 })
 public class MessageReceiverAsync implements MessageListener {
 
