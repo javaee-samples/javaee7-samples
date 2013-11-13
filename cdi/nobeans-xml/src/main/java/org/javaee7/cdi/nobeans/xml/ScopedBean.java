@@ -45,7 +45,7 @@ import javax.enterprise.context.RequestScoped;
  * @author Arun Gupta
  */
 @RequestScoped
-public class MyBean {
+public class ScopedBean {
     public String sayHello(String name) {
         return "Hello " + name;
     }
