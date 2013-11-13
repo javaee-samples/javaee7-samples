@@ -55,10 +55,10 @@ public class MessageSenderSync {
 //    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
     JMSContext context;
     
-    @Resource(mappedName="java:global/jms/mySyncQueue")
+    @Resource(mappedName=Constants.SYNC_QUEUE)
     Queue syncQueue;
 
-    @Resource(mappedName="java:global/jms/myAsyncQueue")
+    @Resource(mappedName=Constants.ASYNC_QUEUE)
     Queue asyncQueue;
 
     public void sendMessage(String message) {
