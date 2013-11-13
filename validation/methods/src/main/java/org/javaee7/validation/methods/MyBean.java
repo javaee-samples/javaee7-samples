@@ -42,6 +42,9 @@ package org.javaee7.validation.methods;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -49,6 +52,7 @@ import javax.validation.constraints.Size;
 /**
  * @author Arun Gupta
  */
+@RequestScoped
 public class MyBean {
     public String sayHello(@Size(max = 3)String name) {
         return "Hello " + name;
