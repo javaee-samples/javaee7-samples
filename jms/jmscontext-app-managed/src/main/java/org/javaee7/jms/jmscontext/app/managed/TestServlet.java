@@ -1,5 +1,6 @@
 package org.javaee7.jms.jmscontext.app.managed;
 
+import org.javaee7.jms.send.receive.simple.appmanaged.MessageSender;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.inject.Inject;

@@ -1,4 +1,4 @@
-package org.javaee7.jms.send.receive;
+package org.javaee7.jms.send.receive.mdb;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

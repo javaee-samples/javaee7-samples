@@ -37,62 +37,53 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jms.send.receive;
+package org.javaee7.jms.send.receive.classic;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.jms.CompletionListener;
-import javax.jms.JMSContext;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageConsumer;
 import javax.jms.Queue;
+import javax.jms.Session;
+
+import org.javaee7.jms.send.receive.Resources;
 
 /**
  * @author Arun Gupta
  */
 @Stateless
-public class MessageSenderAsync {
+public class ClassicMessageReceiver {
 
-    @Inject
-//    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
-    JMSContext context;
+    @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
+    ConnectionFactory connectionFactory;
     
-    @Resource(lookup = Constants.SYNC_QUEUE)
-    Queue syncQueue;
-    
-    @Resource(lookup = Constants.ASYNC_QUEUE)
-    Queue asyncQueue;
+    @Resource(mappedName = Resources.CLASSIC_QUEUE)
+    Queue demoQueue;
 
-    public void sendMessage(String message) {
+    public String receiveMessage() {
+        String response = null;
+        Connection connection = null;
         try {
-            context.createProducer().setAsync(new CompletionListener() {
-                @Override
-                public void onCompletion(Message msg) {
-                    try {
-                        System.out.println(msg.getBody(String.class));
-                    } catch (JMSException ex) {
-                        Logger.getLogger(MessageSenderAsync.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            connection = connectionFactory.createConnection();
+            connection.start();
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            MessageConsumer messageConsumer = session.createConsumer(demoQueue);
+            Message message = messageConsumer.receive(5000);
+            response = message.getBody(String.class);
+        } catch (JMSException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (JMSException ex) {
+                    ex.printStackTrace();
                 }
-
-                @Override
-                public void onException(Message msg, Exception e) {
-                    try {
-                        System.out.println(msg.getBody(String.class));
-                    } catch (JMSException ex) {
-                        Logger.getLogger(MessageSenderAsync.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            });
-        } catch (RuntimeException e) {
-            System.out.println("Caught RuntimeException trying to invoke setAsync - not permitted in Java EE");
+            }
         }
-
-
-        context.createProducer().send(syncQueue, message);
-        context.createProducer().send(asyncQueue, message);
+        return response;
     }
 }

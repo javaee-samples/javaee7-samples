@@ -6,7 +6,7 @@
     
     <interceptors>
         <interceptor>
-            <interceptor-class>org.javaee7.jms.send.receive.ReceptionSynchronizer</interceptor-class>
+            <interceptor-class>org.javaee7.jms.send.receive.mdb.ReceptionSynchronizer</interceptor-class>
             <around-invoke>
                 <method-name>invoke</method-name>
             </around-invoke>
@@ -15,7 +15,7 @@
     <assembly-descriptor>
         <interceptor-binding>
             <ejb-name>MessageReceiverAsync</ejb-name>
-            <interceptor-class>org.javaee7.jms.send.receive.ReceptionSynchronizer</interceptor-class>
+            <interceptor-class>org.javaee7.jms.send.receive.mdb.ReceptionSynchronizer</interceptor-class>
         </interceptor-binding>        
     </assembly-descriptor>    
 </ejb-jar>

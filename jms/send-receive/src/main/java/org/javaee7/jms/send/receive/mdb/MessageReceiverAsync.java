@@ -37,49 +37,37 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jms.send.receive.simple;
+package org.javaee7.jms.send.receive.mdb;
 
-import javax.annotation.Resource;
-import javax.ejb.Stateless;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Queue;
-import javax.jms.Session;
+import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+
+import org.javaee7.jms.send.receive.Resources;
 
 /**
  * @author Arun Gupta
  */
-@Stateless
-public class ClassicMessageSender {
+@MessageDriven(activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationLookup",
+            propertyValue = Resources.ASYNC_QUEUE),
+    @ActivationConfigProperty(propertyName = "destinationType",
+            propertyValue = "javax.jms.Queue"),    
+})
+public class MessageReceiverAsync implements MessageListener {
 
-    @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
-    ConnectionFactory connectionFactory;
-    
-    @Resource(mappedName = "java:global/jms/myQueue2")
-    Queue demoQueue;
-
-    public void sendMessage(String payload) {
-        Connection connection = null;
+    @Override
+    public void onMessage(Message message) {
         try {
-            connection = connectionFactory.createConnection();
-            connection.start();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer messageProducer = session.createProducer(demoQueue);
-            TextMessage textMessage = session.createTextMessage(payload);
-            messageProducer.send(textMessage);
+            TextMessage tm = (TextMessage) message;
+            System.out.println("Message received (async): " + tm.getText());
         } catch (JMSException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (JMSException ex) {
-                    ex.printStackTrace();
-                }
-            }
+            Logger.getLogger(MessageReceiverAsync.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
