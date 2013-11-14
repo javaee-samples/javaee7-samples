@@ -48,6 +48,7 @@ import javax.jms.Queue;
 import org.javaee7.jms.send.receive.Resources;
 
 /**
+ * Synchronous message seding with container-managed JMSContext.
  * @author Arun Gupta
  */
 @Stateless

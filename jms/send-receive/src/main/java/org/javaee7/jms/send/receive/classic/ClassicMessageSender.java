@@ -52,6 +52,7 @@ import javax.jms.TextMessage;
 import org.javaee7.jms.send.receive.Resources;
 
 /**
+ * Sending a message using classic JMS API.
  * @author Arun Gupta
  */
 @Stateless

@@ -9,6 +9,8 @@ import javax.jms.Queue;
 import org.javaee7.jms.send.receive.Resources;
 
 /**
+ * Synchronous message sending with app-managed JMSContext.
+ * JMSContext can be used with try-with-resources construct.
  * @author Arun Gupta
  */
 @Stateless

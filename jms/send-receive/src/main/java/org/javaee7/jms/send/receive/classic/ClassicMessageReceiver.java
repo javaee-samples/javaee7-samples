@@ -52,6 +52,7 @@ import javax.jms.Session;
 import org.javaee7.jms.send.receive.Resources;
 
 /**
+ * Synchronized message receiver using classic API.
  * @author Arun Gupta
  */
 @Stateless

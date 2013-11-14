@@ -8,7 +8,7 @@ import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSDestinationDefinitions;
 
 /**
- * 
+ * Application scoped JMS resources for the samples.
  * @author Patrik Dudits
  */
 @JMSDestinationDefinitions({

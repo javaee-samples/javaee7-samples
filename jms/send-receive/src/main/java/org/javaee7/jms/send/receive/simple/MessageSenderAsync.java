@@ -53,6 +53,7 @@ import javax.jms.Queue;
 import org.javaee7.jms.send.receive.Resources;
 
 /**
+ * Asynchronous message sending is not supported in Java EE 7.
  * @author Arun Gupta
  */
 @Stateless

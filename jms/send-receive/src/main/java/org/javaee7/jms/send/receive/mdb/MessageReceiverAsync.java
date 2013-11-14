@@ -51,6 +51,7 @@ import javax.jms.TextMessage;
 import org.javaee7.jms.send.receive.Resources;
 
 /**
+ * A message driven bean with newly standardized activation config properties.
  * @author Arun Gupta
  */
 @MessageDriven(activationConfig = {
