@@ -39,11 +39,13 @@
  */
 package org.javaee7.validation.methods;
 
+import javax.enterprise.context.RequestScoped;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author Arun Gupta
  */
+@RequestScoped
 public class MyBean2 {
     private String value;
     

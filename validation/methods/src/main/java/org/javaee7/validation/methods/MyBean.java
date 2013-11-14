@@ -44,7 +44,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
