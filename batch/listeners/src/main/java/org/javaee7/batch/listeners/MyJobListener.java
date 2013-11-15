@@ -50,12 +50,12 @@ import javax.inject.Named;
 public class MyJobListener extends AbstractJobListener {
 
     @Override
-    public void beforeJob() throws Exception {
+    public void beforeJob() {
         System.out.println("MyJobListener.beforeJob");
     }
 
     @Override
-    public void afterJob() throws Exception {
+    public void afterJob() {
         System.out.println("MyJobListener.afterJob");
     }
 
