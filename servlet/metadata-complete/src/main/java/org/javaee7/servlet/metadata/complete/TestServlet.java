@@ -72,7 +72,7 @@ public class TestServlet extends HttpServlet {
         out.println("<title>Servlet url-pattern in web.xml</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>c</h1>");
+        out.println("<h1>Servlet url-pattern in web.xml</h1>");
         out.println("</body>");
         out.println("</html>");
     }
