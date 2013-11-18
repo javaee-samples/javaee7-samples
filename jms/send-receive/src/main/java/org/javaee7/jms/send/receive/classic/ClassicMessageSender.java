@@ -37,44 +37,52 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jms.send.receive;
+package org.javaee7.jms.send.receive.classic;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.jms.JMSDestinationDefinition;
-import javax.jms.JMSDestinationDefinitions;
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
 import javax.jms.TextMessage;
 
+import org.javaee7.jms.send.receive.Resources;
+
 /**
+ * Sending a message using classic JMS API.
  * @author Arun Gupta
  */
-@JMSDestinationDefinitions(
-    @JMSDestinationDefinition(name = Constants.ASYNC_QUEUE,
-        resourceAdapter = "jmsra",
-        interfaceName = "javax.jms.Queue",
-        destinationName="asyncQueue",
-        description="My Async Queue")
-)
-@MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationLookup",
-            propertyValue = Constants.ASYNC_QUEUE),
-    @ActivationConfigProperty(propertyName = "destinationType",
-            propertyValue = "javax.jms.Queue"),    
-})
-public class MessageReceiverAsync implements MessageListener {
+@Stateless
+public class ClassicMessageSender {
 
-    @Override
-    public void onMessage(Message message) {
+    @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
+    ConnectionFactory connectionFactory;
+    
+    @Resource(mappedName = Resources.CLASSIC_QUEUE)
+    Queue demoQueue;
+
+    public void sendMessage(String payload) {
+        Connection connection = null;
         try {
-            TextMessage tm = (TextMessage) message;
-            System.out.println("Message received (async): " + tm.getText());
+            connection = connectionFactory.createConnection();
+            connection.start();
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            MessageProducer messageProducer = session.createProducer(demoQueue);
+            TextMessage textMessage = session.createTextMessage(payload);
+            messageProducer.send(textMessage);
         } catch (JMSException ex) {
-            Logger.getLogger(MessageReceiverAsync.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (JMSException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
     }
 }

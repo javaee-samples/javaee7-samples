@@ -37,28 +37,38 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.jms.send.receive.simple;
+package org.javaee7.jms.send.receive.mdb;
 
-import javax.annotation.Resource;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.jms.JMSContext;
-import javax.jms.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+
+import org.javaee7.jms.send.receive.Resources;
 
 /**
+ * A message driven bean with newly standardized activation config properties.
  * @author Arun Gupta
  */
-@Stateless
-public class SimplifiedMessageReceiver {
+@MessageDriven(activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationLookup",
+            propertyValue = Resources.ASYNC_QUEUE),
+    @ActivationConfigProperty(propertyName = "destinationType",
+            propertyValue = "javax.jms.Queue"),    
+})
+public class MessageReceiverAsync implements MessageListener {
 
-    @Inject
-    private JMSContext context;
-    
-    @Resource(mappedName="java:global/jms/myQueue2")
-    Queue myQueue;
-
-    public String receiveMessage() {
-        String message = context.createConsumer(myQueue).receiveBody(String.class, 1000);
-        return message;
+    @Override
+    public void onMessage(Message message) {
+        try {
+            TextMessage tm = (TextMessage) message;
+            System.out.println("Message received (async): " + tm.getText());
+        } catch (JMSException ex) {
+            Logger.getLogger(MessageReceiverAsync.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

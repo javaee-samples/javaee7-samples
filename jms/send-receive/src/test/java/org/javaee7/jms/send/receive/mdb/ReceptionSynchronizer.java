@@ -1,4 +1,4 @@
-package org.javaee7.jms.send.receive;
+package org.javaee7.jms.send.receive.mdb;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

@@ -1,24 +1,25 @@
-package org.javaee7.jms.jmscontext.app.managed;
+package org.javaee7.jms.send.receive.simple.appmanaged;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
-import javax.jms.JMSDestinationDefinition;
 import javax.jms.Queue;
 
+import org.javaee7.jms.send.receive.Resources;
+
 /**
+ * Synchronous message sending with app-managed JMSContext.
+ * JMSContext can be used with try-with-resources construct.
  * @author Arun Gupta
  */
 @Stateless
-@JMSDestinationDefinition(name = "java:global/jms/myQueue",
-        interfaceName = "javax.jms.Queue")
-public class MessageSender {
+public class MessageSenderAppManaged {
 
     @Resource
     private ConnectionFactory factory;
     
-    @Resource(mappedName="java:global/jms/myQueue")
+    @Resource(mappedName=Resources.SYNC_QUEUE)
     Queue myQueue;
 
     public void sendMessage(String message) {

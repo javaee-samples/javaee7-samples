@@ -1,8 +1,7 @@
-<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -38,18 +37,54 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+package org.javaee7.jms.send.receive.classic;
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Container Managed JMSContext</title>
-    </head>
-    <body>
-        <h1>Container Managed JMSContext</h1>
-        <a href="${pageContext.request.contextPath}/TestServlet"/>Send and Receive</a> message.
-    </body>
-</html>
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.Queue;
+import javax.jms.Session;
+
+import org.javaee7.jms.send.receive.Resources;
+
+/**
+ * Synchronized message receiver using classic API.
+ * @author Arun Gupta
+ */
+@Stateless
+public class ClassicMessageReceiver {
+
+    @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
+    ConnectionFactory connectionFactory;
+    
+    @Resource(mappedName = Resources.CLASSIC_QUEUE)
+    Queue demoQueue;
+
+    public String receiveMessage() {
+        String response = null;
+        Connection connection = null;
+        try {
+            connection = connectionFactory.createConnection();
+            connection.start();
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            MessageConsumer messageConsumer = session.createConsumer(demoQueue);
+            Message message = messageConsumer.receive(5000);
+            response = message.getBody(String.class);
+        } catch (JMSException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (JMSException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return response;
+    }
+}

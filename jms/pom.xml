@@ -15,11 +15,8 @@
     <name>Java EE 7 JMS Samples</name>
 
     <modules>
-        <module>send-receive-simple</module>
         <module>send-receive</module>
         <module>temp-destination</module>
-        <module>jmscontext-container-managed</module>
-        <module>jmscontext-app-managed</module>
     </modules>
 
 </project>
