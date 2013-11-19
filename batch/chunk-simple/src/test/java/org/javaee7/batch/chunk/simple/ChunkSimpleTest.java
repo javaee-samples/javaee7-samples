@@ -1,6 +1,6 @@
 package org.javaee7.batch.chunk.simple;
 
-import org.javaee7.batch.test.BatchTestHelper;
+import org.javaee7.batch.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ArchivePaths;

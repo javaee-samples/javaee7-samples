@@ -9,7 +9,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
         
-    <groupId>org.javaee7.batch</groupId>
     <artifactId>chunk-simple</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -18,4 +17,11 @@
     <properties>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.javaee7.batch</groupId>
+            <artifactId>batch-util</artifactId>
+        </dependency>
+    </dependencies>
 </project>
