@@ -36,7 +36,7 @@ public class ChunkSimpleTest {
                                    .addClass(MyItemWriter.class)
                                    .addClass(MyOutputRecord.class)
                                    .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                                   .addAsManifestResource("META-INF/batch-jobs/myJob.xml", "batch-jobs/myJob.xml");
+                                   .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
