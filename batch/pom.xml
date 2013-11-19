@@ -25,7 +25,7 @@
         <module>chunk-simple</module>
         <module>decision</module>
         <module>flow</module>
-        <module>listeners</module>
+        <module>batch-listeners</module>
         <module>multiple-steps</module>
         <module>split</module>
         <module>chunk-simple-nobeans</module>
