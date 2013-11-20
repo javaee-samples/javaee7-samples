@@ -395,7 +395,7 @@
         <module>servlet</module>
         <module>validation</module>
         <module>websocket</module>
-        <module>extra</module>
+        <!-- module>extra</module -->
     </modules>
 
     <prerequisites>
