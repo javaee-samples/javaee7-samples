@@ -20,8 +20,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.javaee7.batch</groupId>
-            <artifactId>batch-util</artifactId>
+            <groupId>org.javaee7</groupId>
+            <artifactId>util-samples</artifactId>
         </dependency>
     </dependencies>
 </project>

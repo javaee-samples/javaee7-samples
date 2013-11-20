@@ -1,4 +1,4 @@
-package org.javaee7.batch.util;
+package org.javaee7.util;
 
 import javax.batch.runtime.BatchStatus;
 import javax.batch.runtime.JobExecution;
