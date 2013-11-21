@@ -30,13 +30,12 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class MyResourceTest {
 
-    @Deployment(testable = false)
+    @Deployment(testable=false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 .addClasses(
                         MyApplication.class,
                         MyResource.class,
-                        ServerLogged.class,
                         DynamicServerLogggingFilterFeature.class,
                         ServerLoggingFilter.class);
     }
@@ -44,7 +43,7 @@ public class MyResourceTest {
     private WebTarget target;
 
     @ArquillianResource
-    private URL base;
+    URL base;
 
     @Before
     public void setUpClass() throws MalformedURLException {
@@ -53,7 +52,7 @@ public class MyResourceTest {
     }
 
     @Test
-    public void testGetList() {
+    public void testGet() {
         String response = target.request().get(String.class);
         assertEquals("apple", response);
     }

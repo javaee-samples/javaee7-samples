@@ -50,7 +50,6 @@ import javax.ws.rs.ext.Provider;
  * @author Arun Gupta
  */
 @Provider
-@ServerLogged
 public class ServerLoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
     @Override
