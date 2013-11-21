@@ -53,9 +53,9 @@ public class DynamicServerLogggingFilterFeature implements DynamicFeature {
 
     @Override
     public void configure(ResourceInfo ri, FeatureContext fc) {
-        if (MyResource.class.isAssignableFrom(ri.getResourceClass())
-                && ri.getResourceMethod().isAnnotationPresent(GET.class)) {
+//        if (MyResource.class.isAssignableFrom(ri.getResourceClass())
+//                && ri.getResourceMethod().isAnnotationPresent(GET.class)) {
             fc.register(new ServerLoggingFilter());
-        }
+//        }
     }
 }

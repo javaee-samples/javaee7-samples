@@ -32,10 +32,13 @@ public class MyResourceTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(
-                   DynamicServerLogggingFilterFeature.class, MyApplication.class, MyResource.class,
-                   ServerLogged.class, ServerLoggingFilter.class);
+        return ShrinkWrap.create(WebArchive.class)
+                .addClasses(
+                        MyApplication.class,
+                        MyResource.class,
+                        ServerLogged.class,
+                        DynamicServerLogggingFilterFeature.class,
+                        ServerLoggingFilter.class);
     }
 
     private WebTarget target;
@@ -51,8 +54,8 @@ public class MyResourceTest {
 
     @Test
     public void testGetList() {
-        String result = target.request().get(String.class);
-        assertEquals("apple", result);
+        String response = target.request().get(String.class);
+        assertEquals("apple", response);
     }
 
     @Test

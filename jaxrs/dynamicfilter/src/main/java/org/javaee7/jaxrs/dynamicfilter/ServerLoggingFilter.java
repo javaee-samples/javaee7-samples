@@ -58,7 +58,7 @@ public class ServerLoggingFilter implements ContainerRequestFilter, ContainerRes
         System.out.println("ContainerRequestFilter<start>");
         System.out.println(crc.getMethod() + " " + crc.getUriInfo().getAbsolutePath());
         for (String key : crc.getHeaders().keySet()) {
-            System.out.println("<header(request> " + key + ": " + crc.getHeaders().get(key));
+            System.out.println("<header> " + key + ": " + crc.getHeaders().get(key));
         }
         
         // add a header, check in test
