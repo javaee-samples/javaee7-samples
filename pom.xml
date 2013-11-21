@@ -34,8 +34,16 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>org.javaee7</groupId>
+                <artifactId>util-samples</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>jar</type>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
