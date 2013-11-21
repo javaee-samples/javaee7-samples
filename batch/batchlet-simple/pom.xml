@@ -10,7 +10,6 @@
     </parent>
   
     <artifactId>batchlet-simple</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencies>
