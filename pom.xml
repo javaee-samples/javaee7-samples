@@ -396,6 +396,7 @@
         <module>validation</module>
         <module>websocket</module>
         <!-- module>extra</module -->
+        <module>util</module>
     </modules>
 
     <prerequisites>

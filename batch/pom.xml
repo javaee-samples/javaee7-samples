@@ -16,7 +16,7 @@
     <name>Java EE 7 Batch Samples</name>
 
     <modules>
-        <module>batch-util</module>
+        <!--<module>batch-util</module>-->
         <module>batchlet-simple</module>
         <module>chunk-checkpoint</module>
         <module>chunk-csv-database</module>
@@ -36,8 +36,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.javaee7.batch</groupId>
-                <artifactId>batch-util</artifactId>
+                <groupId>org.javaee7</groupId>
+                <artifactId>util-samples</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
