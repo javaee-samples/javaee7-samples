@@ -32,7 +32,7 @@ There are 3 available profiles:
 
 To run them in the console do:
 
-1. In the terminal, ``mvn -Pwildfly-managed-arquillian`` at the top-level directory to start the tests
+1. In the terminal, ``mvn -Pwildfly-managed-arquillian test`` at the top-level directory to start the tests
 
 When developing and runing them from IDE, remember to activate the profile before running the test.
 
