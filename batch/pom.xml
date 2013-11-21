@@ -11,12 +11,10 @@
 
     <groupId>org.javaee7.batch</groupId>
     <artifactId>batch-samples</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Java EE 7 Batch Samples</name>
 
     <modules>
-        <!--<module>batch-util</module>-->
         <module>batchlet-simple</module>
         <module>chunk-checkpoint</module>
         <module>chunk-csv-database</module>
@@ -32,16 +30,4 @@
         <module>split</module>
         <module>chunk-simple-nobeans</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.javaee7</groupId>
-                <artifactId>util-samples</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 </project>
