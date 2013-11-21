@@ -313,6 +313,7 @@
                                <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
                            </environmentVariables>
                        </configuration>
+                       <version>2.16</version>
                     </plugin>
                 </plugins>
             </build>
