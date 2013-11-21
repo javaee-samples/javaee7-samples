@@ -36,8 +36,7 @@
         <module>resource-validation</module>
         <module>server-negotiation</module>
         <!--<module>server-sent-event</module>-->
-        <module>singleton-application</module>
-        <module>singleton-annotation</module>
+        <module>singleton</module>
         <module>readerwriter-injection</module>
     </modules>
 </project>
