@@ -5,16 +5,13 @@ import javax.ejb.Stateless;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
-
 import org.javaee7.jms.send.receive.Resources;
 
 /**
- * Synchronous message sending with app-managed JMSContext.
- * JMSContext can be used with try-with-resources construct.
  * @author Arun Gupta
  */
 @Stateless
-public class MessageSenderAppManaged {
+public class MessageReceiverAppManaged {
 
     @Resource
     private ConnectionFactory factory;
@@ -22,9 +19,9 @@ public class MessageSenderAppManaged {
     @Resource(mappedName=Resources.SYNC_APP_MANAGED_QUEUE)
     Queue myQueue;
 
-    public void sendMessage(String message) {
+    public String receiveMessage() {
         try (JMSContext context = factory.createContext()) {
-            context.createProducer().send(myQueue, message);
+            return context.createConsumer(myQueue).receiveBody(String.class, 1000);
         }
     }
 }

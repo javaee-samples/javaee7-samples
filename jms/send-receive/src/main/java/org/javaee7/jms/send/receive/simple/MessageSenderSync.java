@@ -48,7 +48,7 @@ import javax.jms.Queue;
 import org.javaee7.jms.send.receive.Resources;
 
 /**
- * Synchronous message seding with container-managed JMSContext.
+ * Synchronous message sending with container-managed JMSContext.
  * @author Arun Gupta
  */
 @Stateless
@@ -58,7 +58,7 @@ public class MessageSenderSync {
 //    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
     JMSContext context;
     
-    @Resource(mappedName=Resources.SYNC_QUEUE)
+    @Resource(mappedName=Resources.SYNC_CONTAINER_MANAGED_QUEUE)
     Queue syncQueue;
 
     public void sendMessage(String message) {

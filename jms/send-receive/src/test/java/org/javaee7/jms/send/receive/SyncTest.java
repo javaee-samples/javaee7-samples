@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 
 import org.javaee7.jms.send.receive.simple.MessageReceiverSync;
 import org.javaee7.jms.send.receive.simple.MessageSenderSync;
+import org.javaee7.jms.send.receive.simple.appmanaged.MessageReceiverAppManaged;
 import org.javaee7.jms.send.receive.simple.appmanaged.MessageSenderAppManaged;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -17,60 +18,63 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.runner.RunWith;
 
 /**
- *
  * @author Patrik Dudits
  */
 @RunWith(Arquillian.class)
 public class SyncTest {
-    
-    @EJB
-    MessageSenderSync simpleSender;
-            
-    @EJB
-    MessageReceiverSync simpleReceiver;
-    
+
     @EJB
     ClassicMessageSender classicSender;
-    
+
     @EJB
     ClassicMessageReceiver classicReceiver;
-    
+
     @EJB
-    MessageSenderAppManaged appManaged;
-    
-    @Test
-    public void testSimpleApi() {
-        String message = "The test message over JMS 2.0 API";
-        simpleSender.sendMessage(message);
-        
-        assertEquals(message, simpleReceiver.receiveMessage());
-    }
-    
+    MessageSenderSync simpleSender;
+
+    @EJB
+    MessageReceiverSync simpleReceiver;
+
+    @EJB
+    MessageSenderAppManaged appManagedSender;
+
+    @EJB
+    MessageReceiverAppManaged appManagedReceiver;
+
     @Test
     public void testClassicApi() {
         String message = "The test message over JMS 1.1 API";
         classicSender.sendMessage(message);
-        
-        assertEquals(message, classicReceiver.receiveMessage());        
+
+        assertEquals(message, classicReceiver.receiveMessage());
     }
-    
+
+    @Test
+    public void testContainerManagedJmsContext() {
+        String message = "Test message over container-managed JMSContext";
+        simpleSender.sendMessage(message);
+
+        assertEquals(message, simpleReceiver.receiveMessage());
+    }
+
     @Test
     public void testAppManagedJmsContext() {
         String message = "The test message over app-managed JMSContext";
-        appManaged.sendMessage(message);
-        
-        assertEquals(message, simpleReceiver.receiveMessage());        
+        appManagedSender.sendMessage(message);
+
+        assertEquals(message, appManagedReceiver.receiveMessage());
     }
-    
+
     @Deployment
     public static WebArchive deploy() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClass(MessageSenderSync.class)
-                .addClass(MessageReceiverSync.class)
-                .addClass(ClassicMessageSender.class)
-                .addClass(ClassicMessageReceiver.class)
-                .addClass(MessageSenderAppManaged.class)
-                .addClass(Resources.class);
+                .addClasses(MessageSenderSync.class,
+                        MessageReceiverSync.class,
+                        ClassicMessageSender.class,
+                        ClassicMessageReceiver.class,
+                        MessageSenderAppManaged.class,
+                        MessageReceiverAppManaged.class,
+                        Resources.class);
     }
-    
+
 }

@@ -19,14 +19,20 @@ import javax.jms.JMSDestinationDefinitions;
         interfaceName = "javax.jms.Queue",
         destinationName="asyncQueue",
         description="My Async Queue"),
-    @JMSDestinationDefinition(name = Resources.SYNC_QUEUE,
+    @JMSDestinationDefinition(name = Resources.SYNC_APP_MANAGED_QUEUE,
         resourceAdapter = "jmsra",
         interfaceName = "javax.jms.Queue",
-        destinationName="syncQueue",
-        description="My Async Queue")       
+        destinationName="syncAppQueue",
+        description="My Sync Queue for App-managed JMSContext")       ,
+    @JMSDestinationDefinition(name = Resources.SYNC_CONTAINER_MANAGED_QUEUE,
+        resourceAdapter = "jmsra",
+        interfaceName = "javax.jms.Queue",
+        destinationName="syncContainerQueue",
+        description="My Sync Queue for Container-managed JMSContext")       
 })
 public class Resources {
-    public static final String SYNC_QUEUE = "java:global/jms/mySyncQueue";
+    public static final String SYNC_APP_MANAGED_QUEUE = "java:global/jms/mySyncAppQueue";
+    public static final String SYNC_CONTAINER_MANAGED_QUEUE = "java:global/jms/mySyncContainerQueue";
     public static final String ASYNC_QUEUE = "java:global/jms/myAsyncQueue";
     public static final String CLASSIC_QUEUE = "java:global/jms/classicQueue";
 }

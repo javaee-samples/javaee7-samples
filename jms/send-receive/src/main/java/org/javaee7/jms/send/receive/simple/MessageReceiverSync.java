@@ -57,11 +57,10 @@ public class MessageReceiverSync {
     @Inject
     private JMSContext context;
     
-    @Resource(mappedName=Resources.SYNC_QUEUE)
+    @Resource(mappedName=Resources.SYNC_CONTAINER_MANAGED_QUEUE)
     Queue myQueue;
 
     public String receiveMessage() {
-        String message = context.createConsumer(myQueue).receiveBody(String.class, 1000);
-        return message;
+        return context.createConsumer(myQueue).receiveBody(String.class, 1000);
     }
 }
