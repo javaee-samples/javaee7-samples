@@ -39,10 +39,10 @@ public class MyResourceTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(
-                   MyApplication.class, MyResource.class, People.class,
-                   Person.class, PersonSessionBean.class);
+        return ShrinkWrap.create(WebArchive.class)
+                .addClasses(
+                        MyApplication.class, MyResource.class, People.class,
+                        Person.class, PersonSessionBean.class);
     }
 
     @ArquillianResource
