@@ -18,8 +18,8 @@ import org.javaee7.websocket.binary.MyEndpointByteBuffer;
 import org.javaee7.websocket.binary.MyEndpointClient;
 import org.javaee7.websocket.binary.MyEndpointInputStream;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.TargetsContainer;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import static org.junit.Assert.*;
@@ -30,28 +30,26 @@ import org.junit.runner.RunWith;
  * @author Nikos Ballas
  * @author Arun Gupta
  */
-//@RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class WebsocketBinaryEndpointTest {
 
-    private static final String WEBAPP_SRC = "src/main/webapp";
     private static final String RESPONSE = "Hello World!";
+
+    @ArquillianResource
+    URI base;
 
     /**
      * Arquillian specific method for creating a file which can be deployed
      * while executing the test.
-     *
-     * @return a war file deployable in the jboss instance configuraed in
-     * arquillian.xml file.
      */
-    @Deployment(testable = false)
-//    @TargetsContainer("wildfly-arquillian")
+    @Deployment(testable=false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(MyEndpointByteBuffer.class)
-                .addClass(MyEndpointByteArray.class)
-                .addClass(MyEndpointInputStream.class)
-                .addClass(MyEndpointClient.class)
-                .addAsWebResource(new File(WEBAPP_SRC, "websocket.js"));
+                .addClasses(MyEndpointByteBuffer.class,
+                        MyEndpointByteArray.class,
+                        MyEndpointInputStream.class,
+                        MyEndpointClient.class);
+        System.out.println(war.toString(true));
         return war;
     }
 
@@ -122,6 +120,18 @@ public class WebsocketBinaryEndpointTest {
      */
     public Session connectToServer(String endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-        return container.connectToServer(MyEndpointClient.class, new URI("ws://localhost:8080/binary/" + endpoint));
+        URI uri = new URI("ws://"
+                        + base.getHost()
+                        + ":"
+                        + base.getPort()
+                        + "/"
+                        + base.getPath()
+                        + "/"
+
+//                "localhost:8080/binary/""
+                        + endpoint);
+        System.out.println("Connecting to: " + uri);
+        return container.connectToServer(MyEndpointClient.class, uri);
+                
     }
 }
