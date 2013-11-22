@@ -29,7 +29,7 @@
         <module>jsonp</module>
         <module>link</module>
         <module>mapping-exceptions</module>
-        <module>moxy</module>
+        <!--<module>moxy</module>-->
         <module>readerwriter</module>
         <module>readerwriter-json</module>
         <module>request-binding</module>
