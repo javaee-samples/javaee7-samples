@@ -28,8 +28,7 @@ public class CustomConstraintTest {
     public static Archive<?> deployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
                 .addClasses(MyBean.class)
-                .addAsResource("ValidationMessages.properties")
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsResource("ValidationMessages.properties");
         
         System.out.println(war.toString(true));
         return war;
