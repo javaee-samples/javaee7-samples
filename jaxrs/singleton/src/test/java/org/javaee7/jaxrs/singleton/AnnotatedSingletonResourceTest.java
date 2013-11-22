@@ -54,9 +54,8 @@ public class AnnotatedSingletonResourceTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 .addClasses(
-                        MyApplication.class, 
-                        AnnotatedSingletonResource.class,
-                        ApplicationSingletonResource.class);
+                        MyAnnotatedApplication.class, 
+                        AnnotatedSingletonResource.class);
     }
 
     @Test
@@ -72,13 +71,13 @@ public class AnnotatedSingletonResourceTest {
         assertEquals(4, tokens.countTokens());
     }
 
-//    @Test
+    @Test
     public void test2Get() {
         String response = target.path("2").request().get(String.class);
         assertEquals("kiwi", response);
     }
 
-//    @Test
+    @Test
     public void test3Delete() {
         target.path("kiwi").request().delete();
 
@@ -87,7 +86,7 @@ public class AnnotatedSingletonResourceTest {
         assertEquals(3, tokens.countTokens());
     }
 
-//    @Test
+    @Test
     public void test4Put() {
         target.request().put(Entity.text("apple"));
 

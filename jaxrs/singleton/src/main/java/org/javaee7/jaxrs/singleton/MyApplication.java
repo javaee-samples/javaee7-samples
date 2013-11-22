@@ -49,10 +49,10 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("webresources")
 public class MyApplication extends Application {
 
-//    @Override
-//    public Set<Object> getSingletons() {
-//        Set<Object> resources = new java.util.HashSet<>();
-//        resources.add(new ApplicationSingletonResource());
-//        return resources;
-//    }
+    @Override
+    public Set<Object> getSingletons() {
+        Set<Object> resources = new java.util.HashSet<>();
+        resources.add(new ApplicationSingletonResource());
+        return resources;
+    }
 }
