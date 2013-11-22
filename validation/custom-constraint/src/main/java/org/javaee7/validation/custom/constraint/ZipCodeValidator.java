@@ -54,6 +54,7 @@ public class ZipCodeValidator
 
     @Override
     public void initialize(ZipCode constraintAnnotation) {
+        System.out.println("ZipCodeValidator.initialize");
         zipcodes = new ArrayList<>();
         switch (constraintAnnotation.country()) {
             case US:
@@ -81,6 +82,8 @@ public class ZipCodeValidator
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        System.out.println("Validating: " + value);
+        System.out.println("state: "+ zipcodes.contains(value));
         return zipcodes.contains(value);
     }
 }

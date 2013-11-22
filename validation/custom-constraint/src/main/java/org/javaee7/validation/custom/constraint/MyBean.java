@@ -46,11 +46,11 @@ import javax.enterprise.context.RequestScoped;
  */
 @RequestScoped
 public class MyBean {
-    public String saveZip(@ZipCode String zip) {
-        return "zip code saved";
+    public void saveZip(@ZipCode String zip) {
+        System.out.println("Saving zip code for default country (US)");
     }
     
-    public String saveZipIndia(@ZipCode(country = ZipCode.Country.INDIA) String zip) {
-        return "zip code saved";
+    public void saveZipIndia(@ZipCode(country = ZipCode.Country.INDIA) String zip) {
+        System.out.println("Saving zip code for India");
     }
 }
