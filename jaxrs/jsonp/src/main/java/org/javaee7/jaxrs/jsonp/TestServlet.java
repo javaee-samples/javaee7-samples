@@ -53,7 +53,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 
 /**
  * @author Arun Gupta
@@ -83,7 +82,6 @@ public class TestServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
             Client client = ClientBuilder.newClient();
-            client.register(MoxyJsonFeature.class);
             
             WebTarget target = client.target("http://"
                     + request.getServerName()
