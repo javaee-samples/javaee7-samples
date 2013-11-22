@@ -46,6 +46,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -61,12 +62,12 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @Consumes(MyObject.MIME_TYPE)
 public class MyReader implements MessageBodyReader<MyObject> {
-
-    @PersistenceContext
-    EntityManager em;
+    
+    @Inject AnotherObject another;
 
     @Override
     public boolean isReadable(Class<?> type, Type type1, Annotation[] antns, MediaType mt) {
+        another.setValue(2);
         return MyObject.class.isAssignableFrom(type);
     }
 
@@ -78,8 +79,9 @@ public class MyReader implements MessageBodyReader<MyObject> {
             InputStream in) throws IOException, WebApplicationException {
         try {
             ObjectInputStream ois = new ObjectInputStream(in);
-            System.out.println("List of employees: " + em.createNamedQuery("Employee.findAll", Employee.class).getResultList());
-            return (MyObject) ois.readObject();
+            MyObject mo = (MyObject) ois.readObject();
+            mo.setIndex(another.getValue());
+            return mo;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MyReader.class.getName()).log(Level.SEVERE, null, ex);
         }
