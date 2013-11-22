@@ -1,4 +1,4 @@
-package org.javaee7.jta;
+package org.javaee7.jta.user.transaction;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
