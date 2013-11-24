@@ -50,18 +50,20 @@ import javax.inject.Named;
 public class MyItemProcessorListener extends AbstractItemProcessListener {
 
     @Override
+    @BatchListener
     public void beforeProcess(Object item) throws Exception {
         System.out.println("MyItemProcessorListener.beforeProcess: " + item);
     }
 
     @Override
+    @BatchListener
     public void afterProcess(Object item, Object result) throws Exception {
         System.out.println("MyItemProcessorListener.afterProcess: " + item + ", " + result);
     }
 
     @Override
+    @BatchListener
     public void onProcessError(Object item, Exception ex) throws Exception {
         System.out.println("MyItemProcessorListener.onProcessError: " + item + ", " + ex.getLocalizedMessage());
     }
-
 }

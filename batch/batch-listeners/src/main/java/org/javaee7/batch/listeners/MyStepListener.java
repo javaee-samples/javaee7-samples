@@ -50,13 +50,14 @@ import javax.inject.Named;
 public class MyStepListener extends AbstractStepListener {
 
     @Override
+    @BatchListener
     public void beforeStep() throws Exception {
         System.out.println("MyStepListener.beforeStep");
     }
 
     @Override
+    @BatchListener
     public void afterStep() throws Exception {
         System.out.println("MyStepListener.afterStep");
     }
-
 }

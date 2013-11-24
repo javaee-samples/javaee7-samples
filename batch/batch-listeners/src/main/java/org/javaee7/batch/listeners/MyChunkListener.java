@@ -50,11 +50,13 @@ import javax.inject.Named;
 public class MyChunkListener extends AbstractChunkListener {
 
     @Override
+    @BatchListener
     public void beforeChunk() throws Exception {
         System.out.println("MyChunkListener.beforeChunk");
     }
 
     @Override
+    @BatchListener
     public void afterChunk() throws Exception {
         System.out.println("MyChunkListener.afterChunk");
     }
