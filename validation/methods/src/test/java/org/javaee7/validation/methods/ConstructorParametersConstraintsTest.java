@@ -51,10 +51,10 @@ public class ConstructorParametersConstraintsTest {
 		Set<ConstraintViolation<MyBean2>> constraints = methodValidator
 				.validateConstructorParameters(constructor, new Object[] {parameter});
 
-		ConstraintViolation<MyBean2> violarion = constraints.iterator().next();
+		ConstraintViolation<MyBean2> violation = constraints.iterator().next();
 		assertThat(constraints.size(), equalTo(1));
-		assertThat(violarion.getMessageTemplate(), equalTo("{javax.validation.constraints.NotNull.message}"));
-		assertThat(violarion.getPropertyPath().toString(), equalTo("MyBean2.arg0.value"));
+		assertThat(violation.getMessageTemplate(), equalTo("{javax.validation.constraints.NotNull.message}"));
+		assertThat(violation.getPropertyPath().toString(), equalTo("MyBean2.arg0.value"));
 	}
 
 	@Test
