@@ -39,17 +39,7 @@
  */
 package org.javaee7.concurrency.managedexecutor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
 
 /**
  * @author Arun Gupta
@@ -77,7 +67,7 @@ public class MyTaskWithTransaction implements Runnable {
     @Override
     @Transactional
     public void run() {
-        System.out.format("%d (within a transaction): running", id);
+        TestStatus.invokedTaskWithTransaction = true;
     }
 
 }
