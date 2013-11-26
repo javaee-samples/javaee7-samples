@@ -1,14 +1,11 @@
 package org.javaee7.validation.custom.constraint;
 
 import javax.inject.Inject;
-import javax.validation.ConstraintViolationException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,7 +24,7 @@ public class CustomConstraintTest {
     @Deployment
     public static Archive<?> deployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyBean.class)
+                .addClasses(MyBean.class, ZipCode.class, ZipCodeValidator.class)
                 .addAsResource("ValidationMessages.properties");
         
         System.out.println(war.toString(true));
@@ -43,7 +40,7 @@ public class CustomConstraintTest {
     public void saveZipCodeForIndia() {
 //        thrown.equals(ConstraintViolationException.class);
 //        thrown.expectMessage("javaee7.validation.custom.constraint.ZipCode");
-//        thrown.expectMessage("saveZipIndia.arg0");
+        thrown.expectMessage("saveZipIndia.arg0");
         bean.saveZipIndia("95051");
     }
 
