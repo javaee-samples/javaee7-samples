@@ -56,31 +56,18 @@ public class BatchListenersTest {
             if (stepExecution.getStepName().equals("myStep")) {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
 
-                for (Metric metric : stepExecution.getMetrics()) {
-                    System.out.println("metric = " + metric);
-                }
-
                 assertEquals(10L, (long) metricsMap.get(Metric.MetricType.READ_COUNT));
                 assertEquals(10L / 2L, (long) metricsMap.get(Metric.MetricType.WRITE_COUNT));
                 assertEquals(10L / 3 + 10 % 3, (long) metricsMap.get(Metric.MetricType.COMMIT_COUNT));
             }
         }
 
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyJobListener.class, "beforeJob"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyJobListener.class, "afterJob"));
-
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyStepListener.class, "beforeStep"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyStepListener.class, "afterStep"));
-
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyChunkListener.class, "beforeChunk"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyChunkListener.class, "afterChunk"));
-
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyItemReadListener.class, "beforeRead"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyItemReadListener.class, "afterRead"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyItemWriteListener.class, "beforeWrite"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyItemWriteListener.class, "afterWrite"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyItemProcessorListener.class, "beforeProcess"));
-        assertTrue(batchListenerRecorder.isListenerMethodExecuted(MyItemProcessorListener.class, "afterProcess"));
+        assertTrue(BatchListenerRecorder.isJobListenerExecuted());
+        assertTrue(BatchListenerRecorder.isStepListenerExecuted());
+        assertTrue(BatchListenerRecorder.isChunkListenerExecuted());
+        assertTrue(BatchListenerRecorder.isReadListenerExecutedWithoutErrors());
+        assertTrue(BatchListenerRecorder.isProcessListenerExecutedWithoutErrors());
+        assertTrue(BatchListenerRecorder.isWriteListenerExecutedWithoutErrors());
 
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }

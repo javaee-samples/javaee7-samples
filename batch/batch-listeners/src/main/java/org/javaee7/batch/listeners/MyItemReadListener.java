@@ -50,20 +50,20 @@ import javax.inject.Named;
 public class MyItemReadListener extends AbstractItemReadListener {
 
     @Override
-    @BatchListener
     public void beforeRead() throws Exception {
+        BatchListenerRecorder.readerListenerBeforeRead = true;
         System.out.println("MyItemReadListener.beforeRead");
     }
 
     @Override
-    @BatchListener
     public void afterRead(Object item) throws Exception {
+        BatchListenerRecorder.readerListenerAfterRead = true;
         System.out.println("MyItemReadListener.afterRead: " + item);
     }
 
     @Override
-    @BatchListener
     public void onReadError(Exception ex) throws Exception {
+        BatchListenerRecorder.readerListenerOnReadError = true;
         System.out.println("MyItemReadListener.onReadError: " + ex.getLocalizedMessage());
     }
 }

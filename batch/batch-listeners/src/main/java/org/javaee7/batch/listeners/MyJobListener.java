@@ -50,14 +50,14 @@ import javax.inject.Named;
 public class MyJobListener extends AbstractJobListener {
 
     @Override
-    @BatchListener
     public void beforeJob() {
+        BatchListenerRecorder.jobListenerBeforeJob = true;
         System.out.println("MyJobListener.beforeJob");
     }
 
     @Override
-    @BatchListener
     public void afterJob() {
+        BatchListenerRecorder.jobListenerAfterJob = true;
         System.out.println("MyJobListener.afterJob");
     }
 }

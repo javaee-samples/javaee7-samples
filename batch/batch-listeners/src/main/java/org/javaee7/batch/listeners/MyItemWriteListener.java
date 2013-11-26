@@ -51,20 +51,20 @@ import javax.inject.Named;
 public class MyItemWriteListener extends AbstractItemWriteListener {
 
     @Override
-    @BatchListener
     public void beforeWrite(List items) throws Exception {
+        BatchListenerRecorder.writerListenerBeforeWrite = true;
         System.out.println("MyItemWriteListener.beforeWrite: " + items);
     }
 
     @Override
-    @BatchListener
     public void afterWrite(List items) throws Exception {
+        BatchListenerRecorder.writerListenerAfterWrite = true;
         System.out.println("MyItemWriteListener.afterWrite: " + items);
     }
 
     @Override
-    @BatchListener
     public void onWriteError(List items, Exception ex) throws Exception {
+        BatchListenerRecorder.writerListenerOnWriteError = true;
         System.out.println("MyItemWriteListener.onError: " + items + ", " + ex.getLocalizedMessage());
     }
 }
