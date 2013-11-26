@@ -51,11 +51,13 @@ public class MyChunkListener extends AbstractChunkListener {
 
     @Override
     public void beforeChunk() throws Exception {
+        BatchListenerRecorder.chunkListenerBeforeChunk = true;
         System.out.println("MyChunkListener.beforeChunk");
     }
 
     @Override
     public void afterChunk() throws Exception {
+        BatchListenerRecorder.chunkListenerAfterChunk = true;
         System.out.println("MyChunkListener.afterChunk");
     }
 }

@@ -52,17 +52,19 @@ public class MyItemWriteListener extends AbstractItemWriteListener {
 
     @Override
     public void beforeWrite(List items) throws Exception {
+        BatchListenerRecorder.writerListenerBeforeWrite = true;
         System.out.println("MyItemWriteListener.beforeWrite: " + items);
     }
 
     @Override
     public void afterWrite(List items) throws Exception {
+        BatchListenerRecorder.writerListenerAfterWrite = true;
         System.out.println("MyItemWriteListener.afterWrite: " + items);
     }
 
     @Override
     public void onWriteError(List items, Exception ex) throws Exception {
+        BatchListenerRecorder.writerListenerOnWriteError = true;
         System.out.println("MyItemWriteListener.onError: " + items + ", " + ex.getLocalizedMessage());
     }
-
 }

@@ -51,12 +51,13 @@ public class MyJobListener extends AbstractJobListener {
 
     @Override
     public void beforeJob() {
+        BatchListenerRecorder.jobListenerBeforeJob = true;
         System.out.println("MyJobListener.beforeJob");
     }
 
     @Override
     public void afterJob() {
+        BatchListenerRecorder.jobListenerAfterJob = true;
         System.out.println("MyJobListener.afterJob");
     }
-
 }
