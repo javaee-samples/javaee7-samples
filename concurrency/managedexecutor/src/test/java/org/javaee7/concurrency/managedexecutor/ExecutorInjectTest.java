@@ -65,6 +65,7 @@ public class ExecutorInjectTest {
         callableTask = new MyCallableTask(1);
         runnableTask = new MyRunnableTask(1);
         taskWithListener = new MyTaskWithListener(1);
+        taskWithTransaction = new MyTaskWithTransaction();
         for (int i = 0; i < 5; i++) {
             callableTasks.add(new MyCallableTask(i));
         }
