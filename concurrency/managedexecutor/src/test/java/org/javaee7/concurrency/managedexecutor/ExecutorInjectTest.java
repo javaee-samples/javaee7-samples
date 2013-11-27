@@ -1,20 +1,26 @@
 package org.javaee7.concurrency.managedexecutor;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
+
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.concurrent.ManagedExecutorService;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
@@ -50,7 +56,8 @@ public class ExecutorInjectTest {
                         TestStatus.class,
                         MyTaskWithListener.class,
                         MyTaskWithTransaction.class,
-                        TestBean.class);
+                        TestBean.class).
+                setWebXML(new FileAsset(new File("src/main/webapp/WEB-INF/web.xml")));
     }
 
     @Before
