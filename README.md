@@ -1,8 +1,8 @@
 # Java EE 7 Samples #
 
-This workspace consists of Java EE 7 Samples. They are categorized in different directories, one for each JSR.
+This workspace consists of Java EE 7 Samples and unit tests. They are categorized in different directories, one for each Technology/JSR.
 
-I don't plan to write any formal documentation, read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to some of these samples and provide an explanation. However if you are interested in adding javadocs, send a pull request.
+Some samples/tests have documentataion otherwise read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to most these samples and provide an explanation. Feel free to add docs and send a pull request.
 
 ## How to run ? ##
 
@@ -10,7 +10,7 @@ Samples are tested on Wildfly and GlassFish using the Arquillian ecosystem.
 
 Only one profile can be active at a given time otherwise there will be dependency conflicts.
 
-There are 3 available profiles:
+There are 4 available profiles:
 
 * ``wildfly-managed-arquillian``
     The default profile and it will install a Wildfly server and start up the server per sample.
@@ -38,11 +38,7 @@ When developing and runing them from IDE, remember to activate the profile befor
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
 
-## List of Samples ##
+## CI Job ##
 
-The following script will generate the complete list of samples.
-
-``find . -name pom.xml -depth 3 -maxdepth 3 | sed 's|\./||g' | sed 's|\/pom.xml||g'``
-
-There are 161 samples as of 9/16.
-
+* [WildFly](https://arungupta.ci.cloudbees.com/job/Java%20EE%207%20Samples%20on%20WildFly-cb/)
+* [GlassFish](https://arungupta.ci.cloudbees.com/job/Java%20EE%207%20Samples%20on%20GlassFish-cb/)
