@@ -12,13 +12,6 @@
         <java.min.version>1.7</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cargo.container.glassfish.id>glassfish4x</cargo.container.glassfish.id>
-        <cargo.container.glassfish.home>/home/argupta/tools/glassfish-4.0</cargo.container.glassfish.home>
-        <cargo.container.wildfly.id>wildfly8x</cargo.container.wildfly.id>
-        <cargo.container.wildfly.home>/opt/programs/wildfly-8.0.0.Beta1</cargo.container.wildfly.home>
-        <cargo.container.tomcat.id>tomcat8x</cargo.container.tomcat.id>
-        <cargo.container.weblogic.id>weblogic12x</cargo.container.weblogic.id>
-        <cargo.container.weblogic.home>/Users/arungup/tools/weblogic/12c/wlserver</cargo.container.weblogic.home>
         <org.jboss.arquillian.version>1.1.1.Final</org.jboss.arquillian.version>
         <org.wildfly>8.0.0.Beta1</org.wildfly>
         <!-- Plugin versions -->
