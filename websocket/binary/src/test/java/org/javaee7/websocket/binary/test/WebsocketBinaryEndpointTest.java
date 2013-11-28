@@ -3,12 +3,17 @@
  */
 package org.javaee7.websocket.binary.test;
 
-import java.io.File;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.websocket.ContainerProvider;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
@@ -22,7 +27,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -62,10 +66,10 @@ public class WebsocketBinaryEndpointTest {
      */
     @Test
     public void testEndpointByteBuffer() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
+        MyEndpointClient.latch = new CountDownLatch(1);
         Session session = connectToServer("bytebuffer");
         assertNotNull(session);
-        System.out.println("Waiting for 2 seconds to receive response");
-        Thread.sleep(2000);
+        assertTrue(MyEndpointClient.latch.await(2, TimeUnit.SECONDS));
         assertNotNull(MyEndpointClient.response);
         assertArrayEquals(RESPONSE.getBytes(), MyEndpointClient.response);
     }
@@ -81,10 +85,10 @@ public class WebsocketBinaryEndpointTest {
      */
     @Test
     public void testEndpointByteArray() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
+        MyEndpointClient.latch = new CountDownLatch(1);
         Session session = connectToServer("bytearray");
         assertNotNull(session);
-        System.out.println("Waiting for 2 seconds to receive response");
-        Thread.sleep(2000);
+        assertTrue(MyEndpointClient.latch.await(2, TimeUnit.SECONDS));
         assertNotNull(MyEndpointClient.response);
         assertArrayEquals(RESPONSE.getBytes(), MyEndpointClient.response);
     }
@@ -100,10 +104,10 @@ public class WebsocketBinaryEndpointTest {
      */
     @Test
     public void testEndpointInputStream() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
+        MyEndpointClient.latch = new CountDownLatch(1);
         Session session = connectToServer("inputstream");
         assertNotNull(session);
-        System.out.println("Waiting for 2 seconds to receive response");
-        Thread.sleep(2000);
+        assertTrue(MyEndpointClient.latch.await(2, TimeUnit.SECONDS));
         assertNotNull(MyEndpointClient.response);
         assertArrayEquals(RESPONSE.getBytes(), MyEndpointClient.response);
     }
@@ -127,8 +131,6 @@ public class WebsocketBinaryEndpointTest {
                         + "/"
                         + base.getPath()
                         + "/"
-
-//                "localhost:8080/binary/""
                         + endpoint);
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(MyEndpointClient.class, uri);
