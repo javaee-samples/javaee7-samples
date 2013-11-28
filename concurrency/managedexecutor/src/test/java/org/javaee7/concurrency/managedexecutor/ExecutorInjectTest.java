@@ -1,14 +1,15 @@
 package org.javaee7.concurrency.managedexecutor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -19,6 +20,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +49,8 @@ public class ExecutorInjectTest {
     MyTaskWithTransaction taskWithTransaction;
     Collection<Callable<Product>> callableTasks = new ArrayList<>();
 
+    private static CountDownLatch latch;
+
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).
@@ -63,27 +67,26 @@ public class ExecutorInjectTest {
     @Before
     public void setup() {
         callableTask = new MyCallableTask(1);
-        runnableTask = new MyRunnableTask(1);
+        runnableTask = new MyRunnableTask();
         taskWithListener = new MyTaskWithListener(1);
         taskWithTransaction = new MyTaskWithTransaction();
         for (int i = 0; i < 5; i++) {
             callableTasks.add(new MyCallableTask(i));
         }
-        TestStatus.invokedRunnable = false;
-        TestStatus.invokedTaskWithListener = false;
-        TestStatus.invokedTaskWithTransaction = false;
     }
 
     @Test
     public void testSubmitWithRunnableDefault() throws Exception {
-        defaultExecutor.submit(new MyRunnableTask(1));
-        Thread.sleep(2000);
-        assertTrue(TestStatus.invokedRunnable);
+        TestStatus.latch = new CountDownLatch(1);
+        defaultExecutor.submit(runnableTask);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
     }
 
     @Test
     public void testSubmitWithCallableDefault() throws Exception {
+        TestStatus.latch = new CountDownLatch(1);
         Future<Product> future = defaultExecutor.submit(callableTask);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
         assertEquals(1, future.get().getId());
     }
 
@@ -105,14 +108,16 @@ public class ExecutorInjectTest {
 
     @Test
     public void testSubmitWithRunnableNoName() throws Exception {
-        executorNoName.submit(new MyRunnableTask(1));
-        Thread.sleep(2000);
-        assertTrue(TestStatus.invokedRunnable);
+        TestStatus.latch = new CountDownLatch(1);
+        executorNoName.submit(runnableTask);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
     }
 
     @Test
     public void testSubmitWithCallableNoName() throws Exception {
+        TestStatus.latch = new CountDownLatch(1);
         Future<Product> future = executorNoName.submit(callableTask);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
         assertEquals(1, future.get().getId());
     }
 
@@ -134,14 +139,16 @@ public class ExecutorInjectTest {
 
     @Test
     public void testSubmitWithRunnableFromWebXML() throws Exception {
-        executorFromWebXml.submit(runnableTask);
-        Thread.sleep(2000);
-        assertTrue(TestStatus.invokedRunnable);
+        TestStatus.latch = new CountDownLatch(1);
+        executorFromWebXml.submit(new MyRunnableTask());
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
     }
 
     @Test
     public void testSubmitWithCallableFromWebXML() throws Exception {
-        Future<Product> future = executorFromWebXml.submit(callableTask);
+        TestStatus.latch = new CountDownLatch(1);
+        Future<Product> future = executorFromWebXml.submit(new MyCallableTask(1));
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
         assertEquals(1, future.get().getId());
     }
 
@@ -163,23 +170,23 @@ public class ExecutorInjectTest {
 
     @Test
     public void testSubmitWithListener() throws Exception {
+        TestStatus.latch = new CountDownLatch(1);
         defaultExecutor.submit(taskWithListener);
         Thread.sleep(2000);
-        assertTrue(TestStatus.invokedTaskWithListener);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
     }
 
     @Test
     public void testSubmitWithTransaction() throws Exception {
+        TestStatus.latch = new CountDownLatch(1);
         defaultExecutor.submit(taskWithTransaction);
-        Thread.sleep(2000);
-        assertTrue(TestStatus.invokedTaskWithTransaction);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
+        assertTrue(TestStatus.foundTransactionScopedBean);
     }
 
     @Test
     public void testSubmitWithEJB() throws Exception {
-        ejb.run();
-        Thread.sleep(2000);
-        assertTrue(TestStatus.invokedRunnable);
+        assertTrue(ejb.doSomething());
     }
 
 }

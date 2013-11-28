@@ -61,8 +61,7 @@ public class MyTaskWithListener implements Runnable, ManagedTask, ManagedTaskLis
 
     @Override
     public void run() {
-        TestStatus.invokedTaskWithListener = true;
-        System.out.println("running");
+        TestStatus.latch.countDown();
     }
 
     @Override

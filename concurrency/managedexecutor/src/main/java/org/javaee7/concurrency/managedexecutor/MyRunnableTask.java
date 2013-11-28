@@ -44,14 +44,8 @@ package org.javaee7.concurrency.managedexecutor;
  */
 public class MyRunnableTask implements Runnable {
 
-    private int id;
-
-    public MyRunnableTask(int id) {
-        this.id = id;
-    }
-
     @Override
     public void run() {
-        TestStatus.invokedRunnable = true;
+        TestStatus.latch.countDown();
     }
 }

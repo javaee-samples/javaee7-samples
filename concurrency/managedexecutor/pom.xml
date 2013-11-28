@@ -8,9 +8,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.concurrency</groupId>
     <artifactId>managedexecutor</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>managedexecutor</name>
 </project>

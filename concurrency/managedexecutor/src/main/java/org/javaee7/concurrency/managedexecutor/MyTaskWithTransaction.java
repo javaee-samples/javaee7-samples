@@ -39,6 +39,8 @@
  */
 package org.javaee7.concurrency.managedexecutor;
 
+import java.util.Objects;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 /**
@@ -47,6 +49,7 @@ import javax.transaction.Transactional;
 public class MyTaskWithTransaction implements Runnable {
 
     private int id;
+    @Inject MyTransactionScopedBean bean;
 
     public MyTaskWithTransaction() {
     }
@@ -63,11 +66,11 @@ public class MyTaskWithTransaction implements Runnable {
         this.id = id;
     }
 
-//    @Resource UserTransaction tx;
     @Override
     @Transactional
     public void run() {
-        TestStatus.invokedTaskWithTransaction = true;
+        TestStatus.latch.countDown();
+        TestStatus.foundTransactionScopedBean = Objects.hashCode(bean) != 0;
     }
 
 }

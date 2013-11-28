@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
-import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -25,10 +28,12 @@ import org.junit.runner.RunWith;
 public class ExecutorJNDITest {
 
     ManagedExecutorService defaultExecutor;
-    
+
     ManagedExecutorService executorFromWebXml;
-    
+
+    Runnable runnableTask;
     Callable<Product> callableTask;
+    Collection<Callable<Product>> callableTasks = new ArrayList<>();
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -39,31 +44,31 @@ public class ExecutorJNDITest {
                         TestStatus.class);
     }
 
-    Collection<Callable<Product>> callableTasks = new ArrayList<>();
-
     @Before
     public void setup() throws NamingException {
         InitialContext ctx = new InitialContext();
         defaultExecutor = (ManagedExecutorService) ctx.lookup("java:comp/DefaultManagedExecutorService");
 //        executorFromWebXml = (ManagedExecutorService) ctx.lookup("java:comp/env/concurrent/myExecutor");
 
+        runnableTask = new MyRunnableTask();
         callableTask = new MyCallableTask(1);
         for (int i = 0; i < 5; i++) {
             callableTasks.add(new MyCallableTask(i));
         }
-        TestStatus.invokedRunnable = false;
     }
 
     @Test
     public void testSubmitWithRunnableDefault() throws Exception {
-        defaultExecutor.submit(new MyRunnableTask(1));
-        Thread.sleep(2000);
-        assertTrue(TestStatus.invokedRunnable);
+        TestStatus.latch = new CountDownLatch(1);
+        defaultExecutor.submit(runnableTask);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
     }
 
     @Test
     public void testSubmitWithCallableDefault() throws Exception {
+        TestStatus.latch = new CountDownLatch(1);
         Future<Product> future = defaultExecutor.submit(callableTask);
+        assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
         assertEquals(1, future.get().getId());
     }
 
@@ -82,7 +87,7 @@ public class ExecutorJNDITest {
         assertTrue(results.getId() >= 0);
         assertTrue(results.getId() <= 5);
     }
-    
+
 //    @Test
 //    public void testSubmitWithRunnableFromWebXML() throws Exception {
 //        executorFromWebXml.submit(new MyRunnableTask(1));
@@ -110,5 +115,5 @@ public class ExecutorJNDITest {
 //        Product results = executorFromWebXml.invokeAny(callableTasks);
 //        assertTrue(results.getId() >= 0);
 //        assertTrue(results.getId() <= 5);
-//    }    
+//    }
 }

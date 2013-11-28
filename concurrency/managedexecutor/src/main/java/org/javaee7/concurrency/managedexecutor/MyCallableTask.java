@@ -40,8 +40,6 @@
 package org.javaee7.concurrency.managedexecutor;
 
 import java.util.concurrent.Callable;
-import org.javaee7.concurrency.managedexecutor.Product;
-import org.javaee7.concurrency.managedexecutor.Product;
 
 /**
  * @author Arun Gupta
@@ -56,6 +54,7 @@ public class MyCallableTask implements Callable<Product> {
     
     @Override
     public Product call() {
+        TestStatus.latch.countDown();
         return new Product(id);
     }
 }
