@@ -14,13 +14,17 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.concurrent.ManagedExecutorService;
+import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +50,7 @@ public class ExecutorInjectTest {
     Callable<Product> callableTask;
     Runnable runnableTask;
     MyTaskWithListener taskWithListener;
+    @Inject // Inject so we have a managed bean to handle the TX
     MyTaskWithTransaction taskWithTransaction;
     Collection<Callable<Product>> callableTasks = new ArrayList<>();
 
@@ -60,8 +65,10 @@ public class ExecutorInjectTest {
                         TestStatus.class,
                         MyTaskWithListener.class,
                         MyTaskWithTransaction.class,
+                        MyTransactionScopedBean.class,
                         TestBean.class).
-                setWebXML(new FileAsset(new File("src/main/webapp/WEB-INF/web.xml")));
+                setWebXML(new FileAsset(new File("src/main/webapp/WEB-INF/web.xml"))).
+                addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml"); // Adding beans.xml shouldn't be required? WildFly Beta1
     }
 
     @Before
@@ -69,7 +76,6 @@ public class ExecutorInjectTest {
         callableTask = new MyCallableTask(1);
         runnableTask = new MyRunnableTask();
         taskWithListener = new MyTaskWithListener(1);
-        taskWithTransaction = new MyTaskWithTransaction();
         for (int i = 0; i < 5; i++) {
             callableTasks.add(new MyCallableTask(i));
         }
@@ -172,7 +178,6 @@ public class ExecutorInjectTest {
     public void testSubmitWithListener() throws Exception {
         TestStatus.latch = new CountDownLatch(1);
         defaultExecutor.submit(taskWithListener);
-        Thread.sleep(2000);
         assertTrue(TestStatus.latch.await(2000, TimeUnit.MILLISECONDS));
     }
 
