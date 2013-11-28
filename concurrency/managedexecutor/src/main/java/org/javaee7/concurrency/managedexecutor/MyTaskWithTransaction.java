@@ -69,8 +69,14 @@ public class MyTaskWithTransaction implements Runnable {
     @Override
     @Transactional
     public void run() {
+        // a Call to a TX Scoped bean should fail if outside a tx
+        try {
+           TestStatus.foundTransactionScopedBean = bean.isInTx();
+        }
+        catch(Exception e) {
+           e.printStackTrace();
+        }
         TestStatus.latch.countDown();
-        TestStatus.foundTransactionScopedBean = Objects.hashCode(bean) != 0;
     }
 
 }
