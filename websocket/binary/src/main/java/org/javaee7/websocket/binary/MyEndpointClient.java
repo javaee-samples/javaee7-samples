@@ -5,6 +5,7 @@ package org.javaee7.websocket.binary;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.concurrent.CountDownLatch;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.OnMessage;
@@ -17,6 +18,7 @@ import javax.websocket.Session;
  */
 @ClientEndpoint
 public class MyEndpointClient {
+    public static CountDownLatch latch;
     public static byte[] response;
 
     @OnOpen
@@ -31,5 +33,6 @@ public class MyEndpointClient {
     @OnMessage
     public void processMessage(byte[] message) {
         MyEndpointClient.response = message;
+        latch.countDown();
     }
 }

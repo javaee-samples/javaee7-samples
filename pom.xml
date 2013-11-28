@@ -245,9 +245,9 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${org.wildfly}</version>
+                    <groupId>io.undertow</groupId>
+                    <artifactId>undertow-websockets-jsr</artifactId>
+                    <version>1.0.0.Beta25</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -260,6 +260,12 @@
                     <groupId>org.jboss.resteasy</groupId>
                     <artifactId>resteasy-jaxb-provider</artifactId>
                     <version>3.0.4.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>${org.wildfly}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -315,9 +321,9 @@
             <id>wildfly-remote-arquillian</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${org.wildfly}</version>
+                    <groupId>io.undertow</groupId>
+                    <artifactId>undertow-websockets-jsr</artifactId>
+                    <version>1.0.0.Beta25</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -330,6 +336,12 @@
                     <groupId>org.jboss.resteasy</groupId>
                     <artifactId>resteasy-jaxb-provider</artifactId>
                     <version>3.0.4.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <version>${org.wildfly}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

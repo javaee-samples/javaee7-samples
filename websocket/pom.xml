@@ -46,18 +46,4 @@
         <module>whiteboard</module>
         <module>endpoint-singleton</module>
     </modules>
-	<dependencies>
-		<dependency>
-            <groupId>io.undertow</groupId>
-            <artifactId>undertow-core</artifactId>
-            <version>1.0.0.Beta20</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-        	<groupId>io.undertow</groupId>
-        	<artifactId>undertow-websockets-jsr</artifactId>
-        	<version>1.0.0.Beta20</version>
-        	<scope>test</scope>
-        </dependency>
-	</dependencies>
 </project>
