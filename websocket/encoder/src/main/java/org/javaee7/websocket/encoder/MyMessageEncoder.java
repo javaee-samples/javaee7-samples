@@ -49,17 +49,18 @@ import javax.websocket.EndpointConfig;
 public class MyMessageEncoder implements Encoder.Text<MyMessage> {
     @Override
     public String encode(MyMessage myMessage) throws EncodeException {
-//        return this.getClass().getName();
+        if (MyEndpointClientEmptyJSONArray.latch != null)
+            MyEndpointClientEmptyJSONArray.latch.countDown();
+        
+        if (MyEndpointClientJSONObject.latch != null)
+            MyEndpointClientJSONObject.latch.countDown();
+        
         return myMessage.getJsonObject().toString();
     }
 
     @Override
-    public void init(EndpointConfig ec) {
-        System.out.println("init");
-    }
+    public void init(EndpointConfig ec) { }
 
     @Override
-    public void destroy() {
-        System.out.println("destroy");
-    }
+    public void destroy() { }
 }
