@@ -46,17 +46,14 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint("/websocket")
+@ServerEndpoint("/encoder-client")
 public class MyEndpoint {
     
     @OnOpen
-    public void onOpen() {
-        System.out.println("MyEndpoint.onOpen");
-    }
+    public void onOpen() { }
     
     @OnMessage
-    public String echoText(String text) {
-        System.out.println("Received in endpoint: " + text);
+    public String echoText(String text) { 
         return text;
     }
     
