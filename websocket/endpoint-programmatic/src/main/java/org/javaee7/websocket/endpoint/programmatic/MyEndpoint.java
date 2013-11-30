@@ -62,6 +62,7 @@ public class MyEndpoint extends Endpoint {
             @Override
             public void onMessage(String text) {
                 try {
+                    MyEndpointTextClient.latch.countDown();
                     session.getBasicRemote().sendText(text);
                 } catch (IOException ex) {
                     Logger.getLogger(MyEndpoint.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,6 +75,7 @@ public class MyEndpoint extends Endpoint {
             @Override
             public void onMessage(ByteBuffer t) {
                 try {
+                    MyEndpointBinaryClient.latch.countDown();
                     session.getBasicRemote().sendBinary(t);
                 } catch (IOException ex) {
                     Logger.getLogger(MyEndpoint.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,11 +95,11 @@ public class MyEndpoint extends Endpoint {
 
     @Override
     public void onClose(Session session, CloseReason closeReason) {
-        System.out.println("Closing: " + closeReason.getReasonPhrase());
+        System.err.println("Closing: " + closeReason.getReasonPhrase());
     }
 
     @Override
     public void onError(Session session, Throwable t) {
-        System.out.println("Error: " + t.getLocalizedMessage());
+        System.err.println("Error: " + t.getLocalizedMessage());
     }
 }

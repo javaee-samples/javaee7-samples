@@ -37,54 +37,33 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
+package org.javaee7.websocket.endpoint.programmatic;
 
-var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
-console.log("Connecting to " + wsUri);
-var websocket = new WebSocket(wsUri);
-websocket.onopen = function(evt) { onOpen(evt) };
-websocket.onmessage = function(evt) { onMessage(evt) };
-websocket.onerror = function(evt) { onError(evt) };
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import javax.websocket.Endpoint;
+import javax.websocket.server.ServerApplicationConfig;
+import javax.websocket.server.ServerEndpointConfig;
 
-var output = document.getElementById("output");
+/**
+ * @author Arun Gupta
+ */
+public class MyEndpointConfig implements ServerApplicationConfig {
 
-function sayHello() {
-    console.log("sayHello: " + myField.value);
-    websocket.send(myField.value);
-    writeToScreen("SENT (text): " + myField.value);
-}
-
-function echoBinary() {
-//                alert("Sending " + myField2.value.length + " bytes")
-    var buffer = new ArrayBuffer(myField2.value);
-    var bytes = new Uint8Array(buffer);
-    for (var i=0; i<bytes.length; i++) {
-        bytes[i] = i;
+    @Override
+    public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
+        return new HashSet<ServerEndpointConfig>() {
+            {
+                add(ServerEndpointConfig.Builder
+                    .create(MyEndpoint.class, "/websocket")
+                    .build());
+            }
+        };
     }
-//                alert(buffer);
-    websocket.send(buffer);
-    writeToScreen("SENT (binary): " + buffer.byteLength + " bytes");
-}
 
-function onOpen() {
-    console.log("onOpen");
-    writeToScreen("CONNECTED");
-}
-
-function onMessage(evt) {
-    if (typeof evt.data == "string") {
-        writeToScreen("RECEIVED (text): " + evt.data);
-    } else {
-        writeToScreen("RECEIVED (binary): " + evt.data);
+    @Override
+    public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> set) {
+        return Collections.emptySet();
     }
-}
-
-function onError(evt) {
-    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-}
-
-function writeToScreen(message) {
-    var pre = document.createElement("p");
-    pre.style.wordWrap = "break-word";
-    pre.innerHTML = message;
-    output.appendChild(pre);
 }
