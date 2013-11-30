@@ -46,7 +46,7 @@ public class MyClientTest {
     }
 
     @Test
-    public void testEndpointEmptyJSONObject() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
+    public void testEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         final String JSON = "{\"apple\" : \"red\", \"banana\": \"yellow\"}";
         Session session = connectToServer(MyClient.class);
         assertNotNull(session);
