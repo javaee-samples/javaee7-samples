@@ -95,6 +95,5 @@ public class EncoderEndpointTest {
                 + base.getPath()
                 + "/encoder");
         return container.connectToServer(endpoint, uri);
-
     }
 }
