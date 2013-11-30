@@ -67,7 +67,7 @@ public class MyEndpointConfiguration implements ServerApplicationConfig {
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
         return new HashSet<ServerEndpointConfig>() {
             {
-                add(ServerEndpointConfig.Builder.create(MyEndpoint.class, "/websocket")
+                add(ServerEndpointConfig.Builder.create(MyEndpoint.class, "/encoder-programmatic")
                         .encoders(encoders)
                         .decoders(decoders)
                         .build());
@@ -79,6 +79,4 @@ public class MyEndpointConfiguration implements ServerApplicationConfig {
     public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> set) {
         return Collections.emptySet();
     }
-    
-    
 }

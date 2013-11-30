@@ -52,6 +52,7 @@ public class MyMessageDecoder implements Decoder.Text<MyMessage> {
 
     @Override
     public MyMessage decode(String string) throws DecodeException {
+        MyClient.latch.countDown();
         MyMessage myMessage = new MyMessage(Json.createReader(new StringReader(string)).readObject());
         return myMessage;
     }
@@ -62,12 +63,8 @@ public class MyMessageDecoder implements Decoder.Text<MyMessage> {
     }
     
     @Override
-    public void init(EndpointConfig ec) {
-        System.out.println("init");
-    }
+    public void init(EndpointConfig ec) { }
 
     @Override
-    public void destroy() {
-        System.out.println("desroy");
-    }
+    public void destroy() { }
 }

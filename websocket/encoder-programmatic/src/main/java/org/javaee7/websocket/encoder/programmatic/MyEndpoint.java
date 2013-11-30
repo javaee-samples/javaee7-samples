@@ -57,9 +57,10 @@ public class MyEndpoint extends Endpoint {
         session.addMessageHandler(new MessageHandler.Whole<String>() {
 
             @Override
-            public void onMessage(String name) {
+            public void onMessage(String text) {
                 try {
-                    session.getBasicRemote().sendText("Hello " + name);
+                    MyClient.latch.countDown();
+                    session.getBasicRemote().sendText(text);
                 } catch (IOException ex) {
                     Logger.getLogger(MyEndpoint.class.getName()).log(Level.SEVERE, null, ex);
                 }

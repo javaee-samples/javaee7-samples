@@ -39,6 +39,8 @@
  */
 package org.javaee7.websocket.encoder.programmatic;
 
+import java.io.StringReader;
+import javax.json.Json;
 import javax.json.JsonObject;
 
 /**
@@ -49,6 +51,10 @@ public class MyMessage {
     private JsonObject jsonObject;
 
     public MyMessage() {
+    }
+    
+    public MyMessage(String string) {
+        jsonObject = Json.createReader(new StringReader(string)).readObject();
     }
 
     public MyMessage(JsonObject jsonObject) {
