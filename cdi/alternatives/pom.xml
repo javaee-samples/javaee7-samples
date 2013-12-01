@@ -8,8 +8,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
 
-    <groupId>org.javaee7.cdi</groupId>
     <artifactId>alternatives</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
 </project>
