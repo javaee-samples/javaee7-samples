@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 
 import javax.enterprise.context.ContextNotActiveException;
 import javax.inject.Inject;
-import javax.transaction.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -21,47 +20,40 @@ import static org.junit.Assert.fail;
  * @author Alexis Hassler
  */
 @RunWith(Arquillian.class)
-public class MyTransactionalWithUserTransactionTest {
+public class MyTransactionalBeanTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addClasses(MyTransactionalBean.class, MyBean.class)
+                         .addClasses(MyTransactionalBean.class, MyTransactionScopedBean.class)
                          .addAsManifestResource("beans.xml");
     }
 
     @Inject MyTransactionalBean bean;
 
-    @Inject UserTransaction ut;
-
     @Test
-    public void should_withTransaction_have_only_one_instance_injected() throws Exception{
-        ut.begin();
+    public void should_withTransaction_have_only_one_instance_injected() {
         bean.withTransaction();
-        ut.commit();
         assertThat("bean1 and bean2 should the same object", bean.id1, is(bean.id2));
     }
 
     @Test
-    public void should_withTransaction_called_twice_have_same_instances_injected() throws Exception {
-        ut.begin();
+    public void should_withTransaction_called_twice_have_different_instances_injected() {
         bean.withTransaction();
         String firstId1 = bean.id1;
 
         bean.withTransaction();
         String secondId1 = bean.id1;
-        ut.commit();
 
-        assertThat("bean1 should change between scenarios", firstId1, is(secondId1));
+        assertThat("bean1 should change between scenarios", firstId1, is(not(secondId1)));
     }
 
     @Test
-    public void should_withoutTransaction_NOT_fail() throws Exception {
+    public void should_withoutTransaction_fail() {
         try {
-            ut.begin();
             bean.withoutTransaction();
-            ut.commit();
+            fail("No ContextNotActiveException");
         } catch (ContextNotActiveException e) {
-            fail(e.toString());
         }
     }
+
 }

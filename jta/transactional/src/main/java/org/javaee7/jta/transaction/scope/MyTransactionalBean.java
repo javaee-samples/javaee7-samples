@@ -39,7 +39,6 @@
  */
 package org.javaee7.jta.transaction.scope;
 
-import javax.enterprise.context.ContextNotActiveException;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
@@ -49,10 +48,10 @@ import javax.transaction.Transactional;
 public class MyTransactionalBean {
 
     @Inject
-    MyBean bean1;
+    MyTransactionScopedBean bean1;
     
     @Inject
-    MyBean bean2;
+    MyTransactionScopedBean bean2;
 
     String id1;
     String id2;
