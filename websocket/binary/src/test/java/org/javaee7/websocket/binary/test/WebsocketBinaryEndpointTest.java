@@ -134,6 +134,5 @@ public class WebsocketBinaryEndpointTest {
                         + endpoint);
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(MyEndpointClient.class, uri);
-                
     }
 }
