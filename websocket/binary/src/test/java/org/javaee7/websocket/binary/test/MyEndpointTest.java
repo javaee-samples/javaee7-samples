@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.javaee7.websocket.binary.test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -35,7 +32,7 @@ import org.junit.runner.RunWith;
  * @author Arun Gupta
  */
 @RunWith(Arquillian.class)
-public class WebsocketBinaryEndpointTest {
+public class MyEndpointTest {
 
     private static final String RESPONSE = "Hello World!";
 
@@ -48,13 +45,11 @@ public class WebsocketBinaryEndpointTest {
      */
     @Deployment(testable=false)
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class)
+        return ShrinkWrap.create(WebArchive.class)
                 .addClasses(MyEndpointByteBuffer.class,
                         MyEndpointByteArray.class,
                         MyEndpointInputStream.class,
                         MyEndpointClient.class);
-        System.out.println(war.toString(true));
-        return war;
     }
 
     /**
