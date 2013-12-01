@@ -48,13 +48,15 @@ import javax.inject.Named;
  */
 @Named
 public class MyCheckpointAlgorithm extends AbstractCheckpointAlgorithm {
+    private static boolean checkpointAlgorithmExecuted;
 
     @Override
     public boolean isReadyToCheckpoint() throws Exception {
-        if (MyItemReader.COUNT % 5 == 0)
-            return true;
-        else
-            return false;
+        checkpointAlgorithmExecuted = true;
+        return MyItemReader.COUNT % 5 == 0;
     }
 
+    public static boolean isCheckpointAlgorithmExecuted() {
+        return checkpointAlgorithmExecuted;
+    }
 }
