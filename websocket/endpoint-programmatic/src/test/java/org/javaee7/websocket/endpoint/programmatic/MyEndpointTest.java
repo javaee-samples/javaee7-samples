@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
@@ -41,6 +42,7 @@ public class MyEndpointTest {
     
     @Test
     public void testTextEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
+        MyEndpointTextClient.latch = new CountDownLatch(1);
         final String TEXT = "Hello World!";
         Session session = connectToServer(MyEndpointTextClient.class);
         assertNotNull(session);
@@ -55,6 +57,7 @@ public class MyEndpointTest {
     
     @Test
     public void testBinaryEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
+        MyEndpointBinaryClient.latch = new CountDownLatch(1);
         final String TEXT = "Hello World!";
         Session session = connectToServer(MyEndpointBinaryClient.class);
         assertNotNull(session);

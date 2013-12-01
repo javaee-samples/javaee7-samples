@@ -13,7 +13,7 @@ import javax.websocket.Session;
  */
 @ClientEndpoint
 public class MyEndpointBinaryClient {
-    public static CountDownLatch latch= new CountDownLatch(2);
+    public static CountDownLatch latch;
     public static byte[] response;
 
     @OnOpen
