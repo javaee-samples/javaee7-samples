@@ -60,7 +60,6 @@ public class MyClient {
     
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("Connected to endpoint: " + session.getBasicRemote());
         try {
             MyMessage message = new MyMessage("{\"apple\" : \"red\", \"banana\": \"yellow\"}");
             session.getBasicRemote().sendObject(message);
