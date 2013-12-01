@@ -15,14 +15,14 @@ import javax.transaction.TransactionalException;
  * @author Alexis Hassler
  */
 @RunWith(Arquillian.class)
-public class MyBeanTest {
+public class MyTransactionalTxTypeBeanTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addClass(MyBean.class);
+                         .addClass(MyTransactionalTxTypeBean.class);
     }
 
-    @Inject MyBean bean;
+    @Inject MyTransactionalTxTypeBean bean;
 
 
     @Test
