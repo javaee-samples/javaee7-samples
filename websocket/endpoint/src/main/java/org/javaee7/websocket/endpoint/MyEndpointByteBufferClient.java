@@ -13,8 +13,9 @@ import javax.websocket.Session;
  * @author Arun Gupta
  */
 @ClientEndpoint
-public class MyEndpointBinaryClient {
+public class MyEndpointByteBufferClient {
     public static CountDownLatch latch;
+    public static byte[] response;
 
     @OnOpen
     public void onOpen(Session session) {
@@ -27,6 +28,7 @@ public class MyEndpointBinaryClient {
     
     @OnMessage
     public void processMessage(byte[] message) {
+        response = message;
         latch.countDown();
     }
 }

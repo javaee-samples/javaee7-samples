@@ -33,15 +33,20 @@ public class MyEndpointTest {
     @Deployment(testable=false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyEndpoint.class,
+                .addClasses(MyEndpointText.class,
                         MyEndpointTextClient.class,
-                        MyEndpointBinaryClient.class);
+                        MyEndpointByteArray.class,
+                        MyEndpointByteArrayClient.class,
+                        MyEndpointByteBuffer.class,
+                        MyEndpointByteBufferClient.class,
+                        MyEndpointInputStream.class,
+                        MyEndpointInputStreamClient.class);
     }
     
     @Test
     public void testTextEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointTextClient.latch = new CountDownLatch(1);
-        Session session = connectToServer(MyEndpointTextClient.class);
+        Session session = connectToServer(MyEndpointTextClient.class, "/text");
         assertNotNull(session);
         session.addMessageHandler(new MessageHandler.Whole<String>() {
             @Override
@@ -54,21 +59,36 @@ public class MyEndpointTest {
     }
     
     @Test
-    public void testBinaryEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
-        MyEndpointBinaryClient.latch = new CountDownLatch(1);
-        Session session = connectToServer(MyEndpointBinaryClient.class);
+    public void testEndpointByteBuffer() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
+        MyEndpointByteBufferClient.latch = new CountDownLatch(1);
+        Session session = connectToServer(MyEndpointByteBufferClient.class, "bytebuffer");
         assertNotNull(session);
-        session.addMessageHandler(new MessageHandler.Whole<ByteBuffer>() {
-            @Override
-            public void onMessage(ByteBuffer binary) {
-                MyEndpointBinaryClient.latch.countDown();
-                assertEquals(TEXT, binary);
-            }
-        });
-        assertTrue(MyEndpointBinaryClient.latch.await(2, TimeUnit.SECONDS));
+        assertTrue(MyEndpointByteBufferClient.latch.await(2, TimeUnit.SECONDS));
+        assertArrayEquals(TEXT.getBytes(), MyEndpointByteBufferClient.response);
     }
 
-    public Session connectToServer(Class endpoint) throws DeploymentException, IOException, URISyntaxException {
+    @Test
+    public void testEndpointByteArray() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
+        MyEndpointByteArrayClient.latch = new CountDownLatch(1);
+        Session session = connectToServer(MyEndpointByteArrayClient.class, "bytearray");
+        assertNotNull(session);
+        assertTrue(MyEndpointByteArrayClient.latch.await(2, TimeUnit.SECONDS));
+        assertNotNull(MyEndpointByteArrayClient.response);
+        assertArrayEquals(TEXT.getBytes(), MyEndpointByteArrayClient.response);
+    }
+
+    @Test
+    public void testEndpointInputStream() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
+        MyEndpointInputStreamClient.latch = new CountDownLatch(1);
+        Session session = connectToServer(MyEndpointInputStreamClient.class, "inputstream");
+        assertNotNull(session);
+        assertTrue(MyEndpointInputStreamClient.latch.await(2, TimeUnit.SECONDS));
+        assertNotNull(MyEndpointInputStreamClient.response);
+        assertArrayEquals(TEXT.getBytes(), MyEndpointInputStreamClient.response);
+    }
+    
+    
+    public Session connectToServer(Class endpoint, String uriPart) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
                         + base.getHost()
@@ -76,7 +96,8 @@ public class MyEndpointTest {
                         + base.getPort()
                         + "/"
                         + base.getPath()
-                        + "/websocket");
+                        + "/"
+                        + uriPart);
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(endpoint, uri);
     }

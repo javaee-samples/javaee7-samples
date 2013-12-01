@@ -14,7 +14,6 @@
     <name>Java EE 7 WebSocket Samples</name>
 
     <modules>
-        <module>binary</module>
         <module>chat</module>
         <module>encoder</module>
         <module>encoder-client</module>
