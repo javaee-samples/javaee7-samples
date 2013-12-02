@@ -9,6 +9,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import static javax.ws.rs.core.Response.Status.Family.*;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -18,6 +19,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
@@ -30,42 +32,52 @@ public class NameAddResourceTest {
 	}
 	@ArquillianResource
 	private URL base;
+	private WebTarget target;
+
+	@Before
+	public void setUp() throws Exception {
+		Client client = ClientBuilder.newClient();
+		client.register(JsonObjectProvider.class, JsonStructureProvider.class);
+		target = client.target(new URL(base, "webresources/nameadd").toExternalForm());
+
+	}
 
 	@Test
 	public void shouldPassNameValidation() throws Exception {
-		Client client = ClientBuilder.newClient();
-		client.register(JsonObjectProvider.class, JsonStructureProvider.class);
-		WebTarget target = client
-				.target(new URL(base, "webresources/nameadd").toExternalForm());
 		JsonObject name = Json.createObjectBuilder()
 				.add("firstName", "Sheldon")
 				.add("lastName", "Cooper")
 				.add("email", "random@example.com")
 				.build();
+		Response response = postName(name);
 
-		Response r = target
+		assertFamily(response, SUCCESSFUL);
+	}
+
+	private Response postName(JsonObject name) {
+		return target
 				.request()
 				.post(Entity.json(name));
 
-		assertEquals(r.getStatusInfo().getFamily(), Status.Family.SUCCESSFUL);
 	}
+
+	private void assertFamily(Response response, Status.Family family) {
+		Response.StatusType statusInfo = response.getStatusInfo();
+		Status.Family actualFamily = statusInfo.getFamily();
+		assertEquals(actualFamily, family);
+	}
+
 	@Test
 	public void shouldFailAtFirstNameValidation() throws Exception {
-		Client client = ClientBuilder.newClient();
-		client.register(JsonObjectProvider.class, JsonStructureProvider.class);
-		WebTarget target = client
-				.target(new URL(base, "webresources/nameadd").toExternalForm());
 		JsonObject name = Json.createObjectBuilder()
 				.add("firstName", "")
 				.add("lastName", "Cooper")
 				.add("email", "random@example.com")
 				.build();
 
-		Response r = target
-				.request()
-				.post(Entity.json(name));
+		Response response = postName(name);
 
-		assertEquals(r.getStatusInfo().getFamily(), Status.Family.CLIENT_ERROR);
+		assertFamily(response, CLIENT_ERROR);
 	}
 
 }
