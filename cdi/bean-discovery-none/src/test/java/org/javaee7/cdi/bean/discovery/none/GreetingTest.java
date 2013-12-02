@@ -1,6 +1,5 @@
-package org.javaee7.cdi.bean.discovery.annotated;
+package org.javaee7.cdi.bean.discovery.none;
 
-import org.hamcrest.CoreMatchers;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -9,33 +8,30 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
+import java.util.Set;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.Assert.assertThat;
 
-/**
- * @author Alexis Hassler
- */
 @RunWith(Arquillian.class)
 public class GreetingTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class)
-                         .addAsManifestResource("beans.xml");
+                .addClasses(Greeting.class, FancyGreeting.class)
+                .addAsManifestResource("beans.xml");
     }
 
-    @Inject Greeting bean;
+    @Inject BeanManager beanManager;
 
     @Test
     public void should_bean_be_injected() throws Exception {
-        assertThat(bean, is(CoreMatchers.notNullValue()));
-    }
-    @Test
-    public void should_bean_be_simple() throws Exception {
-        // because SimpleGreeting is annotated (scope)
-        assertThat(bean, instanceOf(SimpleGreeting.class));
+        // Cannot try to inject the bean because it would fail at deployment time (in WildFly 8)
+        Set<Bean<?>> beans = beanManager.getBeans(Greeting.class);
+        assertThat(beans, is(empty()));
     }
 }
