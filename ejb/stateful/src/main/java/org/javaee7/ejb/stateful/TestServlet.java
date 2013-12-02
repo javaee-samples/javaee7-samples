@@ -53,7 +53,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
-    @Inject Cart bean;;
+    @Inject CartBean bean;;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

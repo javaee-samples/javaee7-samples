@@ -48,11 +48,11 @@ import javax.ejb.Stateful;
  * @author Arun Gupta
  */
 @Stateful
-public class Cart {
+public class CartBean {
 
     List<String> items;
 
-    public Cart() {
+    public CartBean() {
         items = new ArrayList<>();
     }
 
