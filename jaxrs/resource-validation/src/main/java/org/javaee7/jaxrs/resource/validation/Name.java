@@ -49,46 +49,47 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Name {
 
-    @NotNull
-    @Size(min = 1)
-    private String firstName;
+	@NotNull
+	@Size(min = 1)
+	private String firstName;
 
-    @NotNull
-    @Size(min = 1)
-    private String lastName;
+	@NotNull
+	@Size(min = 1)
+	private String lastName;
 
-    @Email
-    private String email;
-    
-    public Name() { }
-    
-    public Name(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-    
-    public String getFirstName() {
-        return firstName;
-    }
+	@Email
+	private String email;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public Name() {
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public Name(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
