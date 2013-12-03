@@ -70,15 +70,14 @@ public class MyEndpointTest {
         assertTrue(MyEndpointBinaryClient.latch.await(2, TimeUnit.SECONDS));
     }
 
-    public Session connectToServer(Class endpoint) throws DeploymentException, IOException, URISyntaxException {
+    public Session connectToServer(Class<?> endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
                         + base.getHost()
                         + ":"
                         + base.getPort()
-                        + "/"
                         + base.getPath()
-                        + "/websocket");
+                        + "websocket");
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(endpoint, uri);
     }

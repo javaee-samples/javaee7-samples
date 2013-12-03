@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.websocket.ClientEndpoint;
 import javax.websocket.EncodeException;
 import javax.websocket.OnError;
@@ -57,6 +58,7 @@ import javax.websocket.Session;
         decoders={MyMessageDecoder.class})
 public class MyClient {
     public static CountDownLatch latch= new CountDownLatch(3);
+    public static MyMessage response;
     
     @OnOpen
     public void onOpen(Session session) {
@@ -69,9 +71,9 @@ public class MyClient {
     }
     
     @OnMessage
-    public MyMessage processMessage(MyMessage message) {
-        latch.countDown();
-        return message;
+    public void processMessage(MyMessage message) {
+       response = message;
+       latch.countDown();
     }
     
     @OnError

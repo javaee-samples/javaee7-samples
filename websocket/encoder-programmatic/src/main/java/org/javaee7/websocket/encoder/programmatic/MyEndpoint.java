@@ -42,6 +42,7 @@ package org.javaee7.websocket.encoder.programmatic;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.MessageHandler;
@@ -59,7 +60,6 @@ public class MyEndpoint extends Endpoint {
             @Override
             public void onMessage(String text) {
                 try {
-                    MyClient.latch.countDown();
                     session.getBasicRemote().sendText(text);
                 } catch (IOException ex) {
                     Logger.getLogger(MyEndpoint.class.getName()).log(Level.SEVERE, null, ex);
