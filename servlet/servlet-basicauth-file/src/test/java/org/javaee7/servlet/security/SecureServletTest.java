@@ -39,8 +39,14 @@ public class SecureServletTest {
         WebConversation conv = new WebConversation();
         conv.setAuthentication("file", "u1", "p1");
         GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/SecureServlet");
-        WebResponse getResponse = conv.getResponse(getRequest);
-        assertTrue(getResponse.getText().contains("<title>Servlet Security - Basic Auth with File-base Realm</title>"));
+        WebResponse response = null;
+        try {
+            response = conv.getResponse(getRequest);
+        } catch (AuthorizationRequiredException e) {
+            fail(e.getMessage());
+        }
+        assertNotNull(response);
+        assertTrue(response.getText().contains("<title>Servlet Security - Basic Auth with File-base Realm</title>"));
     }
 
     @Test
