@@ -45,6 +45,8 @@ import java.io.Serializable;
  * @author Arun Gupta
  */
 public class MyObject implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public static final String MIME_TYPE = "application/myType";
 
     private int index;
