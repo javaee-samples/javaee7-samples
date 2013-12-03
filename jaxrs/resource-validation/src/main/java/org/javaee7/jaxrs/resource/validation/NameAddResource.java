@@ -47,14 +47,15 @@ import javax.ws.rs.Path;
 /**
  * @author Arun Gupta
  */
-@Path("/nameadd")
+@Path(NameAddResource.PATH)
 public class NameAddResource {
+
+    static final String PATH = "/nameadd";
 
     @POST
     @Consumes("application/json")
     public String addUser(@Valid Name name) {
-        System.out.println("addUser");
         return name.getFirstName() + " " + name.getLastName() + " with email " + name.getEmail() + " added";
     }
-    
+
 }
