@@ -1,0 +1,28 @@
+{
+    "name": "jax-rs-angularjs",
+    "version": "0.1.0",
+    "description": "Angular JS consuming REST services",
+    "engines": {
+        "node": "~0.10"
+    },
+    "main": "web-server.js",
+    "dependencies": {
+    },
+    "devDependencies": {
+        "http-proxy": "0.10.3",
+        "karma": "0.10.2",
+        "karma-coverage": "0.1.0",
+        "karma-jasmine": "0.1.3",
+        "karma-junit-reporter": "0.1.0",
+        "karma-spec-reporter": "0.0.5",
+        "karma-ng-scenario": "0.1.0"
+    },
+    "scripts": {
+        "test": "karma start src/test/javascript/karma.conf.js --browsers PhantomJS --singleRun true"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/javaee-samples/javaee7-samples.git"
+    },
+    "author": "Bernard Labno"
+}
