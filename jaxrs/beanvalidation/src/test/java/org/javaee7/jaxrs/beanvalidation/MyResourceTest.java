@@ -10,6 +10,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 import javax.ws.rs.BadRequestException;
@@ -46,7 +47,7 @@ public class MyResourceTest {
     @Before
     public void setUpClass() throws MalformedURLException {
         Client client = ClientBuilder.newClient();
-        target = client.target(new URL(base, "webresources/endpoint").toExternalForm());
+        target = client.target(URI.create(new URL(base, "webresources/endpoint").toExternalForm()));
     }
 
     @Test
