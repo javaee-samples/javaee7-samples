@@ -68,7 +68,6 @@ public class NameAddResourceTest {
         return target
                 .request()
                 .post(nameEntity);
-
     }
 
     private void assertStatus(Response response, Status expectedStatus) {
@@ -92,6 +91,17 @@ public class NameAddResourceTest {
     }
 
     @Test
+    public void shouldFailAtFirstNameNullValidation() throws Exception {
+        JsonObject name = startValidName()
+                .addNull("firstName")
+                .build();
+
+        Response response = postName(name);
+
+        assertFailedValidation(response);
+    }
+
+    @Test
     public void shouldFailAtLastNameSizeValidation() throws Exception {
         JsonObject name = startValidName()
                 .add("lastName", "")
@@ -103,9 +113,31 @@ public class NameAddResourceTest {
     }
 
     @Test
-    public void shouldFailAtEmailValidation() throws Exception {
+    public void shouldFailAtLastNameNullValidation() throws Exception {
+        JsonObject name = startValidName()
+                .addNull("lastName")
+                .build();
+
+        Response response = postName(name);
+
+        assertFailedValidation(response);
+    }
+
+    @Test
+    public void shouldFailAtEmailAtSymbolValidation() throws Exception {
         JsonObject name = startValidName()
                 .add("email", "missing-at-symbol.com")
+                .build();
+
+        Response response = postName(name);
+
+        assertFailedValidation(response);
+    }
+
+    @Test
+    public void shouldFailAtEmailComDomainValidation() throws Exception {
+        JsonObject name = startValidName()
+                .add("email", "other-than-com@domain.pl")
                 .build();
 
         Response response = postName(name);
