@@ -5,12 +5,17 @@
  */
 package org.javaee7.jaxrs.readerwriter.injection;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -19,7 +24,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 
 /**
@@ -37,10 +41,8 @@ public class MyResourceTest {
     @Before
     public void setUp() throws MalformedURLException {
         client = ClientBuilder.newClient();
-        client
-                .register(MyReader.class)
-                .register(MyWriter.class);
-        target = client.target(new URL(base, "webresources/fruits").toExternalForm());
+        client.register(MyWriter.class);
+        target = client.target(URI.create(new URL(base, "webresources/fruits").toExternalForm()));
     }
 
     @After
