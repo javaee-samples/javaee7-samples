@@ -8,6 +8,7 @@ package org.javaee7.jaxrs.filter;
 import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 import javax.ws.rs.client.Client;
@@ -45,7 +46,7 @@ public class MyResourceTest {
     public void setUpClass() throws MalformedURLException {
         Client client = ClientBuilder.newClient();
         client.register(ClientLoggingFilter.class);
-        target = client.target(new URL(base, "webresources/fruits").toExternalForm());
+        target = client.target(URI.create(new URL(base, "webresources/fruits").toExternalForm()));
     }
 
     /**
