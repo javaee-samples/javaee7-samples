@@ -1,52 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.javaee7.ejb.stateless;
 
-import javax.ejb.EJB;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Arun Gupta
+ * @author Rafał Roppel
  */
+@RunWith(Arquillian.class)
 public class AccountSessionBeanTest {
-    @EJB AccountSessionBean bean;
-    
-    /**
-     * Arquillian specific method for creating a file which can be deployed
-     * while executing the test.
-     *
-     * @return a war file
-     */
-    public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(AccountSessionBean.class);
-        System.out.println(war.toString(true));
-        return war;
-    }
-    
-    /**
-     * Test of withdraw method, of class AccountSessionBean.
-     */
-//    @Test
-    public void testWithdraw() {
-        String result = bean.withdraw((float)5.0);
-        assertEquals("Withdrawn: 5.0", result);
-    }
 
-    /**
-     * Test of deposit method, of class AccountSessionBean.
-     */
-//    @Test
-    public void testDeposit() {
-        String result = bean.withdraw((float)10.0);
-        assertEquals("Deposited: 10.0", result);
-    }
-    
+	@Inject
+	private AccountSessionBean sut;
+
+	/**
+	 * Arquillian specific method for creating a file which can be deployed
+	 * while executing the test.
+	 *
+	 * @return a war file
+	 */
+	@Deployment
+	public static Archive<?> deployment() {
+		return ShrinkWrap.create(JavaArchive.class)
+				.addClass(AccountSessionBean.class)
+				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+	}
+
+	/**
+	 * Test of withdraw method, of class AccountSessionBean.
+	 */
+	@Test
+	public void shouldWithdrawGivenAmount() {
+		// given
+		final float amount = 5.0F;
+
+		// when
+		final String actual = sut.withdraw(amount);
+
+		// then
+		assertThat(actual, is(equalTo("Withdrawn: " + amount)));
+	}
+
+	/**
+	 * Test of deposit method, of class AccountSessionBean.
+	 */
+	@Test
+	public void shouldDepositGivenAmount() {
+		// given
+		final float amount = 10.0F;
+
+		// when
+		final String actual = sut.deposit(amount);
+
+		// then
+		assertThat(actual, is(equalTo("Deposited: " + amount)));
+	}
 }
