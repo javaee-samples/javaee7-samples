@@ -44,6 +44,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.websocket.Decoder;
 import javax.websocket.Encoder;
 import javax.websocket.Endpoint;
@@ -65,14 +66,12 @@ public class MyEndpointConfiguration implements ServerApplicationConfig {
 
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
-        return new HashSet<ServerEndpointConfig>() {
-            {
-                add(ServerEndpointConfig.Builder.create(MyEndpoint.class, "/encoder-programmatic")
+       Set<ServerEndpointConfig> config = new HashSet<ServerEndpointConfig>();
+       config.add(ServerEndpointConfig.Builder.create(MyEndpoint.class, "/encoder-programmatic")
                         .encoders(encoders)
                         .decoders(decoders)
                         .build());
-            }
-        };
+       return config;
     }
 
     @Override

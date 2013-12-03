@@ -52,12 +52,6 @@ public class MyMessageDecoder implements Decoder.Text<MyMessage> {
 
     @Override
     public MyMessage decode(String string) throws DecodeException {
-        if (MyEndpointClientEmptyJSONArray.latch != null)
-            MyEndpointClientEmptyJSONArray.latch.countDown();
-        
-        if (MyEndpointClientJSONObject.latch != null)
-            MyEndpointClientJSONObject.latch.countDown();
-        
         MyMessage myMessage = new MyMessage(Json.createReader(new StringReader(string)).readObject());
         return myMessage;
     }

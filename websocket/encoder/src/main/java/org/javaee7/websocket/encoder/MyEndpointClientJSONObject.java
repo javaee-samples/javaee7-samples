@@ -14,8 +14,9 @@ import javax.websocket.Session;
  */
 @ClientEndpoint
 public class MyEndpointClientJSONObject {
-    public static CountDownLatch latch = new CountDownLatch(3);
+    public static CountDownLatch latch = new CountDownLatch(1);
     public static String JSON = "{\"apple\" : \"red\", \"banana\": \"yellow\"}";
+    public static String response;
 
     @OnOpen
     public void onOpen(Session session) {
@@ -27,8 +28,8 @@ public class MyEndpointClientJSONObject {
     }
     
     @OnMessage
-    public String processMessage(String message) {
+    public void processMessage(String message) {
+        response = message;
         latch.countDown();
-        return message;
     }
 }

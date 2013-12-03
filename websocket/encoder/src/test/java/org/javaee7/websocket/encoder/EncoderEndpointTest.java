@@ -1,17 +1,16 @@
 package org.javaee7.websocket.encoder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
-import javax.websocket.MessageHandler;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
@@ -43,36 +42,24 @@ public class EncoderEndpointTest {
                 .addClasses(MyEndpoint.class,
                         MyMessage.class,
                         MyMessageEncoder.class,
-                        MyMessageDecoder.class,
-                        MyEndpointClientEmptyJSONArray.class,
-                        MyEndpointClientJSONObject.class);
+                        MyMessageDecoder.class);
     }
 
     @Test
     public void testEndpointEmptyJSONArray() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         final Session session = connectToServer(MyEndpointClientEmptyJSONArray.class);
         assertNotNull(session);
-        session.addMessageHandler(new MessageHandler.Whole<String>() {
-            @Override
-            public void onMessage(String text) {
-                assertEquals("{}", text);
-            }
-        });
         assertTrue(MyEndpointClientEmptyJSONArray.latch.await(2, TimeUnit.SECONDS));
+        assertEquals("{}", MyEndpointClientEmptyJSONArray.response);
     }
 
     @Test
     public void testEndpointEmptyJSONObject() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
-        final String JSON = "{\"apple\" : \"red\", \"banana\": \"yellow\"}";
+        String JSON = "{\"apple\":\"red\",\"banana\":\"yellow\"}";
         Session session = connectToServer(MyEndpointClientJSONObject.class);
         assertNotNull(session);
-        session.addMessageHandler(new MessageHandler.Whole<String>() {
-            @Override
-            public void onMessage(String text) {
-                assertEquals(JSON, text);
-            }
-        });
         assertTrue(MyEndpointClientJSONObject.latch.await(2, TimeUnit.SECONDS));
+        assertEquals(JSON, MyEndpointClientJSONObject.response);
     }
 
     /**
@@ -85,15 +72,14 @@ public class EncoderEndpointTest {
      * @throws IOException
      * @throws URISyntaxException
      */
-    public Session connectToServer(Class endpoint) throws DeploymentException, IOException, URISyntaxException {
+    public Session connectToServer(Class<?> endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
                 + base.getHost()
                 + ":"
                 + base.getPort()
-                + "/"
                 + base.getPath()
-                + "/encoder");
+                + "encoder");
         return container.connectToServer(endpoint, uri);
     }
 }

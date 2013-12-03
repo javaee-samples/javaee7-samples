@@ -49,12 +49,6 @@ import javax.websocket.EndpointConfig;
 public class MyMessageEncoder implements Encoder.Text<MyMessage> {
     @Override
     public String encode(MyMessage myMessage) throws EncodeException {
-        if (MyEndpointClientEmptyJSONArray.latch != null)
-            MyEndpointClientEmptyJSONArray.latch.countDown();
-        
-        if (MyEndpointClientJSONObject.latch != null)
-            MyEndpointClientJSONObject.latch.countDown();
-        
         return myMessage.getJsonObject().toString();
     }
 

@@ -208,6 +208,12 @@
                     <scope>test</scope>
                 </dependency>
                 <dependency>
+                   <groupId>org.glassfish</groupId>
+                   <artifactId>javax.json</artifactId>
+                   <version>1.0.4</version>
+                   <scope>test</scope>
+                </dependency>
+                <dependency>
                     <groupId>org.glassfish.tyrus</groupId>
                     <artifactId>tyrus-client</artifactId>
                     <version>1.3</version>
@@ -236,6 +242,12 @@
         <profile>
             <id>glassfish-remote-arquillian</id>
             <dependencies>
+                <dependency>
+                   <groupId>org.glassfish</groupId>
+                   <artifactId>javax.json</artifactId>
+                   <version>1.0.4</version>
+                   <scope>test</scope>
+                </dependency>
                 <dependency>
                     <groupId>org.glassfish.tyrus</groupId>
                     <artifactId>tyrus-client</artifactId>
