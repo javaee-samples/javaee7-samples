@@ -45,6 +45,7 @@ import javax.ws.rs.core.Application;
 /**
  * @author Arun Gupta
  */
-@ApplicationPath("webresources")
+@ApplicationPath(MyApplication.PATH)
 public class MyApplication extends Application {
+    static final String PATH = "webresources";
 }
