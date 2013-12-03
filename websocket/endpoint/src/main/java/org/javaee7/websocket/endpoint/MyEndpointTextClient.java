@@ -14,11 +14,12 @@ import javax.websocket.Session;
 @ClientEndpoint
 public class MyEndpointTextClient {
     public static CountDownLatch latch;
+    public static String response;
 
     @OnOpen
     public void onOpen(Session session) {
         try {
-            session.getBasicRemote().sendText("Hello world!");
+            session.getBasicRemote().sendText("Hello World!");
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -26,6 +27,7 @@ public class MyEndpointTextClient {
     
     @OnMessage
     public void processMessage(String message) {
+        response = message;
         latch.countDown();
     }
 }

@@ -17,7 +17,8 @@ import javax.websocket.Session;
 @ClientEndpoint(encoders = {MyMessageEncoder.class},
         decoders={MyMessageDecoder.class})
 public class MyClient {
-    public static CountDownLatch latch= new CountDownLatch(4);
+    public static CountDownLatch latch= new CountDownLatch(3);
+    public static MyMessage response;
     
     @OnOpen
     public void onOpen(Session session) {
@@ -30,9 +31,9 @@ public class MyClient {
     }
     
     @OnMessage
-    public MyMessage processMessage(MyMessage message) {
-        latch.countDown();
-        return message;
+    public void processMessage(MyMessage message) {
+       response = message;
+       latch.countDown();
     }
     
     @OnError

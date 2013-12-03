@@ -1,23 +1,27 @@
 package org.javaee7.websocket.endpoint;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
-import javax.websocket.MessageHandler;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 
 /**
@@ -46,16 +50,10 @@ public class MyEndpointTest {
     @Test
     public void testTextEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointTextClient.latch = new CountDownLatch(1);
-        Session session = connectToServer(MyEndpointTextClient.class, "/text");
+        Session session = connectToServer(MyEndpointTextClient.class, "text");
         assertNotNull(session);
-        session.addMessageHandler(new MessageHandler.Whole<String>() {
-            @Override
-            public void onMessage(String text) {
-                MyEndpointTextClient.latch.countDown();
-                assertEquals(TEXT, text);
-            }
-        });
         assertTrue(MyEndpointTextClient.latch.await(2, TimeUnit.SECONDS));
+        assertEquals(TEXT, MyEndpointTextClient.response);
     }
     
     @Test
@@ -88,16 +86,14 @@ public class MyEndpointTest {
     }
     
     
-    public Session connectToServer(Class endpoint, String uriPart) throws DeploymentException, IOException, URISyntaxException {
+    public Session connectToServer(Class<?> endpoint, String uriPart) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
-                        + base.getHost()
-                        + ":"
-                        + base.getPort()
-                        + "/"
-                        + base.getPath()
-                        + "/"
-                        + uriPart);
+              + base.getHost()
+              + ":"
+              + base.getPort()
+              + base.getPath()
+              + uriPart);
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(endpoint, uri);
     }
