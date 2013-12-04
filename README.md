@@ -38,6 +38,24 @@ When developing and runing them from IDE, remember to activate the profile befor
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
 
+## How to contribute ##
+
+With your help we can improve this set of samples, learn from each other and grow the community full of passionate people who care about the technology, innovation and code quality. Every contribution matters!
+
+There is just a bunch of things you should keep in mind before sending a pull request, so we can easily get all the new things incorporated into the master branch.
+
+### Some coding principles ###
+
+* When creating new source file do not put (or copy) any license header, as we use top-level license (MIT) for each and every file in this repository.
+* Please follow JBoss Community code formatting profile as defined in the [jboss/ide-config](https://github.com/jboss/ide-config#readme) repository. The details are explained there, as well as configurations for Eclipse, IntelliJ and NetBeans.
+
+### Small Git tips ###
+
+* Make sure your [fork](https://help.github.com/articles/fork-a-repo) is always up-to-date. Simply run ``git pull upstream master`` and you are ready to hack.
+* When developing new features please create a feature branch so that we incorporate your changes smoothly. It's also convenient for you as you could work on few things in parallel ;) In order to create a feature branch and switch to it in one swoop you can use ``git checkout -b my_new_cool_feature``
+
+That's it! Welcome in the community!
+
 ## CI Job ##
 
 * [WildFly](https://arungupta.ci.cloudbees.com/job/Java%20EE%207%20Samples%20on%20WildFly-cb/)
