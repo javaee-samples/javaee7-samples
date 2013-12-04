@@ -51,13 +51,13 @@ public class MyStepListener extends AbstractStepListener {
 
     @Override
     public void beforeStep() throws Exception {
-        BatchListenerRecorder.stepListenerBeforeStep = true;
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
         System.out.println("MyStepListener.beforeStep");
     }
 
     @Override
     public void afterStep() throws Exception {
-        BatchListenerRecorder.stepListenerAfterStep = true;
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
         System.out.println("MyStepListener.afterStep");
     }
 }

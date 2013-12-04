@@ -11,15 +11,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.batch.operations.JobOperator;
-import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.BatchStatus;
-import javax.batch.runtime.JobExecution;
-import javax.batch.runtime.Metric;
-import javax.batch.runtime.StepExecution;
-import javax.inject.Inject;
+import javax.batch.runtime.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -29,9 +25,6 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(Arquillian.class)
 public class BatchListenersTest {
-    @Inject
-    private BatchListenerRecorder batchListenerRecorder;
-
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -62,13 +55,7 @@ public class BatchListenersTest {
             }
         }
 
-        assertTrue(BatchListenerRecorder.isJobListenerExecuted());
-        assertTrue(BatchListenerRecorder.isStepListenerExecuted());
-        assertTrue(BatchListenerRecorder.isChunkListenerExecuted());
-        assertTrue(BatchListenerRecorder.isReadListenerExecutedWithoutErrors());
-        assertTrue(BatchListenerRecorder.isProcessListenerExecutedWithoutErrors());
-        assertTrue(BatchListenerRecorder.isWriteListenerExecutedWithoutErrors());
-
+        assertTrue(BatchListenerRecorder.batchListenersCountDownLatch.await(0, TimeUnit.SECONDS));
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }
