@@ -46,11 +46,11 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint("/websocket")
-public class MyEndpoint {
-    
+@ServerEndpoint("/text")
+public class MyAsyncEndpointText {
+
     @OnMessage
-    public void echoText(String test, Session session) {
-        session.getAsyncRemote().sendText(test);
+    public void echoText(String text, Session session) {
+        session.getAsyncRemote().sendText(text);
     }
 }
