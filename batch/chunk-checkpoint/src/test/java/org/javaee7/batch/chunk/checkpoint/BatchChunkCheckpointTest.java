@@ -15,8 +15,10 @@ import javax.batch.runtime.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Roberto Cortez
@@ -53,7 +55,7 @@ public class BatchChunkCheckpointTest {
             }
         }
 
-        assertEquals(0, MyCheckpointAlgorithm.checkpointCountDownLatch.getCount());
+        assertTrue(MyCheckpointAlgorithm.checkpointCountDownLatch.await(0, TimeUnit.SECONDS));
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }
