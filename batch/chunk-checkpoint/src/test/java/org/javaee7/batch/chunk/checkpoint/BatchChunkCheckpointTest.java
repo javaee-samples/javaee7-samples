@@ -11,24 +11,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.batch.operations.JobOperator;
-import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.BatchStatus;
-import javax.batch.runtime.JobExecution;
-import javax.batch.runtime.Metric;
-import javax.batch.runtime.StepExecution;
+import javax.batch.runtime.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
 public class BatchChunkCheckpointTest {
-
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -59,7 +53,7 @@ public class BatchChunkCheckpointTest {
             }
         }
 
-        assertTrue(MyCheckpointAlgorithm.isCheckpointAlgorithmExecuted());
+        assertEquals(0, MyCheckpointAlgorithm.checkpointCountDownLatch.getCount());
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }

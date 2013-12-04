@@ -51,19 +51,19 @@ public class MyItemReadListener extends AbstractItemReadListener {
 
     @Override
     public void beforeRead() throws Exception {
-        BatchListenerRecorder.readerListenerBeforeRead = true;
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
         System.out.println("MyItemReadListener.beforeRead");
     }
 
     @Override
     public void afterRead(Object item) throws Exception {
-        BatchListenerRecorder.readerListenerAfterRead = true;
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
         System.out.println("MyItemReadListener.afterRead: " + item);
     }
 
     @Override
     public void onReadError(Exception ex) throws Exception {
-        BatchListenerRecorder.readerListenerOnReadError = true;
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
         System.out.println("MyItemReadListener.onReadError: " + ex.getLocalizedMessage());
     }
 }
