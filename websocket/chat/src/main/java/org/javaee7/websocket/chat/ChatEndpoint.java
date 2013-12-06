@@ -48,12 +48,12 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint("/websocket")
+@ServerEndpoint("/chat")
 public class ChatEndpoint {
     @OnMessage
     public void message(String message, Session client) throws IOException, EncodeException {
         for (Session peer : client.getOpenSessions()) {
-            peer.getBasicRemote().sendObject(message);
+            peer.getBasicRemote().sendText(message);
         }
     }
 }
