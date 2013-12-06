@@ -38,7 +38,7 @@
  * holder.
  */
 
-var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
+var wsUri = "ws://" + document.location.host + document.location.pathname + "chat";
 var websocket = new WebSocket(wsUri);
 
 var username;
@@ -61,8 +61,7 @@ function onOpen() {
 }
 
 function onMessage(evt) {
-    console.log("onMessage");
-    writeToScreen("RECEIVED: " + evt.data);
+    console.log("onMessage: " + evt.data);
     if (evt.data.indexOf("joined") != -1) {
         userField.innerHTML += evt.data.substring(0, evt.data.indexOf(" joined")) + "\n";
     } else {
