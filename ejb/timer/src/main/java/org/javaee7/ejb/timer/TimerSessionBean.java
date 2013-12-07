@@ -39,14 +39,15 @@
  */
 package org.javaee7.ejb.timer;
 
-import java.util.Collection;
-import java.util.Date;
 import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import java.util.Collection;
 
 /**
  * @author Arun Gupta
@@ -54,15 +55,18 @@ import javax.ejb.Timer;
 @Startup
 @Singleton
 public class TimerSessionBean {
-    
-    @Resource SessionContext ctx;
 
-    @Schedule(hour="*", minute="*", second="*/5", info = "Every 5 second timer")
+    @Resource
+    SessionContext ctx;
+
+    @Inject
+    Event<Ping> pingEvent;
+
+    @Schedule(hour = "*", minute = "*", second = "*/5", info = "Every 5 second timer")
     public void printDate() {
-        System.out.println(new Date());
         Collection<Timer> timers = ctx.getTimerService().getAllTimers();
         for (Timer t : timers) {
-            System.out.println("Timer info: " + t.getInfo());
+            pingEvent.fire(new Ping(t.getInfo().toString()));
         }
     }
 
