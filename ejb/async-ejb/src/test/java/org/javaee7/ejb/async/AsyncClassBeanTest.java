@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.*;
 public class AsyncClassBeanTest {
 
     @Inject
-    MyAsyncBeanMethodLevel bean;
+    MyAsyncBeanClassLevel bean;
 
     @Deployment
     public static WebArchive createDeployment() {
