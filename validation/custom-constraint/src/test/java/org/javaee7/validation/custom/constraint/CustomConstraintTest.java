@@ -1,7 +1,5 @@
 package org.javaee7.validation.custom.constraint;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -11,6 +9,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
 
 @RunWith(Arquillian.class)
 public class CustomConstraintTest {
@@ -27,7 +27,6 @@ public class CustomConstraintTest {
                 .addClasses(MyBean.class, ZipCode.class, ZipCodeValidator.class)
                 .addAsResource("ValidationMessages.properties");
         
-        System.out.println(war.toString(true));
         return war;
     }
 
