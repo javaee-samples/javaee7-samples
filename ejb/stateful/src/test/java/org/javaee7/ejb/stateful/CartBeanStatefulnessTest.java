@@ -7,12 +7,10 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -24,7 +22,12 @@ import static org.hamcrest.MatcherAssert.*;
 public class CartBeanStatefulnessTest {
 
     final private String item_to_add = "apple";
-	private CartBean cartBean;
+
+    @EJB
+    private CartBean bean1;
+
+    @EJB
+    private CartBean bean2;
 
 	@Deployment
 	public static Archive<?> deployment() {
@@ -33,35 +36,35 @@ public class CartBeanStatefulnessTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-    @Before
-    public void setup() throws NamingException {
-        InitialContext ctx = new InitialContext();
-        Object object = ctx.lookup("java:global/test/CartBean");
-        assertThat(object, instanceOf(CartBean.class));
-
-        CartBean cartBean = (CartBean) object;
-        if (this.cartBean != null) {
-            assertThat("Expect different instances",
-                    cartBean.hashCode(),
-                    is(not(equalTo(this.cartBean.hashCode()))));
-        }
-
-        this.cartBean = cartBean;
+    /**
+     * JSR 318: Enterprise JavaBeans, Version 3.1
+     * 3.4.7.1 Session Object Identity / Stateful Session Beans
+     *
+     * A stateful session object has a unique identity that is assigned by
+     * the container at the time the object is created. A client of the stateful
+     * session bean business interface can determine if two business interface
+     * or no-interface view references refer to the same session object
+     * by use of the equals method
+     */
+    @Test
+    @InSequence(1)
+    public void should_not_be_identical_beans() {
+        assertThat("Expect different instances", bean1, is(not(bean2)));
     }
 
 	@Test
-    @InSequence(1)
-	public void should_add_items_to_cart() {
+    @InSequence(2)
+	public void should_add_items_to_first_cart() {
 		// when
-		cartBean.addItem(item_to_add);
+		bean1.addItem(item_to_add);
 
 		// then
-		assertThat(cartBean.getItems(), hasItem(item_to_add));
+		assertThat(bean1.getItems(), hasItem(item_to_add));
 	}
 
 	@Test
-    @InSequence(2)
-	public void should_not_contain_any_items() {
-		assertThat(cartBean.getItems().isEmpty(), is(true));
+    @InSequence(3)
+	public void should_not_contain_any_items_in_second_cart() {
+		assertThat(bean2.getItems().isEmpty(), is(true));
 	}
 }
