@@ -247,6 +247,9 @@
         </profile>
         <profile>
             <id>glassfish-remote-arquillian</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish</groupId>
@@ -294,9 +297,6 @@
         </profile>
         <profile>
             <id>wildfly-managed-arquillian</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <browser>chromium-browser</browser>
                 <serverProfile>standalone-full.xml</serverProfile>
