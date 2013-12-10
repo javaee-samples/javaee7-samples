@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>javaee7-samples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.javaee7.jaspic</groupId>
+    <artifactId>jaspic-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Java EE 7 Jaspic Samples</name>
+
+    <modules>
+        <!-- Not a module with tests, but contains common code for the other modules -->
+        <module>common</module>
+
+        <!-- Tests a simple authentication from both public and protected resources -->
+        <module>basic-authentication</module>
+
+        <!-- Tests that an established authenticated identity by JASPIC propagates correctly to the EJB layer -->
+        <module>ejb-propagation</module>
+
+        <!-- Tests that the main methods of JASPIC artifacts like the SAM are called by the container at the right moment -->
+        <module>lifecycle</module>
+
+        <!-- Like Servlet filters, a JASPIC SAM for the Servlet Profile can wrap the request and response. This tests that 
+            this indeed happens. -->
+        <module>wrapping</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

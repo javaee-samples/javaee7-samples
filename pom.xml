@@ -470,6 +470,7 @@
         <module>ejb</module>
         <module>el</module>
         <module>javamail</module>
+        <module>jaspic</module>
         <module>jaxrs</module>
         <module>jca</module>
         <module>jms</module>
