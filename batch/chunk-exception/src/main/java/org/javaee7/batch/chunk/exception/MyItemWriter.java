@@ -51,6 +51,10 @@ public class MyItemWriter extends AbstractItemWriter {
 
     @Override
     public void writeItems(List list) {
+        if (list.contains(new MyOutputRecord(2))) {
+            throw new IllegalArgumentException();
+        }
+
         System.out.println("MyItemWriter.writeItems: " + list);
     }
 }
