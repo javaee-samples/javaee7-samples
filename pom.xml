@@ -294,9 +294,9 @@
         </profile>
         <profile>
             <id>wildfly-managed-arquillian</id>
-<!--            <activation>
+            <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>-->
+            </activation>
             <properties>
                 <browser>chromium-browser</browser>
                 <serverProfile>standalone-full.xml</serverProfile>
