@@ -4,6 +4,7 @@ bin/
 target/
 libs/
 tmp/
+node_modules/
  
 # OS Files #
 .DS_Store

@@ -1,0 +1,5 @@
+<dataset>
+    <note id="1" title="Note A" summary="Simple summary"/>
+    <note id="2" title="Note B" summary="Extended summary"/>
+    <note id="3" title="Note C" summary="Advanced summary"/>
+</dataset>

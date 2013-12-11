@@ -7,12 +7,16 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    
-    <groupId>org.javaee7.batch</groupId>
+
     <artifactId>chunk-exception</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>${project.artifactId}</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.javaee7</groupId>
+            <artifactId>util-samples</artifactId>
+        </dependency>
+    </dependencies>
 </project>

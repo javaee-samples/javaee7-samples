@@ -52,7 +52,9 @@ public class MySkipWriteListener implements SkipWriteListener {
 
     @Override
     public void onSkipWriteItem(List list, Exception e) throws Exception {
+        ChunkExceptionRecorder.chunkExceptionsCountDownLatch.countDown();
         System.err.println("MySkipWriteListener.onSkipWriteItem: " + list.size() + ", " + e.getMessage());
+        list.remove(new MyOutputRecord(2));
     }
 
 }
