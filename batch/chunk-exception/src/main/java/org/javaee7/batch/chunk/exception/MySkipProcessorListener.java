@@ -51,6 +51,7 @@ public class MySkipProcessorListener implements SkipProcessListener {
 
     @Override
     public void onSkipProcessItem(Object t, Exception e) throws Exception {
+        ChunkExceptionRecorder.chunkExceptionsCountDownLatch.countDown();
         System.err.println("MySkipProcessorListener.onSkipProcessItem: " + ((MyInputRecord)t).getId() + ", " + e.getMessage());
     }
 

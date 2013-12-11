@@ -51,6 +51,7 @@ public class MySkipReadListener implements SkipReadListener {
 
     @Override
     public void onSkipReadItem(Exception e) throws Exception {
+        ChunkExceptionRecorder.chunkExceptionsCountDownLatch.countDown();
         System.err.println("MySkipReadListener.onSkipReadItem: " + e.getMessage());
     }
 

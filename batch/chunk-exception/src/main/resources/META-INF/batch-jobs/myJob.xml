@@ -48,17 +48,17 @@
             <listener ref="mySkipWriteListener"/>
         </listeners>
         <chunk item-count="5" skip-limit="5">
-            <reader ref="myItemReader"></reader> 
-            <processor ref="myItemProcessor"></processor>
-            <writer ref="myItemWriter"></writer> 
+            <reader ref="myItemReader"/>
+            <processor ref="myItemProcessor"/>
+            <writer ref="myItemWriter"/>
             <skippable-exception-classes>
                 <include class="java.lang.RuntimeException"/>
                 <exclude class="java.io.IOException"/>
             </skippable-exception-classes>
-<!--            <retryable-exception-classes>
+            <retryable-exception-classes>
                 <include class="java.lang.IllegalArgumentException"/>
-            </retryable-exception-classes>-->
-        </chunk>	
+            </retryable-exception-classes>
+        </chunk>
     </step>
 </job>
 
