@@ -47,18 +47,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Servlet Form-Based Security</title>
+        <title>Servlet Form-Based Security - Success</title>
     </head>
     <body>
-        <h1>Servlet Form-Based Security</h1>
-
-        <form method="POST" action="j_security_check">
-            <input type="text" name="j_username">
-            <input type="password" name="j_password" autocomplete="off">
-            <input type="button" value="submit">
-        </form>
-
-        <p>Make sure to invoke "./bin/asadmin create-file-user --groups g1 u1" and use the password "p1" when prompted.
-            Then call the <a href="${pageContext.request.contextPath}/SecureServlet">GET</a> method.<br/>
+        <h1>Servlet Form-Based Security- Success</h1>
+        
+        If you reached this page that means form-based security credentials are correctly configured.
     </body>
 </html>

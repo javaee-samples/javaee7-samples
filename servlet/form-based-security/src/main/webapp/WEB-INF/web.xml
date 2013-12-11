@@ -45,23 +45,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <deny-uncovered-http-methods/>
+    <!--<deny-uncovered-http-methods/>-->
+    <servlet>
+        <display-name>index</display-name>
+        <servlet-name>index</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>SecurityConstraint</web-resource-name>
             <url-pattern>/*</url-pattern>
-            <!--<http-method>GET</http-method>-->
         </web-resource-collection>
         <auth-constraint>
             <role-name>g1</role-name>
         </auth-constraint>
         <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+            <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
     
     <login-config>
         <auth-method>FORM</auth-method>
+        <realm-name>file</realm-name>
         <form-login-config>
             <form-login-page>/loginform.jsp</form-login-page>
             <form-error-page>/loginerror.jsp</form-error-page>
