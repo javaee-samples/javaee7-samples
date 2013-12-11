@@ -19,15 +19,15 @@
         <module>async-servlet</module>
         <module>error-mapping</module>
         <module>event-listeners</module>
-        <module>form-based-security</module>
         <module>metadata-complete</module>
         <module>nonblocking</module>
         <module>protocol-handler</module>
         <module>resource-packaging</module>
-        <module>servlet-basicauth-file</module>
         <module>servlet-filters</module>
         <module>file-upload</module>
         <module>web-fragment</module>
-        <module>programmatic-login</module>
+        <module>security-basicauth</module>
+        <module>security-form-based</module>
+        <module>security-programmatic</module>
     </modules>
 </project>

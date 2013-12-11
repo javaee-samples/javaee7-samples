@@ -8,6 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>programmatic-login</artifactId>
+    <artifactId>security-programmatic</artifactId>
     <packaging>war</packaging>
+    <name>security-programmatic</name>
 </project>

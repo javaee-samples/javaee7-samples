@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.servlet.security;
+package org.javaee7.servlet.security.basicauth;
 
 import java.io.IOException;
 import java.io.PrintWriter;
