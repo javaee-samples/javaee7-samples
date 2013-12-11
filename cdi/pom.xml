@@ -30,5 +30,6 @@
         <module>extension</module>
         <module>scopes</module>
         <module>alternatives</module>
+        <module>nobeans-el-injection</module>
     </modules>
 </project>
