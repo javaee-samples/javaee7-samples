@@ -52,6 +52,7 @@ import javax.websocket.server.ServerEndpoint;
 public class ChatEndpoint {
     @OnMessage
     public void message(String message, Session client) throws IOException, EncodeException {
+        System.out.println("message: " + message);
         for (Session peer : client.getOpenSessions()) {
             peer.getBasicRemote().sendText(message);
         }
