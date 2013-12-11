@@ -28,5 +28,6 @@
         <module>servlet-filters</module>
         <module>file-upload</module>
         <module>web-fragment</module>
+        <module>programmatic-login</module>
     </modules>
 </project>
