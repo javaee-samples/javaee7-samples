@@ -29,5 +29,6 @@
         <module>security-basicauth</module>
         <module>security-form-based</module>
         <module>security-programmatic</module>
+        <module>security-deny-uncovered</module>
     </modules>
 </project>
