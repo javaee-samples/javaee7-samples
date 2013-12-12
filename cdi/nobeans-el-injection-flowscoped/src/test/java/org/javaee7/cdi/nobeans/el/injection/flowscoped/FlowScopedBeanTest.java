@@ -1,6 +1,5 @@
 package org.javaee7.cdi.nobeans.el.injection.flowscoped;
 
-import org.javaee7.cdi.nobeans.el.injection.flowscoped.FlowScopedBean;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
 import java.io.File;
