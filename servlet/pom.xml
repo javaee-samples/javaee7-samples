@@ -30,5 +30,8 @@
         <module>security-form-based</module>
         <module>security-programmatic</module>
         <module>security-deny-uncovered</module>
+<!--        <module>security-annotated</module>
+        <module>security-digest</module>-->
+        <module>security-basicauth-omission</module>
     </modules>
 </project>
