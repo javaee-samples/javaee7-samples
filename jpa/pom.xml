@@ -34,6 +34,7 @@
         <module>unsynchronized-pc</module>
         <module>extended-pc</module>
         <module>jpa-converter</module>
+        <module>datasourcedefinition</module>
     </modules>
 
 </project>
