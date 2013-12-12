@@ -31,5 +31,6 @@
         <module>scopes</module>
         <module>alternatives</module>
         <module>nobeans-el-injection</module>
+        <module>nobeans-el-injection-flowscoped</module>
     </modules>
 </project>
