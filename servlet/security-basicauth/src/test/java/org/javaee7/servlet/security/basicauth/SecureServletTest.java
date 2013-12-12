@@ -35,7 +35,7 @@ public class SecureServletTest {
     }
 
     @Test
-    public void testSecureServletWithCorrectCredentials() throws Exception {
+    public void testWithCorrectCredentials() throws Exception {
         WebConversation conv = new WebConversation();
         conv.setAuthentication("file", "u1", "p1");
         GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/SecureServlet");
@@ -50,7 +50,7 @@ public class SecureServletTest {
     }
 
     @Test
-    public void testSecureServletWithIncorrectCredentials() throws Exception {
+    public void testWithIncorrectCredentials() throws Exception {
         WebConversation conv = new WebConversation();
         conv.setAuthentication("file", "u", "p1");
         GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/SecureServlet");
@@ -58,6 +58,7 @@ public class SecureServletTest {
             conv.getResponse(getRequest);
         } catch (AuthorizationRequiredException e) {
             assertNotNull(e);
+            assertEquals("Basic", e.getAuthenticationScheme());
             return;
         }
         fail("/SecureServlet could be accessed without proper security credentials");
