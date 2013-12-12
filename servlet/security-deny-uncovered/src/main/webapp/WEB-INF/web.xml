@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <deny-uncovered-http-methods/>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SecureServlet</web-resource-name>
+            <url-pattern>/SecureServlet</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>g1</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>file</realm-name>
+    </login-config>
+    
+    <security-role>
+        <role-name>g1</role-name>
+    </security-role>
+</web-app>
