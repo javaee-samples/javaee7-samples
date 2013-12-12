@@ -1,6 +1,5 @@
 package org.javaee7.servlet.security.basicauth;
 
-import org.javaee7.servlet.security.basicauth.SecureServlet;
 import com.meterware.httpunit.AuthorizationRequiredException;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
