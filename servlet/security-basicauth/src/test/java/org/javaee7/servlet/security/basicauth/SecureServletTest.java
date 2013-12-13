@@ -45,7 +45,7 @@ public class SecureServletTest {
     }
         
     @Test
-    public void testWithCorrectCredentials() throws Exception {
+    public void testGetWithCorrectCredentials() throws Exception {
         WebClient webClient = new WebClient();
         webClient.setCredentialsProvider(correctCreds);
         HtmlPage page = webClient.getPage(base + "/SecureServlet");
@@ -53,7 +53,7 @@ public class SecureServletTest {
     }
 
     @Test
-    public void testWithIncorrectCredentials() throws Exception {
+    public void testGetWithIncorrectCredentials() throws Exception {
         WebClient webClient = new WebClient();
         webClient.setCredentialsProvider(incorrectCreds);
         try {
