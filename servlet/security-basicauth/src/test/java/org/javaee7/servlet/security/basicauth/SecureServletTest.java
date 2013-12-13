@@ -1,9 +1,9 @@
 package org.javaee7.servlet.security.basicauth;
 
-import com.meterware.httpunit.AuthorizationRequiredException;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebResponse;
+import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.io.File;
 import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -13,6 +13,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 
 /**
@@ -26,6 +27,9 @@ public class SecureServletTest {
     @ArquillianResource
     private URL base;
     
+    DefaultCredentialsProvider correctCreds = new DefaultCredentialsProvider();
+    DefaultCredentialsProvider incorrectCreds = new DefaultCredentialsProvider();
+    
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
@@ -34,31 +38,29 @@ public class SecureServletTest {
         return war;
     }
 
+    @Before
+    public void setup() {
+        correctCreds.addCredentials("u1", "p1");
+        incorrectCreds.addCredentials("random", "random");
+    }
+        
     @Test
     public void testWithCorrectCredentials() throws Exception {
-        WebConversation conv = new WebConversation();
-        conv.setAuthentication("file", "u1", "p1");
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/SecureServlet");
-        WebResponse response = null;
-        try {
-            response = conv.getResponse(getRequest);
-        } catch (AuthorizationRequiredException e) {
-            fail(e.getMessage());
-        }
-        assertNotNull(response);
-        assertTrue(response.getText().contains("<title>Servlet Security - Basic Auth with File-base Realm</title>"));
+        WebClient webClient = new WebClient();
+        webClient.setCredentialsProvider(correctCreds);
+        HtmlPage page = webClient.getPage(base + "/SecureServlet");
+        assertEquals("Servlet Security - Basic Auth with File-base Realm", page.getTitleText());
     }
 
     @Test
     public void testWithIncorrectCredentials() throws Exception {
-        WebConversation conv = new WebConversation();
-        conv.setAuthentication("file", "u", "p1");
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/SecureServlet");
+        WebClient webClient = new WebClient();
+        webClient.setCredentialsProvider(incorrectCreds);
         try {
-            conv.getResponse(getRequest);
-        } catch (AuthorizationRequiredException e) {
+            HtmlPage page = webClient.getPage(base + "/SecureServlet");
+        } catch(FailingHttpStatusCodeException e) {
             assertNotNull(e);
-            assertEquals("Basic", e.getAuthenticationScheme());
+            assertEquals(401, e.getStatusCode());
             return;
         }
         fail("/SecureServlet could be accessed without proper security credentials");
