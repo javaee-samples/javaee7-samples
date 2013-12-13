@@ -1,7 +1,7 @@
 package org.javaee7.cdi.nobeans.el.injection.flowscoped;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebConversation;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.io.File;
 import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import static org.junit.Assert.*;
 
 /**
  * @author Arun Gupta
@@ -35,9 +36,9 @@ public class FlowScopedBeanTest {
 
     @Test
     public void checkRenderedPage() throws Exception {
-        WebConversation conv = new WebConversation();
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/faces/myflow/index.xhtml");
-        String responseText = conv.getResponse(getRequest).getText();
-        assert(responseText.contains("Hello there!"));
+        WebClient webClient = new WebClient();
+        HtmlPage page = webClient.getPage(base + "/faces/myflow/index.xhtml");
+        assertNotNull(page);
+        assert(page.asText().contains("Hello there!"));
     }
 }
