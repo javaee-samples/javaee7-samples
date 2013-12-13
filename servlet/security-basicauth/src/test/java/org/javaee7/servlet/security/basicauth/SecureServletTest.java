@@ -57,7 +57,7 @@ public class SecureServletTest {
         WebClient webClient = new WebClient();
         webClient.setCredentialsProvider(incorrectCreds);
         try {
-            HtmlPage page = webClient.getPage(base + "/SecureServlet");
+            webClient.getPage(base + "/SecureServlet");
         } catch(FailingHttpStatusCodeException e) {
             assertNotNull(e);
             assertEquals(401, e.getStatusCode());
