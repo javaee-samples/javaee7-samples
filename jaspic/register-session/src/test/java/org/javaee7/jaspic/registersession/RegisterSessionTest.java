@@ -42,7 +42,7 @@ public class RegisterSessionTest extends ArquillianBase {
         webClient.closeAllWindows();
     }
 
-   // @Test
+    @Test
     public void testRemembersSession() throws IOException, SAXException {
         
 
