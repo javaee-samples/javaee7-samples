@@ -55,7 +55,7 @@
         <form method="POST" action="j_security_check">
             Username: <input type="text" name="j_username"> <p/>
             Password: <input type="password" name="j_password" autocomplete="off"> <p/>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" name="submitButton">
             <input type="reset" value="Reset">
         </form>
 

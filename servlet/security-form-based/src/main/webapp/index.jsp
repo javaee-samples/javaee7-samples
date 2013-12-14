@@ -47,10 +47,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Servlet Form-Based Security - Success</title>
+        <title>Form-based Security - Success</title>
     </head>
     <body>
-        <h1>Servlet Form-Based Security- Success</h1>
+        <h1>Form-based Security - Success</h1>
         
         If you reached this page that means form-based security credentials are correctly configured.
     </body>
