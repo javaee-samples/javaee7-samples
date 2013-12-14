@@ -2,7 +2,10 @@ package org.javaee7.servlet.security.basicauth;
 
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.HttpMethod;
+import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.io.File;
 import java.net.URL;
@@ -27,6 +30,7 @@ public class SecureServletTest {
     @ArquillianResource
     private URL base;
     
+    WebClient webClient;
     DefaultCredentialsProvider correctCreds = new DefaultCredentialsProvider();
     DefaultCredentialsProvider incorrectCreds = new DefaultCredentialsProvider();
     
@@ -40,24 +44,45 @@ public class SecureServletTest {
 
     @Before
     public void setup() {
+        webClient = new WebClient();
         correctCreds.addCredentials("u1", "p1");
         incorrectCreds.addCredentials("random", "random");
     }
         
     @Test
     public void testGetWithCorrectCredentials() throws Exception {
-        WebClient webClient = new WebClient();
         webClient.setCredentialsProvider(correctCreds);
-        HtmlPage page = webClient.getPage(base + "/SecureServlet");
-        assertEquals("Servlet Security - Basic Auth with File-base Realm", page.getTitleText());
+        TextPage page = webClient.getPage(base + "/SecureServlet");
+        assertEquals("my GET", page.getContent());
     }
 
     @Test
     public void testGetWithIncorrectCredentials() throws Exception {
-        WebClient webClient = new WebClient();
         webClient.setCredentialsProvider(incorrectCreds);
         try {
             webClient.getPage(base + "/SecureServlet");
+        } catch(FailingHttpStatusCodeException e) {
+            assertNotNull(e);
+            assertEquals(401, e.getStatusCode());
+            return;
+        }
+        fail("/SecureServlet could be accessed without proper security credentials");
+    }
+        
+    @Test
+    public void testPostWithCorrectCredentials() throws Exception {
+        webClient.setCredentialsProvider(correctCreds);
+        WebRequest request = new WebRequest(new URL(base + "/SecureServlet"), HttpMethod.POST);
+        TextPage page = webClient.getPage(request);
+        assertEquals("my POST", page.getContent());
+    }
+
+    @Test
+    public void testPostWithIncorrectCredentials() throws Exception {
+        webClient.setCredentialsProvider(incorrectCreds);
+        WebRequest request = new WebRequest(new URL(base + "/SecureServlet"), HttpMethod.POST);
+        try {
+            webClient.getPage(request);
         } catch(FailingHttpStatusCodeException e) {
             assertNotNull(e);
             assertEquals(401, e.getStatusCode());

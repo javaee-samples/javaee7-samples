@@ -50,6 +50,7 @@
             <web-resource-name>SecureServlet</web-resource-name>
             <url-pattern>/SecureServlet</url-pattern>
             <http-method>GET</http-method>
+            <http-method>POST</http-method>
         </web-resource-collection>
         <auth-constraint>
             <role-name>g1</role-name>
