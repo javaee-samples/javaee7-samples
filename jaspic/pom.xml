@@ -28,6 +28,12 @@
 
         <!-- Tests that the main methods of JASPIC artifacts like the SAM are called by the container at the right moment -->
         <module>lifecycle</module>
+        
+         <!-- JASPIC is normally stateless but with a new option introduced in JASPIC 1.1 it can semi-transparently 
+             remember an authenticated identity (semi, because the SAM will still be called and has to explicitly
+             indidate it wants to continue this remembered session). This tests that remembering a session indeed works.
+         -->
+        <module>register-session</module>
 
         <!-- Like Servlet filters, a JASPIC SAM for the Servlet Profile can wrap the request and response. This tests that 
             this indeed happens. -->
