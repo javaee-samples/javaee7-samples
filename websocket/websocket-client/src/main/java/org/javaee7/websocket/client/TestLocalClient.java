@@ -56,7 +56,7 @@ import javax.websocket.WebSocketContainer;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestLocalClient"})
+@WebServlet("/TestLocalClient")
 public class TestLocalClient extends HttpServlet {
 
     /**
