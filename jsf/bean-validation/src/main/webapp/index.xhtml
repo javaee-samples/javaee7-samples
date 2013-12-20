@@ -8,11 +8,15 @@
     <h:body>
         <h1>JSF and Bean Validation</h1>
         At least 3 characters in name, 25 >= age >= 18, zip is 5 digit numeral<br/><br/>
-        <h:form>
-            Name: <h:inputText value="#{myBean.name}"/>
-            Age: <h:inputText value="#{myBean.age}"/>
-            Zip: <h:inputText value="#{myBean.zip}"/>
-            <h:commandButton value="Submit"/>
+        <h:form prependId="false">
+            Name: <h:inputText id="nameInputText" value="#{myBean.name}"/>
+            Age: <h:inputText id="ageInputText" value="#{myBean.age}"/>
+            Zip: <h:inputText id="zipInputText" value="#{myBean.zip}"/>
+            <h:commandButton id="submitButton" value="Submit"/>
+            
+            <h:message for="nameInputText" id="nameMessage"/>
+            <h:message for="ageInputText" id="ageMessage"/>
+            <h:message for="zipInputText" id="zipMessage"/>
         </h:form>
     </h:body>
 </html>
