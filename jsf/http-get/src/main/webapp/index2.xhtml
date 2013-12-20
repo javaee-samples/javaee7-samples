@@ -13,8 +13,8 @@
             <f:viewParam name="name" value="#{user.name}">
                 <f:validateLength minimum="1" maximum="5"/>
             </f:viewParam>
-            <f:event type="preRenderView" listener="#{user.process2}"/>
         </f:metadata>
+        
         Post-processed name: <h:outputText value="#{user.name}"/>
     </h:body>
 </html>

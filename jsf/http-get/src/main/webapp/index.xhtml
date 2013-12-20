@@ -9,17 +9,18 @@
     <h:body>
         <h1>JSF and HTTP GET</h1>
 
-        h:link <h:link value="Login" outcome="login"/><br/><br/>
+        h:link <h:link value="Login1" outcome="login" id="link1"/><br/><br/>
 
-        h:link with f:param: <h:link value="Login" outcome="login">
+        h:link with f:param: <h:link value="Login2" outcome="login" id="link2">
             <f:param name="name" value="Jack"/>
         </h:link><br/><br/>
-        h:link with f:param <h:link value="pre-process params before rendering" outcome="index2" >
+        
+        h:link with f:param (pre-process) <h:link value="Login3" outcome="index2" id="link3">
             <f:param name="name" value="Jack"/>
         </h:link>
         
         <br/><br/>
-        h:button: <h:button value="login"/>
+        h:button: <h:button value="Login4" id="button1" outcome="login"/>
     </h:body>
 </html>
 
