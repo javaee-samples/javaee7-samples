@@ -16,6 +16,7 @@
 
     <modules>
         <module>criteria</module>
+        <module>dynamic-named-query</module>
         <module>entitygraph</module>
         <module>listeners</module>
         <module>multiple-pu</module>
