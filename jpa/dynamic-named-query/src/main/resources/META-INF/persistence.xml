@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    
+    <!-- 
+        This defines the persistence unit from which the entity manager is used in org.javaee7.jpa.dynamicnamedquery.service.TestService
+        
+        Note that this relies on the defaults; in Java EE the transaction type defaults to JTA and the data source defaults to the
+        platform default data source (which is a new feature in Java EE 7)
+    
+    -->
+    
+    <persistence-unit name="testPU" >
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+        </properties>
+    </persistence-unit>
+</persistence>
