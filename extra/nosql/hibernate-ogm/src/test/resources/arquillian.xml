@@ -6,7 +6,7 @@
 
     <container qualifier="test" default="true">
         <configuration>
-            <property name="jbossHome">${serverRoot:target/wildfly-8.0.0.Beta1}</property>
+            <property name="jbossHome">${serverRoot:target/wildfly-8.0.0.CR1}</property>
             <property name="serverConfig">${serverProfile:standalone-full.xml}</property>
         </configuration>
     </container>
