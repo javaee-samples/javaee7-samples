@@ -56,7 +56,6 @@ public class BatchCSVDatabaseTest {
         for (StepExecution stepExecution : stepExecutions) {
             if (stepExecution.getStepName().equals("myStep")) {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
-                System.out.println(metricsMap);
 
                 assertEquals(7L, (long) metricsMap.get(Metric.MetricType.READ_COUNT));
                 assertEquals(7L, (long) metricsMap.get(Metric.MetricType.WRITE_COUNT));
@@ -64,7 +63,7 @@ public class BatchCSVDatabaseTest {
             }
         }
 
-        Query query = entityManager.createQuery("SELECT p FROM Person p");
+        Query query = entityManager.createNamedQuery("Person.findAll");
         @SuppressWarnings("unchecked")
         List<Person> persons = query.getResultList();
 

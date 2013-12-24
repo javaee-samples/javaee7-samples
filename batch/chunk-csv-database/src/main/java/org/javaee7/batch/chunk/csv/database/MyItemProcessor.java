@@ -50,7 +50,8 @@ import javax.inject.Named;
  */
 @Named
 public class MyItemProcessor implements ItemProcessor {
-    SimpleDateFormat format = new SimpleDateFormat("M/dd/yy");
+    private static int id = 1;
+    private SimpleDateFormat format = new SimpleDateFormat("M/dd/yy");
 
     @Override
     public Person processItem(Object t) {
@@ -69,6 +70,6 @@ public class MyItemProcessor implements ItemProcessor {
             return null;
         }
         
-        return new Person(name, date);
+        return new Person(id++, name, date);
     }
 }
