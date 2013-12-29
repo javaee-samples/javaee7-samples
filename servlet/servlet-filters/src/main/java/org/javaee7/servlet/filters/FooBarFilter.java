@@ -39,26 +39,63 @@
  */
 package org.javaee7.servlet.filters;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author Kuba Marchwicki
+ * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServlet", "/filtered/TestServlet"})
-public class TestServlet extends HttpServlet {
+@WebFilter(filterName = "FooBarFilter", urlPatterns = {"/filtered/*"})
+public class FooBarFilter implements Filter {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    private FilterConfig filterConfig;
+
+    private void doBeforeProcessing(ServletRequest request, ServletResponse response)
+            throws IOException, ServletException {
         try (PrintWriter out = response.getWriter()) {
-            out.print("bar");
+            out.print("foo--");
+            out.flush();
         }
     }
+
+    private void doAfterProcessing(ServletRequest request, ServletResponse response)
+            throws IOException, ServletException {
+        try (PrintWriter out = response.getWriter()) {
+            out.print("--bar");
+            out.flush();
+        }
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain)
+            throws IOException, ServletException {
+        PrintWriter out = response.getWriter();
+        CharResponseWrapper wrappedResponse = new CharResponseWrapper(
+                (HttpServletResponse)response);
+
+        doBeforeProcessing(request, wrappedResponse);
+        chain.doFilter(request, wrappedResponse);
+        doAfterProcessing(request, wrappedResponse);
+
+        out.write(wrappedResponse.toString());
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) {
+        this.filterConfig = filterConfig;
+    }
+
 }
