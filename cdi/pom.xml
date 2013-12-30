@@ -30,6 +30,7 @@
         <module>extension</module>
         <module>scopes</module>
         <module>alternatives</module>
+        <module>alternative-priority</module>
         <module>nobeans-el-injection</module>
         <module>nobeans-el-injection-flowscoped</module>
     </modules>
