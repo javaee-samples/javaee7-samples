@@ -8,5 +8,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
 
-    <artifactId>alternative-priority</artifactId>
+    <artifactId>alternatives-priority</artifactId>
 </project>
