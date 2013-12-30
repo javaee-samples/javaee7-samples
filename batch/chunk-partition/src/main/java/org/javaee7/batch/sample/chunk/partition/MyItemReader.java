@@ -39,19 +39,20 @@
  */
 package org.javaee7.batch.sample.chunk.partition;
 
-import java.io.Serializable;
-import java.util.StringTokenizer;
 import javax.batch.api.BatchProperty;
 import javax.batch.api.chunk.AbstractItemReader;
-import javax.batch.runtime.context.JobContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
+import java.util.StringTokenizer;
 
 /**
  * @author Arun Gupta
  */
 @Named
 public class MyItemReader extends AbstractItemReader {
+    public static int totalReaders = 0;
+    private int readerId;
     
     private StringTokenizer tokens;
     
@@ -62,10 +63,7 @@ public class MyItemReader extends AbstractItemReader {
     @Inject
     @BatchProperty(name = "end")
     private String endProp;
-    
-    @Inject
-    JobContext context;
-    
+
     @Override
     public void open(Serializable e) {
         int start = new Integer(startProp);
@@ -76,6 +74,8 @@ public class MyItemReader extends AbstractItemReader {
             if (i < end)
                 builder.append(",");
         }
+
+        readerId = ++totalReaders;
         tokens = new StringTokenizer(builder.toString(), ",");        
     }
     
@@ -83,7 +83,7 @@ public class MyItemReader extends AbstractItemReader {
     public MyInputRecord readItem() {
         if (tokens.hasMoreTokens()) {
             int token = Integer.valueOf(tokens.nextToken());
-            System.out.format("readItem (%d): %d", context.getExecutionId(), token);
+            System.out.format("readItem (%d): %d\n", readerId, token);
             return new MyInputRecord(token);
         }
         return null;
