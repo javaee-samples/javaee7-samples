@@ -7,7 +7,6 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,7 +35,7 @@ public class BatchChunkOptionalProcessorTest {
     }
 
     @Test
-    public void testBatchChunkMapper() throws Exception {
+    public void testBatchChunkOptionalProcessor() throws Exception {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         Long executionId = jobOperator.start("myJob", new Properties());
         JobExecution jobExecution = jobOperator.getJobExecution(executionId);
@@ -47,9 +46,9 @@ public class BatchChunkOptionalProcessorTest {
         for (StepExecution stepExecution : stepExecutions) {
             if (stepExecution.getStepName().equals("myStep")) {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
-                Assert.assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
-                Assert.assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
-                Assert.assertEquals(10L/3 + 10%3, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
+                assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                assertEquals(10L / 3 + 10 % 3, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 
