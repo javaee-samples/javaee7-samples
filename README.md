@@ -44,6 +44,10 @@ With your help we can improve this set of samples, learn from each other and gro
 
 There is just a bunch of things you should keep in mind before sending a pull request, so we can easily get all the new things incorporated into the master branch.
 
+Standard tests are jUnit based - for example [this commit](servlet/servlet-filters/src/test/java/org/javaee7/servlet/filters/FilterServletTest.java). Test classes naming must comply with surefire naming standards `**/*Test.java`, `**/*Test*.java` or `**/*TestCase.java`.
+
+However, if you fancy something new, hip and fashionable we also accept Spock specifications - [like here](/servlet/servlet-filters/src/test/groovy/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The spec files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+
 ### Some coding principles ###
 
 * When creating new source file do not put (or copy) any license header, as we use top-level license (MIT) for each and every file in this repository.
