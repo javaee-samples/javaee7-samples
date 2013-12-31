@@ -56,6 +56,9 @@ public class BatchSplitTest {
         assertTrue(executedSteps.contains("step1"));
         assertTrue(executedSteps.contains("step2"));
         assertTrue(executedSteps.contains("step3"));
+        assertTrue(executedSteps.get(0).equals("step1") || executedSteps.get(0).equals("step2"));
+        assertTrue(executedSteps.get(1).equals("step1") || executedSteps.get(1).equals("step2"));
+        assertTrue(executedSteps.get(2).equals("step3"));
         assertEquals(BatchStatus.COMPLETED, jobExecution.getBatchStatus());
     }
 }
