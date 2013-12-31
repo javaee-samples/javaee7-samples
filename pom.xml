@@ -560,6 +560,7 @@
         <module>concurrency</module>
         <module>ejb</module>
         <module>el</module>
+        <module>interceptor</module>
         <module>javamail</module>
         <module>jaspic</module>
         <module>jaxrs</module>
