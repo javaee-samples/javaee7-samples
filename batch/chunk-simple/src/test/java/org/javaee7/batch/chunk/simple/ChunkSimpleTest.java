@@ -7,19 +7,16 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.batch.operations.JobOperator;
-import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.BatchStatus;
-import javax.batch.runtime.JobExecution;
-import javax.batch.runtime.Metric;
-import javax.batch.runtime.StepExecution;
+import javax.batch.runtime.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Roberto Cortez
@@ -29,14 +26,10 @@ public class ChunkSimpleTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                                   .addClass(BatchTestHelper.class)
-                                   .addClass(MyInputRecord.class)
-                                   .addClass(MyItemProcessor.class)
-                                   .addClass(MyItemReader.class)
-                                   .addClass(MyItemWriter.class)
-                                   .addClass(MyOutputRecord.class)
-                                   .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                                   .addAsResource("META-INF/batch-jobs/myJob.xml");
+                .addClass(BatchTestHelper.class)
+                .addPackage("org.javaee7.batch.chunk.simple")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+                .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
@@ -52,13 +45,13 @@ public class ChunkSimpleTest {
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {
             if (stepExecution.getStepName().equals("myStep")) {
-                Map<Metric.MetricType,Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
-                Assert.assertEquals((long) metricsMap.get(Metric.MetricType.READ_COUNT), 10L);
-                Assert.assertEquals((long) metricsMap.get(Metric.MetricType.WRITE_COUNT), 10L/2L);
-                Assert.assertEquals((long) metricsMap.get(Metric.MetricType.COMMIT_COUNT), 10L/3 + 10%3);
+                Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
+                assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                assertEquals(10L / 2L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0), metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 
-        Assert.assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
+        assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }

@@ -46,7 +46,7 @@ public class BatchChunkSimpleNoBeansTest {
 
                 assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
                 assertEquals(10L / 2L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
-                assertEquals(10L / 3 + 10 % 3, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
+                assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0), metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 

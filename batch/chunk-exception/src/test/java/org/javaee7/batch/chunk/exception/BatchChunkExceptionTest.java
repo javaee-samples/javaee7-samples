@@ -49,9 +49,9 @@ public class BatchChunkExceptionTest {
             if (stepExecution.getStepName().equals("myStep")) {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
 
-                assertEquals(1L, (long) metricsMap.get(Metric.MetricType.READ_SKIP_COUNT));
-                assertEquals(1L, (long) metricsMap.get(Metric.MetricType.PROCESS_SKIP_COUNT));
-                assertEquals(1L, (long) metricsMap.get(Metric.MetricType.WRITE_SKIP_COUNT));
+                assertEquals(1L, metricsMap.get(Metric.MetricType.READ_SKIP_COUNT).longValue());
+                assertEquals(1L, metricsMap.get(Metric.MetricType.PROCESS_SKIP_COUNT).longValue());
+                assertEquals(1L, metricsMap.get(Metric.MetricType.WRITE_SKIP_COUNT).longValue());
             }
         }
 

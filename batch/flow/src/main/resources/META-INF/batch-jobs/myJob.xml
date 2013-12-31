@@ -47,8 +47,8 @@
         </step>
         <step id="step2" >
             <chunk item-count="3">
-                <reader ref="myItemReader"></reader> 
-                <writer ref="myItemWriter"></writer> 
+                <reader ref="myItemReader"/>
+                <writer ref="myItemWriter"/>
             </chunk>	
         </step>
     </flow>

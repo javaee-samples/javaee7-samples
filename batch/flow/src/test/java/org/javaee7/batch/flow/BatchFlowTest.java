@@ -1,4 +1,4 @@
-package org.javaee7.batch.chunk.optional.processor;
+package org.javaee7.batch.flow;
 
 import org.javaee7.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -12,22 +12,24 @@ import org.junit.runner.RunWith;
 
 import javax.batch.operations.JobOperator;
 import javax.batch.runtime.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
-public class BatchChunkOptionalProcessorTest {
+public class BatchFlowTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
                 .addClass(BatchTestHelper.class)
-                .addPackage("org.javaee7.batch.chunk.optional.processor")
+                .addPackage("org.javaee7.batch.flow")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
                 .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
@@ -35,7 +37,7 @@ public class BatchChunkOptionalProcessorTest {
     }
 
     @Test
-    public void testBatchChunkOptionalProcessor() throws Exception {
+    public void testBatchFlow() throws Exception {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         Long executionId = jobOperator.start("myJob", new Properties());
         JobExecution jobExecution = jobOperator.getJobExecution(executionId);
@@ -43,15 +45,21 @@ public class BatchChunkOptionalProcessorTest {
         BatchTestHelper.keepTestAlive(jobExecution);
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
+        List<String> executedSteps = new ArrayList<>();
         for (StepExecution stepExecution : stepExecutions) {
-            if (stepExecution.getStepName().equals("myStep")) {
+            executedSteps.add(stepExecution.getStepName());
+
+            if (stepExecution.getStepName().equals("step2")) {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
-                assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
-                assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
-                assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0), metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
+                System.out.println(metricsMap);
+                assertEquals(5L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                assertEquals(5L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                assertEquals(5L / 3 + (5 % 3 > 0 ? 1 : 0), metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 
+        assertEquals(3, stepExecutions.size());
+        assertArrayEquals(new String[]{"step1", "step2", "step3"}, executedSteps.toArray());
         assertEquals(BatchStatus.COMPLETED, jobExecution.getBatchStatus());
     }
 }
