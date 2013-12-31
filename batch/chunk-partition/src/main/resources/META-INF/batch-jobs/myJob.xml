@@ -49,8 +49,8 @@
                     <property name="end" value="#{partitionPlan['end']}"  />
                 </properties>                
             </reader> 
-            <processor ref="myItemProcessor"></processor>
-            <writer ref="myItemWriter"></writer> 
+            <processor ref="myItemProcessor"/>
+            <writer ref="myItemWriter"/>
         </chunk>
         <partition>
             <plan partitions="2">

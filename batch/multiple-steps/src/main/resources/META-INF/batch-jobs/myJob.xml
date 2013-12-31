@@ -43,9 +43,9 @@
 <job id="myJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
     <step id="step1" next="step2">
         <chunk item-count="3">
-            <reader ref="myItemReader"></reader> 
-            <processor ref="myItemProcessor"></processor>
-            <writer ref="myItemWriter"></writer> 
+            <reader ref="myItemReader"/>
+            <processor ref="myItemProcessor"/>
+            <writer ref="myItemWriter"/>
         </chunk>	
     </step>
     <step id="step2" >

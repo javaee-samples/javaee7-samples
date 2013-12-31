@@ -57,9 +57,9 @@ public class BatchCSVDatabaseTest {
             if (stepExecution.getStepName().equals("myStep")) {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
 
-                assertEquals(7L, (long) metricsMap.get(Metric.MetricType.READ_COUNT));
-                assertEquals(7L, (long) metricsMap.get(Metric.MetricType.WRITE_COUNT));
-                assertEquals(3L, (long) metricsMap.get(Metric.MetricType.COMMIT_COUNT));
+                assertEquals(7L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                assertEquals(7L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                assertEquals(3L, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 

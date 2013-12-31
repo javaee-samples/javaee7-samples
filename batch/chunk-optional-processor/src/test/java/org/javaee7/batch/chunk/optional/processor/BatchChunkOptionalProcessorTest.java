@@ -48,7 +48,7 @@ public class BatchChunkOptionalProcessorTest {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
                 assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
                 assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
-                assertEquals(10L / 3 + 10 % 3, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
+                assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0), metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 
