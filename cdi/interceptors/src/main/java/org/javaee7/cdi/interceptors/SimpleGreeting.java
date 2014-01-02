@@ -41,13 +41,17 @@ package org.javaee7.cdi.interceptors;
 
 /**
  * @author Arun Gupta
+ * @author Radim Hanus
  */
 @MyInterceptorBinding
 public class SimpleGreeting implements Greeting {
+	private String greet;
 
-    @Override
-    public String greet(String name) {
-        return "Hello " + name;
-    }
-    
+	public String getGreet() {
+		return greet;
+	}
+
+	public void setGreet(String greet) {
+		this.greet = greet;
+	}
 }
