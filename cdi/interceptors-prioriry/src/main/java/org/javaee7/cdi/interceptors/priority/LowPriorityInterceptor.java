@@ -1,10 +1,9 @@
-package org.javaee7.cdi.interceptors;
+package org.javaee7.cdi.interceptors.priority;
 
 import javax.annotation.Priority;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import java.lang.reflect.Field;
 
 /**
  * Interceptors with smaller priority values are called first.

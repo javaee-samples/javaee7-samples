@@ -37,20 +37,23 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.cdi.interceptors;
+package org.javaee7.cdi.interceptors.priority;
+
+import javax.interceptor.InterceptorBinding;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * @author Radim Hanus
+ * @author Arun Gupta
  */
-@MyInterceptorBinding
-public class SimpleGreeting implements Greeting {
-	private String greet;
-
-	public String getGreet() {
-		return greet;
-	}
-
-	public void setGreet(String greet) {
-		this.greet = greet;
-	}
+@Inherited
+@InterceptorBinding
+@Retention(RUNTIME)
+@Target({METHOD, TYPE})
+public @interface MyInterceptorBinding {
 }

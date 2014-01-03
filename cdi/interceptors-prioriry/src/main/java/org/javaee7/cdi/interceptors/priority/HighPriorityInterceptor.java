@@ -1,4 +1,4 @@
-package org.javaee7.cdi.interceptors;
+package org.javaee7.cdi.interceptors.priority;
 
 import javax.annotation.Priority;
 import javax.interceptor.AroundInvoke;

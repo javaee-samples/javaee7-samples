@@ -1,4 +1,4 @@
-package org.javaee7.cdi.interceptors;
+package org.javaee7.cdi.interceptors.priority;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
