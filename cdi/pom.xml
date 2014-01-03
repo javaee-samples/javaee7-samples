@@ -24,6 +24,7 @@
         <module>exclude-filter</module>
         <module>built-in</module>
         <module>interceptors</module>
+        <module>interceptors-prioriry</module>
         <module>nobeans-xml</module>
         <module>beansxml-noversion</module>
         <module>beanmanager</module>
