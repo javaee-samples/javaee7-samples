@@ -8,5 +8,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
 
-    <artifactId>interceptors-prioriry</artifactId>
+    <artifactId>interceptors-priority</artifactId>
 </project>
