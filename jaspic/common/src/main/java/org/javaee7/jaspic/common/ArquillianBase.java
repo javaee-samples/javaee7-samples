@@ -16,7 +16,8 @@ public class ArquillianBase {
 
     public static WebArchive defaultArchive() {
         return ShrinkWrap.create(WebArchive.class).addPackages(true, "org.javaee7.jaspic")
-                .addAsWebInfResource(resource("web.xml")).addAsWebInfResource(resource("glassfish-web.xml"));
+                .addAsWebInfResource(resource("web.xml")).addAsWebInfResource(resource("glassfish-web.xml"))
+                .addAsWebInfResource(resource("jboss-web.xml"));
     }
 
     private static File resource(String name) {
