@@ -16,6 +16,9 @@
 
     <modules>
         <module>criteria</module>
+        <module>datasourcedefinition</module>
+        <module>datasourcedefinition-webxml-pu</module>
+        <module>datasourcedefinition-annotation-pu</module>
         <module>dynamic-named-query</module>
         <module>entitygraph</module>
         <module>listeners</module>
@@ -35,7 +38,6 @@
         <module>unsynchronized-pc</module>
         <module>extended-pc</module>
         <module>jpa-converter</module>
-        <module>datasourcedefinition</module>
     </modules>
 
 </project>
