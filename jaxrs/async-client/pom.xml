@@ -10,6 +10,8 @@
 
     <groupId>org.javaee7.jaxrs</groupId>
     <artifactId>async-client</artifactId>
+    <name>Async Client</name>
+    <description>Invoke a JAX-RS service via an asynchronous client</description>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 </project>
