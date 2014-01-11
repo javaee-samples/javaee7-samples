@@ -7,8 +7,9 @@
         <version>1.0-SNAPSHOT</version>
   </parent>
 
-    <groupId>org.javaee7.jms</groupId>
     <artifactId>temp-destination</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+
+    <name>Temporary destinations</name>
+    <description>Request/Response over JMS</description>
 </project>
