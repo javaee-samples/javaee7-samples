@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.javaee7.jaspic.ejbpropagation.ejb.PublicEJB;
+import org.javaee7.jaspic.ejbpropagation.ejb.ProtectedEJB;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class PublicServletProtectedEJB extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @EJB
-    private PublicEJB publicEJB;
+    private ProtectedEJB protectedEJB;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,9 +32,16 @@ public class PublicServletProtectedEJB extends HttpServlet {
             webName = request.getUserPrincipal().getName();
         }
 
-        String ejbName = publicEJB.getUserName();
+        String ejbName = protectedEJB.getUserName();
 
         response.getWriter().write("web username: " + webName + "\n" + "EJB username: " + ejbName + "\n");
+        
+        boolean webHasRole = request.isUserInRole("architect");
+        boolean ejbHasRole = protectedEJB.isUserArchitect();
+
+        response.getWriter().write(
+                "web user has role \"architect\": " + webHasRole + "\n" + "EJB user has role \"architect\": " + ejbHasRole
+                        + "\n");
 
     }
 
