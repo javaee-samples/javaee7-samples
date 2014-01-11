@@ -5,13 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.Resource;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+import javax.transaction.Status;
+import javax.transaction.Synchronization;
+import javax.transaction.TransactionSynchronizationRegistry;
 
 /**
- * Allows test to wait until a method is invoked. Note that this gets applied as EJB interceptor, and therefore
- * returning from {@link #waitFor(java.lang.Class, java.lang.String) } does not guarantee that the bean's transaction
- * is already committed.
+ * Allows test to wait until a method is invoked.
  *
  * @author Patrik Dudits
  */
@@ -19,13 +21,33 @@ public class ReceptionSynchronizer {
 
     private final static Map<Method, CountDownLatch> barrier = new HashMap<>();
 
+    @Resource
+    TransactionSynchronizationRegistry txRegistry;
+
     @AroundInvoke
-    public Object invoke(InvocationContext ctx) throws Exception {
+    public Object invoke(final InvocationContext ctx) throws Exception {
+        boolean transactional = false;
         try {
             System.out.println("Intercepting "+ctx.getMethod().toGenericString());
+            transactional = txRegistry != null && txRegistry.getTransactionStatus() != Status.STATUS_NO_TRANSACTION;
+            if (transactional) {
+                txRegistry.registerInterposedSynchronization(new Synchronization() {
+                    @Override
+                    public void beforeCompletion() {
+
+                    }
+
+                    @Override
+                    public void afterCompletion(int i) {
+                        registerInvocation(ctx.getMethod());
+                    }
+                });
+            }
             return ctx.proceed();
         } finally {
-            registerInvocation(ctx.getMethod());
+            if (!transactional) {
+                registerInvocation(ctx.getMethod());
+            }
         }
     }
 
@@ -59,7 +81,7 @@ public class ReceptionSynchronizer {
     }
 
     private static void waitFor(Method method) throws InterruptedException {
-        CountDownLatch latch = null;
+        CountDownLatch latch;
         synchronized (barrier) {
             if (barrier.containsKey(method)) {
                 latch = barrier.get(method);
