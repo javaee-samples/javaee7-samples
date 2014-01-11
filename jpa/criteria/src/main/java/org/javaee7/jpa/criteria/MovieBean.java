@@ -56,13 +56,12 @@ import javax.persistence.criteria.Root;
  */
 @Stateless
 public class MovieBean {
-
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     public List<Movie> listMovies() {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery listCriteria = builder.createQuery(Movie.class);
+        CriteriaQuery<Movie> listCriteria = builder.createQuery(Movie.class);
         Root<Movie> listRoot = listCriteria.from(Movie.class);
         listCriteria.select(listRoot);
         TypedQuery<Movie> query = em.createQuery(listCriteria);
@@ -71,7 +70,7 @@ public class MovieBean {
 
     public void updateMovie() {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaUpdate updateCriteria = builder.createCriteriaUpdate(Movie.class);
+        CriteriaUpdate<Movie> updateCriteria = builder.createCriteriaUpdate(Movie.class);
         Root<Movie> updateRoot = updateCriteria.from(Movie.class);
         updateCriteria.where(builder.equal(updateRoot.get(Movie_.name), "Inception"));
         updateCriteria.set(updateRoot.get(Movie_.name), "INCEPTION");
@@ -79,15 +78,14 @@ public class MovieBean {
         q.executeUpdate();
         em.flush();
     }
-    
+
     public void deleteMovie() {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaDelete deleteCriteria = builder.createCriteriaDelete(Movie.class);
+        CriteriaDelete<Movie> deleteCriteria = builder.createCriteriaDelete(Movie.class);
         Root<Movie> updateRoot = deleteCriteria.from(Movie.class);
         deleteCriteria.where(builder.equal(updateRoot.get(Movie_.name), "The Matrix"));
         Query q = em.createQuery(deleteCriteria);
         q.executeUpdate();
         em.flush();
     }
-    
 }
