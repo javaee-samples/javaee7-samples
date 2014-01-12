@@ -17,7 +17,7 @@ import java.lang.IllegalStateException;
 @Stateless
 public class JmsClient {
 
-    @Resource(name = Resources.REQUEST_QUEUE)
+    @Resource(lookup = Resources.REQUEST_QUEUE)
     Queue requestQueue;
 
     @Inject
