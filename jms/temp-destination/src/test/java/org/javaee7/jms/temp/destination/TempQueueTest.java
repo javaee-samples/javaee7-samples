@@ -14,7 +14,7 @@ import javax.ejb.EJB;
  * Temporary queues are JMS queues that exist for the lifetime of single JMS connection.
  * Also the reception of the messages is exclusive to the connection, therefore no
  * reasonable use case exist for temporary topic within Java EE container, as connection
- * is usually exclusive to single component.
+ * is exclusive to single component.
  *
  * Temporary queues are usually used as reply channels for request / response communication
  * over JMS.
@@ -27,10 +27,14 @@ public class TempQueueTest {
      * listens on a Queue and passes the response to the destination specified in
      * +JMSReplyTo+ header of the message.
      *
+     * include::RequestResponseOverJMS#onMessage[]
+     *
      * +JmsClient+ is a client to this server, and has to be non transactional,
      * otherwise the request would be first sent upon commit, i. e. after the
      * business method finishes. That would be too late. We need to send the message
      * immediately, and wait for the response to arrive.
+     *
+     * include::JmsClient#process[]
      *
      */
     @Deployment

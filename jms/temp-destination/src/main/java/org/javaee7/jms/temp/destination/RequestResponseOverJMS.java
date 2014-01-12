@@ -22,18 +22,17 @@ public class RequestResponseOverJMS implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            Destination replyTo = message.getJMSReplyTo();
+            Destination replyTo = message.getJMSReplyTo(); // <1> get the destination for the response
             if (replyTo == null) {
-                // no response required, finish now.
                 return;
             }
             TextMessage request = (TextMessage) message;
-            String payload = request.getText();
+            String payload = request.getText();            // <2> read the payload
 
             System.out.println("Got request: "+payload);
 
-            String response = "Processed: "+payload;
-            jms.createProducer().send(replyTo, response);
+            String response = "Processed: "+payload;       // <3> process the request
+            jms.createProducer().send(replyTo, response);  // <4> send the response
         } catch (JMSException e) {
             e.printStackTrace();
         }

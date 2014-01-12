@@ -15,33 +15,28 @@ import java.lang.IllegalStateException;
  * @author Patrik Dudits
  */
 @Stateless
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class JmsClient {
 
-    @Resource(name = Resources.REQUEST_QUEUE)
+    @Resource(lookup = Resources.REQUEST_QUEUE)
     Queue requestQueue;
 
     @Inject
     JMSContext jms;
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)        // <1> we need to send message in the middle of the method, therefore we cannot be transactional
     public String process(String request) {
 
-        // prepare the request message
         TextMessage requestMessage = jms.createTextMessage(request);
         TemporaryQueue responseQueue = jms.createTemporaryQueue();
-
-        // send the request
         jms.createProducer()
-                .setJMSReplyTo(responseQueue)
-                .send(requestQueue, requestMessage);
+                .setJMSReplyTo(responseQueue)                            // <2> set the temporary queue as replyToDestination
+                .send(requestQueue, requestMessage);                     // <3> immediately send the request message
 
-        // start listening on the temp queue for response
-        try (JMSConsumer consumer = jms.createConsumer(responseQueue)) {
+        try (JMSConsumer consumer = jms.createConsumer(responseQueue)) { // <4> listen on the temporary queue
 
-            // wait for the response
-            String response = consumer.receiveBody(String.class, 2000);
+            String response = consumer.receiveBody(String.class, 2000);  // <5> wait for a +TextMessage+ to arrive
 
-            if (response == null) {
+            if (response == null) {                                      // <6> +receiveBody+  returns +null+ in case of timeout
                 throw new IllegalStateException("Message processing timed out");
             } else {
                 return response;
