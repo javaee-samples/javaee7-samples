@@ -99,7 +99,7 @@ public class MyResourceTest {
     public void testPollingResponse() throws InterruptedException, ExecutionException {
         Future<Response> r1 = target.request().async().get(); // <1> Build an asynchronous request handler for the +Response+ object
         String response = r1.get().readEntity(String.class);  // <2> Read the entity from the body of the +Response+
-        assertEquals("apple", response);                      // <3> Validate we go the expected value
+        assertEquals("apple", response);                      // <3> Validate we got the expected value
     }
 
     /**
@@ -109,7 +109,7 @@ public class MyResourceTest {
     public void testPollingString() throws InterruptedException, ExecutionException {
         Future<String> r1 = target.request().async().get(String.class); // <1> Build an asynchronous request handler for the body of the +Response+
         String response = r1.get();                                     // <2> Read the entity directly from the +Future+
-        assertEquals("apple", response);                                // <3> Validate we go the expected value
+        assertEquals("apple", response);                                // <3> Validate we got the expected value
     }
 
     /**
