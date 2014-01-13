@@ -10,4 +10,6 @@
 
     <artifactId>criteria</artifactId>
     <packaging>war</packaging>
+    <name>JPA Criteria API</name>
+    <description>Using the Criteria API to create queries</description>
 </project>
