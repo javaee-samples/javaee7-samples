@@ -8,8 +8,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.jpa</groupId>
     <artifactId>jpa-listeners</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>JPA Listeners</name>
+    <description>Invocation examples of all the available Entity Listeners</description>
 </project>
