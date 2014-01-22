@@ -19,6 +19,7 @@
         <module>jms-xa</module>
         <module>send-receive</module>
         <module>temp-destination</module>
+        <module>jms-batch</module>
     </modules>
 
 </project>
