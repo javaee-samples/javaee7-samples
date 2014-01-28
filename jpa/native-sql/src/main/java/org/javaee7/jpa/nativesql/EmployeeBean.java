@@ -49,14 +49,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class EmployeeBean {
-
     @PersistenceContext
-    EntityManager em;
-    
-    public void persist(Employee e) {
-        em.persist(e);
-    }
-    
+    private EntityManager em;
+
+    @SuppressWarnings("unchecked")
     public List<Employee> get() {
         return em.createNativeQuery("select * from EMPLOYEE_NATIVE_SQL", Employee.class).getResultList();
     }
