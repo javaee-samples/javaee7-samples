@@ -27,7 +27,7 @@ import static org.junit.Assert.assertFalse;
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
-public class JpaNativeSqlResultSetMapping {
+public class JpaNativeSqlResultSetMappingTest {
     @Inject
     private EmployeeBean employeeBean;
 

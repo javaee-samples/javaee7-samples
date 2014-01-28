@@ -11,4 +11,8 @@
 
     <artifactId>native-sql-resultset-mapping</artifactId>
     <packaging>war</packaging>
+    <name>JPA Native SQL ResultSet Mapping</name>
+    <description>Using the EntityManager API to perform native SQL queries and map the result with @SqlResultSetMapping
+        annotation
+    </description>
 </project>

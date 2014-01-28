@@ -11,4 +11,6 @@
 
     <artifactId>native-sql</artifactId>
     <packaging>war</packaging>
+    <name>JPA Native SQL</name>
+    <description>Using the EntityManager API to perform native SQL queries</description>
 </project>
