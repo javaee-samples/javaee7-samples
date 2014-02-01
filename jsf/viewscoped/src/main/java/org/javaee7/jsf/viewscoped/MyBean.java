@@ -40,13 +40,14 @@
 package org.javaee7.jsf.viewscoped;
 
 import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
-@Named
+@ManagedBean
 @ViewScoped
 public class MyBean implements Serializable {
     private int value;

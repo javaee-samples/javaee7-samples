@@ -52,7 +52,7 @@
             <ui:define name="content">
                 <mc:login name="#{user.name}" 
                           password="#{user.password}" 
-                          actionListener="#{userService.register}"/>
+                          actionListener="#{userService.register()}"/>
             </ui:define>
 
         </ui:composition>
