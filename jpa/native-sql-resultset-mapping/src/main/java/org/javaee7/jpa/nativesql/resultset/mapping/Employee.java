@@ -40,47 +40,38 @@
 package org.javaee7.jpa.nativesql.resultset.mapping;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityResult;
-import javax.persistence.Id;
-import javax.persistence.SqlResultSetMapping;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author Arun Gupta
  */
 @Entity
-@Table(name="EMPLOYEE_NATIVE_SQL_RESULTSET_MAPPING")
+@Table(name = "EMPLOYEE_NATIVE_SQL_RESULTSET_MAPPING")
 @SqlResultSetMapping(name = "myMapping",
-        entities = {@EntityResult(entityClass = Employee.class)})
+                     entities = {@EntityResult(entityClass = Employee.class,
+                                               fields = {@FieldResult(name = "identifier", column = "id"),
+                                                         @FieldResult(name = "simpleName", column = "name")})})
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    private int id;
-    
-    @Column(length=50)
-    private String name;
-    
-    public Employee() { }
-    
-    public Employee(String name) {
-        this.name = name;
-    }
-    
-    public int getId() {
-        return id;
+    private int identifier;
+
+    @Column(length = 50)
+    private String simpleName;
+
+    public int getIdentifier() {
+        return identifier;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdentifier(int identifier) {
+        this.identifier = identifier;
     }
 
-    public String getName() {
-        return name;
+    public String getSimpleName() {
+        return simpleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSimpleName(String simpleName) {
+        this.simpleName = simpleName;
     }
 }

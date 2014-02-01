@@ -17,18 +17,15 @@ import static org.junit.Assert.*;
 /**
  * In this sample we're going to query a simple +JPA Entity+, using the +JPA EntityManager+ and perform a findAll,
  * persist, merge, and remove operations. By calling these operations we want to demonstrate the behaviour of +Entity
- * Listener Methods+ defined on +MovieListener+:
- * +@PostLoad+
- * +@PrePersist+
- * +@PostPersist+
- * +@PreUpdate+
- * +@PostUpdate+
- * +@PreRemove+
- * +@PostRemove+
+ * Listener Methods+: +@PostLoad+, +@PrePersist+, +@PostPersist+, +@PreUpdate+, +@PostUpdate+, +@PreRemove+,
+ * +@PostRemove+ defined on +MovieListener+:
+ *
+ * include::MovieListener[]
  *
  * The following +JPA Entity+, represents a Movie which has a name and a comma separated list of actors:
  *
  * include::Movie[]
+ *
  *
  * @author Roberto Cortez
  */
