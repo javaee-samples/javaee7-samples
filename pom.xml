@@ -563,6 +563,7 @@
         <module>interceptor</module>
         <module>javamail</module>
         <module>jaspic</module>
+        <module>jacc</module>
         <module>jaxrs</module>
         <module>jca</module>
         <module>jms</module>

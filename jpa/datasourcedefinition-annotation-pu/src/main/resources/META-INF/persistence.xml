@@ -11,6 +11,11 @@
         <jta-data-source>java:app/MyApp/MyDS</jta-data-source>
 
         <properties>
+            <!-- 
+                Very unfortunate workaround to get the data source to work with JPA in WildFly 8.
+                See https://issues.jboss.org/browse/WFLY-2727  
+            -->
+            <property name="wildfly.jpa.twophasebootstrap" value="false" />
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
         </properties>
     </persistence-unit>
