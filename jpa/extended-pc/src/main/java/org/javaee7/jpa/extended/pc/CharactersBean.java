@@ -39,54 +39,36 @@
  */
 package org.javaee7.jpa.extended.pc;
 
+import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.util.List;
 
 /**
- * @author Arun Gupta
+ * @author Kuba Marchwicki
  */
-@Entity
-@Table(name="EMPLOYEE_SCHEMA_EXTENDED_PC")
-@NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-})
-public class Employee implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    private int id;
-    
-    @Column(length=50)
-    private String name;
-    
-    public Employee() { }
+@Stateful
+@TransactionAttribute(TransactionAttributeType.NEVER)
+public class CharactersBean implements Serializable {
 
-    public Employee(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Employee(String name) {
-        this.name = name;
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    EntityManager em;
+    
+    public void save(Character e) {
+        em.persist(e);
     }
     
-    public int getId() {
-        return id;
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void commitChanges() {
+
+    }
+    
+    public List<Character> get() {
+        return em.createNamedQuery(Character.FIND_ALL, Character.class).getResultList();
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
