@@ -22,7 +22,7 @@ import static org.junit.Assert.assertFalse;
  * The select operation is very simple. We just need to call the API method +createNativeQuery+ on the +EntityManager+
  * and use the mapping defined on +Employee+ by the +@SqlResultSetMapping+ annotation.
  *
- * include::EmployeeBean[]#get
+ * include::EmployeeBean#get[]
  *
  * @author Roberto Cortez
  */

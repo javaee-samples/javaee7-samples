@@ -21,7 +21,7 @@ import static org.junit.Assert.assertFalse;
  *
  * The select operation is very simple. We just need to call the API method +createNativeQuery+ on the +EntityManager+.
  *
- * include::EmployeeBean[]#get
+ * include::EmployeeBean#get[]
  *
  * @author Roberto Cortez
  */
