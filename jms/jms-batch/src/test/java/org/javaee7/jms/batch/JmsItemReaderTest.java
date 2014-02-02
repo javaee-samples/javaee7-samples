@@ -79,7 +79,7 @@ public class JmsItemReaderTest {
      *
      * Following method is used to generate the payload:
      *
-     * include::#sendMessages[]
+     * include::JmsItemReaderTest#sendMessages[]
      *
      * So we send 10 random numbers, and verify that summing integers works exactly the
      * same way on both ends. Or that the job really picked up all the numbers submitted
