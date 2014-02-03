@@ -22,6 +22,7 @@
         <module>dynamic-named-query</module>
         <module>entitygraph</module>
         <module>listeners</module>
+        <module>listeners-injection</module>
         <module>multiple-pu</module>
         <module>storedprocedure</module>
         <module>jndi-context</module>
