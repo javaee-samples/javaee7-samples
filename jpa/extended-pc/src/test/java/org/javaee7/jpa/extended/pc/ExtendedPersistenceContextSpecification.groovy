@@ -1,4 +1,5 @@
 package org.javaee7.jpa.extended.pc
+
 import org.jboss.arquillian.container.test.api.Deployment
 import org.jboss.arquillian.spock.ArquillianSputnik
 import org.jboss.shrinkwrap.api.ShrinkWrap
@@ -9,6 +10,7 @@ import spock.lang.Specification
 import javax.ejb.EJB
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+
 /**
  * @author Kuba Marchwicki
  */
