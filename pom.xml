@@ -565,6 +565,7 @@
         <module>jaspic</module>
         <module>jacc</module>
         <module>jaxrs</module>
+        <module>jaxws</module>
         <module>jca</module>
         <module>jms</module>
         <module>jpa</module>
