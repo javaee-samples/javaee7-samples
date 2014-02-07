@@ -16,5 +16,6 @@
 
     <modules>
         <module>jaxws-endpoint</module>
+        <module>jaxws-client</module>
     </modules>
 </project>
