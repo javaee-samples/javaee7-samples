@@ -39,11 +39,8 @@ public class EBookStoreTest {
 	 */
 	@Deployment(testable = false)
 	public static WebArchive createDeployment() {
-		WebArchive war = ShrinkWrap.create(WebArchive.class).
-				addPackage("org.javaee7.jaxws.endpoint").
-				addPackage("org.javaee7.jaxws.endpoint.jaxws");
-		System.out.println(war.toString(true));
-		return war;
+		return ShrinkWrap.create(WebArchive.class).
+				addPackage("org.javaee7.jaxws.endpoint");
 	}
 
 	@ArquillianResource

@@ -42,13 +42,10 @@ public class EBookStoreClientSampleTest {
      */
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(MavenImporter.class)
+        return ShrinkWrap.create(MavenImporter.class)
                 .loadPomFromFile("../jaxws-endpoint/pom.xml")
                 .importBuildOutput()  
-                .as(WebArchive.class); 
-        war.delete(ArchivePaths.create("/WEB-INF/web.xml"));
-        System.out.println(war.toString(true));
-        return war;
+                .as(WebArchive.class);
     }
 
     @ArquillianResource

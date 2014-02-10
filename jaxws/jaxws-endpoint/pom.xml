@@ -13,7 +13,7 @@
         <finalName>jaxws-endpoint</finalName>
         <plugins>
             <plugin>
-                <!-- wsgen for web service artifact generation -->
+                <!-- wsgen for wsdl file generation -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>1.11</version>
@@ -26,10 +26,7 @@
                         <configuration>
                             <sei>org.javaee7.jaxws.endpoint.EBookStoreImpl</sei>
                             <genWsdl>true</genWsdl>
-                            <keep>true</keep>
-                            <verbose>true</verbose>
                             <resourceDestDir>${basedir}/src/main/webapp/WEB-INF/wsdl</resourceDestDir>
-                            <sourceDestDir>${basedir}/src/main/java</sourceDestDir>
                         </configuration>
                     </execution>
                 </executions>
