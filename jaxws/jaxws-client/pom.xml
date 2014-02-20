@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.javaee7.jaxws</groupId>
+        <artifactId>jaxws-samples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <artifactId>jaxws-client</artifactId>
+    <packaging>war</packaging>
+    <build>
+        <finalName>jaxws-client</finalName>
+        <plugins>
+            <plugin>
+                <!-- wsimport for web service classes generation -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>1.11</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>org.javaee7.jaxws.client.gen</packageName>
+                            <wsdlFiles>
+                                <wsdlFile>../../../jaxws-endpoint/src/main/webapp/WEB-INF/wsdl/EBookStoreImplService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <wsdlLocation>http://localhost:8080/jaxws-endpoint/EBookStoreImplService?wsdl</wsdlLocation>
+                            <verbose>true</verbose>
+                            <sourceDestDir>${basedir}/src/main/java</sourceDestDir>
+                            <target>2.1</target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

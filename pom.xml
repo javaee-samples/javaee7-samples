@@ -93,6 +93,11 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
             <version>${spock.version}</version>
@@ -565,6 +570,7 @@
         <module>jaspic</module>
         <module>jacc</module>
         <module>jaxrs</module>
+        <module>jaxws</module>
         <module>jca</module>
         <module>jms</module>
         <module>jpa</module>
