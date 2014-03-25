@@ -62,5 +62,5 @@ That's it! Welcome in the community!
 
 ## CI Job ##
 
-* [WildFly](https://arungupta.ci.cloudbees.com/job/Java%20EE%207%20Samples%20on%20WildFly-cb/)
+* [WildFly](https://arungupta.ci.cloudbees.com/job/javaee7-samples-on-wildfly-cb/)
 * [GlassFish](https://arungupta.ci.cloudbees.com/job/Java%20EE%207%20Samples%20on%20GlassFish-cb/)
