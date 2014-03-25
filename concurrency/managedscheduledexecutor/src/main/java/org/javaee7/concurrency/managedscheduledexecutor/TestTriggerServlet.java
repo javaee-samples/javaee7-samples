@@ -39,8 +39,6 @@
  */
 package org.javaee7.concurrency.managedscheduledexecutor;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import javax.servlet.ServletException;
@@ -48,6 +46,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 
 /**
  * @author Arun Gupta
@@ -81,7 +82,7 @@ public class TestTriggerServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Schedule tasks with a trigger</h1>");
             for (int i=0; i<5; i++) {
-                executor.schedule(new MyRunnableTask(i), new MyTrigger());
+                executor.schedule(new MyRunnableTask(i), new MyTrigger(new Date(System.currentTimeMillis() + 30000)));
             }
             out.println("<br><br>Check server.log for output");
             
