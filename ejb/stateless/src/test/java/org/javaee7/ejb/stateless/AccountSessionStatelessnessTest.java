@@ -12,8 +12,9 @@ import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 /**
  * @author Jakub Marchwicki
@@ -35,7 +36,7 @@ public class AccountSessionStatelessnessTest {
 				.addClass(AccountSessionBean.class)
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
-
+    
     /**
      * JSR 318: Enterprise JavaBeans, Version 3.1
      * 3.4.7.2 Session Object Identity / Stateless Session Beans
@@ -54,17 +55,17 @@ public class AccountSessionStatelessnessTest {
 	@Test
     @InSequence(2)
 	public void should_deposit_amount_on_first_account() {
-        assertThat(account1.getAmount(), is(equalTo(0f)));
+        assertThat(account1.getAmount(), equalTo(0f));
 
         String actual = account1.deposit(deposit_amount);
 
         assertThat(actual, is(equalTo("Deposited: " + deposit_amount)));
-        assertThat(account1.getAmount(), is(equalTo(deposit_amount)));
+        assertThat(account1.getAmount(), equalTo(0f));
 	}
 
 	@Test
     @InSequence(3)
 	public void should_contain_already_deposited_amount_on_second_account() {
-        assertThat(account2.getAmount(), is(equalTo(deposit_amount)));
+        assertThat(account2.getAmount(), equalTo(account1.getAmount()));
 	}
 }
