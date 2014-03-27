@@ -40,6 +40,9 @@
 package org.javaee7.websocket.whiteboard;
 
 import java.io.StringReader;
+import java.lang.invoke.MethodHandles;
+import java.util.logging.Logger;
+
 import javax.json.Json;
 import javax.json.JsonException;
 import javax.json.JsonObject;
@@ -51,9 +54,12 @@ import javax.websocket.EndpointConfig;
  * @author Arun Gupta
  */
 public class FigureDecoder implements Decoder.Text<Figure> {
+
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+
     @Override
     public Figure decode(String string) throws DecodeException {
-        System.out.println("decoding: " + string);
+        LOGGER.info("decoding: " + string);
         JsonObject jsonObject = Json.createReader(new StringReader(string)).readObject();
         return new Figure(jsonObject);
     }
@@ -71,11 +77,11 @@ public class FigureDecoder implements Decoder.Text<Figure> {
 
     @Override
     public void init(EndpointConfig ec) {
-        System.out.println("init");
+        LOGGER.info("init");
     }
 
     @Override
     public void destroy() {
-        System.out.println("desroy");
+        LOGGER.info("destroy");
     }
 }
