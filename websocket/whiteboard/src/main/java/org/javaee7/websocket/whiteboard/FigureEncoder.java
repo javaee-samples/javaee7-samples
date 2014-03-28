@@ -39,6 +39,9 @@
  */
 package org.javaee7.websocket.whiteboard;
 
+import java.lang.invoke.MethodHandles;
+import java.util.logging.Logger;
+
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
@@ -47,6 +50,9 @@ import javax.websocket.EndpointConfig;
  * @author Arun Gupta
  */
 public class FigureEncoder implements Encoder.Text<Figure> {
+
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    
     @Override
     public String encode(Figure figure) throws EncodeException {
         return figure.getJson().toString();
@@ -54,11 +60,11 @@ public class FigureEncoder implements Encoder.Text<Figure> {
 
     @Override
     public void init(EndpointConfig ec) {
-        System.out.println("init");
+        LOGGER.info("init");
     }
 
     @Override
     public void destroy() {
-        System.out.println("desroy");
+        LOGGER.info("destroy");
     }
 }
