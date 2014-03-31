@@ -698,6 +698,12 @@
             </properties>
         </profile>
         <profile>
+            <id>browser-opera</id>
+            <properties>
+                <browser>opera</browser>
+            </properties>
+        </profile>
+        <profile>
             <id>browser-phantomjs</id>
             <properties>
                 <browser>phantomjs</browser>
