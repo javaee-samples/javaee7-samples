@@ -36,5 +36,14 @@
         <module>server-extension</module>
         <module>viewscoped</module>
     </modules>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>
