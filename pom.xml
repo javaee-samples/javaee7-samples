@@ -213,6 +213,12 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -666,6 +672,36 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>browser-firefox</id>
+            <properties>
+                <browser>firefox</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-chrome</id>
+            <properties>
+                <browser>chrome</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-ie</id>
+            <properties>
+                <browser>internetExplorer</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-safari</id>
+            <properties>
+                <browser>safari</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-phantomjs</id>
+            <properties>
+                <browser>phantomjs</browser>
+            </properties>
         </profile>
         <profile>
             <id>javadocs</id>

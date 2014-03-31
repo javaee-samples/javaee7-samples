@@ -5,7 +5,7 @@
     </engine>
     
     <extension qualifier="webdriver">
-        <property name="browser">${browser:firefox}</property>
+        <property name="browser">${browser}</property>
     </extension>
 
 </arquillian>
