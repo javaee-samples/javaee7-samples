@@ -41,5 +41,6 @@
         <module>singleton</module>
         <module>readerwriter-injection</module>
         <module>jaxrs-security-declarative</module>
+        <module>db-access</module>
     </modules>
 </project>
