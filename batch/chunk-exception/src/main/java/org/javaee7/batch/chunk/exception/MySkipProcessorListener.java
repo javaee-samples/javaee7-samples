@@ -37,7 +37,6 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
 package org.javaee7.batch.chunk.exception;
 
 import javax.batch.api.chunk.listener.SkipProcessListener;
@@ -48,11 +47,9 @@ import javax.inject.Named;
  */
 @Named
 public class MySkipProcessorListener implements SkipProcessListener {
-
     @Override
     public void onSkipProcessItem(Object t, Exception e) throws Exception {
         ChunkExceptionRecorder.chunkExceptionsCountDownLatch.countDown();
-        System.err.println("MySkipProcessorListener.onSkipProcessItem: " + ((MyInputRecord)t).getId() + ", " + e.getMessage());
+        System.out.println("MySkipProcessorListener.onSkipProcessItem: " + ((MyInputRecord) t).getId() + ", " + e.getMessage());
     }
-
 }

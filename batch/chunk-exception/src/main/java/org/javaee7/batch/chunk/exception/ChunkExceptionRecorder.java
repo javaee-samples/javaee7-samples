@@ -7,4 +7,5 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ChunkExceptionRecorder {
     public static CountDownLatch chunkExceptionsCountDownLatch = new CountDownLatch(3);
+    public static int retryReadExecutions = 0;
 }

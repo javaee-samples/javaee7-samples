@@ -10,8 +10,8 @@
 
     <artifactId>chunk-exception</artifactId>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
+    <name>Batch Chunk Exception</name>
+    <description>Chunk Exception Handling - Retrying and Skipping</description>
 
     <dependencies>
         <dependency>
