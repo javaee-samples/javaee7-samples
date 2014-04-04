@@ -1,0 +1,11 @@
+<arquillian>
+
+    <engine>
+        <property name="deploymentExportPath">target/</property>
+    </engine>
+    
+    <extension qualifier="webdriver">
+        <property name="browser">${browser}</property>
+    </extension>
+
+</arquillian>
