@@ -46,8 +46,12 @@
             <listener ref="mySkipReadListener"/>
             <listener ref="mySkipProcessorListener"/>
             <listener ref="mySkipWriteListener"/>
+            <listener ref="myRetryReadListener"/>
+            <listener ref="myRetryProcessorListener"/>
+            <listener ref="myRetryWriteListener"/>
         </listeners>
-        <chunk item-count="5" skip-limit="5">
+        <!-- skip-limit and retry-limit should have values greater than 0 to perform the expected behaviour -->
+        <chunk checkpoint-policy="item" item-count="3" skip-limit="3" retry-limit="3">
             <reader ref="myItemReader"/>
             <processor ref="myItemProcessor"/>
             <writer ref="myItemWriter"/>

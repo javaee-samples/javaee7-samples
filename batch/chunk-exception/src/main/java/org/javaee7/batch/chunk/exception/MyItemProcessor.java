@@ -51,11 +51,10 @@ public class MyItemProcessor implements ItemProcessor {
     @Override
     public Object processItem(Object t) {
         System.out.println("MyItemProcessor.processItem: " + t);
-        
-        if (((MyInputRecord)t).getId() == 6)
+
+        if (((MyInputRecord) t).getId() == 6)
             throw new NullPointerException();
-        
-//        return (t.getId() % 2 == 0) ? null : new MyOutputRecord(t.getId() * 2);
-        return new MyOutputRecord(((MyInputRecord)t).getId() * 2);
+
+        return new MyOutputRecord(((MyInputRecord) t).getId());
     }
 }

@@ -39,9 +39,9 @@
  */
 package org.javaee7.batch.chunk.exception;
 
-import java.util.List;
 import javax.batch.api.chunk.AbstractItemWriter;
 import javax.inject.Named;
+import java.util.List;
 
 /**
  * @author Arun Gupta
@@ -51,7 +51,7 @@ public class MyItemWriter extends AbstractItemWriter {
 
     @Override
     public void writeItems(List list) {
-        if (list.contains(new MyOutputRecord(2))) {
+        if (list.contains(new MyOutputRecord(8))) {
             throw new IllegalArgumentException();
         }
 
