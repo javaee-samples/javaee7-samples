@@ -34,5 +34,25 @@ public class CreditCard implements Serializable {
         return cardNumber;
     }
 
-    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof CreditCard)) {
+            return false;
+        }
+
+        final CreditCard that = (CreditCard) o;
+
+        if (cardNumber != null ? !cardNumber.equals(that.cardNumber) : that.cardNumber != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return cardNumber != null ? cardNumber.hashCode() : 0;
+    }
 }

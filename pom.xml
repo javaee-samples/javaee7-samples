@@ -26,6 +26,36 @@
         <spock.version>0.7-groovy-2.0</spock.version>
         <groovy.version>2.1.5</groovy.version>
     </properties>
+
+    <prerequisites>
+      <maven>${maven.min.version}</maven>
+    </prerequisites>
+
+    <modules>
+      <module>batch</module>
+      <module>cdi</module>
+      <module>concurrency</module>
+      <module>ejb</module>
+      <module>el</module>
+      <module>interceptor</module>
+      <module>javamail</module>
+      <module>jaspic</module>
+      <module>jacc</module>
+      <module>jaxrs</module>
+      <module>jaxws</module>
+      <module>jca</module>
+      <module>jms</module>
+      <module>jpa</module>
+      <module>jta</module>
+      <module>jsf</module>
+      <module>json</module>
+      <module>servlet</module>
+      <module>validation</module>
+      <module>websocket</module>
+      <!-- module>extra</module -->
+      <module>util</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -73,12 +103,9 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.8.2.2</version>
-            <scope>provided</scope>
-        </dependency>
+
+        <!-- Test dependencies which can be used in sub-modules -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -89,11 +116,20 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
             <version>${hamcrest.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
             <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Alternative to Hamcrest matchers. Provides fluent, type-aware API -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>1.5.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -173,15 +209,9 @@
         <dependency>
             <groupId>com.jayway.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>1.3.5</version>
+            <version>1.6.0</version>
             <scope>test</scope>
         </dependency>
-        <!--        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.2.1</version>
-            <scope>test</scope>
-        </dependency>-->
     </dependencies>
     <pluginRepositories>
         <pluginRepository>
@@ -245,7 +275,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
+                <version>2.17</version>
                 <executions>
                     <execution>
                         <id>default-test</id>
@@ -310,7 +340,6 @@
             </plugin>
         </plugins>
         <pluginManagement>
-
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -320,6 +349,18 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <reporting>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.17</version>
+        </plugin>
+      </plugins>
+    </reporting>
+
+
     <profiles>
         <profile>
             <id>wildfly-embedded-arquillian</id>
@@ -366,6 +407,10 @@
                         <directory>src/test/resources</directory>
                         <filtering>true</filtering>
                     </testResource>
+                    <testResource>
+                        <directory>src/test/resources-wildfly-embedded</directory>
+                        <filtering>true</filtering>
+                    </testResource>
                 </testResources>
                 <plugins>
                     <plugin>
@@ -406,7 +451,6 @@
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
                             </environmentVariables>
                         </configuration>
-                        <version>2.16</version>
                     </plugin>
                 </plugins>
             </build>
@@ -456,6 +500,10 @@
                         <directory>src/test/resources</directory>
                         <filtering>true</filtering>
                     </testResource>
+                    <testResource>
+                        <directory>src/test/resources-wildfly-managed</directory>
+                        <filtering>true</filtering>
+                    </testResource>
                 </testResources>
                 <plugins>
                     <plugin>
@@ -493,7 +541,6 @@
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
                             </environmentVariables>
                         </configuration>
-                        <version>2.16</version>
                     </plugin>
                 </plugins>
             </build>
@@ -538,9 +585,11 @@
                         <directory>src/test/resources</directory>
                         <filtering>true</filtering>
                     </testResource>
+                    <testResource>
+                        <directory>src/test/resources-wildfly-remote</directory>
+                        <filtering>true</filtering>
+                    </testResource>
                 </testResources>
-                <plugins>
-                </plugins>
             </build>
         </profile>
         <profile>
@@ -577,9 +626,11 @@
                         <directory>src/test/resources</directory>
                         <filtering>true</filtering>
                     </testResource>
+                    <testResource>
+                        <directory>src/test/resources-jbosseap-remote</directory>
+                        <filtering>true</filtering>
+                    </testResource>
                 </testResources>
-                <plugins>
-                </plugins>
             </build>
         </profile>
         <profile>
@@ -622,6 +673,18 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-glassfish-embedded</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+            </build>
         </profile>
         <profile>
             <id>glassfish-remote-arquillian</id>
@@ -672,7 +735,21 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-glassfish-remote</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+            </build>
         </profile>
+
+        <!-- Browser profiles. Used for UI testing -->
         <profile>
             <id>browser-firefox</id>
             <properties>
@@ -709,6 +786,7 @@
                 <browser>phantomjs</browser>
             </properties>
         </profile>
+
         <profile>
             <id>javadocs</id>
             <activation>
@@ -744,44 +822,5 @@
             </build>
         </profile>
     </profiles>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.16</version>
-            </plugin>
-        </plugins>
-    </reporting>
-
-    <modules>
-        <module>batch</module>
-        <module>cdi</module>
-        <module>concurrency</module>
-        <module>ejb</module>
-        <module>el</module>
-        <module>interceptor</module>
-        <module>javamail</module>
-        <module>jaspic</module>
-        <module>jacc</module>
-        <module>jaxrs</module>
-        <module>jaxws</module>
-        <module>jca</module>
-        <module>jms</module>
-        <module>jpa</module>
-        <module>jta</module>
-        <module>jsf</module>
-        <module>json</module>
-        <module>servlet</module>
-        <module>validation</module>
-        <module>websocket</module>
-        <!-- module>extra</module -->
-        <module>util</module>
-    </modules>
-
-    <prerequisites>
-        <maven>${maven.min.version}</maven>
-    </prerequisites>
 
 </project>

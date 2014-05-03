@@ -20,6 +20,7 @@ import javax.persistence.Table;
 })
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     private int id;
     
@@ -35,8 +36,7 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public Employee(int id, String name, CreditCard card) {
-        this.id = id;
+    public Employee(String name, CreditCard card) {
         this.name = name;
         this.card = card;
     }
@@ -63,6 +63,31 @@ public class Employee implements Serializable {
 
     public void setCard(CreditCard card) {
         this.card = card;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Employee)) {
+            return false;
+        }
+
+        final Employee employee = (Employee) o;
+
+        if (card != null ? !card.equals(employee.getCard()) : employee.getCard() != null) return false;
+        if (!name.equals(employee.getName())) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (card != null ? card.hashCode() : 0);
+        return result;
     }
 
     @Override

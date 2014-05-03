@@ -9,16 +9,16 @@ import javax.persistence.PersistenceContext;
  * @author Arun Gupta
  */
 @Stateless
-public class EmployeeBean {
+public class EmployeeRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
     
     public void persist(Employee e) {
         em.persist(e);
     }
     
-    public List<Employee> get() {
+    public List<Employee> all() {
         return em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
     }
 }
