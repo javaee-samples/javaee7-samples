@@ -9,5 +9,5 @@
     </parent>
 
     <artifactId>jpa-converter</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 </project>
