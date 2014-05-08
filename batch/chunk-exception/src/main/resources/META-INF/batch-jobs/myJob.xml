@@ -57,10 +57,11 @@
             <writer ref="myItemWriter"/>
             <skippable-exception-classes>
                 <include class="java.lang.RuntimeException"/>
-                <exclude class="java.io.IOException"/>
+                <include class="java.lang.UnsupportedOperationException"/>
             </skippable-exception-classes>
             <retryable-exception-classes>
                 <include class="java.lang.IllegalArgumentException"/>
+                <include class="java.lang.UnsupportedOperationException"/>
             </retryable-exception-classes>
         </chunk>
     </step>
