@@ -52,8 +52,9 @@ public class MyItemProcessor implements ItemProcessor {
     public Object processItem(Object t) {
         System.out.println("MyItemProcessor.processItem: " + t);
 
-        if (((MyInputRecord) t).getId() == 6)
+        if (((MyInputRecord) t).getId() == 6) {
             throw new NullPointerException();
+        }
 
         return new MyOutputRecord(((MyInputRecord) t).getId());
     }
