@@ -547,6 +547,9 @@
         </profile>
         <profile>
             <id>wildfly-remote-arquillian</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>io.undertow</groupId>
@@ -688,9 +691,6 @@
         </profile>
         <profile>
             <id>glassfish-remote-arquillian</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish</groupId>
