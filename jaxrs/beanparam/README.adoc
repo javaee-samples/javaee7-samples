@@ -1,0 +1,5 @@
+= JAX-RS BeanParam
+
+This example demonstrate the use of a +@BeanParam+ annotation to group some of the request parameters in a user bean, in order to avoid having too many paramaters in the method signature.
+
+The user type annotated with +@BeanParam+ may contain fields or setter methods annotated with +@MatrixParam+, +@QueryParam+, +@PathParam+, +@CookieParam+ or +@HeaderParam+.
