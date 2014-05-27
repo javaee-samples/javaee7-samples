@@ -38,7 +38,7 @@
  * holder.
  */
 
-package org.javaee7.batch.listeners;
+package org.javaee7.batch.batch.listeners;
 
 import javax.batch.api.chunk.listener.AbstractChunkListener;
 import javax.inject.Named;

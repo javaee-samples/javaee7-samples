@@ -38,26 +38,26 @@
  * holder.
  */
 
-package org.javaee7.batch.listeners;
+package org.javaee7.batch.batch.listeners;
 
-import javax.batch.api.listener.AbstractStepListener;
+import javax.batch.api.listener.AbstractJobListener;
 import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
 @Named
-public class MyStepListener extends AbstractStepListener {
+public class MyJobListener extends AbstractJobListener {
 
     @Override
-    public void beforeStep() throws Exception {
+    public void beforeJob() {
         BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyStepListener.beforeStep");
+        System.out.println("MyJobListener.beforeJob");
     }
 
     @Override
-    public void afterStep() throws Exception {
+    public void afterJob() {
         BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyStepListener.afterStep");
+        System.out.println("MyJobListener.afterJob");
     }
 }

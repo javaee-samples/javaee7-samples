@@ -37,30 +37,21 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.batch.listeners;
+package org.javaee7.batch.batch.listeners;
+
+import javax.batch.api.chunk.ItemProcessor;
+import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
-public class MyInputRecord {
-    private int id;
-            
-    public MyInputRecord() { }
-    
-    public MyInputRecord(int id) {
-        this.id = id;
-    }
+@Named
+public class MyItemProcessor implements ItemProcessor {
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
     @Override
-    public String toString() {
-        return "MyInputRecord: " + id;
+    public Object processItem(Object t) {
+        System.out.println("processItem: " + t);
+        
+        return (((MyInputRecord)t).getId() % 2 == 0) ? null : new MyOutputRecord(((MyInputRecord)t).getId() * 2);
     }
 }

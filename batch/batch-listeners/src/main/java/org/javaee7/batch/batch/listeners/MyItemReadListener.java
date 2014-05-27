@@ -37,20 +37,33 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.batch.listeners;
 
-import java.util.List;
-import javax.batch.api.chunk.AbstractItemWriter;
+package org.javaee7.batch.batch.listeners;
+
+import javax.batch.api.chunk.listener.AbstractItemReadListener;
 import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
 @Named
-public class MyItemWriter extends AbstractItemWriter {
+public class MyItemReadListener extends AbstractItemReadListener {
 
     @Override
-    public void writeItems(List list) {
-        System.out.println("writeItems: " + list);
+    public void beforeRead() throws Exception {
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
+        System.out.println("MyItemReadListener.beforeRead");
+    }
+
+    @Override
+    public void afterRead(Object item) throws Exception {
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
+        System.out.println("MyItemReadListener.afterRead: " + item);
+    }
+
+    @Override
+    public void onReadError(Exception ex) throws Exception {
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
+        System.out.println("MyItemReadListener.onReadError: " + ex.getLocalizedMessage());
     }
 }
