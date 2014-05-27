@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * In this sample we're going to process a few record and mix some exceptions during read, processing and write of the
  * chunk. Exceptions are a natural part of batch processing, and the batch itself should be prepared to deal with
- * exceptions during processing. These exceptions are configired in the job xml file (+myjob.xml+).
+ * exceptions during processing. These exceptions are configured in the job xml file (+myjob.xml+).
  *
  * Batch processing deals with two kinds of exceptions: skippable and retryable. Skippable Exceptions are used to skip
  * elements during reading, processing and writing and continue to the next element. Retryable Exceptions on the other
@@ -84,7 +84,7 @@ public class BatchChunkExceptionTest {
     }
 
     /**
-     * In the test, we're just going to invoke the batch executing and wait for completion. To validate the test
+     * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
      * expected behaviour we need to query the +Metric[]+ object available in the step execution.
      *
      * @throws Exception an exception if the batch could not complete successfully.
