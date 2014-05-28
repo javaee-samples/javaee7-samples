@@ -11,6 +11,8 @@
   
     <artifactId>batchlet-simple</artifactId>
     <packaging>war</packaging>
+    <name>Batchlet Simple</name>
+    <description>Batchlet Simple - Execute a task oriented step</description>
 
     <dependencies>
         <dependency>

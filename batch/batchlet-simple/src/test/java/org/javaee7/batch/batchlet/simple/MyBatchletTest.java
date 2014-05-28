@@ -7,7 +7,6 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,11 +16,37 @@ import javax.batch.runtime.BatchStatus;
 import javax.batch.runtime.JobExecution;
 import java.util.Properties;
 
+import static org.junit.Assert.assertEquals;
+
 /**
+ * Batchlet is the simplest processing style available in the Batch specification. It's a task oriented step where the
+ * task is invoked once, executes, and returns an exit status.
+ *
+ * A Batchlet need to implement +javax.batch.api.Batchlet+ interface or in alternative extend
+ * +javax.batch.api.AbstractBatchlet+ that already provides empty implementations for all methods.
+ *
+ * include::MyBatchlet[]
+ *
+ * We are mostly interested in overriding +javax.batch.api.AbstractBatchlet#process+ to provide the behaviour that we
+ * want to achieve with the Batchlet itself. Common cases include: copy files to process with a chunk oriented step,
+ * startup and cleanup, or validations to your processing workflow.
+ *
+ * To run your Batchlet, just add it to the job xml file (+myjob.xml+).
+ *
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
 public class MyBatchletTest {
+    /**
+     * We're just going to deploy the application as a +web archive+. Note the inclusion of the following files:
+     *
+     * [source,file]
+     * ----
+     * /META-INF/batch-jobs/myjob.xml
+     * ----
+     *
+     * The +myjob.xml+ file is needed for running the batch definition.
+     */
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -33,6 +58,13 @@ public class MyBatchletTest {
         return war;
     }
 
+    /**
+     * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
+     * expected behaviour we just need to check the Batch Status in the +JbExecution+ object. We should get a
+     * +BatchStatus.COMPLETED+.
+     *
+     * @throws Exception an exception if the batch could not complete successfully.
+     */
     @Test
     public void testBatchletProcess() throws Exception {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
@@ -41,6 +73,6 @@ public class MyBatchletTest {
 
         BatchTestHelper.keepTestAlive(jobExecution);
 
-        Assert.assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
+        assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }
