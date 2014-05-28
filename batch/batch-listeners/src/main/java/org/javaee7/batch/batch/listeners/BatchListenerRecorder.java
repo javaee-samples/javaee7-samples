@@ -1,4 +1,4 @@
-package org.javaee7.batch.listeners;
+package org.javaee7.batch.batch.listeners;
 
 import java.util.concurrent.CountDownLatch;
 

@@ -37,10 +37,10 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
 package org.javaee7.batch.batchlet.simple;
 
 import javax.batch.api.AbstractBatchlet;
+import javax.batch.runtime.BatchStatus;
 import javax.inject.Named;
 
 /**
@@ -48,12 +48,10 @@ import javax.inject.Named;
  */
 @Named
 public class MyBatchlet extends AbstractBatchlet {
-
     @Override
     public String process() {
         System.out.println("Running inside a batchlet");
-        
-        return "COMPLETED";
-    }
 
+        return BatchStatus.COMPLETED.toString();
+    }
 }

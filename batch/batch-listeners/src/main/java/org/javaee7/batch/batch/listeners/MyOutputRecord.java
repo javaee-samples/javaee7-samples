@@ -37,27 +37,30 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
-package org.javaee7.batch.listeners;
-
-import javax.batch.api.listener.AbstractJobListener;
-import javax.inject.Named;
+package org.javaee7.batch.batch.listeners;
 
 /**
  * @author Arun Gupta
  */
-@Named
-public class MyJobListener extends AbstractJobListener {
-
-    @Override
-    public void beforeJob() {
-        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyJobListener.beforeJob");
+public class MyOutputRecord {
+    private int id;
+            
+    public MyOutputRecord() { }
+    
+    public MyOutputRecord(int id) {
+        this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     @Override
-    public void afterJob() {
-        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyJobListener.afterJob");
+    public String toString() {
+        return "MyOutputRecord: " + id;
     }
 }

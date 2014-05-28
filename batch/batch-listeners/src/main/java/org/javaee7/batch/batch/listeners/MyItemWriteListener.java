@@ -38,32 +38,33 @@
  * holder.
  */
 
-package org.javaee7.batch.listeners;
+package org.javaee7.batch.batch.listeners;
 
-import javax.batch.api.chunk.listener.AbstractItemProcessListener;
+import java.util.List;
+import javax.batch.api.chunk.listener.AbstractItemWriteListener;
 import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
 @Named
-public class MyItemProcessorListener extends AbstractItemProcessListener {
+public class MyItemWriteListener extends AbstractItemWriteListener {
 
     @Override
-    public void beforeProcess(Object item) throws Exception {
+    public void beforeWrite(List items) throws Exception {
         BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemProcessorListener.beforeProcess: " + item);
+        System.out.println("MyItemWriteListener.beforeWrite: " + items);
     }
 
     @Override
-    public void afterProcess(Object item, Object result) throws Exception {
+    public void afterWrite(List items) throws Exception {
         BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemProcessorListener.afterProcess: " + item + ", " + result);
+        System.out.println("MyItemWriteListener.afterWrite: " + items);
     }
 
     @Override
-    public void onProcessError(Object item, Exception ex) throws Exception {
+    public void onWriteError(List items, Exception ex) throws Exception {
         BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemProcessorListener.onProcessError: " + item + ", " + ex.getLocalizedMessage());
+        System.out.println("MyItemWriteListener.onError: " + items + ", " + ex.getLocalizedMessage());
     }
 }

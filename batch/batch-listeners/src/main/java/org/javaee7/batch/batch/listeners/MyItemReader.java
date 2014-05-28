@@ -37,34 +37,29 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
+package org.javaee7.batch.batch.listeners;
 
-package org.javaee7.batch.listeners;
-
-import java.util.List;
-import javax.batch.api.chunk.listener.AbstractItemWriteListener;
+import java.util.StringTokenizer;
+import javax.batch.api.chunk.AbstractItemReader;
 import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
 @Named
-public class MyItemWriteListener extends AbstractItemWriteListener {
-
-    @Override
-    public void beforeWrite(List items) throws Exception {
-        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemWriteListener.beforeWrite: " + items);
+public class MyItemReader extends AbstractItemReader {
+    
+    private final StringTokenizer tokens;
+    
+    public MyItemReader() {
+        tokens = new StringTokenizer("1,2,3,4,5,6,7,8,9,10", ",");
     }
-
+    
     @Override
-    public void afterWrite(List items) throws Exception {
-        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemWriteListener.afterWrite: " + items);
-    }
-
-    @Override
-    public void onWriteError(List items, Exception ex) throws Exception {
-        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemWriteListener.onError: " + items + ", " + ex.getLocalizedMessage());
+    public MyInputRecord readItem() {
+        if (tokens.hasMoreTokens()) {
+            return new MyInputRecord(Integer.valueOf(tokens.nextToken()));
+        }
+        return null;
     }
 }

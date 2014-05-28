@@ -38,32 +38,26 @@
  * holder.
  */
 
-package org.javaee7.batch.listeners;
+package org.javaee7.batch.batch.listeners;
 
-import javax.batch.api.chunk.listener.AbstractItemReadListener;
+import javax.batch.api.listener.AbstractStepListener;
 import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
 @Named
-public class MyItemReadListener extends AbstractItemReadListener {
+public class MyStepListener extends AbstractStepListener {
 
     @Override
-    public void beforeRead() throws Exception {
+    public void beforeStep() throws Exception {
         BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemReadListener.beforeRead");
+        System.out.println("MyStepListener.beforeStep");
     }
 
     @Override
-    public void afterRead(Object item) throws Exception {
+    public void afterStep() throws Exception {
         BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemReadListener.afterRead: " + item);
-    }
-
-    @Override
-    public void onReadError(Exception ex) throws Exception {
-        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
-        System.out.println("MyItemReadListener.onReadError: " + ex.getLocalizedMessage());
+        System.out.println("MyStepListener.afterStep");
     }
 }

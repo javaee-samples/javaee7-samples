@@ -37,30 +37,33 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.batch.listeners;
+
+package org.javaee7.batch.batch.listeners;
+
+import javax.batch.api.chunk.listener.AbstractItemProcessListener;
+import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
-public class MyOutputRecord {
-    private int id;
-            
-    public MyOutputRecord() { }
-    
-    public MyOutputRecord(int id) {
-        this.id = id;
-    }
+@Named
+public class MyItemProcessorListener extends AbstractItemProcessListener {
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
     @Override
-    public String toString() {
-        return "MyOutputRecord: " + id;
+    public void beforeProcess(Object item) throws Exception {
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
+        System.out.println("MyItemProcessorListener.beforeProcess: " + item);
+    }
+
+    @Override
+    public void afterProcess(Object item, Object result) throws Exception {
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
+        System.out.println("MyItemProcessorListener.afterProcess: " + item + ", " + result);
+    }
+
+    @Override
+    public void onProcessError(Object item, Exception ex) throws Exception {
+        BatchListenerRecorder.batchListenersCountDownLatch.countDown();
+        System.out.println("MyItemProcessorListener.onProcessError: " + item + ", " + ex.getLocalizedMessage());
     }
 }

@@ -37,29 +37,20 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.batch.listeners;
+package org.javaee7.batch.batch.listeners;
 
-import java.util.StringTokenizer;
-import javax.batch.api.chunk.AbstractItemReader;
+import java.util.List;
+import javax.batch.api.chunk.AbstractItemWriter;
 import javax.inject.Named;
 
 /**
  * @author Arun Gupta
  */
 @Named
-public class MyItemReader extends AbstractItemReader {
-    
-    private final StringTokenizer tokens;
-    
-    public MyItemReader() {
-        tokens = new StringTokenizer("1,2,3,4,5,6,7,8,9,10", ",");
-    }
-    
+public class MyItemWriter extends AbstractItemWriter {
+
     @Override
-    public MyInputRecord readItem() {
-        if (tokens.hasMoreTokens()) {
-            return new MyInputRecord(Integer.valueOf(tokens.nextToken()));
-        }
-        return null;
+    public void writeItems(List list) {
+        System.out.println("writeItems: " + list);
     }
 }
