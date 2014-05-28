@@ -21,6 +21,7 @@
         <module>beanvalidation</module>
         <module>client-negotiation</module>
         <module>dynamicfilter</module>
+        <module>fileupload</module>
         <module>filter</module>
         <module>filter-interceptor</module>
         <module>interceptor</module>
