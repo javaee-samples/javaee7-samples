@@ -21,10 +21,26 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The Batch specification allows you to implement process workflows using a Job Specification Language (JSL). In this
+ * sample, by using the +step+ element, it's possible to configure a job that runs multiple steps.
+ *
+ * One Chunk oriented Step and a Batchlet are configured in the file +myJob.xml+. They both execute in order of
+ * declaration. First the Chunk oriented Step and finally the Batchlet Step.
+ *
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
 public class BatchMultipleStepsTest {
+    /**
+     * We're just going to deploy the application as a +web archive+. Note the inclusion of the following files:
+     *
+     * [source,file]
+     * ----
+     * /META-INF/batch-jobs/myjob.xml
+     * ----
+     *
+     * The +myjob.xml+ file is needed for running the batch definition.
+     */
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -36,6 +52,13 @@ public class BatchMultipleStepsTest {
         return war;
     }
 
+    /**
+     * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
+     * expected behaviour we need to query +JobOperator#getStepExecutions+ and the +Metric[]+ object available in the
+     * step execution.
+     *
+     * @throws Exception an exception if the batch could not complete successfully.
+     */
     @Test
     public void testBatchMultipleSteps() throws Exception {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
@@ -51,14 +74,17 @@ public class BatchMultipleStepsTest {
 
             if (stepExecution.getStepName().equals("step1")) {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
-                System.out.println(metricsMap);
                 assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
                 assertEquals(10L / 2, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
                 assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0), metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
+
+        // <1> Make sure all the steps were executed.
         assertEquals(2, stepExecutions.size());
+        // <2> Make sure all the steps were executed in order of declaration.
         assertArrayEquals(new String[]{"step1", "step2"}, executedSteps.toArray());
+        // <3> Job should be completed.
         assertEquals(BatchStatus.COMPLETED, jobExecution.getBatchStatus());
     }
 }
