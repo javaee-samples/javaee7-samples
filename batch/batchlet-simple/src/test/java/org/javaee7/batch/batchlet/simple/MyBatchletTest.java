@@ -31,7 +31,9 @@ import static org.junit.Assert.assertEquals;
  * want to achieve with the Batchlet itself. Common cases include: copy files to process with a chunk oriented step,
  * startup and cleanup, or validations to your processing workflow.
  *
- * To run your Batchlet, just add it to the job xml file (+myjob.xml+).
+ * To run your Batchlet, just add it to the job xml file (+myJob.xml+).
+ *
+ * include::myJob.xml[]
  *
  * @author Roberto Cortez
  */
@@ -42,10 +44,10 @@ public class MyBatchletTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {
