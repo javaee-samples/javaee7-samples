@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <persistence-unit name="testPU">
+
+        <!-- This data source is defined from within the application via the data-source element in application.xml of the ear's
+            META_INF folder. For the EJB variant of this test, the structure looks as follows:
+            
+            EAR
+                META-INF
+                    application.xml (defines data source)
+                test.jar (EJB module)
+                    META-INF
+                        persistence.xml (this file: connects data source to persistence unit)
+                    org.javaee7.jpa.datasourcedefinition_applicationxml_pu.service.TestService (injects PU via @PersistenceContext)
+            
+         -->
+        <jta-data-source>java:app/MyApp/MyDS</jta-data-source>
+
+        <properties>
+            <!-- 
+                Very unfortunate workaround to get the data source to work with JPA in WildFly 8.
+                See https://issues.jboss.org/browse/WFLY-2727  
+            -->
+            <property name="wildfly.jpa.twophasebootstrap" value="false" />
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+        </properties>
+    </persistence-unit>
+    
+</persistence>
