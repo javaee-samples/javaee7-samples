@@ -3,10 +3,6 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"
     version="7">
 
-    <application-name>OrderApp</application-name>
-    <description>Application description</description>
-    <display-name>OrderApp</display-name>
-
     <module>
         <web>
             <web-uri>test.war</web-uri>
@@ -19,6 +15,5 @@
         <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
         <url>jdbc:h2:mem:test</url>
     </data-source>
-
 
 </application>

@@ -14,6 +14,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,8 +59,17 @@ public class DataSourceDefinitionApplicationXMLPuEJBTest {
                         .addAsResource("META-INF/persistence.xml")
                         
                         // Service class that uses persistence unit
-                        .addPackages(true, DataSourceDefinitionApplicationXMLPuEJBTest.class.getPackage())
-            );
+                        .addClasses(TestEntity.class, TestService.class)
+                )
+                
+                // Web module
+                // This is needed to prevent Arquillian generating an illegal application.xml
+                .addAsModule(
+                    create(WebArchive.class, "test.war")
+                        // This class containing the test
+                        .addClass(DataSourceDefinitionApplicationXMLPuEJBTest.class)
+                        
+                );
     }
 
     @Test
