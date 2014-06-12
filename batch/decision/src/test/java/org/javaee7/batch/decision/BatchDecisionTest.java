@@ -87,7 +87,7 @@ public class BatchDecisionTest {
         assertArrayEquals(new String[] {"step1", "step3"}, executedSteps.toArray());
         // <3> Make sure that this step was never executed.
         assertFalse(executedSteps.contains("step2"));
-        // <3> Job should be completed.
+        // <4> Job should be completed.
         assertEquals(BatchStatus.COMPLETED, jobExecution.getBatchStatus());
     }
 }
