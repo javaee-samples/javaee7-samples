@@ -10,8 +10,9 @@
 
     <artifactId>decision</artifactId>
     <packaging>war</packaging>
+    <name>Batch Decision</name>
+    <description>Batch DSL - Decision</description>
 
-    <name>${project.artifactId}</name>
 
     <dependencies>
         <dependency>
