@@ -11,6 +11,8 @@
 
     <artifactId>chunk-checkpoint</artifactId>
     <packaging>war</packaging>
+    <name>Batch Chunk Checkpoint</name>
+    <description>Chunk Checkpoint - Custom Checkpoint Policy</description>
 
     <dependencies>
         <dependency>
