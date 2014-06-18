@@ -11,8 +11,8 @@
 
     <artifactId>chunk-mapper</artifactId>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
+    <name>Batch Chunk Partition Mapper</name>
+    <description>Chunk Processing - Read, Process, Write in multiple Threads</description>
 
     <dependencies>
         <dependency>

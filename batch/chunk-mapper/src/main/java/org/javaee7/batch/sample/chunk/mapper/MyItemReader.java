@@ -70,9 +70,6 @@ public class MyItemReader extends AbstractItemReader {
     
     @Override
     public void open(Serializable e) {
-//        Properties jobParams = BatchRuntime.getJobOperator().getParameters(context.getExecutionId());
-//        int start = (Integer)jobParams.get("start");
-//        int end = (Integer)jobParams.get("end");
         int start = new Integer(startProp);
         int end = new Integer(endProp);
         StringBuilder builder = new StringBuilder();
