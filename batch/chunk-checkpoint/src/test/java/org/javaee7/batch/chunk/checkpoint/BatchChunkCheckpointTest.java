@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
  *
  * include::myJob.xml[]
  *
- * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, processor and writer. For
+ * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and writer. For
  * this sample, a custom checkpoint policy is going to be used. The custom policy needs to implement
  * +javax.batch.api.chunk.CheckpointAlgorithm+ or in alternative extend
  * +javax.batch.api.chunk.AbstractCheckpointAlgorithm+ that already provides empty implementations for all methods.
@@ -47,16 +47,16 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(Arquillian.class)
 public class BatchChunkCheckpointTest {
-  /**
-   * We're just going to deploy the application as a +web archive+. Note the inclusion of the following files:
-   *
-   * [source,file]
-   * ----
-   * /META-INF/batch-jobs/myjob.xml
-   * ----
-   *
-   * The +myjob.xml+ file is needed for running the batch definition.
-   */
+    /**
+     * We're just going to deploy the application as a +web archive+. Note the inclusion of the following files:
+     *
+     * [source,file]
+     * ----
+     * /META-INF/batch-jobs/myjob.xml
+     * ----
+     *
+     * The +myjob.xml+ file is needed for running the batch definition.
+     */
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -68,15 +68,15 @@ public class BatchChunkCheckpointTest {
         return war;
     }
 
-  /**
-   * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-   * expected behaviour we need to query the +Metric[]+ object available in the step execution.
-   *
-   * The batch process itself will read and process 10 elements from numbers  1 to 10, but only write the odd
-   * elements. Commits are executed after 5 elements are read by the custom checkpoint algorithm.
-   *
-   * @throws Exception an exception if the batch could not complete successfully.
-   */
+    /**
+     * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
+     * expected behaviour we need to query the +Metric[]+ object available in the step execution.
+     *
+     * The batch process itself will read and process 10 elements from numbers  1 to 10, but only write the odd
+     * elements. Commits are executed after 5 elements are read by the custom checkpoint algorithm.
+     *
+     * @throws Exception an exception if the batch could not complete successfully.
+     */
     @Test
     public void testBatchChunkCheckpoint() throws Exception {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
@@ -92,15 +92,16 @@ public class BatchChunkCheckpointTest {
 
                 // <1> The read count should be 10 elements. Check +MyItemReader+.
                 assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
-                // <2> The write count should be 5. The 10 elements are read and the checkpoint is on every 5th read.
+                // <2> The write count should be 5. Only half of the elements read are processed to be written.
                 assertEquals(10L / 2L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
-                // <3> The commit count is equals to the write count plus 1. An empty read is executed after all reads.
+                // <3> The commit count should be 3. Checkpoint is on every 5th read, plus one final read-commit.
                 assertEquals(10L / 5L + 1, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 
         // <4> The checkpoint algorithm should be checked 10 times. One for each element read.
         assertTrue(MyCheckpointAlgorithm.checkpointCountDownLatch.await(0, TimeUnit.SECONDS));
+        // <5> Job should be completed.
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }
