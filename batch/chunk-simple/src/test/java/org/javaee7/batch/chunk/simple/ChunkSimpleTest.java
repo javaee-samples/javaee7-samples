@@ -53,15 +53,15 @@ public class ChunkSimpleTest {
         return war;
     }
 
-  /**
-   * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-   * expected behaviour we need to query the +Metric[]+ object available in the step execution.
-   *
-   * The batch process itself will read and process 10 elements from numbers  1 to 10, but only write the odd
-   * elements. Commits are executed after 3 elements are read.
-   *
-   * @throws Exception an exception if the batch could not complete successfully.
-   */
+    /**
+     * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
+     * expected behaviour we need to query the +Metric[]+ object available in the step execution.
+     *
+     * The batch process itself will read and process 10 elements from numbers  1 to 10, but only write the odd
+     * elements. Commits are executed after 3 elements are read.
+     *
+     * @throws Exception an exception if the batch could not complete successfully.
+     */
     @Test
     public void testChunkSimple() throws Exception {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
