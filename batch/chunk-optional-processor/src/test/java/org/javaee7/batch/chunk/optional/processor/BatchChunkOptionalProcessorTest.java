@@ -78,7 +78,7 @@ public class BatchChunkOptionalProcessorTest {
 
                 // <1> The read count should be 10 elements. Check +MyItemReader+.
                 assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
-                // <2> The write count should be 5. Only half of the elements read are processed to be written.
+                // <2> The write count should be same 10 read elements.
                 assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
                 // <3> The commit count should be 4. Checkpoint is on every 3rd read, 4 commits for read elements.
                 assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0),
