@@ -21,14 +21,14 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
- * The Batch specification allows you to implement process workflows using a Job Specification Language (JSL). In this
+ * The Batch specification allows you to implement process workflow using a Job Specification Language (JSL). In this
  * sample, by using the +flow+ element, we define a sequence of elements that execute together as a unit. When the
  * flow is finished the flow transitions to the next execution element. The execution elements of a flow cannot
  * transition to elements outside the flow.
  *
  * include::myJob.xml[]
  *
- * The flow element is usefull to build self contained workflows that you can reference and build as a part of a bigger
+ * The flow element is useful to build a self contained workflow that you can reference and build as a part of a bigger
  * workflow.
  *
  * @author Roberto Cortez

@@ -59,10 +59,10 @@ public class BatchChunkMapperTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {

@@ -22,7 +22,7 @@ import java.util.Properties;
 import static org.junit.Assert.*;
 
 /**
- * The Batch specification allows you to implement process workflows using a Job Specification Language (JSL). In this
+ * The Batch specification allows you to implement process workflow using a Job Specification Language (JSL). In this
  * sample, by using the +decision+ element, it's possible to configure a job that follows different paths of execution
  * based on your own criteria by implementing a +javax.batch.api.Decider+
  *

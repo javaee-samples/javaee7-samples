@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
  *
  * include::myJob.xml[]
  *
- * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and writer.
+ * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and a writer.
  *
  * @author Roberto Cortez
  */
@@ -37,10 +37,10 @@ public class ChunkSimpleTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {

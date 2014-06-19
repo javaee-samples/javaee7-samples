@@ -75,6 +75,7 @@ public class MyBatchletTest {
 
         BatchTestHelper.keepTestAlive(jobExecution);
 
+        // <1> Job should be completed.
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }
