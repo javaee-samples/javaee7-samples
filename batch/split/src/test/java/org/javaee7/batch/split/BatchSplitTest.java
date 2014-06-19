@@ -23,14 +23,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * The Batch specification allows you to implement process workflows using a Job Specification Language (JSL). In this
+ * The Batch specification allows you to implement process workflow using a Job Specification Language (JSL). In this
  * sample, by using the +split+ element, it's possible to configure a job that runs parallel flows. A +split+ can only
  * contain +flow+ elements. These +flow+ elements can be used to implement separate executions to be processed by the
  * job.
  *
- * Three simple Batchlet's are configured in the file +myjob.xml+. +MyBatchlet1+ and +MyBatchlet2+ are setted up to
+ * Three simple Batchlet's are configured in the file +myJob.xml+. +MyBatchlet1+ and +MyBatchlet2+ are setted up to
  * execute in parallel by using the +split+ and +flow+ elements. +MyBatchlet3+ is only going to execute after
  * +MyBatchlet1+ and +MyBatchlet2+ are both done with their job.
+ *
+ * include::myJob.xml[]
  *
  * @author Roberto Cortez
  */
@@ -41,10 +43,10 @@ public class BatchSplitTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {

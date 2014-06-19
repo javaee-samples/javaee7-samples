@@ -21,11 +21,13 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
- * The Batch specification allows you to implement process workflows using a Job Specification Language (JSL). In this
+ * The Batch specification allows you to implement process workflow using a Job Specification Language (JSL). In this
  * sample, by using the +step+ element, it's possible to configure a job that runs multiple steps.
  *
  * One Chunk oriented Step and a Batchlet are configured in the file +myJob.xml+. They both execute in order of
  * declaration. First the Chunk oriented Step and finally the Batchlet Step.
+ *
+ * include::myJob.xml[]
  *
  * @author Roberto Cortez
  */
@@ -36,10 +38,10 @@ public class BatchMultipleStepsTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {

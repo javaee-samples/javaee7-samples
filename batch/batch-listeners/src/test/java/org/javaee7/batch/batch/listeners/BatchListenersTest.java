@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * The Batch specification, provides several listeners to notify about specific event ocurring during the batch
+ * The Batch specification, provides several listeners to notify about specific event occurring during the batch
  * processing execution.
  *
  * Events can be caught via extending the following classes, for the appropriate batch lifecycle event:
@@ -47,7 +47,7 @@ import static org.junit.Assert.assertTrue;
  * The Chunk Listener:
  * include::MyChunkListener[]
  *
- * Allows you to execude code before and after the chunk processing. Useful to setup and clear resources needed by the
+ * Allows you to execute code before and after the chunk processing. Useful to setup and clear resources needed by the
  * chunk.
  *
  * The Read Listener:
@@ -71,7 +71,10 @@ import static org.junit.Assert.assertTrue;
  * Useful to setup additional resources and add additional information to the object writing. You can also provide
  * some logic to  treat a failed object write.
  *
- * Remember that listeners need to be configured in the job xml file (+myjob.xml+).
+ * The +listeners+ element can be used at the +step+ level or the +job+ level to define which listeners to run for each
+ * batch processing event.
+ *
+ * include::myJob.xml[]
  *
  * @author Roberto Cortez
  */
@@ -82,10 +85,10 @@ public class BatchListenersTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {

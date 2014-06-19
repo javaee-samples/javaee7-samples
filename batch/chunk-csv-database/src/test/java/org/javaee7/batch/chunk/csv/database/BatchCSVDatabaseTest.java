@@ -38,7 +38,7 @@ import static org.junit.Assert.assertEquals;
  * Process the data by transforming it into a +Person+ object:
  * include::MyItemProcessor#processItem[]
  *
- * Finally write the data using JPA to a database:
+ * And finally write the data using JPA to a database:
  * include::MyItemWriter#writeItems[]
  *
  * @author Roberto Cortez
@@ -53,14 +53,14 @@ public class BatchCSVDatabaseTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * /META-INF/persistence.xml
      * /META-INF/create.sql
-     * /META-INF/drop-sql
+     * /META-INF/drop.sql
      * /META-INF/mydata.csv
      * ----
      *
-     * * The +myjob.xml+ file is needed for running the batch definition.
+     * * The +myJob.xml+ file is needed for running the batch definition.
      * * The +persistence.xml+ file is needed for JPA configuration, create schema, load-data and drop schema.
      * * The +create.sql+ file has the necessary database schema for the data.
      * * The +drop.sql+ file has the required commands to drop the database schema created.
@@ -81,8 +81,6 @@ public class BatchCSVDatabaseTest {
         return war;
     }
 
-    @SuppressWarnings("unchecked")
-    @Test
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
      * expected behaviour we need to query the +Metric[]+ object available in the step execution.
@@ -92,6 +90,8 @@ public class BatchCSVDatabaseTest {
      *
      * @throws Exception an exception if the batch could not complete successfully.
      */
+    @SuppressWarnings("unchecked")
+    @Test
     public void testBatchCSVDatabase() throws Exception {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         Long executionId = jobOperator.start("myJob", new Properties());
@@ -106,7 +106,7 @@ public class BatchCSVDatabaseTest {
 
                 // <1> The read count should be 7 elements. Check +MyItemReader+.
                 assertEquals(7L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
-                // <2> The write count should be same 7 read elements.
+                // <2> The write count should be the same 7 read elements.
                 assertEquals(7L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
                 // <3> The commit count should be 4. Checkpoint is on every 3rd read, 4 commits for read elements.
                 assertEquals(3L, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());

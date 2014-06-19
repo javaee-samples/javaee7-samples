@@ -21,17 +21,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * In this sample we're going to process a few record and mix some exceptions during read, processing and write of the
- * chunk. Exceptions are a natural part of batch processing, and the batch itself should be prepared to deal with
- * exceptions during processing. These exceptions are configured in the job xml file (+myjob.xml+).
+ * Exceptions are a natural part of Batch Processing, and the batch itself should be prepared to deal with
+ * exceptions during processing.
  *
- * Batch processing deals with two kinds of exceptions: skippable and retryable. Skippable Exceptions are used to skip
+ * Batch Processing deals with two kinds of exceptions: skippable and retryable. Skippable Exceptions are used to skip
  * elements during reading, processing and writing and continue to the next element. Retryable Exceptions on the other
- * hand when thrown will try to retry the chunk on which the exceptiong occurred.
+ * hand when thrown will try to retry the chunk on which the exception occurred.
  *
- * When the same exception is specified as both retryable and skippable, retryable takes precedence over skippable during
- * regular processing of the chunk. While the chunk is retrying, skippable takes precedence over retryable since the exception
- * is already being retried.
+ * When the same exception is specified as both retryable and skippable, retryable takes precedence over skippable
+ * during regular processing of the chunk. While the chunk is retrying, skippable takes precedence over retryable since
+ * the exception is already being retried.
  *
  * The Reader:
  * include::MyItemReader[]
@@ -58,6 +57,15 @@ import static org.junit.Assert.assertTrue;
  * * +MyRetryProcessorListener+
  * * +MyRetryWriteListener+
  *
+ * include::myJob.xml[]
+ *
+ * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and a writer. For
+ * this sample we are going to process a few records and mix some exceptions during read, processing and write of the
+ * chunk. Batch exception handling is achieved by defining the elements +skippable-exception-classes+ and
+ * +retryable-exception-classes+ into the +chunk+. Both elements should indicate the full qualified name of the
+ * exceptions that we are trying to catch. The +listeners+ element can be used at the +step+ level to define which
+ * listeners to run for each batch processing event.
+ *
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
@@ -67,10 +75,10 @@ public class BatchChunkExceptionTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {

@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
  *
  * include::myJob.xml[]
  *
- * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and writer. For
+ * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and a writer. For
  * this sample, a custom checkpoint policy is going to be used. The custom policy needs to implement
  * +javax.batch.api.chunk.CheckpointAlgorithm+ or in alternative extend
  * +javax.batch.api.chunk.AbstractCheckpointAlgorithm+ that already provides empty implementations for all methods.
@@ -52,10 +52,10 @@ public class BatchChunkCheckpointTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
  *
  * include::myJob.xml[]
  *
- * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and writer.
+ * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and a writer.
  *
  * @author Roberto Cortez
  */
@@ -35,10 +35,10 @@ public class BatchChunkSimpleNoBeansTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition. This sample is also missing the +beans.xml+ for
+     * The +myJob.xml+ file is needed for running the batch definition. This sample is also missing the +beans.xml+ for
      * CDI discovery, since for Java EE 7 this file is now optional, but you need to annotated batch dependent beans
      * with +@Dependent+.
      */
