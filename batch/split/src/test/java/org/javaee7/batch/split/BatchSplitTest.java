@@ -61,7 +61,7 @@ public class BatchSplitTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query +JobOperator#getStepExecutions+.
+     * expected behaviour we need to query +javax.batch.operations.JobOperator#getStepExecutions+.
      *
      * @throws Exception an exception if the batch could not complete successfully.
      */

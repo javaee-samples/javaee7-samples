@@ -77,7 +77,7 @@ public class BatchChunkMapperTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query the +Metric[]+ object available in the step execution.
+     * expected behaviour we need to query the +javax.batch.runtime.Metric+ object available in the step execution.
      *
      * The batch process itself will read and process 20 elements from numbers 1 to 20, but only write the odd
      * elements. Elements from 1 to 10 will be processed in one partition and elements from 11 to 20 in another

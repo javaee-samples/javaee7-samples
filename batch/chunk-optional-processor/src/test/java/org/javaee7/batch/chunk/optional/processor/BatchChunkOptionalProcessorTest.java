@@ -56,7 +56,7 @@ public class BatchChunkOptionalProcessorTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query the +Metric[]+ object available in the step execution.
+     * expected behaviour we need to query the +javax.batch.runtime.Metric+ object available in the step execution.
      *
      * The batch process itself will read 10 elements from numbers  1 to 10, and write the same elements. Commits are
      * executed after 3 elements are read.
