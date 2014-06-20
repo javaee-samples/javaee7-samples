@@ -62,8 +62,8 @@ public class BatchDecisionTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query +JobOperator#getStepExecutions+ and the +Metric[]+ object available in the
-     * step execution.
+     * expected behaviour we need to query +javax.batch.operations.JobOperator#getStepExecutions+ and the
+     * +javax.batch.runtime.Metric+ object available in the step execution.
      *
      * @throws Exception an exception if the batch could not complete successfully.
      */

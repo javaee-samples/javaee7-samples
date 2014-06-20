@@ -62,8 +62,8 @@ public class MyBatchletTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we just need to check the Batch Status in the +JbExecution+ object. We should get a
-     * +BatchStatus.COMPLETED+.
+     * expected behaviour we just need to check the Batch Status in the +javax.batch.runtime.JobExecution+ object. We
+     * should get a +javax.batch.runtime.BatchStatus.COMPLETED+.
      *
      * @throws Exception an exception if the batch could not complete successfully.
      */

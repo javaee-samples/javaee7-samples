@@ -103,8 +103,8 @@ public class BatchListenersTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query the +Metric[]+ object available in the step execution and also verify if the
-     * listeners were executed correctly via a +CountDownLatch+ wait.
+     * expected behaviour we need to query the +javax.batch.runtime.Metric+ object available in the step execution and
+     * also verify if the listeners were executed correctly via a +CountDownLatch+ wait.
      *
      * The batch process itself will read and process 10 elements from numbers  1 to 10, but only write the odd
      * elements.

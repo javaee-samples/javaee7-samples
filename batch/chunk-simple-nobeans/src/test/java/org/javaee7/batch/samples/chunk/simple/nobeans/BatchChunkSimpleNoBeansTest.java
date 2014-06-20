@@ -40,7 +40,7 @@ public class BatchChunkSimpleNoBeansTest {
      *
      * The +myJob.xml+ file is needed for running the batch definition. This sample is also missing the +beans.xml+ for
      * CDI discovery, since for Java EE 7 this file is now optional, but you need to annotated batch dependent beans
-     * with +@Dependent+.
+     * with +javax.enterprise.context.Dependent+.
      */
     @Deployment
     public static WebArchive createDeployment() {
@@ -54,7 +54,7 @@ public class BatchChunkSimpleNoBeansTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query the +Metric[]+ object available in the step execution.
+     * expected behaviour we need to query the +javax.batch.runtime.Metric+ object available in the step execution.
      *
      * The batch process itself will read and process 10 elements from numbers  1 to 10, but only write the odd
      * elements. Commits are executed after 3 elements are read.

@@ -57,6 +57,15 @@ import static org.junit.Assert.assertTrue;
  * * +MyRetryProcessorListener+
  * * +MyRetryWriteListener+
  *
+ * Events can be caught via extending the following classes, for the appropriate batch lifecycle event:
+ *
+ * * +javax.batch.api.chunk.listener.SkipReadListener+
+ * * +javax.batch.api.chunk.listener.SkipProcessListener+
+ * * +javax.batch.api.chunk.listener.SkipWriteListener+
+ * * +javax.batch.api.chunk.listener.RetryReadListener+
+ * * +javax.batch.api.chunk.listener.RetryProcessListener+
+ * * +javax.batch.api.chunk.listener.RetryWriteListener+
+ *
  * include::myJob.xml[]
  *
  * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and a writer. For
@@ -93,7 +102,7 @@ public class BatchChunkExceptionTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query the +Metric[]+ object available in the step execution.
+     * expected behaviour we need to query the +javax.batch.runtime.Metric+ object available in the step execution.
      *
      * @throws Exception an exception if the batch could not complete successfully.
      */

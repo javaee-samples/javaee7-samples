@@ -83,7 +83,7 @@ public class BatchCSVDatabaseTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we need to query the +Metric[]+ object available in the step execution.
+     * expected behaviour we need to query the +javax.batch.runtime.Metric+ object available in the step execution.
      *
      * The batch process itself will read and write 7 elements of type +Person+. Commits are executed after 3 elements
      * are read.
