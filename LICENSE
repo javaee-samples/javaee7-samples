@@ -275,3 +275,101 @@ Linking this library statically or dynamically with other modules is making a co
 
 As a special exception, the copyright holders of this library give you permission to link this library with independent modules to produce an executable, regardless of the license terms of these independent modules, and to copy and distribute the resulting executable under terms of your choice, provided that you also meet, for each linked independent module, the terms and conditions of the license of that module.? An independent module is a module which is not derived from or based on this library.? If you modify this library, you may extend this exception to your version of the library, but you are not obligated to do so.? If you do not wish to do so, delete this exception statement from your version.
 
+
+NOT EVERY FILE IN THIS REPOSITORY IN UNDER THE GENERIC MIT LICENSE. THESE FILES USE THE FOLLOWING LICENSE:
+
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
+
+The contents of this file are subject to the terms of either the GNU General Public License Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively, the "License").  You may not use this file except in compliance with the License.  You can obtain a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html or packager/legal/LICENSE.txt.  See the License for the specific language governing permissions and limitations under the License.
+
+When distributing the software, include this License Header Notice in each file and include the License file at packager/legal/LICENSE.txt.
+
+GPL Classpath Exception:
+Oracle designates this particular file as subject to the "Classpath" exception as provided by Oracle in the GPL Version 2 section of the License file that accompanied this code.
+
+Modifications:
+If applicable, add the following below the License Header, with the fields enclosed by brackets [] replaced by your own identifying information: "Portions Copyright [year] [name of copyright owner]"
+
+Contributor(s):
+If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2, indicate your decision by adding "[Contributor] elects to include this software in this distribution under the [CDDL or GPL Version 2] license."  If you don't indicate a single choice of license, a recipient has the option to distribute your version of this file under either the CDDL, the GPL Version 2 or to extend the choice of license to its licensees as provided above.  However, if you add GPL Version 2 code and therefore, elected the GPL Version 2 license, then the option applies only if the new code is made subject to such option by the copyright holder.
+
+THE FOLLOWING FILES ARE UNDER THE PREVIOUS MENTIONED LICENSE:
+
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyChunkListener.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyInputRecord.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyItemProcessor.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyItemProcessorListener.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyItemReader.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyItemReadListener.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyItemWriteListener.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyItemWriter.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyJobListener.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyOutputRecord.java
+batch/batch-listeners/src/main/java/org/javaee7/batch/batch/listeners/MyStepListener.java
+batch/batchlet-simple/src/main/java/org/javaee7/batch/batchlet/simple/MyBatchlet.java
+batch/chunk-checkpoint/src/main/java/org/javaee7/batch/chunk/checkpoint/MyCheckpointAlgorithm.java
+batch/chunk-checkpoint/src/main/java/org/javaee7/batch/chunk/checkpoint/MyInputRecord.java
+batch/chunk-checkpoint/src/main/java/org/javaee7/batch/chunk/checkpoint/MyItemProcessor.java
+batch/chunk-checkpoint/src/main/java/org/javaee7/batch/chunk/checkpoint/MyItemReader.java
+batch/chunk-checkpoint/src/main/java/org/javaee7/batch/chunk/checkpoint/MyItemWriter.java
+batch/chunk-checkpoint/src/main/java/org/javaee7/batch/chunk/checkpoint/MyOutputRecord.java
+batch/chunk-csv-database/src/main/java/org/javaee7/batch/chunk/csv/database/MyItemProcessor.java
+batch/chunk-csv-database/src/main/java/org/javaee7/batch/chunk/csv/database/MyItemReader.java
+batch/chunk-csv-database/src/main/java/org/javaee7/batch/chunk/csv/database/MyItemWriter.java
+batch/chunk-csv-database/src/main/java/org/javaee7/batch/chunk/csv/database/Person.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MyInputRecord.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MyItemProcessor.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MyItemReader.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MyItemWriter.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MyOutputRecord.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MySkipProcessorListener.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MySkipReadListener.java
+batch/chunk-exception/src/main/java/org/javaee7/batch/chunk/exception/MySkipWriteListener.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyAnalyzer.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyCollector.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyInputRecord.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyItemProcessor.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyItemReader.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyItemWriter.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyMapper.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyOutputRecord.java
+batch/chunk-mapper/src/main/java/org/javaee7/batch/sample/chunk/mapper/MyReducer.java
+batch/chunk-optional-processor/src/main/java/org/javaee7/batch/chunk/optional/processor/MyItemReader.java
+batch/chunk-optional-processor/src/main/java/org/javaee7/batch/chunk/optional/processor/MyItemWriter.java
+batch/chunk-optional-processor/src/main/java/org/javaee7/batch/chunk/optional/processor/MyRecord.java
+batch/chunk-partition/src/main/java/org/javaee7/batch/sample/chunk/partition/MyInputRecord.java
+batch/chunk-partition/src/main/java/org/javaee7/batch/sample/chunk/partition/MyItemProcessor.java
+batch/chunk-partition/src/main/java/org/javaee7/batch/sample/chunk/partition/MyItemReader.java
+batch/chunk-partition/src/main/java/org/javaee7/batch/sample/chunk/partition/MyItemWriter.java
+batch/chunk-partition/src/main/java/org/javaee7/batch/sample/chunk/partition/MyOutputRecord.java
+batch/chunk-simple/src/main/java/org/javaee7/batch/chunk/simple/MyInputRecord.java
+batch/chunk-simple/src/main/java/org/javaee7/batch/chunk/simple/MyItemProcessor.java
+batch/chunk-simple/src/main/java/org/javaee7/batch/chunk/simple/MyItemReader.java
+batch/chunk-simple/src/main/java/org/javaee7/batch/chunk/simple/MyItemWriter.java
+batch/chunk-simple/src/main/java/org/javaee7/batch/chunk/simple/MyOutputRecord.java
+batch/chunk-simple-nobeans/src/main/java/org/javaee7/batch/samples/chunk/simple/nobeans/MyInputRecord.java
+batch/chunk-simple-nobeans/src/main/java/org/javaee7/batch/samples/chunk/simple/nobeans/MyItemProcessor.java
+batch/chunk-simple-nobeans/src/main/java/org/javaee7/batch/samples/chunk/simple/nobeans/MyItemReader.java
+batch/chunk-simple-nobeans/src/main/java/org/javaee7/batch/samples/chunk/simple/nobeans/MyItemWriter.java
+batch/chunk-simple-nobeans/src/main/java/org/javaee7/batch/samples/chunk/simple/nobeans/MyOutputRecord.java
+batch/decision/src/main/java/org/javaee7/batch/decision/MyBatchlet1.java
+batch/decision/src/main/java/org/javaee7/batch/decision/MyBatchlet2.java
+batch/decision/src/main/java/org/javaee7/batch/decision/MyBatchlet3.java
+batch/decision/src/main/java/org/javaee7/batch/decision/MyDecider.java
+batch/flow/src/main/java/org/javaee7/batch/flow/MyBatchlet1.java
+batch/flow/src/main/java/org/javaee7/batch/flow/MyBatchlet2.java
+batch/flow/src/main/java/org/javaee7/batch/flow/MyInputRecord.java
+batch/flow/src/main/java/org/javaee7/batch/flow/MyItemReader.java
+batch/flow/src/main/java/org/javaee7/batch/flow/MyItemWriter.java
+batch/flow/src/main/java/org/javaee7/batch/flow/MyOutputRecord.java
+batch/multiple-steps/src/main/java/org/javaee7/batch/multiple/steps/MyBatchlet.java
+batch/multiple-steps/src/main/java/org/javaee7/batch/multiple/steps/MyInputRecord.java
+batch/multiple-steps/src/main/java/org/javaee7/batch/multiple/steps/MyItemProcessor.java
+batch/multiple-steps/src/main/java/org/javaee7/batch/multiple/steps/MyItemReader.java
+batch/multiple-steps/src/main/java/org/javaee7/batch/multiple/steps/MyItemWriter.java
+batch/multiple-steps/src/main/java/org/javaee7/batch/multiple/steps/MyOutputRecord.java
+batch/split/src/main/java/org/javaee7/batch/split/MyBatchlet1.java
+batch/split/src/main/java/org/javaee7/batch/split/MyBatchlet2.java
+batch/split/src/main/java/org/javaee7/batch/split/MyBatchlet3.java
