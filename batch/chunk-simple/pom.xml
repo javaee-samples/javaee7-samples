@@ -10,13 +10,9 @@
     </parent>
         
     <artifactId>chunk-simple</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
-    <properties>
-        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
-    </properties>
+    <name>Batch Chunk Simple</name>
+    <description>Chunk Processing - Read, Process, Write</description>
 
     <dependencies>
         <dependency>

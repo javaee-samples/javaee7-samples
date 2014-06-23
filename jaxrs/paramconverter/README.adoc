@@ -1,0 +1,7 @@
+= JAX-RS ParamConverter and ParamConverterProvider
+
+This example demonstrate the use of a +ParamConverter+ / +ParamConverterProvider+ to set the request parameters in a user bean 
+that has no constructor with a single +String+ argument, nor +fromValue(String)+ or +valueOf(String)+ methods.
+The +ParamConverter+ is registered by a +ParamConverterProvider+ annotated with +@Provider+. 
+
+The +ParamConverter+ applies to JAX-RS Resource Method parameters annotated with +@MatrixParam+, +@QueryParam+, +@PathParam+, +@CookieParam+ and +@HeaderParam+.

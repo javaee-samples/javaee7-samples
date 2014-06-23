@@ -19,8 +19,10 @@
         <module>async-client</module>
         <module>async-server</module>
         <module>beanvalidation</module>
+        <module>beanparam</module>
         <module>client-negotiation</module>
         <module>dynamicfilter</module>
+        <module>fileupload</module>
         <module>filter</module>
         <module>filter-interceptor</module>
         <module>interceptor</module>
@@ -32,6 +34,7 @@
         <module>link</module>
         <module>mapping-exceptions</module>
         <!--<module>moxy</module>-->
+        <module>paramconverter</module>
         <module>readerwriter</module>
         <module>readerwriter-json</module>
         <module>request-binding</module>

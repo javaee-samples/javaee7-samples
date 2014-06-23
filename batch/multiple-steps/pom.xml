@@ -11,8 +11,8 @@
 
     <artifactId>multiple-steps</artifactId>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
+    <name>Batch Multiple Steps</name>
+    <description>Batch JSL - Executing Multiple Steps</description>
 
     <dependencies>
         <dependency>

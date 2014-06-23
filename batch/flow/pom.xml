@@ -11,8 +11,8 @@
 
     <artifactId>flow</artifactId>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
+    <name>Batch Flow</name>
+    <description>Batch DSL - Flow</description>
 
     <dependencies>
         <dependency>

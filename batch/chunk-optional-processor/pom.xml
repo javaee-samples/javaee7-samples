@@ -10,8 +10,8 @@
 
     <artifactId>chunk-optional-processor</artifactId>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
+    <name>Batch Chunk Optional Processor</name>
+    <description>Chunk Processing - Read and Write</description>
 
     <dependencies>
         <dependency>

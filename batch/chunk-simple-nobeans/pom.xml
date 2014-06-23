@@ -10,8 +10,8 @@
 
     <artifactId>chunk-simple-nobeans</artifactId>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
+    <name>Batch Chunk Simple No Beans</name>
+    <description>Chunk Processing - Read, Process, Write</description>
 
     <dependencies>
         <dependency>
