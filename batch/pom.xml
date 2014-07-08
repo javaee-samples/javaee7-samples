@@ -29,5 +29,6 @@
         <module>multiple-steps</module>
         <module>split</module>
         <module>chunk-simple-nobeans</module>
+        <module>scheduling</module>
     </modules>
 </project>
