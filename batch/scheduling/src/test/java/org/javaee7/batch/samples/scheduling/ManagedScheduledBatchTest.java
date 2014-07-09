@@ -1,12 +1,12 @@
 package org.javaee7.batch.samples.scheduling;
 
-import org.javaee7.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.beans10.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,16 +23,24 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Arquillian.class)
 public class ManagedScheduledBatchTest {
     @Inject
-    private MyStatelessEJB managedScheduledBatch;
+    private MyManagedScheduledBatch managedScheduledBatch;
 
     @Deployment
     public static WebArchive createDeployment() {
+        BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
+
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(BatchTestHelper.class)
-                .addClass(MyBatchlet.class)
-                .addClass(MyJob.class)
-                .addClass(MyStatelessEJB.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+                .addClasses(
+                        MyBatchlet.class,
+                        MyJob.class,
+                        MyJobAlternative.class,
+                        MyManagedScheduledBatch.class,
+                        MyManagedScheduledBatchBean.class,
+                        MyManagedScheduledBatchAlternative.class)
+                .addAsWebInfResource(
+                        new StringAsset(beansXml.createAlternatives().clazz(
+                                MyManagedScheduledBatchAlternative.class.getName()).up().exportAsString()),
+                        beansXml.getDescriptorName())
                 .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
@@ -42,8 +50,9 @@ public class ManagedScheduledBatchTest {
     public void testTimeScheduleBatch() throws Exception {
         managedScheduledBatch.runJob();
 
-        MyJob.managedScheduledCountDownLatch.await(1, TimeUnit.MINUTES);
+        MyJobAlternative.managedScheduledCountDownLatch.await(90, TimeUnit.SECONDS);
 
+        assertEquals(0, MyJobAlternative.managedScheduledCountDownLatch.getCount());
         assertEquals(3, MyJob.executedBatchs.size());
 
         for (Long executedBatch : MyJob.executedBatchs) {
