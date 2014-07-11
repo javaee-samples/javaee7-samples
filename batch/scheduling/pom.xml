@@ -16,8 +16,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.javaee7</groupId>
-            <artifactId>util-samples</artifactId>
+            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+            <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
         </dependency>
     </dependencies>
 </project>
