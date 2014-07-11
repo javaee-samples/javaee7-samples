@@ -13,7 +13,6 @@ import javax.enterprise.inject.Alternative;
 public class MyManagedScheduledBatchAlternative extends MyManagedScheduledBatchBean {
     @Override
     protected MyJob createJob() {
-        System.out.println("MyManagedScheduledBatchAlternative.createJob");
         return new MyJobAlternative();
     }
 }

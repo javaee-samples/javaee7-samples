@@ -12,8 +12,8 @@ import java.util.Properties;
 public abstract class AbstractTimerBatch {
     public static List<Long> executedBatchs = new ArrayList<>();
 
-    @Schedule(hour = "*", minute = "*", second = "*/15")
-    public final void myJob() {
+    @Schedule(hour = "*", minute = "0", second = "0")
+    public void myJob() {
         executedBatchs.add(BatchRuntime.getJobOperator().start("myJob", new Properties()));
         afterRun();
     }
