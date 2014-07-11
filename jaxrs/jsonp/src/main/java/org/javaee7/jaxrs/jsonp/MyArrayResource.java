@@ -39,7 +39,7 @@
  */
 package org.javaee7.jaxrs.jsonp;
 
-import javax.json.JsonObject;
+import javax.json.JsonArray;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -49,12 +49,12 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author Arun Gupta
  */
-@Path("endpoint")
-public class MyResource {
+@Path("array")
+public class MyArrayResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject echoObject(JsonObject jo) {
-        return jo;
+    public JsonArray echoArray(JsonArray ja) {
+        return ja;
     }
 }
