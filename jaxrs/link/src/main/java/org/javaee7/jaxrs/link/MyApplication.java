@@ -37,38 +37,20 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.sample.link;
+package org.javaee7.jaxrs.link;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Link;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 
 /**
  * @author Arun Gupta
  */
-@Path("fruits")
-public class MyResource {
-
-    private String[] response = {"apple", "banana", "mango"};
-
-    @GET
-    public String getList() {
-        System.out.println("endpoint invoked");
-        return response[0];
-    }
-
-    @Path("link")
-    @GET
-    public Response get() throws URISyntaxException {
-        return Response.ok().
-                link("http://oracle.com", "parent").
-                link(new URI("http://jersey.java.net"), "framework").
-                links(
-                Link.fromUri("test1").rel("test1").build(),
-                Link.fromUri("test2").rel("test2").build(),
-                Link.fromUri("test3").rel("test3").build()).build();
-    }
+@ApplicationPath("webresources")
+public class MyApplication extends Application {
+//    @Override
+//    public Set<Class<?>> getClasses() {
+//        Set<Class<?>> resources = new java.util.HashSet<>();
+//        resources.add(MyResource.class);
+//        return resources;
+//    }
 }
