@@ -49,13 +49,8 @@
         <title>Show Cookies</title>
     </head>
     <body>
-        <h1>Show Cookies</h1>
-
         <script type="text/javascript">
             document.write(document.cookie);
         </script>
-        <br/><br/>
-        "myHttpOnlyCookieKey" cookie is not visible, right ?
-        </form>
     </body>
 </html>

@@ -1,7 +1,10 @@
 package org.javaee7.servlet.programmatic.login;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebConversation;
+import com.gargoylesoftware.htmlunit.HttpMethod;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.WebResponse;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,9 +38,13 @@ public class LoginServletTest {
 
     @Test
     public void testUnauthenticatedRequest() throws IOException, SAXException {
-        WebConversation conv = new WebConversation();
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/LoginServlet");
-        String responseText = conv.getResponse(getRequest).getText();
+        WebClient webClient = new WebClient();
+        HtmlPage page = webClient.getPage(base + "/LoginServlet");
+        String responseText = page.asText();
+        
+//        WebRequest request = new WebRequest(new URL(base + "/LoginServlet"), HttpMethod.GET);
+//        WebResponse response = webClient.getWebConnection().getResponse(request);
+//        String responseText = response.getContentAsString();
 
         assert(responseText.contains("isUserInRole?false"));
         assert(responseText.contains("getRemoteUser?null"));
@@ -48,12 +55,12 @@ public class LoginServletTest {
 
     @Test
     public void testAuthenticatedRequest() throws IOException, SAXException {
-        WebConversation conv = new WebConversation();
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/LoginServlet?user=u1&password=p1");
-        String responseText = conv.getResponse(getRequest).getText();
+        WebClient webClient = new WebClient();
+        WebRequest request = new WebRequest(new URL(base + "/LoginServlet?user=u1&password=p1"), HttpMethod.GET);
+        WebResponse response = webClient.getWebConnection().getResponse(request);
+        String responseText = response.getContentAsString();
         System.out.println(responseText);
         
-
         assert(responseText.contains("isUserInRole?true"));
         assert(responseText.contains("getRemoteUser?u1"));
         assert(responseText.contains("getUserPrincipal?u1"));
