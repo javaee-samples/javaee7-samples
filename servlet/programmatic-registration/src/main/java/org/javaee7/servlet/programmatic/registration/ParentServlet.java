@@ -2,11 +2,6 @@ package org.javaee7.servlet.programmatic.registration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.annotation.Resource;
-import javax.enterprise.concurrent.ManagedExecutorService;
-import javax.servlet.AsyncContext;
-import javax.servlet.AsyncEvent;
-import javax.servlet.AsyncListener;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
