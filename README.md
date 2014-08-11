@@ -71,6 +71,10 @@ When developing and runing them from IDE, remember to activate the profile befor
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
 
+### Importing in Eclipse ###
+
+To import the samples in an Eclipse workspace, please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
+
 ## How to contribute ##
 
 With your help we can improve this set of samples, learn from each other and grow the community full of passionate people who care about the technology, innovation and code quality. Every contribution matters!
