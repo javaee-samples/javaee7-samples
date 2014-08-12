@@ -17,6 +17,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
@@ -49,6 +50,8 @@ public class NoteResourceImplTest {
         return ShrinkWrap.create(WebArchive.class, NoteResourceImplTest.class.getSimpleName() + ".war")
             .addClasses(Note.class, NoteApp.class, NoteResource.class, NoteResourceImpl.class)
             .addAsResource("META-INF/persistence.xml")
+            .addAsWebInfResource("enforce-beans.xml", "jboss-all.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             .addAsLibraries(seleniumApi)
             .merge(webResources);
     }
