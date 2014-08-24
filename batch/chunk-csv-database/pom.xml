@@ -11,6 +11,8 @@
         
     <artifactId>chunk-csv-database</artifactId>
     <packaging>war</packaging>
+    <name>Batch Chunk CSV Database</name>
+    <description>Chunk Processing - Read, Process, Write to a Database</description>
 
     <dependencies>
         <dependency>

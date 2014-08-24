@@ -2,7 +2,7 @@
 
 This workspace consists of Java EE 7 Samples and unit tests. They are categorized in different directories, one for each Technology/JSR.
 
-Some samples/tests have documentataion otherwise read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to most these samples and provide an explanation. Feel free to add docs and send a pull request.
+Some samples/tests have documentation otherwise read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to most these samples and provide an explanation. Feel free to add docs and send a pull request.
 
 ## How to run ? ##
 
@@ -70,6 +70,10 @@ To run them in the console do:
 When developing and runing them from IDE, remember to activate the profile before running the test.
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
+
+### Importing in Eclipse ###
+
+To import the samples in an Eclipse workspace, please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
 
 ## How to contribute ##
 

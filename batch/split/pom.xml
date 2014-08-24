@@ -11,8 +11,8 @@
 
     <artifactId>split</artifactId>
     <packaging>war</packaging>
-
-    <name>${project.artifactId}</name>
+    <name>Batch Split</name>
+    <description>Batch JSL - Splitting Steps</description>
 
     <dependencies>
         <dependency>

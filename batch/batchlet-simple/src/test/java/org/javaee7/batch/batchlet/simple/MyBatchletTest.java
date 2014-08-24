@@ -31,7 +31,9 @@ import static org.junit.Assert.assertEquals;
  * want to achieve with the Batchlet itself. Common cases include: copy files to process with a chunk oriented step,
  * startup and cleanup, or validations to your processing workflow.
  *
- * To run your Batchlet, just add it to the job xml file (+myjob.xml+).
+ * To run your Batchlet, just add it to the job xml file (+myJob.xml+).
+ *
+ * include::myJob.xml[]
  *
  * @author Roberto Cortez
  */
@@ -42,10 +44,10 @@ public class MyBatchletTest {
      *
      * [source,file]
      * ----
-     * /META-INF/batch-jobs/myjob.xml
+     * /META-INF/batch-jobs/myJob.xml
      * ----
      *
-     * The +myjob.xml+ file is needed for running the batch definition.
+     * The +myJob.xml+ file is needed for running the batch definition.
      */
     @Deployment
     public static WebArchive createDeployment() {
@@ -60,8 +62,8 @@ public class MyBatchletTest {
 
     /**
      * In the test, we're just going to invoke the batch execution and wait for completion. To validate the test
-     * expected behaviour we just need to check the Batch Status in the +JbExecution+ object. We should get a
-     * +BatchStatus.COMPLETED+.
+     * expected behaviour we just need to check the Batch Status in the +javax.batch.runtime.JobExecution+ object. We
+     * should get a +javax.batch.runtime.BatchStatus.COMPLETED+.
      *
      * @throws Exception an exception if the batch could not complete successfully.
      */
@@ -73,6 +75,7 @@ public class MyBatchletTest {
 
         BatchTestHelper.keepTestAlive(jobExecution);
 
+        // <1> Job should be completed.
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.javaee7.jaxrs.beanvalidation;
 
 import static org.junit.Assert.assertEquals;
@@ -18,6 +13,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,8 +32,8 @@ public class MyResourceTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(MyApplication.class, MyResource.class);
+        return ShrinkWrap.create(WebArchive.class)
+                .addClasses(MyApplication.class, MyResource.class);
     }
     private static WebTarget target;
 
@@ -64,6 +60,55 @@ public class MyResourceTest {
     public void testValidRequest() {
         String r = target.request().post(Entity.text("foo"), String.class);
         assertEquals("foo", r);
+    }
+
+    @Test
+    public void testValidPostRequest() {
+        MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();
+        map.add("name", "Penny");
+        map.add("age", "1");
+        target.request().post(Entity.form(map));
+
+        map.clear();
+        map.add("name", "Leonard");
+        map.add("age", "2");
+        target.request().post(Entity.form(map));
+    }
+
+    @Test
+    public void testInvalidPostRequest() {
+        try {
+            MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();
+            map.add("name", null);
+            map.add("age", "1");
+            target.request().post(Entity.form(map));
+        } catch (BadRequestException e) {
+            assertNotNull(e);
+        }
+    }
+
+    @Test
+    public void testInvalidPostRequestLesserAge() {
+        try {
+            MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();
+            map.add("name", "Penny");
+            map.add("age", "0");
+            target.request().post(Entity.form(map));
+        } catch (BadRequestException e) {
+            assertNotNull(e);
+        }
+    }
+
+    @Test
+    public void testInvalidPostRequestGreaterAge() {
+        try {
+            MultivaluedHashMap<String, String> map = new MultivaluedHashMap<>();
+            map.add("name", "Penny");
+            map.add("age", "11");
+            target.request().post(Entity.form(map));
+        } catch (BadRequestException e) {
+            assertNotNull(e);
+        }
     }
 
 }

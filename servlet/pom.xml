@@ -33,5 +33,6 @@
 <!--        <module>security-annotated</module>
         <module>security-digest</module>-->
         <module>security-basicauth-omission</module>
+        <module>programmatic-registration</module>
     </modules>
 </project>

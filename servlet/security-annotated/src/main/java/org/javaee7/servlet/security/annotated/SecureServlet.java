@@ -2,6 +2,7 @@ package org.javaee7.servlet.security.annotated;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
 import javax.servlet.annotation.HttpMethodConstraint;
@@ -15,11 +16,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author Arun Gupta
  */
 @WebServlet("/SecureServlet")
-@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"g1"}),
-        httpMethodConstraints = {
-            @HttpMethodConstraint(value = "GET", rolesAllowed = {"g1"}),
-            @HttpMethodConstraint(value = "POST", rolesAllowed = {"g1"})
-        })
+//@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"g1"}),
+//        httpMethodConstraints = {
+//            @HttpMethodConstraint(value = "GET", rolesAllowed = {"g1"}),
+//            @HttpMethodConstraint(value = "POST", rolesAllowed = {"g1"})
+//        })
+@ServletSecurity(@HttpConstraint(rolesAllowed={"g1"}))
+@RolesAllowed("g1")
 public class SecureServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String method)
