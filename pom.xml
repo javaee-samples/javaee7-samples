@@ -465,6 +465,7 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <arquillian.launch>wildfly</arquillian.launch>
                             </systemPropertyVariables>
                             <environmentVariables>
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
@@ -559,6 +560,9 @@
                             <environmentVariables>
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
                             </environmentVariables>
+                            <systemPropertyVariables>
+                                <arquillian.launch>wildfly</arquillian.launch>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
