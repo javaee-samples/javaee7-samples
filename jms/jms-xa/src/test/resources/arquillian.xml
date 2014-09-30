@@ -8,4 +8,10 @@
         <property name="deploymentExportPath">target/deployment</property>
     </engine>
 
+    <container qualifier="wildfly">
+        <configuration>
+            <property name="serverConfig">standalone-full.xml</property>
+        </configuration>
+    </container>
+
 </arquillian>
