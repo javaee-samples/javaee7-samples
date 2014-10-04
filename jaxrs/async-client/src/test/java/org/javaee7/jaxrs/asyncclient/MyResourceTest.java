@@ -44,7 +44,7 @@ public class MyResourceTest {
     
     /**
      * Since +JAX-RS+ webservices are, well, web related and require a
-     * web contex, they are required to be deployed within a +web archive+.
+     * web context, they are required to be deployed within a +web archive+.
      * By default, +JAX-RS+ will perform autodiscovery of our services.
      * That means there is no need to add a +web.xml+ in this scenario.
      * 
@@ -83,7 +83,7 @@ public class MyResourceTest {
      * 
      * include::MyResourceTest#setUpClass[]
      *
-     * Now we're free to invoke our deployed service by using the +JAX-RS+
+     * Now we are free to invoke our deployed service by using the +JAX-RS+
      * client library.
      * 
      * The asynchronous client library comes with multiple option on how
