@@ -34,6 +34,16 @@ There are 4 available container profiles:
     reuse this instance to run the tests.
     Useful for development to avoid the server start up cost per sample.
 
+Each of the containers allow you to override the version used
+
+* `-Dorg.wildfly=8.1.0.Final`
+
+    This will change the version from 8.0.0 to 8.1.0.Final for WildFly.
+
+* `-Dglassfish.version=4.1`
+
+    This will change the version from 4.0 to 4.1 for GlassFish testing purposes.
+
 Similarly, there are 6 profiles to choose a browser to test on:
 
 * ``browser-firefox``
@@ -99,5 +109,5 @@ That's it! Welcome in the community!
 
 ## CI Job ##
 
-* [WildFly](https://arungupta.ci.cloudbees.com/job/javaee7-samples-on-wildfly-cb/)
-* [GlassFish](https://arungupta.ci.cloudbees.com/job/Java%20EE%207%20Samples%20on%20GlassFish-cb/)
+* [WildFly](https://javaee-support.ci.cloudbees.com/job/javaee7-pull-request-builder/)
+* [GlassFish](https://javaee-support.ci.cloudbees.com/job/javaee7-pull-request-builder-glassfish/)
