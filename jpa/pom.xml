@@ -29,6 +29,7 @@
         <module>jndi-context</module>
         <module>locking-optimistic</module>
         <module>locking-pessimistic</module>
+        <module>ordercolumn</module>
         <module>pu-typesafe</module>
         <module>schema-gen-metadata</module>
         <module>schema-gen-scripts</module>
