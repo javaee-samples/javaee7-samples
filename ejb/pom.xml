@@ -23,4 +23,11 @@
         <module>timer</module>
         <module>async-ejb</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.javaee7</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

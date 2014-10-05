@@ -32,6 +32,7 @@
     </prerequisites>
 
     <modules>
+      <module>test-utils</module>
       <module>batch</module>
       <module>cdi</module>
       <module>concurrency</module>
