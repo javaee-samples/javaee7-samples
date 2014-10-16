@@ -1,0 +1,7 @@
+Install JavaFX library locally:
+
+[source,text]
+----
+mvn install:install-file -Dfile=$JAVA_HOME/jre/lib/ext/jfxrt.jar -DgroupId=com.oracle -DartifactId=javafx -Dversion=1.8-ea-b123 -Dpackaging=jar
+----
+
