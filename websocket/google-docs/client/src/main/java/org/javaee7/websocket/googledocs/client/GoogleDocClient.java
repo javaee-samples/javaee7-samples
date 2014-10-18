@@ -6,20 +6,28 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
+import javax.websocket.ClientEndpoint;
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 /**
  * @author Arun Gupta
  */
+@ClientEndpoint
 public class GoogleDocClient extends Application {
+
+    static TextArea textarea;
 
     public static void main(String[] args) {
         launch(args);
@@ -30,22 +38,18 @@ public class GoogleDocClient extends Application {
         final Session session = connectToServer();
         System.out.println("Connected to server: " + session.getId());
         stage.setTitle("Google Docs Emulator using WebSocket");
-        TextArea textarea = new TextArea();
+        textarea = new TextArea();
         textarea.textProperty().addListener(
                 new ChangeListener<String>() {
 
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                         System.out.println("New value: " + newValue);
-                        for (Session peer : session.getOpenSessions()) {
-                            System.out.println("Trying to send data...");
-                            if (!peer.equals(session)) {
-                                try {
-                                    peer.getBasicRemote().sendText(newValue);
-                                } catch (IOException ex) {
-                                    Logger.getLogger(GoogleDocClient.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
+
+                        try {
+                            session.getBasicRemote().sendText(newValue);
+                        } catch (IOException ex) {
+                            Logger.getLogger(GoogleDocClient.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
 
@@ -59,9 +63,27 @@ public class GoogleDocClient extends Application {
         stage.show();
     }
 
+    @OnOpen
+    public void onOpen(Session session) {
+        System.out.println("Connected to endpoint: " + session.getBasicRemote());
+    }
+
+    @OnMessage
+    public void onMessage(String message, Session session) throws IOException {
+        final String newMessage = message;
+        System.out.println("Received message in client: " + message);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                textarea.setText(newMessage);
+            }
+        });
+
+    }
+
     private Session connectToServer() throws URISyntaxException, DeploymentException, IOException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-        return container.connectToServer(MyClient.class, new URI("ws://localhost:8080/server/websocket"));
+        return container.connectToServer(GoogleDocClient.class, new URI("ws://localhost:8080/server/websocket"));
     }
 
 }
