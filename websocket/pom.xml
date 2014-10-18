@@ -45,6 +45,7 @@
         <module>whiteboard</module>
         <module>endpoint-singleton</module>
         <module>websocket-vs-rest-payload</module>
+        <module>google-docs</module>
     </modules>
     <dependencies>
         <dependency>
