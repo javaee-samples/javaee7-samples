@@ -76,6 +76,7 @@ public class GoogleDocClient extends Application {
             @Override
             public void run() {
                 textarea.setText(newMessage);
+                textarea.positionCaret(newMessage.length());
             }
         });
 
