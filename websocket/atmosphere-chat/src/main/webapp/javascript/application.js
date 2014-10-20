@@ -44,7 +44,7 @@ $(function () {
         content.html($('<p>', { text: 'Atmosphere re-connected using ' + response.transport }));
     };
 
-    <!-- For demonstration of how you can customize the fallbackTransport using the onTransportFailure function -->
+    // For demonstration of how you can customize the fallbackTransport using the onTransportFailure function
     request.onTransportFailure = function(errorMsg, request) {
         atmosphere.util.info(errorMsg);
         request.fallbackTransport = "long-polling";
