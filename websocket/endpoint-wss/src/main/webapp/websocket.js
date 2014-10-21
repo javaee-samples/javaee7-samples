@@ -1,4 +1,5 @@
-var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
+var wsUri = "wss://" + document.location.host + document.location.pathname + "websocket";
+//var wsUri = "ws://localhost:8080" + document.location.pathname + "websocket";
 console.log("Connecting to " + wsUri);
 var websocket = new WebSocket(wsUri);
 websocket.onopen = function(evt) { onOpen(evt) };
