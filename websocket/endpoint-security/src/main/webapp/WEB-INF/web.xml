@@ -7,7 +7,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>WebSocket Endpoint</web-resource-name>
-            <url-pattern>/websocket</url-pattern>
+            <url-pattern>/*</url-pattern>
             <http-method>GET</http-method>
         </web-resource-collection>
         <auth-constraint>
