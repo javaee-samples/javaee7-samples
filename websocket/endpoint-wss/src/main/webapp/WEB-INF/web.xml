@@ -7,7 +7,7 @@
     
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Viewpoint Secure URLs</web-resource-name>
+            <web-resource-name>Secure WebSocket</web-resource-name>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
