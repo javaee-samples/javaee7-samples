@@ -21,12 +21,7 @@ public class MyItemReader extends AbstractItemReader {
     public void open(Serializable checkpoint) throws Exception {
         reader = new BufferedReader(
                 new InputStreamReader(
-                    this
-                    .getClass()
-                    .getClassLoader()
-                    .getResourceAsStream("/META-INF/mydata.csv")
-                )
-            );
+                        Thread.currentThread().getContextClassLoader().getResourceAsStream("/META-INF/mydata.csv")));
     }
 
     @Override
