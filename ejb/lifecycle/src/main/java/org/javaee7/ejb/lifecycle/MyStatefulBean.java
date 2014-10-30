@@ -35,12 +35,12 @@ public class MyStatefulBean {
     }
 
     @PrePassivate
-    private void prePassivate(InvocationContext context) {
+    private void prePassivate() {
         System.out.println("MyStatefulBean.prePassivate");
     }
     
     @PostActivate
-    private void postActivate(InvocationContext context) {
+    private void postActivate() {
         System.out.println("MyStatefulBean.postActivate");
     }
     
