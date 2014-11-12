@@ -1,100 +1,78 @@
 package org.javaee7.jpa.entitygraph;
 
-import java.io.Serializable;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Arun Gupta
  */
 @Entity
 @Table(name = "MOVIE_ENTITY_GRAPH")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
-    @NamedQuery(name = "Movie.findById", query = "SELECT m FROM Movie m WHERE m.id = :id")})
-@NamedEntityGraph(attributeNodes = { @NamedAttributeNode("name") })
+    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m")
+})
+@NamedEntityGraphs({
+    @NamedEntityGraph(
+        name = "movieWithActors",
+        attributeNodes = {
+            @NamedAttributeNode("movieActors")
+        }
+    ),
+    @NamedEntityGraph(
+        name = "movieWithActorsAndAwards",
+        attributeNodes = {
+            @NamedAttributeNode(value = "movieActors", subgraph = "movieActorsGraph")
+        },
+        subgraphs = {
+            @NamedSubgraph(
+                    name = "movieActorsGraph",
+                    attributeNodes = {
+                        @NamedAttributeNode("movieActorAwards")
+                    }
+            )
+        }
+    )
+})
 public class Movie implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
-    @NotNull
-    @Column(name = "ID")
     private Integer id;
-    
+
+    @NotNull
     @Size(max = 50)
-    @Column(name = "NAME")
     private String name;
-    
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "movieEntityGraph")
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "movieEntityGraph", fetch = FetchType.LAZY)
-    private MovieActors movieActors;
 
-    public Movie() {
-    }
+    @OneToMany
+    @JoinColumn(name = "ID")
+    private List<MovieActor> movieActors;
 
-    public Movie(Integer id) {
-        this.id = id;
-    }
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID")
+    private List<MovieDirector> movieDirectors;
 
-    public Integer getId() {
-        return id;
-    }
+    @OneToMany
+    @JoinColumn(name = "ID")
+    private List<MovieAward> movieAwards;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public MovieActors getMovieActors() {
+    public List<MovieActor> getMovieActors() {
         return movieActors;
     }
 
-    public void setMovieActors(MovieActors movieActors) {
-        this.movieActors = movieActors;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        return id.equals(movie.id);
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Movie)) {
-            return false;
-        }
-        Movie other = (Movie) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.glassfish.enttygraph.MovieEntityGraph[ id=" + id + " ]";
+        return id.hashCode();
     }
 }
