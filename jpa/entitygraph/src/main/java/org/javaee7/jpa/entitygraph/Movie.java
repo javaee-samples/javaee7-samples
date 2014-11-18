@@ -47,17 +47,17 @@ public class Movie implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "ID")
-    private List<MovieActor> movieActors;
+    private Set<MovieActor> movieActors;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID")
-    private List<MovieDirector> movieDirectors;
+    private Set<MovieDirector> movieDirectors;
 
     @OneToMany
     @JoinColumn(name = "ID")
-    private List<MovieAward> movieAwards;
+    private Set<MovieAward> movieAwards;
 
-    public List<MovieActor> getMovieActors() {
+    public Set<MovieActor> getMovieActors() {
         return movieActors;
     }
 

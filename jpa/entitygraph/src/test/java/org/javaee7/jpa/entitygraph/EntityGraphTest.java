@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnitUtil;
@@ -19,6 +20,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * In this sample we're going to query a +JPA Entity+ and control property loading by providing +Hints+ using the new
  * +JPA Entity Graph+ API.
+ * <p/>
+ * Entity Graphs are used in the specification of fetch plans for query or find operations.
  *
  * @author Roberto Cortez
  */
@@ -44,7 +47,7 @@ public class EntityGraphTest {
     @Test
     public void testEntityGraphMovieDefault() throws Exception {
         PersistenceUnitUtil persistenceUnitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
-        List<Movie> listMoviesDefaultFetch = movieBean.listMoviesDefault();
+        List<Movie> listMoviesDefaultFetch = movieBean.listMovies();
         for (Movie movie : listMoviesDefaultFetch) {
             assertFalse(persistenceUnitUtil.isLoaded(movie, "movieActors"));
             assertTrue(persistenceUnitUtil.isLoaded(movie, "movieDirectors"));
@@ -55,7 +58,7 @@ public class EntityGraphTest {
     @Test
     public void testEntityGraphMovieWithActors() throws Exception {
         PersistenceUnitUtil persistenceUnitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
-        List<Movie> listMoviesWithActorsFetch = movieBean.listMoviesWithActorsFetch();
+        List<Movie> listMoviesWithActorsFetch = movieBean.listMovies("javax.persistence.fetchgraph", "movieWithActors");
         for (Movie movie : listMoviesWithActorsFetch) {
             assertTrue(persistenceUnitUtil.isLoaded(movie, "movieActors"));
             assertFalse(movie.getMovieActors().isEmpty());
@@ -68,11 +71,11 @@ public class EntityGraphTest {
             // EAGER (movieDirectors), but specification also states that the persistence provider is allowed to fetch
             // additional state.
             assertTrue(persistenceUnitUtil.isLoaded(movie, "movieDirectors") ||
-                    !persistenceUnitUtil.isLoaded(movie, "movieDirectors"));
+                       !persistenceUnitUtil.isLoaded(movie, "movieDirectors"));
             assertFalse(persistenceUnitUtil.isLoaded(movie, "movieAwards"));
         }
 
-        List<Movie> listMoviesWithActorsLoad = movieBean.listMoviesWithActorsLoad();
+        List<Movie> listMoviesWithActorsLoad = movieBean.listMovies("javax.persistence.loadgraph", "movieWithActors");
         for (Movie movie : listMoviesWithActorsLoad) {
             // https://java.net/jira/browse/GLASSFISH-21200
             // Glassfish is not processing "javax.persistence.loadgraph".
@@ -90,13 +93,14 @@ public class EntityGraphTest {
     @Test
     public void testEntityGraphMovieWithActorsAndAwards() throws Exception {
         PersistenceUnitUtil persistenceUnitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
-        List<Movie> listMoviesWithActorsFetch = movieBean.listMoviesWithActorsAndAwardsFetch();
+        List<Movie> listMoviesWithActorsFetch =
+                movieBean.listMovies("javax.persistence.fetchgraph", "movieWithActorsAndAwards");
         for (Movie movie : listMoviesWithActorsFetch) {
             assertTrue(persistenceUnitUtil.isLoaded(movie, "movieActors"));
             assertFalse(movie.getMovieActors().isEmpty());
             for (MovieActor movieActor : movie.getMovieActors()) {
                 assertTrue(persistenceUnitUtil.isLoaded(movieActor, "movieActorAwards") ||
-                        !persistenceUnitUtil.isLoaded(movieActor, "movieActorAwards"));
+                           !persistenceUnitUtil.isLoaded(movieActor, "movieActorAwards"));
             }
 
             // https://hibernate.atlassian.net/browse/HHH-8776
@@ -104,11 +108,12 @@ public class EntityGraphTest {
             // EAGER (movieDirectors), but specification also states that the persistence provider is allowed to fetch
             // additional state.
             assertTrue(persistenceUnitUtil.isLoaded(movie, "movieDirectors") ||
-                    !persistenceUnitUtil.isLoaded(movie, "movieDirectors"));
+                       !persistenceUnitUtil.isLoaded(movie, "movieDirectors"));
             assertFalse(persistenceUnitUtil.isLoaded(movie, "movieAwards"));
         }
 
-        List<Movie> listMoviesWithActorsLoad = movieBean.listMoviesWithActorsAndAwardsLoad();
+        List<Movie> listMoviesWithActorsLoad =
+                movieBean.listMovies("javax.persistence.loadgraph", "movieWithActorsAndAwards");
         for (Movie movie : listMoviesWithActorsLoad) {
             // https://java.net/jira/browse/GLASSFISH-21200
             // Glassfish is not processing "javax.persistence.loadgraph".
@@ -120,6 +125,23 @@ public class EntityGraphTest {
 
             assertTrue(persistenceUnitUtil.isLoaded(movie, "movieDirectors"));
             assertFalse(persistenceUnitUtil.isLoaded(movie, "movieAwards"));
+        }
+    }
+
+    @Test
+    public void testEntityGraphProgrammatically() throws Exception {
+        PersistenceUnitUtil persistenceUnitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
+
+        EntityGraph<Movie> fetchAll = entityManager.createEntityGraph(Movie.class);
+        fetchAll.addSubgraph(Movie_.movieActors);
+        fetchAll.addSubgraph(Movie_.movieDirectors);
+        fetchAll.addSubgraph(Movie_.movieAwards);
+
+        List<Movie> moviesFetchAll = movieBean.listMovies("javax.persistence.fetchgraph", fetchAll);
+        for (Movie movie : moviesFetchAll) {
+            assertTrue(persistenceUnitUtil.isLoaded(movie, "movieActors"));
+            assertTrue(persistenceUnitUtil.isLoaded(movie, "movieDirectors"));
+            assertTrue(persistenceUnitUtil.isLoaded(movie, "movieAwards"));
         }
     }
 }
