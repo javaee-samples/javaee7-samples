@@ -109,5 +109,6 @@ That's it! Welcome in the community!
 
 ## CI Job ##
 
-* [WildFly](https://javaee-support.ci.cloudbees.com/job/javaee7-pull-request-builder/)
-* [GlassFish](https://javaee-support.ci.cloudbees.com/job/javaee7-pull-request-builder-glassfish/)
+* [WildFly](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-wildfly-8.1/)
+* [GlassFish](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-glassfish-4.1/)
+* [TomEE](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-tomee-2.0/)
