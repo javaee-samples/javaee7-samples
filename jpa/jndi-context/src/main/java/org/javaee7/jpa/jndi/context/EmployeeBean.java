@@ -17,8 +17,7 @@ import javax.persistence.PersistenceContext;
 @PersistenceContext(name = "persistence/myJNDI", unitName = "MyPU")
 @Stateless
 public class EmployeeBean {
-
-    EntityManager em;
+    private EntityManager em;
     
     @PostConstruct
     public void postConstruct() {
