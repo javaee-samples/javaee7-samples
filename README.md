@@ -112,3 +112,24 @@ That's it! Welcome in the community!
 * [WildFly](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-wildfly-8.1/)
 * [GlassFish](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-glassfish-4.1/)
 * [TomEE](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-tomee-2.0/)
+
+## Run each sample in Docker
+
+. Install Docker client from http://boot2docker.io/
+. Build the sample that you want to run as
+
+``mvn clean package -DskipTests``
+
+For example:
+
+``mvn -f jaxrs/jaxrs-client/pom.xml clean package -DskipTests``
+
+. Change the second line in ``Dockerfile`` to specify the location of the generated WAR file
+. Run boot2docker and give the command
+
+``docker build -it -p 80:8080 javaee7-sample``
+. In a different shell, find out the IP address of the running container as:
+
+``boot2docker ip``
+. Access the sample as http://<IP>:80/jaxrs-client/webresources/persons
+
