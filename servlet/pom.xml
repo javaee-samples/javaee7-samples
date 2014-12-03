@@ -34,6 +34,7 @@
         <module>security-digest</module>-->
         <module>security-basicauth-omission</module>
         <module>programmatic-registration</module>
+        <module>simple-servlet</module>
     </modules>
     <dependencies>
         <dependency>
