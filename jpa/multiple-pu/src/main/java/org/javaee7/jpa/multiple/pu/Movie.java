@@ -1,54 +1,30 @@
 package org.javaee7.jpa.multiple.pu;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * @author Arun Gupta
  */
 @Entity
-@Table(name = "MOVIE_LISTENER")
-@XmlRootElement
+@Table(name = "MOVIE_MULTIPLE_PU")
 @NamedQueries({
-    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
-    @NamedQuery(name = "Movie.findById", query = "SELECT m FROM Movie m WHERE m.id = :id"),
-    @NamedQuery(name = "Movie.findByName", query = "SELECT m FROM Movie m WHERE m.name = :name"),
-    @NamedQuery(name = "Movie.findByActors", query = "SELECT m FROM Movie m WHERE m.actors = :actors")})
+        @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
+})
 public class Movie implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
     @NotNull
     private Integer id;
-    
+
     @NotNull
     @Size(min = 1, max = 50)
     private String name;
-    
+
     @NotNull
     @Size(min = 1, max = 200)
     private String actors;
-
-    public Movie() {
-    }
-
-    public Movie(Integer id) {
-        this.id = id;
-    }
-
-    public Movie(Integer id, String name, String actors) {
-        this.id = id;
-        this.name = name;
-        this.actors = actors;
-    }
 
     public Integer getId() {
         return id;
@@ -75,7 +51,17 @@ public class Movie implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return name;
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+
+        Movie movie = (Movie) o;
+
+        return id.equals(movie.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }
