@@ -10,13 +10,10 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class MySessionBean {
-    
-    @Inject @DefaultDatabase
-    EntityManager defaultEM;
+    @Inject
+    @DefaultDatabase
+    private EntityManager defaultEM;
 
-//    @PersistenceContext(unitName = "defaultPU")
-//    EntityManager defaultEM;
-//
     public List<Movie> listMovies() {
         return defaultEM.createNamedQuery("Movie.findAll", Movie.class).getResultList();
     }

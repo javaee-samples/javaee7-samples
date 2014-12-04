@@ -10,7 +10,8 @@ import javax.persistence.PersistenceContext;
  */
 @ManagedBean
 public class ProducerBean {
-
-    static @Produces @PersistenceContext(unitName = "defaultPU") @DefaultDatabase EntityManager defaultEM;
-
+    @Produces
+    @PersistenceContext(unitName = "defaultPU")
+    @DefaultDatabase
+    private static EntityManager defaultEM;
 }
