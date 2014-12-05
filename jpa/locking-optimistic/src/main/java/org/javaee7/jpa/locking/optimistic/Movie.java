@@ -1,55 +1,33 @@
 package org.javaee7.jpa.locking.optimistic;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * @author Arun Gupta
  */
 @Entity
 @Table(name = "MOVIE_OPTIMISTIC")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
-    @NamedQuery(name = "Movie.findById", query = "SELECT m FROM Movie m WHERE m.id = :id"),
-    @NamedQuery(name = "Movie.findByName", query = "SELECT m FROM Movie m WHERE m.name = :name"),
-    @NamedQuery(name = "Movie.findByActors", query = "SELECT m FROM Movie m WHERE m.actors = :actors")})
+        @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
+})
 public class Movie implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @NotNull
     private Integer id;
 
-    @Version int version;
-    
+    @Version
+    private Integer version;
+
     @NotNull
     @Size(min = 1, max = 50)
     private String name;
-    
+
     @NotNull
     @Size(min = 1, max = 200)
     private String actors;
-    
-    public Movie() {
-    }
-
-    public Movie(Integer id) {
-        this.id = id;
-    }
-
-    public Movie(Integer id, String name, String actors) {
-        this.id = id;
-        this.name = name;
-        this.actors = actors;
-    }
 
     public Integer getId() {
         return id;
@@ -57,6 +35,14 @@ public class Movie implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public String getName() {
@@ -75,17 +61,35 @@ public class Movie implements Serializable {
         this.actors = actors;
     }
 
-    public int getVersion() {
-        return version;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+
+        Movie movie = (Movie) o;
+
+        return id.equals(movie.id) && version.equals(movie.version);
     }
 
-    public void setVersion(int version) {
-        this.version = version;
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + version.hashCode();
+        return result;
     }
-    
+
     @Override
     public String toString() {
-        return name;
+        return "Movie{id=" +
+               id +
+               ", version=" +
+               version +
+               ", name='" +
+               name +
+               '\'' +
+               ", actors='" +
+               actors +
+               '\'' +
+               '}';
     }
-    
 }
