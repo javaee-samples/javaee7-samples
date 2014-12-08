@@ -735,6 +735,8 @@
                                         exposedPorts: [8080/tcp, 9990/tcp]
                                         await:
                                             strategy: polling
+                                            sleepPollingTime: 1000
+                                            iterations: 5
                                         portBindings:
                                             - exposedPort: 8080/tcp
                                               port: 8080
