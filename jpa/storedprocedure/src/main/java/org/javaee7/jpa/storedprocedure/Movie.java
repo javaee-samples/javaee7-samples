@@ -16,39 +16,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "MOVIE_STORED_PROCEDURE")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
-    @NamedQuery(name = "Movie.findById", query = "SELECT m FROM Movie m WHERE m.id = :id"),
-    @NamedQuery(name = "Movie.findByName", query = "SELECT m FROM Movie m WHERE m.name = :name"),
-    @NamedQuery(name = "Movie.findByActors", query = "SELECT m FROM Movie m WHERE m.actors = :actors")})
-@NamedStoredProcedureQuery(name = "mySP", procedureName = "top10Movies")
+})
+@NamedStoredProcedureQuery(name = "top10Movies", procedureName = "top10Movies")
 public class Movie implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @NotNull
     private Integer id;
-    
+
     @NotNull
     @Size(min = 1, max = 50)
     private String name;
-    
+
     @NotNull
     @Size(min = 1, max = 200)
     private String actors;
-    
-    public Movie() {
-    }
-
-    public Movie(Integer id) {
-        this.id = id;
-    }
-
-    public Movie(Integer id, String name, String actors) {
-        this.id = id;
-        this.name = name;
-        this.actors = actors;
-    }
 
     public Integer getId() {
         return id;
@@ -73,10 +56,4 @@ public class Movie implements Serializable {
     public void setActors(String actors) {
         this.actors = actors;
     }
-
-    @Override
-    public String toString() {
-        return name;
-    }
-    
 }
