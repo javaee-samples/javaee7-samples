@@ -13,7 +13,9 @@ import java.util.Set;
 @Entity
 @Table(name = "MOVIE_ENTITY_GRAPH")
 @NamedQueries({
-    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m")
+    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
+    @NamedQuery(name = "Movie.findAllById", query = "SELECT m FROM Movie m WHERE m.id = :movieId"),
+    @NamedQuery(name = "Movie.findAllByIds", query = "SELECT m FROM Movie m WHERE m.id IN :movieIds")
 })
 @NamedEntityGraphs({
     @NamedEntityGraph(
@@ -56,6 +58,10 @@ public class Movie implements Serializable {
     @OneToMany
     @JoinColumn(name = "ID")
     private Set<MovieAward> movieAwards;
+
+    public Integer getId() {
+        return id;
+    }
 
     public Set<MovieActor> getMovieActors() {
         return movieActors;
