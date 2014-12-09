@@ -16,7 +16,7 @@
         <org.jboss.arquillian.drone.version>1.3.0.Final</org.jboss.arquillian.drone.version>
         <org.jboss.arquillian.selenium.bom.version>2.40.0</org.jboss.arquillian.selenium.bom.version>
         <org.jboss.arquillian.graphene.version>2.0.2.Final</org.jboss.arquillian.graphene.version>
-        <org.jboss.arquillian.cube.version>1.0.0.Alpha1</org.jboss.arquillian.cube.version>
+        <org.jboss.arquillian.cube.version>1.0.0.Alpha2</org.jboss.arquillian.cube.version>
         <org.jboss.arquillian.spock>1.0.0.Beta2</org.jboss.arquillian.spock>
         <org.wildfly>8.0.0.Final</org.wildfly>
         <org.jboss.eap>7.2.0.Final</org.jboss.eap>
@@ -728,20 +728,17 @@
                                 <arq.container.wildfly-docker.configuration.username>admin</arq.container.wildfly-docker.configuration.username>
                                 <arq.container.wildfly-docker.configuration.password>Admin#70365</arq.container.wildfly-docker.configuration.password>
                                 <arq.extension.docker.serverVersion>1.15</arq.extension.docker.serverVersion>
-                                <arq.extension.docker.serverUri>http://192.168.59.103:2376</arq.extension.docker.serverUri>
+                                <!--<arq.extension.docker.serverUri>http://192.168.59.103:2376</arq.extension.docker.serverUri>-->
+                                <arq.extension.docker.serverUri>http://127.0.0.1:2375</arq.extension.docker.serverUri>
                                 <arq.extension.docker.dockerContainers>
                                     wildfly-docker:
                                         image: arungupta/javaee7-samples-wildfly
                                         exposedPorts: [8080/tcp, 9990/tcp]
                                         await:
                                             strategy: polling
-                                            sleepPollingTime: 1000
+                                            sleepPollingTime: 50000
                                             iterations: 5
-                                        portBindings:
-                                            - exposedPort: 8080/tcp
-                                              port: 8080
-                                            - exposedPort: 9990/tcp
-                                              port: 9990
+                                        portBindings: [8080/tcp, 9990/tcp]
                                 </arq.extension.docker.dockerContainers>
                             </systemPropertyVariables>
                         </configuration>
