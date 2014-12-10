@@ -31,4 +31,18 @@ public class MovieBean {
                             .setHint(hint, entityGraph)
                             .getResultList();
     }
+
+    public List<Movie> listMoviesById(Integer movieId, String hint, String graphName) {
+        return entityManager.createNamedQuery("Movie.findAllById")
+                            .setParameter("movieId", movieId)
+                            .setHint(hint, entityManager.getEntityGraph(graphName))
+                            .getResultList();
+    }
+
+    public List<Movie> listMoviesByIds(List<Integer> movieIds, String hint, String graphName) {
+        return entityManager.createNamedQuery("Movie.findAllByIds")
+                            .setParameter("movieIds", movieIds)
+                            .setHint(hint, entityManager.getEntityGraph(graphName))
+                            .getResultList();
+    }
 }

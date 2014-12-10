@@ -7,12 +7,11 @@
     <persistence-unit name="MyPU" transaction-type="JTA">
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-            <property name="javax.persistence.schema-generation.create-source" value="script"/> 
-            <property name="javax.persistence.schema-generation.drop-source" value="script"/> 
-            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/create.sql"/> 
-            <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/drop.sql"/> 
-            <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql"/> 
-            <property name="eclipselink.logging.level" value="FINE"/> 
+            <property name="javax.persistence.schema-generation.create-source" value="script"/>
+            <property name="javax.persistence.schema-generation.drop-source" value="script"/>
+            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/create.sql"/>
+            <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/drop.sql"/>
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -24,12 +24,6 @@ public class Employee implements Serializable {
     @Column(length=50)
     private String name;
     
-    public Employee() { }
-    
-    public Employee(String name) {
-        this.name = name;
-    }
-    
     public int getId() {
         return id;
     }

@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @author Arun Gupta
  */
 @Entity
-@Table(name = "EMPLOYEE_SCHEMA_GEN")
+@Table(name = "EMPLOYEE_JNDI_CONTEXT")
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 })
