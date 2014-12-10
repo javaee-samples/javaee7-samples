@@ -7,5 +7,4 @@ import javax.ws.rs.core.Application;
  * @author Arun Gupta
  */
 @ApplicationPath("webresources")
-public class MyAnnotatedApplication extends Application {
-}
+public class MyAnnotatedApplication extends Application {}

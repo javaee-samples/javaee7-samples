@@ -21,11 +21,10 @@ import javax.ws.rs.core.MediaType;
 public class AnnotatedSingletonResource {
     // Ideally this state should be stored in a database
     // But this is a singleton resource and so state can be saved here too
-    List<String> strings;
+    private List<String> strings;
     
     public AnnotatedSingletonResource() {
         strings = new ArrayList<>();
-        System.out.println("******* init");
     }
 
     @GET
