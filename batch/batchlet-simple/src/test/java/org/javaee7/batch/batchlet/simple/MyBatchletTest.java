@@ -73,7 +73,7 @@ public class MyBatchletTest {
         Long executionId = jobOperator.start("myJob", new Properties());
         JobExecution jobExecution = jobOperator.getJobExecution(executionId);
 
-        BatchTestHelper.keepTestAlive(jobExecution);
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         // <1> Job should be completed.
         assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
