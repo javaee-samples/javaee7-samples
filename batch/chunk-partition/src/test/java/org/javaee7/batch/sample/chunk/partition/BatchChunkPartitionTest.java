@@ -86,7 +86,7 @@ public class BatchChunkPartitionTest {
         Long executionId = jobOperator.start("myJob", new Properties());
         JobExecution jobExecution = jobOperator.getJobExecution(executionId);
 
-        BatchTestHelper.keepTestAlive(jobExecution);
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {
