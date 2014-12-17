@@ -17,7 +17,7 @@
         <org.jboss.arquillian.selenium.bom.version>2.40.0</org.jboss.arquillian.selenium.bom.version>
         <org.jboss.arquillian.graphene.version>2.0.2.Final</org.jboss.arquillian.graphene.version>
         <org.jboss.arquillian.spock>1.0.0.Beta2</org.jboss.arquillian.spock>
-        <org.wildfly>8.0.0.Final</org.wildfly>
+        <org.wildfly>8.2.0.Final</org.wildfly>
         <org.jboss.eap>7.2.0.Final</org.jboss.eap>
         <!-- Plugin versions -->
         <plugin.enforcer.version>1.3.1</plugin.enforcer.version>
