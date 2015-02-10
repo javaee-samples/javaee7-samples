@@ -11,4 +11,5 @@
     <artifactId>test-utils</artifactId>
 
 
+    <name>Java EE 7 Sample: javaee7-samples - test-utils</name>
 </project>

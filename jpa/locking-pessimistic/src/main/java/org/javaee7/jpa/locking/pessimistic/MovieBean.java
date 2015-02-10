@@ -26,11 +26,11 @@ public class MovieBean {
         em.merge(m);
         em.flush();
     }
-    
+
     public void deleteMovie() {
         Movie m = em.find(Movie.class, 1, LockModeType.PESSIMISTIC_WRITE);
         em.remove(m);
         em.flush();
     }
-    
+
 }

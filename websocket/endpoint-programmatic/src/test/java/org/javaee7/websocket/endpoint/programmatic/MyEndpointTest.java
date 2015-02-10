@@ -31,15 +31,15 @@ public class MyEndpointTest {
     @ArquillianResource
     URI base;
 
-    @Deployment(testable=false)
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyEndpoint.class,
-                        MyEndpointConfig.class,
-                        MyEndpointTextClient.class,
-                        MyEndpointBinaryClient.class);
+            .addClasses(MyEndpoint.class,
+                MyEndpointConfig.class,
+                MyEndpointTextClient.class,
+                MyEndpointBinaryClient.class);
     }
-    
+
     @Test
     public void testTextEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointTextClient.latch = new CountDownLatch(1);
@@ -54,7 +54,7 @@ public class MyEndpointTest {
         });
         assertTrue(MyEndpointTextClient.latch.await(2, TimeUnit.SECONDS));
     }
-    
+
     @Test
     public void testBinaryEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointBinaryClient.latch = new CountDownLatch(1);
@@ -73,11 +73,11 @@ public class MyEndpointTest {
     public Session connectToServer(Class<?> endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
-                        + base.getHost()
-                        + ":"
-                        + base.getPort()
-                        + base.getPath()
-                        + "websocket");
+            + base.getHost()
+            + ":"
+            + base.getPort()
+            + base.getPath()
+            + "websocket");
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(endpoint, uri);
     }

@@ -11,7 +11,7 @@ import javax.ejb.Startup;
 @Startup
 @Singleton
 public class MySingletonBeanManagedConcurrency {
-    
+
     volatile StringBuilder builder;
 
     @PostConstruct
@@ -21,7 +21,7 @@ public class MySingletonBeanManagedConcurrency {
     }
 
     public String readSomething() {
-        return "current timestamp: "+ new Date();
+        return "current timestamp: " + new Date();
     }
 
     public String writeSomething(String something) {

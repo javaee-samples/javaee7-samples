@@ -24,9 +24,9 @@ public class CustomConstraintTest {
     @Deployment
     public static Archive<?> deployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyBean.class, ZipCode.class, ZipCodeValidator.class)
-                .addAsResource("ValidationMessages.properties");
-        
+            .addClasses(MyBean.class, ZipCode.class, ZipCodeValidator.class)
+            .addAsResource("ValidationMessages.properties");
+
         System.out.println(war.toString(true));
         return war;
     }
@@ -38,8 +38,8 @@ public class CustomConstraintTest {
 
     @Test
     public void saveZipCodeForIndia() {
-//        thrown.equals(ConstraintViolationException.class);
-//        thrown.expectMessage("javaee7.validation.custom.constraint.ZipCode");
+        //        thrown.equals(ConstraintViolationException.class);
+        //        thrown.expectMessage("javaee7.validation.custom.constraint.ZipCode");
         thrown.expectMessage("saveZipIndia.arg0");
         bean.saveZipIndia("95051");
     }

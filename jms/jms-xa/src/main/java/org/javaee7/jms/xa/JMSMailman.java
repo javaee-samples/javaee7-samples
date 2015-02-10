@@ -9,9 +9,9 @@ import javax.jms.MessageListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@MessageDriven(activationConfig = {@ActivationConfigProperty(propertyName = "destinationLookup",
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationLookup",
     propertyValue = Mailman.CLASSIC_QUEUE), @ActivationConfigProperty(propertyName = "destinationType",
-    propertyValue = "javax.jms.Queue"),})
+    propertyValue = "javax.jms.Queue"), })
 public class JMSMailman implements MessageListener {
 
     private static final Logger logger = Logger.getLogger(JMSMailman.class.getName());

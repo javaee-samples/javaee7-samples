@@ -9,9 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "EMPLOYEE_NATIVE_SQL_RESULTSET_MAPPING")
 @SqlResultSetMapping(name = "myMapping",
-                     entities = {@EntityResult(entityClass = Employee.class,
-                                               fields = {@FieldResult(name = "identifier", column = "id"),
-                                                         @FieldResult(name = "simpleName", column = "name")})})
+    entities = { @EntityResult(entityClass = Employee.class,
+        fields = { @FieldResult(name = "identifier", column = "id"),
+            @FieldResult(name = "simpleName", column = "name") }) })
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -14,7 +14,7 @@ public class MyItemWriter extends AbstractItemWriter {
     @Override
     public void writeItems(List list) {
         if (retries <= 3 && list.contains(new MyOutputRecord(8))) {
-            retries ++;
+            retries++;
             System.out.println("Throw UnsupportedOperationException in MyItemWriter");
             throw new UnsupportedOperationException();
         }

@@ -35,74 +35,74 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class MyResourceTest {
 
-	@Deployment(testable = false)
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class).addClasses(MyApplication.class, MyResource.class);
-	}
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class).addClasses(MyApplication.class, MyResource.class);
+    }
 
-	private static WebTarget target;
+    private static WebTarget target;
 
-	private static File tempFile;
-	@ArquillianResource
-	private URL base;
+    private static File tempFile;
+    @ArquillianResource
+    private URL base;
 
-	@BeforeClass
-	public static void generateSampleFile() throws IOException {
-		tempFile = File.createTempFile("javaee7samples", ".png");
-		// fill the file with 1KB of content
-		try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
-			for (int i = 0; i < 1000; i++) {
-				outputStream.write(0);
-			}
-		}
-		assertThat(tempFile).canRead().has(new Condition<File>() {
+    @BeforeClass
+    public static void generateSampleFile() throws IOException {
+        tempFile = File.createTempFile("javaee7samples", ".png");
+        // fill the file with 1KB of content
+        try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+            for (int i = 0; i < 1000; i++) {
+                outputStream.write(0);
+            }
+        }
+        assertThat(tempFile).canRead().has(new Condition<File>() {
 
-			@Override
-			public boolean matches(File tempFile) {
-				return tempFile.length() == 1000;
-			}
-		});
-	}
+            @Override
+            public boolean matches(File tempFile) {
+                return tempFile.length() == 1000;
+            }
+        });
+    }
 
-	@Before
-	public void setUpClass() throws MalformedURLException {
-		Client client = ClientBuilder.newClient();
-		target = client.target(URI.create(new URL(base, "webresources/endpoint").toExternalForm()));
-	}
+    @Before
+    public void setUpClass() throws MalformedURLException {
+        Client client = ClientBuilder.newClient();
+        target = client.target(URI.create(new URL(base, "webresources/endpoint").toExternalForm()));
+    }
 
-	@Test
-	public void shouldPostOctetStreamContentAsInputStream() {
-		// when
-		Long uploadedFileSize = target.path("/upload").request()
-				.post(Entity.entity(tempFile, MediaType.APPLICATION_OCTET_STREAM), Long.class);
-		// then
-		assertThat(uploadedFileSize).isEqualTo(1000);
-	}
+    @Test
+    public void shouldPostOctetStreamContentAsInputStream() {
+        // when
+        Long uploadedFileSize = target.path("/upload").request()
+            .post(Entity.entity(tempFile, MediaType.APPLICATION_OCTET_STREAM), Long.class);
+        // then
+        assertThat(uploadedFileSize).isEqualTo(1000);
+    }
 
-	@Test
-	public void shouldNotPostImagePngContentAsInputStream() {
-		// when
-		final Response response = target.path("/upload").request().post(Entity.entity(tempFile, "image/png"));
-		// then
-		assertThat(response.getStatus()).isEqualTo(Status.UNSUPPORTED_MEDIA_TYPE.getStatusCode());
-	}
+    @Test
+    public void shouldNotPostImagePngContentAsInputStream() {
+        // when
+        final Response response = target.path("/upload").request().post(Entity.entity(tempFile, "image/png"));
+        // then
+        assertThat(response.getStatus()).isEqualTo(Status.UNSUPPORTED_MEDIA_TYPE.getStatusCode());
+    }
 
-	@Test
-	public void shouldPostOctetStreamContentAsFile() {
-		// when
-		Long uploadedFileSize = target.path("/upload2").request()
-				.post(Entity.entity(tempFile, MediaType.APPLICATION_OCTET_STREAM), Long.class);
-		// then
-		assertThat(uploadedFileSize).isEqualTo(1000);
-	}
+    @Test
+    public void shouldPostOctetStreamContentAsFile() {
+        // when
+        Long uploadedFileSize = target.path("/upload2").request()
+            .post(Entity.entity(tempFile, MediaType.APPLICATION_OCTET_STREAM), Long.class);
+        // then
+        assertThat(uploadedFileSize).isEqualTo(1000);
+    }
 
-	@Test
-	public void shouldPostImagePngContentAsFile() {
-		// when
-		Long uploadedFileSize = target.path("/upload2").request()
-				.post(Entity.entity(tempFile, "image/png"), Long.class);
-		// then
-		assertThat(uploadedFileSize).isEqualTo(1000);
-	}
+    @Test
+    public void shouldPostImagePngContentAsFile() {
+        // when
+        Long uploadedFileSize = target.path("/upload2").request()
+            .post(Entity.entity(tempFile, "image/png"), Long.class);
+        // then
+        assertThat(uploadedFileSize).isEqualTo(1000);
+    }
 
 }

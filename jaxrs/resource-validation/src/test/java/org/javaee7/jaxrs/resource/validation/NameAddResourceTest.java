@@ -35,7 +35,7 @@ public class NameAddResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyApplication.class, NameAddResource.class, Name.class, Email.class, EmailValidator.class);
+            .addClasses(MyApplication.class, NameAddResource.class, Name.class, Email.class, EmailValidator.class);
     }
 
     @Before
@@ -49,7 +49,7 @@ public class NameAddResourceTest {
     @Test
     public void shouldPassNameValidation() throws Exception {
         JsonObject name = startValidName()
-                .build();
+            .build();
 
         Response response = postName(name);
 
@@ -58,16 +58,16 @@ public class NameAddResourceTest {
 
     private JsonObjectBuilder startValidName() {
         return Json.createObjectBuilder()
-                .add("firstName", "Sheldon")
-                .add("lastName", "Cooper")
-                .add("email", "random@example.com");
+            .add("firstName", "Sheldon")
+            .add("lastName", "Cooper")
+            .add("email", "random@example.com");
     }
 
     private Response postName(JsonObject name) {
         Entity<JsonObject> nameEntity = Entity.json(name);
         return target
-                .request()
-                .post(nameEntity);
+            .request()
+            .post(nameEntity);
     }
 
     private void assertStatus(Response response, Status expectedStatus) {
@@ -78,8 +78,8 @@ public class NameAddResourceTest {
     @Test
     public void shouldFailAtFirstNameSizeValidation() throws Exception {
         JsonObject name = startValidName()
-                .add("firstName", "")
-                .build();
+            .add("firstName", "")
+            .build();
 
         Response response = postName(name);
 
@@ -93,8 +93,8 @@ public class NameAddResourceTest {
     @Test
     public void shouldFailAtFirstNameNullValidation() throws Exception {
         JsonObject name = startValidName()
-                .addNull("firstName")
-                .build();
+            .addNull("firstName")
+            .build();
 
         Response response = postName(name);
 
@@ -104,8 +104,8 @@ public class NameAddResourceTest {
     @Test
     public void shouldFailAtLastNameSizeValidation() throws Exception {
         JsonObject name = startValidName()
-                .add("lastName", "")
-                .build();
+            .add("lastName", "")
+            .build();
 
         Response response = postName(name);
 
@@ -115,8 +115,8 @@ public class NameAddResourceTest {
     @Test
     public void shouldFailAtLastNameNullValidation() throws Exception {
         JsonObject name = startValidName()
-                .addNull("lastName")
-                .build();
+            .addNull("lastName")
+            .build();
 
         Response response = postName(name);
 
@@ -126,8 +126,8 @@ public class NameAddResourceTest {
     @Test
     public void shouldFailAtEmailAtSymbolValidation() throws Exception {
         JsonObject name = startValidName()
-                .add("email", "missing-at-symbol.com")
-                .build();
+            .add("email", "missing-at-symbol.com")
+            .build();
 
         Response response = postName(name);
 
@@ -137,8 +137,8 @@ public class NameAddResourceTest {
     @Test
     public void shouldFailAtEmailComDomainValidation() throws Exception {
         JsonObject name = startValidName()
-                .add("email", "other-than-com@domain.pl")
-                .build();
+            .add("email", "other-than-com@domain.pl")
+            .build();
 
         Response response = postName(name);
 

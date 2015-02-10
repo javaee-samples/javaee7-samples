@@ -35,13 +35,13 @@ public class LockingOptimisticTest {
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
 
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addPackage("org.javaee7.jpa.locking.optimistic")
-                .addAsResource("META-INF/persistence.xml")
-                .addAsResource("META-INF/load.sql")
-                .addAsWebInfResource(
-                        new StringAsset(beansXml.createAlternatives()
-                                .clazz(MovieBeanAlternative.class.getName()).up().exportAsString()),
-                        beansXml.getDescriptorName());
+            .addPackage("org.javaee7.jpa.locking.optimistic")
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/load.sql")
+            .addAsWebInfResource(
+                new StringAsset(beansXml.createAlternatives()
+                    .clazz(MovieBeanAlternative.class.getName()).up().exportAsString()),
+                beansXml.getDescriptorName());
         System.out.println(war.toString(true));
         return war;
     }

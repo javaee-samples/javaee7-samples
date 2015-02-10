@@ -14,5 +14,5 @@ public class MySimpleJob implements Job {
     public void execute(JobExecutionContext jec) throws JobExecutionException {
         System.out.println("MySimpleJob.execute: " + Calendar.getInstance().getTime());
     }
-    
+
 }

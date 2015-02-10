@@ -14,8 +14,10 @@ public class MyMessageEncoder implements Encoder.Text<MyMessage> {
     }
 
     @Override
-    public void init(EndpointConfig ec) { }
+    public void init(EndpointConfig ec) {
+    }
 
     @Override
-    public void destroy() { }
+    public void destroy() {
+    }
 }

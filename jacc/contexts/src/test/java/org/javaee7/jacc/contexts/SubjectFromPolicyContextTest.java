@@ -53,24 +53,24 @@ public class SubjectFromPolicyContextTest extends ArquillianBase {
      */
     @Test
     public void testCanObtainRequestInServlet() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("subjectServlet?doLogin");
 
         assertTrue(response.contains("Obtained subject from context."));
     }
-    
+
     /**
      * Tests that we are able to obtain a reference to the {@link Subject} from a Servlet and
      * use JACC to get the roles the user from its principals.
      */
     @Test
     public void testCanObtainRolesFromSubjectInServlet() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("subjectServlet?doLogin");
 
         // The role that was assigned to the user in TestServerAuthModule
         assertTrue(response.contains("User has role architect"));
-        
+
         // Servlet 13.3; Every authenticated user should have this role and isUserInRole should return true 
         // when tested.
         assertTrue(response.contains("User has role **"));

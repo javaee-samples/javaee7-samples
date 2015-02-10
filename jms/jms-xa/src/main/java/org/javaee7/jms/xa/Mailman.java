@@ -29,7 +29,7 @@ public class Mailman {
     public void sendMessage(String payload)
     {
         try (JMSContext context = connectionFactory.createContext()) {
-            context.createProducer().send(demoQueue,payload);
+            context.createProducer().send(demoQueue, payload);
         }
     }
 }

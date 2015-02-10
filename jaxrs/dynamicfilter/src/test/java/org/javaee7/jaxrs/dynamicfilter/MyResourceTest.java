@@ -26,14 +26,14 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class MyResourceTest {
 
-    @Deployment(testable=false)
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(
-                        MyApplication.class,
-                        MyResource.class,
-                        DynamicServerLogggingFilterFeature.class,
-                        ServerLoggingFilter.class);
+            .addClasses(
+                MyApplication.class,
+                MyResource.class,
+                DynamicServerLogggingFilterFeature.class,
+                ServerLoggingFilter.class);
     }
 
     private WebTarget target;

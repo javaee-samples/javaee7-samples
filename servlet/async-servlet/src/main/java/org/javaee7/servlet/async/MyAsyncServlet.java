@@ -17,8 +17,8 @@ import java.io.IOException;
  */
 @WebServlet(urlPatterns = "/MyAsyncServlet", asyncSupported = true)
 public class MyAsyncServlet extends HttpServlet {
-    
-//    @Resource(lookup="java:comp/DefaultManagedExecutorService")
+
+    //    @Resource(lookup="java:comp/DefaultManagedExecutorService")
     @Resource
     ManagedExecutorService executor;
 
@@ -32,7 +32,7 @@ public class MyAsyncServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         AsyncContext ac = request.startAsync();
 
         ac.addListener(new AsyncListener() {
@@ -90,7 +90,7 @@ public class MyAsyncServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -104,7 +104,7 @@ public class MyAsyncServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

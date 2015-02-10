@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/WriteServlet"})
+@WebServlet(urlPatterns = { "/WriteServlet" })
 public class WriteTestServlet extends HttpServlet {
 
     /**
@@ -27,17 +27,17 @@ public class WriteTestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Writing Asynchronously</title>");            
+            out.println("<title>Writing Asynchronously</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Writing Asynchronously</h1>");
-            
+
             AsyncContext context = request.startAsync();
             ServletOutputStream output = response.getOutputStream();
             output.setWriteListener(new MyWriteListener(output, context));
@@ -59,7 +59,7 @@ public class WriteTestServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -74,7 +74,7 @@ public class WriteTestServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

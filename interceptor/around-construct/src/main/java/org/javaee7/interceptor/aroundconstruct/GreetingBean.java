@@ -8,34 +8,34 @@ import javax.inject.Inject;
  */
 @MyInterceptorBinding
 public class GreetingBean implements Greeting {
-	private boolean constructed = false;
-	private boolean initialized = false;
+    private boolean constructed = false;
+    private boolean initialized = false;
 
-	private Param param;
+    private Param param;
 
-	@Inject
-	public GreetingBean(Param param) {
-		this.param = param;
-		constructed = true;
-	}
+    @Inject
+    public GreetingBean(Param param) {
+        this.param = param;
+        constructed = true;
+    }
 
-	@PostConstruct
-	void onPostConstruct() {
-		initialized = true;
-	}
+    @PostConstruct
+    void onPostConstruct() {
+        initialized = true;
+    }
 
-	@Override
-	public boolean isConstructed() {
-		return constructed;
-	}
+    @Override
+    public boolean isConstructed() {
+        return constructed;
+    }
 
-	@Override
-	public boolean isInitialized() {
-		return initialized;
-	}
+    @Override
+    public boolean isInitialized() {
+        return initialized;
+    }
 
-	@Override
-	public Param getParam() {
-		return param;
-	}
+    @Override
+    public Param getParam() {
+        return param;
+    }
 }

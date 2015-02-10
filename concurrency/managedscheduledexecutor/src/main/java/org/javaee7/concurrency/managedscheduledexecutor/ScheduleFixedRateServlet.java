@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/ScheduleFixedRateServlet"})
+@WebServlet(urlPatterns = { "/ScheduleFixedRateServlet" })
 public class ScheduleFixedRateServlet extends HttpServlet {
 
-//    @Resource(name = "concurrent/myScheduledExecutor2")
+    //    @Resource(name = "concurrent/myScheduledExecutor2")
     @Resource(name = "DefaultManagedScheduledExecutorService")
     ManagedScheduledExecutorService executor;
-    
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -33,25 +33,25 @@ public class ScheduleFixedRateServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Schedule at fixed rate</title>");            
+            out.println("<title>Schedule at fixed rate</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Schedule at fixed rate</h1>");
             ScheduledFuture<?> f = executor.scheduleAtFixedRate(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
-////            try {
-////                Thread.sleep(1000);
-////            } catch (InterruptedException ex) {
-////                Logger.getLogger(TestScheduleFixedRateServlet.class.getName()).log(Level.SEVERE, null, ex);
-////            }
-////            f.cancel(true);
-//            
-//            executor.scheduleWithFixedDelay(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
+            ////            try {
+            ////                Thread.sleep(1000);
+            ////            } catch (InterruptedException ex) {
+            ////                Logger.getLogger(TestScheduleFixedRateServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ////            }
+            ////            f.cancel(true);
+            //            
+            //            executor.scheduleWithFixedDelay(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
             System.out.println("Runnable Task completed");
             out.println("<br><br>Check server.log for output");
             out.println("</body>");
@@ -71,7 +71,7 @@ public class ScheduleFixedRateServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -86,7 +86,7 @@ public class ScheduleFixedRateServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

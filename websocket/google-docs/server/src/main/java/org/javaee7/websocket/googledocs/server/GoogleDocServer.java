@@ -17,7 +17,7 @@ import javax.websocket.server.ServerEndpoint;
 public class GoogleDocServer {
 
     private static final Logger LOGGER = Logger.getLogger(GoogleDocServer.class.getName());
-    
+
     @OnOpen
     public void onOpen(Session client) {
         LOGGER.log(Level.INFO, "connected");

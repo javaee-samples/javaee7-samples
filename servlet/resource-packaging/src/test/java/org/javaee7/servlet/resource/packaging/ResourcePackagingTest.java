@@ -33,7 +33,7 @@ public class ResourcePackagingTest {
     @Deployment(testable = false)
     public static WebArchive deploy() throws URISyntaxException {
         return ShrinkWrap.create(WebArchive.class)
-                .addAsLibrary(new File("src/main/webapp/WEB-INF/lib/myResources.jar"), "myResources.jar");
+            .addAsLibrary(new File("src/main/webapp/WEB-INF/lib/myResources.jar"), "myResources.jar");
     }
 
     @ArquillianResource

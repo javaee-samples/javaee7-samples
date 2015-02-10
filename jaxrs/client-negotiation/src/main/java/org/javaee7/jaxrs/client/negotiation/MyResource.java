@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 @Path("persons")
 public class MyResource {
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces({ "application/xml", "application/json" })
     public List<Person> getList() {
         People people = new People();
         people.add(new Person("Penny", 1));

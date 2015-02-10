@@ -27,49 +27,49 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class ConstructorParametersConstraintsTest {
 
-	@Inject
-	Validator validator;
+    @Inject
+    Validator validator;
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-	@Deployment
-	public static Archive<?> deployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-                .addClasses(MyBean2.class, MyParameter.class)
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClasses(MyBean2.class, MyParameter.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@Test
-	public void constructorViolationsWhenNullParameters() throws NoSuchMethodException, SecurityException {
+    @Test
+    public void constructorViolationsWhenNullParameters() throws NoSuchMethodException, SecurityException {
         final MyParameter parameter = new MyParameter();
 
-		ExecutableValidator methodValidator = validator.forExecutables();
-		Constructor<MyBean2> constructor = MyBean2.class
-				.getConstructor(parameter.getClass());
+        ExecutableValidator methodValidator = validator.forExecutables();
+        Constructor<MyBean2> constructor = MyBean2.class
+            .getConstructor(parameter.getClass());
 
-		Set<ConstraintViolation<MyBean2>> constraints = methodValidator
-				.validateConstructorParameters(constructor, new Object[] {parameter});
+        Set<ConstraintViolation<MyBean2>> constraints = methodValidator
+            .validateConstructorParameters(constructor, new Object[] { parameter });
 
-		ConstraintViolation<MyBean2> violation = constraints.iterator().next();
-		assertThat(constraints.size(), equalTo(1));
-		assertThat(violation.getMessageTemplate(), equalTo("{javax.validation.constraints.NotNull.message}"));
-		assertThat(violation.getPropertyPath().toString(), equalTo("MyBean2.arg0.value"));
-	}
+        ConstraintViolation<MyBean2> violation = constraints.iterator().next();
+        assertThat(constraints.size(), equalTo(1));
+        assertThat(violation.getMessageTemplate(), equalTo("{javax.validation.constraints.NotNull.message}"));
+        assertThat(violation.getPropertyPath().toString(), equalTo("MyBean2.arg0.value"));
+    }
 
-	@Test
-	public void constructorViolationsWhenNotNullParameters() throws NoSuchMethodException, SecurityException {
-		final MyParameter parameter = new MyParameter();
+    @Test
+    public void constructorViolationsWhenNotNullParameters() throws NoSuchMethodException, SecurityException {
+        final MyParameter parameter = new MyParameter();
         parameter.setValue("foo");
 
         ExecutableValidator methodValidator = validator.forExecutables();
-		Constructor<MyBean2> constructor = MyBean2.class
-				.getConstructor(parameter.getClass());
+        Constructor<MyBean2> constructor = MyBean2.class
+            .getConstructor(parameter.getClass());
 
-		Set<ConstraintViolation<MyBean2>> constraints = methodValidator
-				.validateConstructorParameters(constructor, new Object[] {parameter});
+        Set<ConstraintViolation<MyBean2>> constraints = methodValidator
+            .validateConstructorParameters(constructor, new Object[] { parameter });
 
-		assertThat(constraints.isEmpty(), equalTo(true));
-	}
+        assertThat(constraints.isEmpty(), equalTo(true));
+    }
 
 }

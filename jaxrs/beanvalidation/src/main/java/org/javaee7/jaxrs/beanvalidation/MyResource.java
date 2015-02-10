@@ -25,6 +25,6 @@ public class MyResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void post2(@NotNull @FormParam("name")String name, @Min(1) @Max(10)@FormParam("age")int age) {
+    public void post2(@NotNull @FormParam("name") String name, @Min(1) @Max(10) @FormParam("age") int age) {
     }
 }

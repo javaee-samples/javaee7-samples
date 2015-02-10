@@ -19,19 +19,19 @@ import static org.junit.Assert.*;
  */
 @RunWith(Arquillian.class)
 public class FlowScopedBeanTest {
-    
+
     private static final String WEBAPP_SRC = "src/main/webapp";
 
     @ArquillianResource
     private URL base;
-    
-    @Deployment(testable=false)
+
+    @Deployment(testable = false)
     public static WebArchive deploy() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addClass(FlowScopedBean.class)
-                .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
-                .addAsWebResource((new File(WEBAPP_SRC, "myflow/myflow-flow.xml")), "myflow/myflow-flow.xml")
-                .addAsWebResource((new File(WEBAPP_SRC, "myflow/index.xhtml")), "myflow/index.xhtml");
+            .addClass(FlowScopedBean.class)
+            .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
+            .addAsWebResource((new File(WEBAPP_SRC, "myflow/myflow-flow.xml")), "myflow/myflow-flow.xml")
+            .addAsWebResource((new File(WEBAPP_SRC, "myflow/index.xhtml")), "myflow/index.xhtml");
     }
 
     @Test
@@ -39,6 +39,6 @@ public class FlowScopedBeanTest {
         WebClient webClient = new WebClient();
         HtmlPage page = webClient.getPage(base + "/faces/myflow/index.xhtml");
         assertNotNull(page);
-        assert(page.asText().contains("Hello there!"));
+        assert (page.asText().contains("Hello there!"));
     }
 }

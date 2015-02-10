@@ -28,18 +28,18 @@ public class JsonReaderFromReaderTest {
     @Deployment
     public static Archive<?> deploy() {
         File[] requiredLibraries = Maven.resolver().loadPomFromFile("pom.xml")
-                .resolve("org.json:json", "org.skyscreamer:jsonassert")
-                .withTransitivity().asFile();
+            .resolve("org.json:json", "org.skyscreamer:jsonassert")
+            .withTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class)
-                .addAsLibraries(requiredLibraries);
+            .addAsLibraries(requiredLibraries);
     }
 
     @Test
     public void testEmptyObject() throws JSONException {
         JsonReader jsonReader = Json.createReader(new StringReader("{}"));
         JsonObject json = jsonReader.readObject();
-        
+
         assertNotNull(json);
         assertTrue(json.isEmpty());
     }
@@ -47,11 +47,11 @@ public class JsonReaderFromReaderTest {
     @Test
     public void testSimpleObjectWithTwoElements() throws JSONException {
         JsonReader jsonReader = Json.createReader(new StringReader("{"
-                + "  \"apple\":\"red\","
-                + "  \"banana\":\"yellow\""
-                + "}"));
+            + "  \"apple\":\"red\","
+            + "  \"banana\":\"yellow\""
+            + "}"));
         JsonObject json = jsonReader.readObject();
-        
+
         assertNotNull(json);
         assertFalse(json.isEmpty());
         assertTrue(json.containsKey("apple"));
@@ -63,13 +63,13 @@ public class JsonReaderFromReaderTest {
     @Test
     public void testArray() throws JSONException {
         JsonReader jsonReader = Json.createReader(new StringReader("["
-                + "  { \"apple\":\"red\" },"
-                + "  { \"banana\":\"yellow\" }"
-                + "]"));
+            + "  { \"apple\":\"red\" },"
+            + "  { \"banana\":\"yellow\" }"
+            + "]"));
         JsonArray jsonArr = jsonReader.readArray();
         assertNotNull(jsonArr);
         assertEquals(2, jsonArr.size());
-        
+
         JSONAssert.assertEquals("{\"apple\":\"red\"}", jsonArr.get(0).toString(), JSONCompareMode.STRICT);
         JSONAssert.assertEquals("{\"banana\":\"yellow\"}", jsonArr.get(1).toString(), JSONCompareMode.STRICT);
     }
@@ -77,14 +77,14 @@ public class JsonReaderFromReaderTest {
     @Test
     public void testNestedStructure() throws JSONException {
         JsonReader jsonReader = Json.createReader(new StringReader("{"
-                + "  \"title\":\"The Matrix\","
-                + "  \"year\":1999,"
-                + "  \"cast\":["
-                + "    \"Keanu Reaves\","
-                + "    \"Laurence Fishburne\","
-                + "    \"Carrie-Anne Moss\""
-                + "  ]"
-                + "}"));
+            + "  \"title\":\"The Matrix\","
+            + "  \"year\":1999,"
+            + "  \"cast\":["
+            + "    \"Keanu Reaves\","
+            + "    \"Laurence Fishburne\","
+            + "    \"Carrie-Anne Moss\""
+            + "  ]"
+            + "}"));
         JsonObject json = jsonReader.readObject();
 
         assertNotNull(json);
@@ -97,11 +97,11 @@ public class JsonReaderFromReaderTest {
         JsonArray jsonArr = json.getJsonArray("cast");
         assertNotNull(jsonArr);
         assertEquals(3, jsonArr.size());
-        
+
         JSONAssert.assertEquals("["
-                + "    \"Keanu Reaves\","
-                + "    \"Laurence Fishburne\","
-                + "    \"Carrie-Anne Moss\""
-                + "  ]", jsonArr.toString(), JSONCompareMode.STRICT);
+            + "    \"Keanu Reaves\","
+            + "    \"Laurence Fishburne\","
+            + "    \"Carrie-Anne Moss\""
+            + "  ]", jsonArr.toString(), JSONCompareMode.STRICT);
     }
 }

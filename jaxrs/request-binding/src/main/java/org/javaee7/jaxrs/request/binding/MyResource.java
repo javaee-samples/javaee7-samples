@@ -20,23 +20,29 @@ import javax.ws.rs.ext.Providers;
 @Path("persons")
 public class MyResource {
 
-    @Context Application app;
-    @Context UriInfo uri;
-    @Context HttpHeaders headers;
-    @Context Request request;
-    @Context SecurityContext security;
-    @Context Providers providers;
+    @Context
+    Application app;
+    @Context
+    UriInfo uri;
+    @Context
+    HttpHeaders headers;
+    @Context
+    Request request;
+    @Context
+    SecurityContext security;
+    @Context
+    Providers providers;
 
     @GET
     @Produces("text/plain")
     public String getList(@CookieParam("JSESSIONID") String sessionId,
-            @HeaderParam("Accept") String acceptHeader) {
+        @HeaderParam("Accept") String acceptHeader) {
         StringBuilder builder = new StringBuilder();
         builder
-                .append("JSESSIONID: ")
-                .append(sessionId)
-                .append("<br>Accept: ")
-                .append(acceptHeader);
+            .append("JSESSIONID: ")
+            .append(sessionId)
+            .append("<br>Accept: ")
+            .append(acceptHeader);
         return builder.toString();
     }
 
@@ -46,34 +52,34 @@ public class MyResource {
     public String getList(@MatrixParam("start") int start, @MatrixParam("end") int end) {
         StringBuilder builder = new StringBuilder();
         builder
-                .append("start: ")
-                .append(start)
-                .append("<br>end: ")
-                .append(end);
+            .append("start: ")
+            .append(start)
+            .append("<br>end: ")
+            .append(end);
         return builder.toString();
     }
-    
+
     @GET
     @Path("context")
     @Produces("text/plain")
     public String getList() {
         StringBuilder builder = new StringBuilder();
         builder.append("Application.classes: ")
-                .append(app.getClasses())
-                .append("<br>Path: ")
-                .append(uri.getPath());
+            .append(app.getClasses())
+            .append("<br>Path: ")
+            .append(uri.getPath());
         for (String header : headers.getRequestHeaders().keySet()) {
             builder
-                    .append("<br>Http header: ")
-                    .append(headers.getRequestHeader(header));
+                .append("<br>Http header: ")
+                .append(headers.getRequestHeader(header));
         }
         builder.append("<br>Headers.cookies: ")
-                .append(headers.getCookies())
-                .append("<br>Request.method: ")
-                .append(request.getMethod())
-                .append("<br>Security.isSecure: ")
-                .append(security.isSecure());
+            .append(headers.getCookies())
+            .append("<br>Request.method: ")
+            .append(request.getMethod())
+            .append("<br>Security.isSecure: ")
+            .append(security.isSecure());
         return builder.toString();
     }
-    
+
 }

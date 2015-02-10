@@ -13,7 +13,7 @@
     <artifactId>jacc</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 JACC Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples - jacc</name>
 
     <modules>
         <module>contexts</module>

@@ -13,11 +13,11 @@ public class EmployeeRepository {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     public void persist(Employee e) {
         em.persist(e);
     }
-    
+
     public List<Employee> all() {
         return em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
     }

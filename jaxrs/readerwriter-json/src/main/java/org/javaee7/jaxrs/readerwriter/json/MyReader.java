@@ -27,10 +27,10 @@ public class MyReader implements MessageBodyReader<MyObject> {
 
     @Override
     public MyObject readFrom(Class<MyObject> type,
-            Type type1,
-            Annotation[] antns,
-            MediaType mt, MultivaluedMap<String, String> mm,
-            InputStream in) throws IOException, WebApplicationException {
+        Type type1,
+        Annotation[] antns,
+        MediaType mt, MultivaluedMap<String, String> mm,
+        InputStream in) throws IOException, WebApplicationException {
         MyObject mo = new MyObject();
         JsonParser parser = Json.createParser(in);
         while (parser.hasNext()) {

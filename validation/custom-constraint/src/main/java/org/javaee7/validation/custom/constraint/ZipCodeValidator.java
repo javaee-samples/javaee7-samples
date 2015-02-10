@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author Arun Gupta
  */
 public class ZipCodeValidator
-        implements ConstraintValidator<ZipCode, String> {
+    implements ConstraintValidator<ZipCode, String> {
 
     List<String> zipcodes;
 
@@ -44,7 +44,7 @@ public class ZipCodeValidator
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         System.out.println("Validating: " + value);
-        System.out.println("state: "+ zipcodes.contains(value));
+        System.out.println("state: " + zipcodes.contains(value));
         return zipcodes.contains(value);
     }
 }

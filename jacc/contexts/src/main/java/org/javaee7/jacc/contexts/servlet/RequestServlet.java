@@ -24,21 +24,21 @@ public class RequestServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setAttribute("jaccTest", "true");
-        
+
         try {
             HttpServletRequest requestFromPolicy = (HttpServletRequest) PolicyContext.getContext("javax.servlet.http.HttpServletRequest");
-            
+
             if (requestFromPolicy != null) {
                 response.getWriter().print("Obtained request from context.");
-                
+
                 if ("true".equals(requestFromPolicy.getAttribute("jaccTest"))) {
                     response.getWriter().print("Attribute present in request from context.");
                 }
-                
+
                 if ("true".equals(requestFromPolicy.getParameter("jacc_test"))) {
                     response.getWriter().print("Request parameter present in request from context.");
                 }
-                
+
             }
         } catch (PolicyContextException e) {
             e.printStackTrace(response.getWriter());

@@ -11,28 +11,28 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Child {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "parent_id", insertable = false, updatable = false)
-	private Parent parent;
+    @ManyToOne
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    private Parent parent;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Parent getParent() {
-		return parent;
-	}
+    public Parent getParent() {
+        return parent;
+    }
 
-	public void setParent(Parent parent) {
-		this.parent = parent;
-	}
+    public void setParent(Parent parent) {
+        this.parent = parent;
+    }
 
 }

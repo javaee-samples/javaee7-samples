@@ -11,7 +11,7 @@
     <groupId>org.javaee7</groupId>
     <artifactId>websocket</artifactId>
     <packaging>pom</packaging>
-    <name>Java EE 7 WebSocket Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples - websocket</name>
 
     <modules>
         <module>chat</module>

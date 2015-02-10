@@ -14,17 +14,16 @@ public class EmployeeBean {
 
     @PersistenceContext(synchronization = SynchronizationType.UNSYNCHRONIZED)
     EntityManager em;
-    
+
     public void persistWithoutJoin(Employee e) {
         em.persist(e);
     }
-    
+
     public void persistWithJoin(Employee e) {
         em.joinTransaction();
         em.persist(e);
     }
-    
-    
+
     public List<Employee> get() {
         return em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
     }

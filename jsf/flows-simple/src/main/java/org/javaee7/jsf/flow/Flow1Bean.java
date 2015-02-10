@@ -18,7 +18,7 @@ public class Flow1Bean implements Serializable {
     public String getName() {
         return this.getClass().getSimpleName();
     }
-    
+
     public String getHomeAction() {
         return "/index";
     }

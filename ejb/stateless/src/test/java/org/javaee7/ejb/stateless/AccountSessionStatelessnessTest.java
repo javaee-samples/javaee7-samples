@@ -26,13 +26,13 @@ public class AccountSessionStatelessnessTest {
     @EJB
     AccountSessionBean account2;
 
-	@Deployment
-	public static Archive<?> deployment() {
-		return ShrinkWrap.create(JavaArchive.class, "test.jar")
-				.addClass(AccountSessionBean.class)
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
-    
+    @Deployment
+    public static Archive<?> deployment() {
+        return ShrinkWrap.create(JavaArchive.class, "test.jar")
+            .addClass(AccountSessionBean.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
+
     /**
      * JSR 318: Enterprise JavaBeans, Version 3.1
      * 3.4.7.2 Session Object Identity / Stateless Session Beans

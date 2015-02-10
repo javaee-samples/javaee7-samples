@@ -5,9 +5,10 @@
         <groupId>org.javaee7</groupId>
         <artifactId>jpa</artifactId>
         <version>1.0-SNAPSHOT</version>
-	<relativePath>../pom.xml</relativePath>
+    <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>jpa-jpa-converter</artifactId>
     <packaging>jar</packaging>
+    <name>Java EE 7 Sample: jpa-converter</name>
 </project>

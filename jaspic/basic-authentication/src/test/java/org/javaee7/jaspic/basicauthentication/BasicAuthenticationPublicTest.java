@@ -28,7 +28,7 @@ public class BasicAuthenticationPublicTest extends ArquillianBase {
 
     @Test
     public void testPublicPageNotLoggedin() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("public/servlet");
 
         // Not logged-in
@@ -40,7 +40,7 @@ public class BasicAuthenticationPublicTest extends ArquillianBase {
     public void testPublicPageLoggedin() throws IOException, SAXException {
 
         // JASPIC has to be able to authenticate a user when accessing a public (non-protected) resource.
-        
+
         String response = getFromServerPath("public/servlet?doLogin");
 
         // Now has to be logged-in
@@ -51,15 +51,13 @@ public class BasicAuthenticationPublicTest extends ArquillianBase {
     @Test
     public void testPublicPageNotRememberLogin() throws IOException, SAXException {
 
-
         // -------------------- Request 1 ---------------------------
-        
+
         String response = getFromServerPath("public/servlet");
 
         // Not logged-in
         assertTrue(response.contains("web username: null"));
         assertTrue(response.contains("web user has role \"architect\": false"));
-
 
         // -------------------- Request 2 ---------------------------
 
@@ -69,7 +67,6 @@ public class BasicAuthenticationPublicTest extends ArquillianBase {
         assertTrue(response.contains("web username: test"));
         assertTrue(response.contains("web user has role \"architect\": true"));
 
-        
         // -------------------- Request 3 ---------------------------
 
         response = getFromServerPath("public/servlet");

@@ -10,9 +10,10 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/websocket-cdi")
 @Logging
 public class MyEndpointWithCDI {
-    
-    @Inject MyBean bean;
-    
+
+    @Inject
+    MyBean bean;
+
     @OnMessage
     public String sayHello(String name) {
         System.out.println(getClass().getName() + ".sayHello");

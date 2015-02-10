@@ -45,7 +45,7 @@ public class Person {
     public String toString() {
         return name + ", " + age;
     }
-    
+
     public static Person fromString(String string) {
         StringTokenizer tokens = new StringTokenizer(string, ",");
         return new Person(tokens.nextToken(), Integer.parseInt(tokens.nextToken().trim()));

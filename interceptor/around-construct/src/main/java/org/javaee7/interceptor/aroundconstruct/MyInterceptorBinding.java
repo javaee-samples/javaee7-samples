@@ -13,6 +13,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @InterceptorBinding
 @Retention(RUNTIME)
-@Target({METHOD, TYPE})
+@Target({ METHOD, TYPE })
 public @interface MyInterceptorBinding {
 }

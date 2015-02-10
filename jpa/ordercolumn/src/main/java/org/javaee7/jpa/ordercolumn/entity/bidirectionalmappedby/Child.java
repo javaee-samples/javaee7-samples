@@ -16,7 +16,7 @@ public class Child {
 
     @ManyToOne
     private Parent parent;
-    
+
     public Long getId() {
         return id;
     }

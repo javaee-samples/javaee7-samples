@@ -47,9 +47,9 @@ public class ApplicationSingletonResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addClasses(
-                                 MyApplication.class,
-                                 ApplicationSingletonResource.class);
+            .addClasses(
+                MyApplication.class,
+                ApplicationSingletonResource.class);
     }
 
     @Test

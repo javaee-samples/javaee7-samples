@@ -65,7 +65,7 @@ public class ChatEndpoint {
      * @return
      * @throws IOException
      */
-    @org.atmosphere.config.service.Message(encoders = {JacksonEncoder.class}, decoders = {JacksonDecoder.class})
+    @org.atmosphere.config.service.Message(encoders = { JacksonEncoder.class }, decoders = { JacksonDecoder.class })
     public Message onMessage(Message message) throws IOException {
         logger.info("{} just send {}", message.getAuthor(), message.getMessage());
         return message;

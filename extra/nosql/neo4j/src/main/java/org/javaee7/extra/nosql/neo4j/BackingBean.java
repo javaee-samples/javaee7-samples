@@ -10,16 +10,16 @@ import javax.validation.constraints.Size;
 @Named
 @ApplicationScoped
 public class BackingBean {
-    
+
     @Size(min = 1, max = 20)
     private String name;
 
     private int age;
-    
+
     private String name2;
-    
+
     private int age2;
-    
+
     private String relationship;
 
     public BackingBean() {
@@ -69,11 +69,11 @@ public class BackingBean {
     public void setRelationship(String relationship) {
         this.relationship = relationship;
     }
-    
+
     public String person1String() {
         return name + ", " + age;
     }
-    
+
     public String person2String() {
         return name2 + ", " + age2;
     }

@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @author Arun Gupta
  */
 @Entity
-@Table(name="EMPLOYEE_SCHEMA_CONVERTER")
+@Table(name = "EMPLOYEE_SCHEMA_CONVERTER")
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 })
@@ -23,15 +23,16 @@ public class Employee implements Serializable {
 
     @Id
     private int id;
-    
-    @Column(length=50)
+
+    @Column(length = 50)
     private String name;
-    
+
     @Convert(converter = CreditCardConverter.class)
     private CreditCard card;
-    
-    public Employee() { }
-    
+
+    public Employee() {
+    }
+
     public Employee(String name) {
         this.name = name;
     }
@@ -40,7 +41,7 @@ public class Employee implements Serializable {
         this.name = name;
         this.card = card;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -77,8 +78,10 @@ public class Employee implements Serializable {
 
         final Employee employee = (Employee) o;
 
-        if (card != null ? !card.equals(employee.getCard()) : employee.getCard() != null) return false;
-        if (!name.equals(employee.getName())) return false;
+        if (card != null ? !card.equals(employee.getCard()) : employee.getCard() != null)
+            return false;
+        if (!name.equals(employee.getName()))
+            return false;
 
         return true;
     }

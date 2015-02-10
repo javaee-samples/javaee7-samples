@@ -31,8 +31,8 @@ public class MyResourceTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(MyApplication.class, MyResource.class, People.class, Person.class);
+        return ShrinkWrap.create(WebArchive.class)
+            .addClasses(MyApplication.class, MyResource.class, People.class, Person.class);
     }
 
     @ArquillianResource
@@ -49,24 +49,25 @@ public class MyResourceTest {
     @Test
     public void testJson() throws JSONException {
         String response = target.request().accept("application/*").get(String.class);
-        JSONAssert.assertEquals("[{\"name\":\"Penny\",\"age\":1},{\"name\":\"Leonard\",\"age\":2},{\"name\":\"Sheldon\",\"age\":3}]", 
-                response, 
-                JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("[{\"name\":\"Penny\",\"age\":1},{\"name\":\"Leonard\",\"age\":2},{\"name\":\"Sheldon\",\"age\":3}]",
+            response,
+            JSONCompareMode.STRICT);
     }
-    
+
     @Test
     public void testJson2() throws JSONException {
         String response = target.request().get(String.class);
-        JSONAssert.assertEquals("[{\"name\":\"Penny\",\"age\":1},{\"name\":\"Leonard\",\"age\":2},{\"name\":\"Sheldon\",\"age\":3}]", 
-                response, 
-                JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("[{\"name\":\"Penny\",\"age\":1},{\"name\":\"Leonard\",\"age\":2},{\"name\":\"Sheldon\",\"age\":3}]",
+            response,
+            JSONCompareMode.STRICT);
     }
-    
+
     @Test
     public void testXml() throws JSONException, SAXException, IOException {
         String response = target.request().accept("application/xml").get(String.class);
-        XMLAssert.assertXMLEqual("<people><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></people>", 
-                response);
+        XMLAssert.assertXMLEqual(
+            "<people><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></people>",
+            response);
     }
-    
+
 }

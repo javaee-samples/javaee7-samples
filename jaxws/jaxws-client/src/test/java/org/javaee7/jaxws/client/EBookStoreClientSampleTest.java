@@ -26,6 +26,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+
 /**
  * @author Fermin Gallego
  */
@@ -43,9 +44,9 @@ public class EBookStoreClientSampleTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(MavenImporter.class)
-                .loadPomFromFile("../jaxws-endpoint/pom.xml")
-                .importBuildOutput()  
-                .as(WebArchive.class);
+            .loadPomFromFile("../jaxws-endpoint/pom.xml")
+            .importBuildOutput()
+            .as(WebArchive.class);
     }
 
     @ArquillianResource
@@ -54,39 +55,40 @@ public class EBookStoreClientSampleTest {
     @Before
     public void setUp() throws Exception {
         eBookStoreService = new EBookStoreImplService(
-                new URL(url, "EBookStoreImplService?wsdl"),
-                new QName("http://endpoint.jaxws.javaee7.org/", "EBookStoreImplService"));
+            new URL(url, "EBookStoreImplService?wsdl"),
+            new QName("http://endpoint.jaxws.javaee7.org/", "EBookStoreImplService"));
     }
 
     @Test
     public void test1WelcomeMessage() throws MalformedURLException {
         EBookStore eBookStore = eBookStoreService.getEBookStoreImplPort();
-        String response=eBookStore.welcomeMessage("Jackson");
+        String response = eBookStore.welcomeMessage("Jackson");
         assertEquals("Welcome to EBookStore WebService, Mr/Mrs Jackson", response);
     }
+
     @Test
     public void test2SaveAndTakeBook() throws MalformedURLException {
         EBookStore eBookStore = eBookStoreService.getPort(EBookStore.class);
 
-        EBook eBook=new EBook();
+        EBook eBook = new EBook();
         eBook.setTitle("The Jungle Book");
         eBook.setNumPages(225);
         eBook.setPrice(17.9);
         eBookStore.saveBook(eBook);
-        eBook=new EBook();
+        eBook = new EBook();
 
         eBook.setTitle("Animal Farm");
         eBook.setNumPages(113);
         eBook.setPrice(22.5);
-        List<String> notes= Arrays.asList(new String[]{"Great book","Not too bad"});
+        List<String> notes = Arrays.asList(new String[] { "Great book", "Not too bad" });
         eBook.getNotes().addAll(notes);
         eBookStore.saveBook(eBook);
 
-        EBook response=eBookStore.takeBook("Animal Farm");
-        assertEquals(eBook.getNumPages(),response.getNumPages());
-        assertEquals(eBook.getPrice(),response.getPrice(),0);
-        assertEquals(eBook.getTitle(),response.getTitle());
-        assertEquals(notes,response.getNotes());
+        EBook response = eBookStore.takeBook("Animal Farm");
+        assertEquals(eBook.getNumPages(), response.getNumPages());
+        assertEquals(eBook.getPrice(), response.getPrice(), 0);
+        assertEquals(eBook.getTitle(), response.getTitle());
+        assertEquals(notes, response.getNotes());
 
     }
 

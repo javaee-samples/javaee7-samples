@@ -11,8 +11,9 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class UserService implements Serializable {
-    @Inject User user;
-    
+    @Inject
+    User user;
+
     public void register() {
         System.out.println("Registering " + user.getName() + " with the password \"" + user.getPassword() + "\"");
     }

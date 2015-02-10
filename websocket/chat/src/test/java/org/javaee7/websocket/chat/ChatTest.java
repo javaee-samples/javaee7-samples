@@ -23,25 +23,25 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class ChatTest {
-    
+
     @ArquillianResource
     URI base;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(ChatEndpoint.class,
-                        ChatClientEndpoint1.class,
-                        ChatClientEndpoint2.class);
+            .addClasses(ChatEndpoint.class,
+                ChatClientEndpoint1.class,
+                ChatClientEndpoint2.class);
     }
-    
+
     @Test
     public void testConnect() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         ChatClientEndpoint1.latch = new CountDownLatch(1);
         final Session session1 = connectToServer(ChatClientEndpoint1.class);
         assertNotNull(session1);
         assertTrue(ChatClientEndpoint1.latch.await(2, TimeUnit.SECONDS));
-        
+
         assertEquals(ChatClientEndpoint1.TEXT, ChatClientEndpoint1.response);
 
         ChatClientEndpoint1.latch = new CountDownLatch(1);
@@ -53,16 +53,15 @@ public class ChatTest {
         assertEquals(ChatClientEndpoint2.TEXT, ChatClientEndpoint1.response);
         assertEquals(ChatClientEndpoint2.TEXT, ChatClientEndpoint2.response);
     }
-    
 
     public Session connectToServer(Class<?> endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
-                + base.getHost()
-                + ":"
-                + base.getPort()
-                + base.getPath()
-                + "chat");
+            + base.getHost()
+            + ":"
+            + base.getPort()
+            + base.getPath()
+            + "chat");
         return container.connectToServer(endpoint, uri);
     }
 }

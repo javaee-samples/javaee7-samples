@@ -82,16 +82,16 @@ public class NoteResourceImplTest {
     @Test
     public void addNewNote(@ArquillianResource URL deploymentURL, @Drone WebDriver driver) throws Exception
     {
-//        Given
+        //        Given
         driver.navigate().to(deploymentURL);
         final TodoPage page = GrapheneRuntime.getInstance().goTo(TodoPage.class);
         assertEquals(3, page.getTodos().size());
-//        When
+        //        When
         page.addNote();
         page.typeTitle("New title");
         page.typeSummary("New summary");
         page.save();
-//        Then
+        //        Then
         assertEquals(4, page.getTodos().size());
         assertEquals("New title", page.getTodos().get(3).getTitle());
         assertEquals("New summary", page.getTodos().get(3).getSummary());
@@ -102,11 +102,11 @@ public class NoteResourceImplTest {
     @Test
     public void onenterContainsNotesFromDB(@ArquillianResource URL deploymentURL, @Drone WebDriver driver)
     {
-//        Given
-//        When
+        //        Given
+        //        When
         driver.navigate().to(deploymentURL);
         final TodoPage page = GrapheneRuntime.getInstance().goTo(TodoPage.class);
-//        Then
+        //        Then
         assertEquals(3, page.getTodos().size());
         assertEquals("Note A", page.getTodos().get(0).getTitle());
         assertEquals("Note B", page.getTodos().get(1).getTitle());
@@ -118,13 +118,13 @@ public class NoteResourceImplTest {
     @Test
     public void removeNote(@ArquillianResource URL deploymentURL, @Drone WebDriver driver) throws Exception
     {
-//        Given
+        //        Given
         driver.navigate().to(deploymentURL);
         final TodoPage page = GrapheneRuntime.getInstance().goTo(TodoPage.class);
         assertEquals(3, page.getTodos().size());
-//        When
+        //        When
         page.getTodos().get(0).remove();
-//        Then
+        //        Then
         assertEquals("Note B", page.getTodos().get(0).getTitle());
         assertEquals("Note C", page.getTodos().get(1).getTitle());
     }

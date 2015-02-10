@@ -29,7 +29,7 @@ public class MyEndpointClient {
             ioe.printStackTrace();
         }
     }
-    
+
     @OnMessage
     public void processMessage(byte[] message) {
         MyEndpointClient.response = message;

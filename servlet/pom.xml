@@ -12,7 +12,7 @@
     <groupId>org.javaee7</groupId>
     <artifactId>servlet</artifactId>
     <packaging>pom</packaging>
-    <name>Java EE 7 Servlet Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples - servlet</name>
 
     <modules>
         <module>cookies</module>

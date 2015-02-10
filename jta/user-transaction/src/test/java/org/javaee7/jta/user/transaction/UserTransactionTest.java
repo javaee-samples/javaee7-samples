@@ -23,10 +23,11 @@ public class UserTransactionTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addAsManifestResource("beans.xml");
+            .addAsManifestResource("beans.xml");
     }
 
-    @Inject UserTransaction ut;
+    @Inject
+    UserTransaction ut;
 
     @Test
     public void should_work_with_cdi() throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
@@ -37,7 +38,7 @@ public class UserTransactionTest {
     @Test
     public void should_work_with_jndi() throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException, NamingException {
         Context context = new InitialContext();
-        UserTransaction ut = (UserTransaction)context.lookup("java:comp/UserTransaction");
+        UserTransaction ut = (UserTransaction) context.lookup("java:comp/UserTransaction");
         ut.begin();
         ut.commit();
     }

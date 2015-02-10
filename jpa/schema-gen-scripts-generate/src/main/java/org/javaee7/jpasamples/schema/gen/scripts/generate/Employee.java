@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "EMPLOYEE_SCHEMA_GEN_SCRIPTS_GENERATE")
 @NamedQueries({
-        @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 })
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;

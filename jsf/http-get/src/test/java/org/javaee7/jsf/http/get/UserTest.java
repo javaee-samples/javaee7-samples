@@ -26,7 +26,7 @@ public class UserTest {
 
     @ArquillianResource
     private URL base;
-    
+
     WebClient webClient;
 
     private static final String WEBAPP_SRC = "src/main/webapp";
@@ -35,12 +35,12 @@ public class UserTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).
-                addClass(User.class)
-                .addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
-                .addAsWebResource(new File(WEBAPP_SRC, "index2.xhtml"))
-                .addAsWebResource(new File(WEBAPP_SRC, "login.xhtml"))
-                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
-                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "beans.xml"));
+            addClass(User.class)
+            .addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
+            .addAsWebResource(new File(WEBAPP_SRC, "index2.xhtml"))
+            .addAsWebResource(new File(WEBAPP_SRC, "login.xhtml"))
+            .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
+            .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "beans.xml"));
     }
 
     @Before
@@ -51,38 +51,38 @@ public class UserTest {
 
     @Test
     public void testLink() throws IOException {
-        HtmlAnchor anchor = (HtmlAnchor)page.getElementById("link1");
+        HtmlAnchor anchor = (HtmlAnchor) page.getElementById("link1");
         assertTrue(anchor.getHrefAttribute().contains("faces/login.xhtml"));
         assertEquals("Login1", anchor.asText());
-        
+
         HtmlPage output = anchor.click();
         assertEquals("HTTP GET (Login)", output.getTitleText());
     }
 
     @Test
     public void testLinkWithParam() throws IOException {
-        HtmlAnchor anchor = (HtmlAnchor)page.getElementById("link2");
+        HtmlAnchor anchor = (HtmlAnchor) page.getElementById("link2");
         assertTrue(anchor.getHrefAttribute().contains("faces/login.xhtml"));
         assertTrue(anchor.getHrefAttribute().contains("?name=Jack"));
         assertEquals("Login2", anchor.asText());
-        
+
         HtmlPage output = anchor.click();
         assertEquals("HTTP GET (Login)", output.getTitleText());
     }
-        
+
     @Test
     public void testLinkWithPreProcessParams() {
-        HtmlAnchor anchor = (HtmlAnchor)page.getElementById("link3");
+        HtmlAnchor anchor = (HtmlAnchor) page.getElementById("link3");
         assertEquals("Login3", anchor.asText());
         assertTrue(anchor.getHrefAttribute().contains("faces/index2.xhtml"));
         assertTrue(anchor.getHrefAttribute().contains("?name=Jack"));
     }
-        
+
     @Test
     public void testButton() throws IOException {
-        HtmlButtonInput button = (HtmlButtonInput)page.getElementById("button1");
+        HtmlButtonInput button = (HtmlButtonInput) page.getElementById("button1");
         assertEquals("Login4", button.asText());
-        
+
         HtmlPage output = button.click();
         assertEquals("HTTP GET (Login)", output.getTitleText());
     }

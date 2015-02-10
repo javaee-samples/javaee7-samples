@@ -16,13 +16,13 @@ public class MyResource {
         System.out.println("endpoint invoked (getResource)");
         return "banana";
     }
-    
+
     @POST
-    @Consumes(value="*/*")
+    @Consumes(value = "*/*")
     @Produces("text/plain")
     public String getResource2(String index) {
         System.out.println("endpoint invoked (getResource2(" + index + "))");
-        
+
         return "apple";
     }
 }

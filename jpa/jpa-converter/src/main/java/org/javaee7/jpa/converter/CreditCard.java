@@ -40,7 +40,8 @@ public class CreditCard implements Serializable {
 
         final CreditCard that = (CreditCard) o;
 
-        if (cardNumber != null ? !cardNumber.equals(that.cardNumber) : that.cardNumber != null) return false;
+        if (cardNumber != null ? !cardNumber.equals(that.cardNumber) : that.cardNumber != null)
+            return false;
 
         return true;
     }

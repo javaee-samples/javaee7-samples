@@ -12,7 +12,7 @@
     <artifactId>interceptor</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JSR 318 Interceptors 1.2 Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples - interceptor</name>
 
     <modules>
         <module>around-construct</module>

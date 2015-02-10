@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServletJNDI"})
+@WebServlet(urlPatterns = { "/TestServletJNDI" })
 public class TestServletJNDI extends HttpServlet {
-    
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -32,13 +32,13 @@ public class TestServletJNDI extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>BeanManager using JNDI</title>");            
+            out.println("<title>BeanManager using JNDI</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>BeanManager using JNDI</h1>");
@@ -46,7 +46,7 @@ public class TestServletJNDI extends HttpServlet {
             BeanManager bm = null;
             try {
                 InitialContext context = new InitialContext();
-                bm = (BeanManager)context.lookup("java:comp/BeanManager");
+                bm = (BeanManager) context.lookup("java:comp/BeanManager");
             } catch (NamingException | NullPointerException ex) {
                 ex.printStackTrace(out);
             }
@@ -58,7 +58,7 @@ public class TestServletJNDI extends HttpServlet {
             out.println("</html>");
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
@@ -71,7 +71,7 @@ public class TestServletJNDI extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -86,7 +86,7 @@ public class TestServletJNDI extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

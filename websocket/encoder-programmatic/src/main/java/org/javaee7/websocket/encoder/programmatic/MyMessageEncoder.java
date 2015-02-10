@@ -13,10 +13,12 @@ public class MyMessageEncoder implements Encoder.Text<MyMessage> {
         MyClient.latch.countDown();
         return myMessage.getJsonObject().toString();
     }
-    
-    @Override
-    public void init(EndpointConfig ec) { }
 
     @Override
-    public void destroy() { }    
+    public void init(EndpointConfig ec) {
+    }
+
+    @Override
+    public void destroy() {
+    }
 }

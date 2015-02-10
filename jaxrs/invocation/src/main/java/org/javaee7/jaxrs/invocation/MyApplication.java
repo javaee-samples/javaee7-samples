@@ -16,5 +16,5 @@ public class MyApplication extends Application {
         resources.add(MyResource.class);
         return resources;
     }
-    
+
 }

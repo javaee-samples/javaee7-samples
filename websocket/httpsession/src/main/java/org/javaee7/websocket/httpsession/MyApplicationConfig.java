@@ -17,14 +17,15 @@ public class MyApplicationConfig implements ServerApplicationConfig {
 
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
-        return new HashSet<ServerEndpointConfig>() {{
-            add(ServerEndpointConfig.Builder
+        return new HashSet<ServerEndpointConfig>() {
+            {
+                add(ServerEndpointConfig.Builder
                     .create(MyEndpoint.class, "/websocket")
                     .configurator(new ServerEndpointConfig.Configurator() {
 
                         @Override
                         public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
-                            HttpSession session = (HttpSession)request.getHttpSession();
+                            HttpSession session = (HttpSession) request.getHttpSession();
                             System.out.println("HttpSession id: " + session.getId());
                             System.out.println("HttpSession creation time: " + session.getCreationTime());
                             super.modifyHandshake(sec, request, response);
@@ -32,7 +33,8 @@ public class MyApplicationConfig implements ServerApplicationConfig {
 
                     })
                     .build());
-        }};
+            }
+        };
     }
 
     @Override

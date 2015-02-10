@@ -17,32 +17,32 @@ public class MovieBean {
 
     public List<Movie> listMovies() {
         return entityManager.createNamedQuery("Movie.findAll")
-                            .getResultList();
+            .getResultList();
     }
 
     public List<Movie> listMovies(String hint, String graphName) {
         return entityManager.createNamedQuery("Movie.findAll")
-                            .setHint(hint, entityManager.getEntityGraph(graphName))
-                            .getResultList();
+            .setHint(hint, entityManager.getEntityGraph(graphName))
+            .getResultList();
     }
 
     public List<Movie> listMovies(String hint, EntityGraph<?> entityGraph) {
         return entityManager.createNamedQuery("Movie.findAll")
-                            .setHint(hint, entityGraph)
-                            .getResultList();
+            .setHint(hint, entityGraph)
+            .getResultList();
     }
 
     public List<Movie> listMoviesById(Integer movieId, String hint, String graphName) {
         return entityManager.createNamedQuery("Movie.findAllById")
-                            .setParameter("movieId", movieId)
-                            .setHint(hint, entityManager.getEntityGraph(graphName))
-                            .getResultList();
+            .setParameter("movieId", movieId)
+            .setHint(hint, entityManager.getEntityGraph(graphName))
+            .getResultList();
     }
 
     public List<Movie> listMoviesByIds(List<Integer> movieIds, String hint, String graphName) {
         return entityManager.createNamedQuery("Movie.findAllByIds")
-                            .setParameter("movieIds", movieIds)
-                            .setHint(hint, entityManager.getEntityGraph(graphName))
-                            .getResultList();
+            .setParameter("movieIds", movieIds)
+            .setHint(hint, entityManager.getEntityGraph(graphName))
+            .getResultList();
     }
 }

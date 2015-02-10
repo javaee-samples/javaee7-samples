@@ -46,10 +46,10 @@ public class BatchChunkOptionalProcessorTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(BatchTestHelper.class)
-                .addPackage("org.javaee7.batch.chunk.optional.processor")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addClass(BatchTestHelper.class)
+            .addPackage("org.javaee7.batch.chunk.optional.processor")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
@@ -82,7 +82,7 @@ public class BatchChunkOptionalProcessorTest {
                 assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
                 // <3> The commit count should be 4. Checkpoint is on every 3rd read, 4 commits for read elements.
                 assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0),
-                             metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
+                    metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }
         }
 

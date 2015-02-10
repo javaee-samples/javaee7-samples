@@ -28,5 +28,5 @@ public class MyReducer implements PartitionReducer {
     public void afterPartitionedStepCompletion(PartitionStatus ps) throws Exception {
         System.out.println("afterPartitionedStepCompletion");
     }
-    
+
 }

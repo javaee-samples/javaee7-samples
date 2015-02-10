@@ -9,13 +9,13 @@ import javax.inject.Named;
  */
 @Named
 public class MyItemReader extends AbstractItemReader {
-    
+
     private final StringTokenizer tokens;
-    
+
     public MyItemReader() {
         tokens = new StringTokenizer("1,2,3,4,5", ",");
     }
-    
+
     @Override
     public MyInputRecord readItem() {
         if (tokens.hasMoreTokens()) {

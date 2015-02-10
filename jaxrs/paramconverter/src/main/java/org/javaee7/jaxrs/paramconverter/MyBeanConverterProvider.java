@@ -13,28 +13,28 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class MyBeanConverterProvider implements ParamConverterProvider {
 
-	@Override
-	public <T> ParamConverter<T> getConverter(Class<T> clazz, Type type, Annotation[] annotations) {
-		if (clazz.getName().equals(MyBean.class.getName())) {
+    @Override
+    public <T> ParamConverter<T> getConverter(Class<T> clazz, Type type, Annotation[] annotations) {
+        if (clazz.getName().equals(MyBean.class.getName())) {
 
-			return new ParamConverter<T>() {
+            return new ParamConverter<T>() {
 
-				@SuppressWarnings("unchecked")
-				@Override
-				public T fromString(String value) {
-					MyBean bean = new MyBean();
-					bean.setValue(value);
-					return (T) bean;
-				}
+                @SuppressWarnings("unchecked")
+                @Override
+                public T fromString(String value) {
+                    MyBean bean = new MyBean();
+                    bean.setValue(value);
+                    return (T) bean;
+                }
 
-				@Override
-				public String toString(T bean) {
-					return ((MyBean)bean).getValue();
-				}
+                @Override
+                public String toString(T bean) {
+                    return ((MyBean) bean).getValue();
+                }
 
-			};
-		}
-		return null;
-	}
+            };
+        }
+        return null;
+    }
 
 }

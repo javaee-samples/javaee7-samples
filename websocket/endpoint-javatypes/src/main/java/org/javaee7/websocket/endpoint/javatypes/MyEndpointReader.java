@@ -13,7 +13,7 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/websocket-reader")
 public class MyEndpointReader {
-    
+
     @OnMessage
     public String echoReader(Reader reader) {
         System.out.println("echoReader");
@@ -24,7 +24,7 @@ public class MyEndpointReader {
             Logger.getLogger(MyEndpointReader.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        
+
         return new String(buffer.array());
     }
 }

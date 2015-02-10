@@ -20,17 +20,17 @@ public class PersonSessionBean {
 
     @Inject
     Person person;
-    
+
     Jedis jedis;
-    
+
     Set<String> set = new HashSet<>();
 
     @PostConstruct
     private void initDB() {
-//         Start embedded Redis
+        //         Start embedded Redis
         jedis = new Jedis("localhost", 6379);
     }
-    
+
     @PreDestroy
     private void stopDB() {
         jedis.shutdown();

@@ -9,9 +9,10 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/websocket-ejb")
 public class MyEndpointWithEJB {
-    
-    @Inject MySessionBean bean;
-    
+
+    @Inject
+    MySessionBean bean;
+
     @OnMessage
     public String sayHello(String name) {
         return bean.sayHello(name + " (from EJB)");

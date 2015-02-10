@@ -14,8 +14,8 @@ import javax.validation.constraints.Size;
  * @author Arun Gupta
  */
 @Documented
-@Target({ElementType.ANNOTATION_TYPE,
-    ElementType.TYPE})
+@Target({ ElementType.ANNOTATION_TYPE,
+    ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = EmailValidator.class)
 @Size(min = 1, message = "{org.javaee7.jaxrs.resource_validation.min_size}")

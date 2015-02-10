@@ -40,21 +40,21 @@ public class GoogleDocClient extends Application {
         stage.setTitle("Google Docs Emulator using WebSocket");
         textarea = new TextArea();
         textarea.textProperty().addListener(
-                new ChangeListener<String>() {
+            new ChangeListener<String>() {
 
-                    @Override
-                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                        System.out.println("New value: " + newValue);
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    System.out.println("New value: " + newValue);
 
-                        try {
-                            session.getBasicRemote().sendText(newValue);
-                        } catch (IOException ex) {
-                            Logger.getLogger(GoogleDocClient.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    try {
+                        session.getBasicRemote().sendText(newValue);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GoogleDocClient.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
                 }
-        );
+
+            }
+            );
 
         textarea.setPrefSize(500, 300);
         textarea.setWrapText(true);

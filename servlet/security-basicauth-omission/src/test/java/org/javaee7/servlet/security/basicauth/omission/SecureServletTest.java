@@ -38,8 +38,8 @@ public class SecureServletTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(SecureServlet.class).
-                addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
+            addClass(SecureServlet.class).
+            addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
         return war;
     }
 
@@ -50,14 +50,14 @@ public class SecureServletTest {
         incorrectCreds.addCredentials("random", "random");
     }
 
-//    @Test
+    //    @Test
     public void testGetWithCorrectCredentials() throws Exception {
         webClient.setCredentialsProvider(correctCreds);
         TextPage page = webClient.getPage(base + "/SecureServlet");
         assertEquals("my GET", page.getContent());
     }
 
-//    @Test
+    //    @Test
     public void testGetWithIncorrectCredentials() throws Exception {
         webClient.setCredentialsProvider(incorrectCreds);
         try {
@@ -72,7 +72,7 @@ public class SecureServletTest {
 
     @Test
     public void testPostWithNoCredentials() throws Exception {
-//        webClient.setCredentialsProvider(correctCreds);
+        //        webClient.setCredentialsProvider(correctCreds);
         WebRequest request = new WebRequest(new URL(base + "SecureServlet"), HttpMethod.POST);
         TextPage page = webClient.getPage(request);
         assertEquals("my POST", page.getContent());

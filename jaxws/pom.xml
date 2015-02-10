@@ -11,7 +11,7 @@
     <groupId>org.javaee7</groupId>
     <artifactId>jaxws</artifactId>
     <packaging>pom</packaging>
-    <name>Java EE 7 JAX-WS Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples - jaxws</name>
 
     <modules>
         <module>jaxws-endpoint</module>

@@ -40,7 +40,7 @@ public class TempQueueTest {
     @Deployment
     public static WebArchive deployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(RequestResponseOverJMS.class, JmsClient.class, Resources.class);
+            .addClasses(RequestResponseOverJMS.class, JmsClient.class, Resources.class);
     }
 
     @EJB

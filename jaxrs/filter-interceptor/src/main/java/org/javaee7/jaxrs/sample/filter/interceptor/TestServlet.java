@@ -15,7 +15,7 @@ import javax.ws.rs.client.WebTarget;
 /**
  * @author Arun Gupta
  */
-@WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
+@WebServlet(name = "TestServlet", urlPatterns = { "/TestServlet" })
 public class TestServlet extends HttpServlet {
 
     /**
@@ -29,7 +29,7 @@ public class TestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<html>");
@@ -41,20 +41,20 @@ public class TestServlet extends HttpServlet {
         Client client = ClientBuilder.newClient();
         client.register(ClientLoggingFilter.class).register(MyClientReaderInterceptor.class).register(MyClientWriterInterceptor.class);
         WebTarget target = client.target("http://"
-                + request.getServerName()
-                + ":"
-                + request.getServerPort()
-                + request.getContextPath()
-                + "/webresources/fruits");
-        out.println(target.getUri()+ "<br><br>");
-        out.println("GET request"+ "<br><br>");
+            + request.getServerName()
+            + ":"
+            + request.getServerPort()
+            + request.getContextPath()
+            + "/webresources/fruits");
+        out.println(target.getUri() + "<br><br>");
+        out.println("GET request" + "<br><br>");
         String result = target.request().get(String.class);
         out.println("Received response (GET): " + result + "<br><br>");
 
         System.out.println("**** POST request");
         result = target
-                .request()
-                .post(Entity.text("1"), String.class);
+            .request()
+            .post(Entity.text("1"), String.class);
         out.println("Received response (POST): " + result + "<br><br>");
 
         out.println("Received response: " + result + "<br><br>");
@@ -75,7 +75,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -90,7 +90,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

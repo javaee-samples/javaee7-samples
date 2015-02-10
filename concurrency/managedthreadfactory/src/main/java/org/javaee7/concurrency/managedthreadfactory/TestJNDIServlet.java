@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestJNDIServlet"})
+@WebServlet(urlPatterns = { "/TestJNDIServlet" })
 public class TestJNDIServlet extends HttpServlet {
 
     /**
@@ -30,7 +30,7 @@ public class TestJNDIServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -42,9 +42,9 @@ public class TestJNDIServlet extends HttpServlet {
             out.println("<h1>Getting ManagedThreadFactory using JNDI lookup</h1>");
             try {
                 InitialContext ctx = new InitialContext();
-                
+
                 ManagedThreadFactory factory = (ManagedThreadFactory) ctx.lookup("java:comp/DefaultManagedThreadFactory");
-//                ManagedExecutorService executor = (ManagedExecutorService) ctx.lookup("concurrent/myExecutor");
+                //                ManagedExecutorService executor = (ManagedExecutorService) ctx.lookup("concurrent/myExecutor");
                 out.println("Getting ManageableThread<br>");
                 Thread thread = factory.newThread(new MyTask(2));
                 out.println("Starting thread<br>");
@@ -72,7 +72,7 @@ public class TestJNDIServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -87,7 +87,7 @@ public class TestJNDIServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

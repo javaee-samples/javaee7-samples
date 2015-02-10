@@ -21,10 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/ProgrammaticEmailServlet"})
+@WebServlet(urlPatterns = { "/ProgrammaticEmailServlet" })
 public class ProgrammaticEmailServlet extends HttpServlet {
-    
-    @Inject Credentials creds;
+
+    @Inject
+    Credentials creds;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +37,7 @@ public class ProgrammaticEmailServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -54,34 +55,33 @@ public class ProgrammaticEmailServlet extends HttpServlet {
             props.put("mail.transport.protocol", "smtp");
             props.put("mail.debug", "true");
 
-
             Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                        @Override
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(creds.getFrom(), creds.getPassword());
-                        }
-                    });
-//            Session session = Session.getInstance(props);
+                new javax.mail.Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(creds.getFrom(), creds.getPassword());
+                    }
+                });
+            //            Session session = Session.getInstance(props);
 
             try {
 
-                out.println("Sending message from \"" 
-                        + creds.getFrom()
-                        + "\" to \"" 
-                        + creds.getTo()
-                        + "\"...<br>");
+                out.println("Sending message from \""
+                    + creds.getFrom()
+                    + "\" to \""
+                    + creds.getTo()
+                    + "\"...<br>");
 
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(creds.getFrom()));
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(creds.getTo()));
+                    InternetAddress.parse(creds.getTo()));
                 message.setSubject("Sending message using Programmatic JavaMail " + Calendar.getInstance().getTime());
                 message.setText("Java EE 7 is cool!");
 
-//                Transport t = session.getTransport();
-//                t.connect(creds.getFrom(), creds.getTo());
-//                t.sendMessage(message, message.getAllRecipients());
+                //                Transport t = session.getTransport();
+                //                t.connect(creds.getFrom(), creds.getTo());
+                //                t.sendMessage(message, message.getAllRecipients());
                 Transport.send(message, message.getAllRecipients());
 
                 out.println("message sent!");
@@ -106,7 +106,7 @@ public class ProgrammaticEmailServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -120,7 +120,7 @@ public class ProgrammaticEmailServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

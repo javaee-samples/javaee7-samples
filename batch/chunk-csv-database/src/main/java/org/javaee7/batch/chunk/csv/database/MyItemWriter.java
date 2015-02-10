@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
  */
 @Named
 public class MyItemWriter extends AbstractItemWriter {
-    
+
     @PersistenceContext
     EntityManager em;
 

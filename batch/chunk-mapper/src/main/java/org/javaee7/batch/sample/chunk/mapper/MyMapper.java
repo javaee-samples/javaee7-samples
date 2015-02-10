@@ -29,11 +29,11 @@ public class MyMapper implements PartitionMapper {
             @Override
             public Properties[] getPartitionProperties() {
                 Properties[] props = new Properties[getPartitions()];
-                
-                for (int i=0; i<getPartitions(); i++) {
+
+                for (int i = 0; i < getPartitions(); i++) {
                     props[i] = new Properties();
-                    props[i].setProperty("start", String.valueOf(i*10+1));
-                    props[i].setProperty("end", String.valueOf((i+1)*10));
+                    props[i].setProperty("start", String.valueOf(i * 10 + 1));
+                    props[i].setProperty("end", String.valueOf((i + 1) * 10));
                 }
                 return props;
             }

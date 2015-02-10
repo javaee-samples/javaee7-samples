@@ -17,5 +17,5 @@ public class MyDecider implements Decider {
         }
         return "foobar";
     }
-    
+
 }

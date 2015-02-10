@@ -28,17 +28,17 @@ public class TestServletTest {
 
     @ArquillianResource
     private URL base;
-    
+
     WebClient webClient;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(TestServlet.class).
-                addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
+            addClass(TestServlet.class).
+            addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
         return war;
     }
-    
+
     @Before
     public void setup() {
         webClient = new WebClient();

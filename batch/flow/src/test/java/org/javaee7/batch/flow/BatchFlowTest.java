@@ -48,10 +48,10 @@ public class BatchFlowTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(BatchTestHelper.class)
-                .addPackage("org.javaee7.batch.flow")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addClass(BatchTestHelper.class)
+            .addPackage("org.javaee7.batch.flow")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
@@ -88,7 +88,7 @@ public class BatchFlowTest {
         // <1> Make sure all the steps were executed.
         assertEquals(3, stepExecutions.size());
         // <2> Make sure all the steps were executed in order of declaration.
-        assertArrayEquals(new String[]{"step1", "step2", "step3"}, executedSteps.toArray());
+        assertArrayEquals(new String[] { "step1", "step2", "step3" }, executedSteps.toArray());
         // <3> Job should be completed.
         assertEquals(BatchStatus.COMPLETED, jobExecution.getBatchStatus());
     }

@@ -33,28 +33,28 @@ public class FileUploadTest {
     @Deployment(testable = false)
     public static WebArchive deploy() throws URISyntaxException {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(TestServlet.class);
+            .addClasses(TestServlet.class);
     }
 
     @Test
     public void uploadFile() throws IOException, URISyntaxException {
 
-//        HttpClient client = new DefaultHttpClient();
-//        HttpPost postRequest = new HttpPost(new URL(base, "TestServlet").toURI());
-//
-//        MultipartEntity multiPartEntity = new MultipartEntity();
-//        FileBody fileBody = new FileBody(new File("pom.xml"));
-//        multiPartEntity.addPart("attachment", fileBody);
-//
-//        postRequest.setEntity(multiPartEntity);
-//        HttpResponse response = client.execute(postRequest);
-//
-//        String servletOutput = EntityUtils.toString(response.getEntity());
-//
-//        assertThat(response.getStatusLine().getStatusCode(), is(equalTo(200)));
-//        assertThat(servletOutput, containsString("Received 1 parts"));
-//        assertThat(servletOutput, containsString("writing pom.xml part"));
-//        assertThat(servletOutput, containsString("uploaded to: /tmp/pom.xml"));
+        //        HttpClient client = new DefaultHttpClient();
+        //        HttpPost postRequest = new HttpPost(new URL(base, "TestServlet").toURI());
+        //
+        //        MultipartEntity multiPartEntity = new MultipartEntity();
+        //        FileBody fileBody = new FileBody(new File("pom.xml"));
+        //        multiPartEntity.addPart("attachment", fileBody);
+        //
+        //        postRequest.setEntity(multiPartEntity);
+        //        HttpResponse response = client.execute(postRequest);
+        //
+        //        String servletOutput = EntityUtils.toString(response.getEntity());
+        //
+        //        assertThat(response.getStatusLine().getStatusCode(), is(equalTo(200)));
+        //        assertThat(servletOutput, containsString("Received 1 parts"));
+        //        assertThat(servletOutput, containsString("writing pom.xml part"));
+        //        assertThat(servletOutput, containsString("uploaded to: /tmp/pom.xml"));
     }
 
 }

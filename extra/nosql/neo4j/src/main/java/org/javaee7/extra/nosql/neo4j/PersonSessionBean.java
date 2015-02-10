@@ -36,7 +36,9 @@ public class PersonSessionBean {
     Node secondNode;
 
     private static enum RelTypes implements RelationshipType {
-        SPOUSE, BROTHER, SISTER
+        SPOUSE,
+        BROTHER,
+        SISTER
     }
 
     Set<String> set = new HashSet<>();

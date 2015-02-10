@@ -26,18 +26,18 @@ public class SchemaGenScriptsExternalTest {
     @Deployment
     public static WebArchive createDeployment() throws Exception {
         copyURLToFile(currentThread().getContextClassLoader().getResource("META-INF/create.sql"),
-                      new File("/tmp/create.sql"));
+            new File("/tmp/create.sql"));
         copyURLToFile(currentThread().getContextClassLoader().getResource("META-INF/drop.sql"),
-                      new File("/tmp/drop.sql"));
+            new File("/tmp/drop.sql"));
         copyURLToFile(currentThread().getContextClassLoader().getResource("META-INF/load.sql"),
-                      new File("/tmp/load.sql"));
+            new File("/tmp/load.sql"));
 
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                                   .addPackage("org.javaee7.jpasamples.schema.gen.scripts.external")
-                                   .addAsResource("META-INF/persistence.xml")
-                                   .addAsResource("META-INF/create.sql")
-                                   .addAsResource("META-INF/drop.sql")
-                                   .addAsResource("META-INF/load.sql");
+            .addPackage("org.javaee7.jpasamples.schema.gen.scripts.external")
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/create.sql")
+            .addAsResource("META-INF/drop.sql")
+            .addAsResource("META-INF/load.sql");
         System.out.println(war.toString(true));
         return war;
     }

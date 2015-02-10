@@ -7,12 +7,12 @@ import javax.validation.constraints.Size;
  * @author Arun Gupta
  */
 public class Person {
-    
+
     @Size(min = 1, max = 20)
     private String name;
 
     private int age;
-    
+
     public Person() {
     }
 
@@ -41,11 +41,11 @@ public class Person {
     public String toString() {
         return name + ", " + age;
     }
-    
+
     public static final Person fromString(String string) {
         StringTokenizer tokens = new StringTokenizer(string, ",");
         Person p = new Person(tokens.nextToken(), Integer.parseInt(tokens.nextToken().trim()));
-        
+
         return p;
     }
 }

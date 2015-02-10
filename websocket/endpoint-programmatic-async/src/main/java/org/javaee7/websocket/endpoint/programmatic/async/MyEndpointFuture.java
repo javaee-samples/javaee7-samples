@@ -21,12 +21,12 @@ public class MyEndpointFuture extends Endpoint {
             @Override
             public void onMessage(String data) {
                 System.out.println("Received (MyEndpointFuture) : " + data);
-//                try {
-//                    session.getBasicRemote().sendText(data);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MyEndpointFuture.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-                
+                //                try {
+                //                    session.getBasicRemote().sendText(data);
+                //                } catch (IOException ex) {
+                //                    Logger.getLogger(MyEndpointFuture.class.getName()).log(Level.SEVERE, null, ex);
+                //                }
+
                 Future f = session.getAsyncRemote().sendText(data);
                 try {
                     Thread.sleep(3000);

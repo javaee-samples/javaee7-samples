@@ -13,7 +13,7 @@
     <artifactId>jsf</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 JSF Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples - jsf</name>
 
     <modules>
         <module>ajax</module>

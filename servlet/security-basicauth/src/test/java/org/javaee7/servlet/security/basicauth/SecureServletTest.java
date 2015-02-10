@@ -24,21 +24,21 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class SecureServletTest {
-    
+
     private static final String WEBAPP_SRC = "src/main/webapp";
 
     @ArquillianResource
     private URL base;
-    
+
     WebClient webClient;
     DefaultCredentialsProvider correctCreds = new DefaultCredentialsProvider();
     DefaultCredentialsProvider incorrectCreds = new DefaultCredentialsProvider();
-    
+
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(SecureServlet.class).
-                addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
+            addClass(SecureServlet.class).
+            addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
         return war;
     }
 
@@ -48,7 +48,7 @@ public class SecureServletTest {
         correctCreds.addCredentials("u1", "p1");
         incorrectCreds.addCredentials("random", "random");
     }
-        
+
     @Test
     public void testGetWithCorrectCredentials() throws Exception {
         webClient.setCredentialsProvider(correctCreds);
@@ -61,14 +61,14 @@ public class SecureServletTest {
         webClient.setCredentialsProvider(incorrectCreds);
         try {
             webClient.getPage(base + "/SecureServlet");
-        } catch(FailingHttpStatusCodeException e) {
+        } catch (FailingHttpStatusCodeException e) {
             assertNotNull(e);
             assertEquals(401, e.getStatusCode());
             return;
         }
         fail("/SecureServlet could be accessed without proper security credentials");
     }
-        
+
     @Test
     public void testPostWithCorrectCredentials() throws Exception {
         webClient.setCredentialsProvider(correctCreds);
@@ -83,7 +83,7 @@ public class SecureServletTest {
         WebRequest request = new WebRequest(new URL(base + "/SecureServlet"), HttpMethod.POST);
         try {
             webClient.getPage(request);
-        } catch(FailingHttpStatusCodeException e) {
+        } catch (FailingHttpStatusCodeException e) {
             assertNotNull(e);
             assertEquals(401, e.getStatusCode());
             return;

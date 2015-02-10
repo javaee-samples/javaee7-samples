@@ -11,7 +11,7 @@
     <groupId>org.javaee7</groupId>
     <artifactId>batch</artifactId>
     <packaging>pom</packaging>
-    <name>Java EE 7 Batch Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples - batch</name>
 
     <modules>
         <module>batchlet-simple</module>

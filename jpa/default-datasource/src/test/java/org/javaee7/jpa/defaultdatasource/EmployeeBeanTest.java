@@ -24,10 +24,10 @@ public class EmployeeBeanTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(Employee.class,
-                        EmployeeBean.class)
-                .addAsResource("META-INF/persistence.xml")
-                .addAsResource("META-INF/load.sql");
+            .addClasses(Employee.class,
+                EmployeeBean.class)
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/load.sql");
     }
 
     @Test

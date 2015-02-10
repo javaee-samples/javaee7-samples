@@ -28,9 +28,10 @@ public class MyResourceTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(MyApplication.class, MyResource.class, MyBeanConverterProvider.class, MyBean.class);
+        return ShrinkWrap.create(WebArchive.class)
+            .addClasses(MyApplication.class, MyResource.class, MyBeanConverterProvider.class, MyBean.class);
     }
+
     private static WebTarget target;
 
     @ArquillianResource
@@ -50,14 +51,14 @@ public class MyResourceTest {
 
     @Test
     public void testRequestWithNoQueryParam() {
-    	String r = target.request().get(String.class);
-    	assertEquals("bar", r);
+        String r = target.request().get(String.class);
+        assertEquals("bar", r);
     }
 
     @Test
     public void testRequestWithPathParam() {
-    	String r = target.path("/foo").request().get(String.class);
-    	assertEquals("foo", r);
+        String r = target.path("/foo").request().get(String.class);
+        assertEquals("foo", r);
     }
 
 }

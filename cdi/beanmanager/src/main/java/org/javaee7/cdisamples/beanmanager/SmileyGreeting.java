@@ -9,5 +9,5 @@ public class SmileyGreeting extends SimpleGreeting {
     public String greet(String name) {
         return super.greet(name) + " :-)";
     }
-    
+
 }
