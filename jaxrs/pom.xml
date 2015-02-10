@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.jaxrs</groupId>
+    <groupId>org.javaee7</groupId>
     <artifactId>jaxrs</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 JAX-RS Samples</name>

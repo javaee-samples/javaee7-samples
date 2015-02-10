@@ -9,7 +9,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.javaee7.servlet</groupId>
+    <groupId>org.javaee7</groupId>
     <artifactId>servlet</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 Servlet Samples</name>

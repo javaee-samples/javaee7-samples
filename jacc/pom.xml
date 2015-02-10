@@ -9,7 +9,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.javaee7.jacc</groupId>
+    <groupId>org.javaee7</groupId>
     <artifactId>jacc</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>

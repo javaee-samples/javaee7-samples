@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.jpa</groupId>
+    <groupId>org.javaee7</groupId>
     <artifactId>jpa</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>

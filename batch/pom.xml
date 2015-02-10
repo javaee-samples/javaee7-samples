@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.batch</groupId>
+    <groupId>org.javaee7</groupId>
     <artifactId>batch</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 Batch Samples</name>

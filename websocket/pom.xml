@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.websocket</groupId>
+    <groupId>org.javaee7</groupId>
     <artifactId>websocket</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 WebSocket Samples</name>

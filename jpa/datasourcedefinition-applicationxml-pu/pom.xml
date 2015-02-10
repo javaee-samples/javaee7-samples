@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>org.javaee7.jpa</groupId>
+        <groupId>org.javaee7</groupId>
         <artifactId>jpa</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>

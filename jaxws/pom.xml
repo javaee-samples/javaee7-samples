@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7.jaxws</groupId>
+    <groupId>org.javaee7</groupId>
     <artifactId>jaxws</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 JAX-WS Samples</name>
