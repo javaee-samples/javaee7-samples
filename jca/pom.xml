@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>org.javaee7</groupId>
-        <artifactId>quickstart-parent</artifactId>
+        <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
