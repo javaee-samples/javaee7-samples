@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
     <groupId>org.javaee7</groupId>
     <artifactId>jaspic-ejb-propagation</artifactId>
     <version>1.0-SNAPSHOT</version>

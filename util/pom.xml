@@ -8,9 +8,7 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
     <artifactId>util</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <name>Java EE 7 Sample: javaee7-samples - util</name>
 </project>
