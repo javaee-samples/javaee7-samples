@@ -10,7 +10,7 @@
     </parent>
     <artifactId>batch-batch-listeners</artifactId>
     <packaging>war</packaging>
-    <name>Batch Listeners</name>
+    <name>Java EE 7 Sample: batch-listeners</name>
     <description>Batch Listeners - Applying Listeners to Job, Chunk, Step, Reader, Processor and Writer</description>
 
     <dependencies>

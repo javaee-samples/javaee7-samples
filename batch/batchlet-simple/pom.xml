@@ -11,7 +11,7 @@
     </parent>
     <artifactId>batch-batchlet-simple</artifactId>
     <packaging>war</packaging>
-    <name>Batchlet Simple</name>
+    <name>Java EE 7 Sample: batchlet-simple</name>
     <description>Batchlet Simple - Execute a task oriented step</description>
 
     <dependencies>

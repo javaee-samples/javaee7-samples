@@ -12,4 +12,5 @@
     <artifactId>websocket-endpoint-async</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: endpoint-async</name>
 </project>

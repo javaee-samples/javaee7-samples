@@ -12,4 +12,5 @@
     <artifactId>cdi-decorators</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: decorators</name>
 </project>

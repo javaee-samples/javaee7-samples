@@ -9,6 +9,6 @@
   <groupId>org.javaee7</groupId>
   <artifactId>jca-connector-simple-connector</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>connector</name>
+    <name>Java EE 7 Sample: connector</name>
   <url>http://maven.apache.org</url>
 </project>

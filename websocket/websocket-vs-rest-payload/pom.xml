@@ -10,4 +10,5 @@
     </parent>
     <artifactId>websocket-websocket-vs-rest-payload</artifactId>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: websocket-vs-rest-payload</name>
 </project>

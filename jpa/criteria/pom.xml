@@ -10,6 +10,6 @@
     </parent>
     <artifactId>jpa-criteria</artifactId>
     <packaging>war</packaging>
-    <name>JPA Criteria API</name>
+    <name>Java EE 7 Sample: criteria</name>
     <description>Using the Criteria API to create queries</description>
 </project>

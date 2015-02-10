@@ -12,6 +12,7 @@
     <artifactId>jaxrs-link</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: link</name>
 
     <dependencies>
         <dependency>
@@ -36,5 +37,4 @@
             <version>2.0</version>
         </dependency>
     </dependencies>
-
 </project>

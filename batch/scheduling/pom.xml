@@ -11,7 +11,7 @@
     </parent>
     <artifactId>batch-scheduling</artifactId>
     <packaging>war</packaging>
-    <name>Batch Schedule</name>
+    <name>Java EE 7 Sample: scheduling</name>
     <description>Scheduling a Batch Job</description>
 
     <dependencies>

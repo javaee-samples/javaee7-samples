@@ -10,7 +10,7 @@
     </parent>
     <artifactId>batch-chunk-partition</artifactId>
     <packaging>war</packaging>
-    <name>Batch Chunk Partition</name>
+    <name>Java EE 7 Sample: chunk-partition</name>
     <description>Chunk Processing - Read, Process, Write in multiple Threads</description>
 
     <dependencies>

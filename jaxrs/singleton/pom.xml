@@ -10,5 +10,5 @@
     </parent>
     <artifactId>jaxrs-singleton</artifactId>
     <packaging>war</packaging>
-    <name>singleton</name>
+    <name>Java EE 7 Sample: singleton</name>
 </project>

@@ -10,5 +10,5 @@
     </parent>
     <artifactId>servlet-security-programmatic</artifactId>
     <packaging>war</packaging>
-    <name>security-programmatic</name>
+    <name>Java EE 7 Sample: security-programmatic</name>
 </project>

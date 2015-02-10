@@ -10,4 +10,5 @@
     </parent>
     <artifactId>jpa-default-datasource</artifactId>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: default-datasource</name>
 </project>

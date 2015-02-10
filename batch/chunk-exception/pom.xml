@@ -10,7 +10,7 @@
     </parent>
     <artifactId>batch-chunk-exception</artifactId>
     <packaging>war</packaging>
-    <name>Batch Chunk Exception</name>
+    <name>Java EE 7 Sample: chunk-exception</name>
     <description>Chunk Exception Handling - Retrying and Skipping</description>
 
     <dependencies>

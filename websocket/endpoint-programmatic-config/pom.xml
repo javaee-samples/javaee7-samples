@@ -12,4 +12,5 @@
     <artifactId>websocket-endpoint-programmatic-config</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: endpoint-programmatic-config</name>
 </project>

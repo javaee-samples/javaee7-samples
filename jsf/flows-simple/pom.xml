@@ -12,4 +12,5 @@
     <artifactId>jsf-flows-simple</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: flows-simple</name>
 </project>

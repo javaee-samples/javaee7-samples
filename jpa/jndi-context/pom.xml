@@ -11,4 +11,5 @@
     <artifactId>jpa-jndi-context</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: jndi-context</name>
 </project>

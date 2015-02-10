@@ -10,7 +10,7 @@
     </parent>
     <artifactId>jpa-native-sql-resultset-mapping</artifactId>
     <packaging>war</packaging>
-    <name>JPA Native SQL ResultSet Mapping</name>
+    <name>Java EE 7 Sample: native-sql-resultset-mapping</name>
     <description>Using the EntityManager API to perform native SQL queries and map the result with @SqlResultSetMapping
         annotation
     </description>

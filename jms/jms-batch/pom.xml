@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>jms-jms-batch</artifactId>
-    <name>Batch JMS processing</name>
+    <name>Java EE 7 Sample: jms-batch</name>
     <description>ItemReader reading from durable subscription</description>
 
     <dependencies>

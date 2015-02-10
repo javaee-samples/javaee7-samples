@@ -10,4 +10,5 @@
     </parent>
     <artifactId>jaxrs-server-negotiation</artifactId>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: server-negotiation</name>
 </project>

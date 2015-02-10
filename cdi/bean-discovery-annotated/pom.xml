@@ -12,4 +12,5 @@
     <artifactId>cdi-bean-discovery-annotated</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: bean-discovery-annotated</name>
 </project>

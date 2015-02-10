@@ -10,4 +10,5 @@
     </parent>
     <artifactId>jpa-schema-gen-index</artifactId>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: schema-gen-index</name>
 </project>

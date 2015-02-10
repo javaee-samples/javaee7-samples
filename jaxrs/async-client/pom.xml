@@ -12,6 +12,6 @@
     <artifactId>jaxrs-async-client</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Async Client</name>
+    <name>Java EE 7 Sample: async-client</name>
     <description>Invoke a JAX-RS service via an asynchronous client</description>
 </project>

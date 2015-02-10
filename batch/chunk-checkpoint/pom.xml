@@ -11,7 +11,7 @@
     </parent>
     <artifactId>batch-chunk-checkpoint</artifactId>
     <packaging>war</packaging>
-    <name>Batch Chunk Checkpoint</name>
+    <name>Java EE 7 Sample: chunk-checkpoint</name>
     <description>Chunk Checkpoint - Custom Checkpoint Policy</description>
 
     <dependencies>

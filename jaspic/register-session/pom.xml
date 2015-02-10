@@ -12,6 +12,7 @@
     <artifactId>jaspic-register-session</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: register-session</name>
 
     <dependencies>
         <dependency>
@@ -21,5 +22,4 @@
         </dependency>
         
     </dependencies>
-
 </project>

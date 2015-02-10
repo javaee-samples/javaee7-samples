@@ -10,7 +10,7 @@
     </parent>
     <artifactId>batch-decision</artifactId>
     <packaging>war</packaging>
-    <name>Batch Decision</name>
+    <name>Java EE 7 Sample: decision</name>
     <description>Batch DSL - Decision</description>
 
     <dependencies>

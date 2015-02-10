@@ -11,7 +11,7 @@
     </parent>
     <artifactId>batch-chunk-simple</artifactId>
     <packaging>war</packaging>
-    <name>Batch Chunk Simple</name>
+    <name>Java EE 7 Sample: chunk-simple</name>
     <description>Chunk Processing - Read, Process, Write</description>
 
     <dependencies>

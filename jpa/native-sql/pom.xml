@@ -10,6 +10,6 @@
     </parent>
     <artifactId>jpa-native-sql</artifactId>
     <packaging>war</packaging>
-    <name>JPA Native SQL</name>
+    <name>Java EE 7 Sample: native-sql</name>
     <description>Using the EntityManager API to perform native SQL queries</description>
 </project>

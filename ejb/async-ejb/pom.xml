@@ -10,4 +10,5 @@
     </parent>
     <artifactId>ejb-async-ejb</artifactId>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: async-ejb</name>
 </project>

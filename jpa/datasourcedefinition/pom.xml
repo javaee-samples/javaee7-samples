@@ -8,6 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>jpa-datasourcedefinition</artifactId>
+    <name>Java EE 7 Sample: datasourcedefinition</name>
 
     <dependencies>
         <dependency>

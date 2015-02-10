@@ -9,5 +9,6 @@
     </parent>
     <artifactId>jms-jms-xa</artifactId>
     <packaging>war</packaging>
+    <name>Java EE 7 Sample: jms-xa</name>
     <description>Arquillian test for JMS XA</description>
 </project>
