@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.javaee7.servlet</groupId>
-        <artifactId>servlet-samples</artifactId>
+        <artifactId>servlet</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
   </parent>
 
     <groupId>org.javaee7.servlet</groupId>
-    <artifactId>resource-packaging</artifactId>
+    <artifactId>servlet-resource-packaging</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 </project>

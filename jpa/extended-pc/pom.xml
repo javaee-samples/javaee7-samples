@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.javaee7.jpa</groupId>
-        <artifactId>jpa-samples</artifactId>
+        <artifactId>jpa</artifactId>
         <version>1.0-SNAPSHOT</version>
 	<relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>extended-pc</artifactId>
+    <artifactId>jpa-extended-pc</artifactId>
     <packaging>war</packaging>
 </project>

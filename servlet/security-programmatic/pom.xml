@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.javaee7.servlet</groupId>
-        <artifactId>servlet-samples</artifactId>
+        <artifactId>servlet</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>security-programmatic</artifactId>
+    <artifactId>servlet-security-programmatic</artifactId>
     <packaging>war</packaging>
     <name>security-programmatic</name>
 </project>

@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.javaee7.cdi</groupId>
-        <artifactId>cdi-samples</artifactId>
+        <artifactId>cdi</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>        
     </parent>
 
-    <artifactId>interceptors-priority</artifactId>
+    <artifactId>cdi-interceptors-priority</artifactId>
 </project>

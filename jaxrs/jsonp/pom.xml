@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.javaee7.jaxrs</groupId>
-        <artifactId>jaxrs-samples</artifactId>
+        <artifactId>jaxrs</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>jsonp</artifactId>
+    <artifactId>jaxrs-jsonp</artifactId>
     <packaging>war</packaging>
 </project>

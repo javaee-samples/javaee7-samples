@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.javaee7.jsf</groupId>
-        <artifactId>jsf-samples</artifactId>
+        <artifactId>jsf</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>http-get</artifactId>
+    <artifactId>jsf-http-get</artifactId>
     <packaging>war</packaging>
 </project>

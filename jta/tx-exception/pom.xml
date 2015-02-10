@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.javaee7.jta</groupId>
-        <artifactId>jta-samples</artifactId>
+        <artifactId>jta</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>org.javaee7.jta</groupId>
-    <artifactId>tx-exception</artifactId>
+    <artifactId>jta-tx-exception</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 </project>
