@@ -16,6 +16,7 @@
 
   <modules>
     <module>connector-simple</module>
+    <module>mdb-filewatcher</module>
   </modules>
     <dependencies>
         <dependency>
