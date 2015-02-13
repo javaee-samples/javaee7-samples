@@ -10,5 +10,5 @@
     </parent>
     <artifactId>concurrency-managedexecutor</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: managedexecutor</name>
+    <name>Java EE 7 Sample: concurrency - managedexecutor</name>
 </project>

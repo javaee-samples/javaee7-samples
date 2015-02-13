@@ -12,5 +12,5 @@
     <artifactId>jta-user-transaction</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: user-transaction</name>
+    <name>Java EE 7 Sample: jta - user-transaction</name>
 </project>

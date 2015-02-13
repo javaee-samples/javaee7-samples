@@ -11,5 +11,5 @@
     <artifactId>jpa-storedprocedure</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: storedprocedure</name>
+    <name>Java EE 7 Sample: jpa - storedprocedure</name>
 </project>

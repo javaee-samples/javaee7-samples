@@ -9,7 +9,7 @@
     </parent>
     <artifactId>batch-chunk-simple-nobeans</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: chunk-simple-nobeans</name>
+    <name>Java EE 7 Sample: batch - chunk-simple-nobeans</name>
     <description>Chunk Processing - Read, Process, Write</description>
 
     <dependencies>

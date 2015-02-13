@@ -12,5 +12,5 @@
     <artifactId>jta-tx-exception</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: tx-exception</name>
+    <name>Java EE 7 Sample: jta - tx-exception</name>
 </project>

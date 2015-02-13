@@ -12,5 +12,5 @@
     <artifactId>cdi-pkg-level</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: pkg-level</name>
+    <name>Java EE 7 Sample: cdi - pkg-level</name>
 </project>

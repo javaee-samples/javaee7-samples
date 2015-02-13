@@ -48,9 +48,9 @@ public class FileSystemWatcherResourceAdapter implements ResourceAdapter {
 
         try {
             WatchKey watchKey = fileSystem.getPath(fsWatcherAS.getDir())
-                    .register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
-                            StandardWatchEventKinds.ENTRY_DELETE,
-                            StandardWatchEventKinds.ENTRY_MODIFY);
+                .register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_DELETE,
+                    StandardWatchEventKinds.ENTRY_MODIFY);
 
             listeners.put(watchKey, endpointFactory);
 
@@ -62,7 +62,7 @@ public class FileSystemWatcherResourceAdapter implements ResourceAdapter {
 
     @Override
     public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec activationSpec) {
-        for (WatchKey watchKey: listeners.keySet()) {
+        for (WatchKey watchKey : listeners.keySet()) {
             if (listeners.get(watchKey) == endpointFactory) {
                 listeners.remove(watchKey);
                 break;

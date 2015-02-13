@@ -12,5 +12,5 @@
     <artifactId>jaxrs-mapping-exceptions</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: mapping-exceptions</name>
+    <name>Java EE 7 Sample: jaxrs - mapping-exceptions</name>
 </project>

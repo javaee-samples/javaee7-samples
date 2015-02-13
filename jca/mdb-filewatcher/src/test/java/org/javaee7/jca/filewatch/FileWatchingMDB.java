@@ -16,7 +16,6 @@
  */
 package org.javaee7.jca.filewatch;
 
-
 import org.javaee7.jca.filewatch.adapter.FileSystemWatcher;
 import org.javaee7.jca.filewatch.event.Created;
 import org.javaee7.jca.filewatch.event.Deleted;

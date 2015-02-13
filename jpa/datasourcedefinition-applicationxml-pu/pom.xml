@@ -9,7 +9,7 @@
     </parent>
     <artifactId>jpa-datasourcedefinition-applicationxml-pu</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: datasourcedefinition-applicationxml-pu</name>
+    <name>Java EE 7 Sample: jpa - datasourcedefinition-applicationxml-pu</name>
 
     <dependencies>
         <dependency>

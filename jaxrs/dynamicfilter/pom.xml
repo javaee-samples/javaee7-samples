@@ -12,5 +12,5 @@
     <artifactId>jaxrs-dynamicfilter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: dynamicfilter</name>
+    <name>Java EE 7 Sample: jaxrs - dynamicfilter</name>
 </project>

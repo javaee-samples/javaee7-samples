@@ -12,5 +12,5 @@
     <artifactId>servlet-web-fragment</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: web-fragment</name>
+    <name>Java EE 7 Sample: servlet - web-fragment</name>
 </project>

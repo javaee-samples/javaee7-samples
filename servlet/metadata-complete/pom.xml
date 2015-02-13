@@ -12,5 +12,5 @@
     <artifactId>servlet-metadata-complete</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: metadata-complete</name>
+    <name>Java EE 7 Sample: servlet - metadata-complete</name>
 </project>

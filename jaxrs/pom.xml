@@ -11,7 +11,7 @@
     <groupId>org.javaee7</groupId>
     <artifactId>jaxrs</artifactId>
     <packaging>pom</packaging>
-    <name>Java EE 7 Sample: javaee7-samples - jaxrs</name>
+    <name>Java EE 7 Sample: jaxrs</name>
 
     <modules>
         <module>angularjs</module>

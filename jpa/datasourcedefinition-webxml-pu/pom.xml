@@ -9,7 +9,7 @@
     </parent>
     <artifactId>jpa-datasourcedefinition-webxml-pu</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: datasourcedefinition-webxml-pu</name>
+    <name>Java EE 7 Sample: jpa - datasourcedefinition-webxml-pu</name>
 
     <dependencies>
         <dependency>

@@ -12,5 +12,5 @@
     <artifactId>websocket-injection</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: injection</name>
+    <name>Java EE 7 Sample: websocket - injection</name>
 </project>

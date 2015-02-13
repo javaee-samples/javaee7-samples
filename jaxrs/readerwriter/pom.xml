@@ -10,5 +10,5 @@
     </parent>
     <artifactId>jaxrs-readerwriter</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: readerwriter</name>
+    <name>Java EE 7 Sample: jaxrs - readerwriter</name>
 </project>

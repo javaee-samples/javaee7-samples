@@ -12,5 +12,5 @@
     <artifactId>json-streaming-generate</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: streaming-generate</name>
+    <name>Java EE 7 Sample: json - streaming-generate</name>
 </project>

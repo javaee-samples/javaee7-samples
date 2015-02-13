@@ -12,5 +12,5 @@
     <artifactId>servlet-resource-packaging</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: resource-packaging</name>
+    <name>Java EE 7 Sample: servlet - resource-packaging</name>
 </project>

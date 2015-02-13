@@ -12,5 +12,5 @@
     <artifactId>jaxrs-filter-interceptor</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: filter-interceptor</name>
+    <name>Java EE 7 Sample: jaxrs - filter-interceptor</name>
 </project>

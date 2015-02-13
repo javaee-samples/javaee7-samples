@@ -11,5 +11,5 @@
     <artifactId>jpa-multiple-pu</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: multiple-pu</name>
+    <name>Java EE 7 Sample: jpa - multiple-pu</name>
 </project>

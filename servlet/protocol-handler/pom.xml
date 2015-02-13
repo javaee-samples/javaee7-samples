@@ -12,5 +12,5 @@
     <artifactId>servlet-protocol-handler</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: protocol-handler</name>
+    <name>Java EE 7 Sample: servlet - protocol-handler</name>
 </project>

@@ -12,5 +12,5 @@
     <artifactId>servlet-async-servlet</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: async-servlet</name>
+    <name>Java EE 7 Sample: servlet - async-servlet</name>
 </project>

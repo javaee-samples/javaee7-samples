@@ -10,6 +10,6 @@
     </parent>
     <artifactId>jpa-listeners</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: listeners</name>
+    <name>Java EE 7 Sample: jpa - listeners</name>
     <description>Invocation examples of all the available Entity Listeners</description>
 </project>

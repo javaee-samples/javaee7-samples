@@ -12,5 +12,5 @@
     <artifactId>ejb-stateless</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: stateless</name>
+    <name>Java EE 7 Sample: ejb - stateless</name>
 </project>

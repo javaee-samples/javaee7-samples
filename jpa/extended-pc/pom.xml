@@ -10,5 +10,5 @@
     </parent>
     <artifactId>jpa-extended-pc</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: extended-pc</name>
+    <name>Java EE 7 Sample: jpa - extended-pc</name>
 </project>

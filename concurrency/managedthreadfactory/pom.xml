@@ -12,5 +12,5 @@
     <artifactId>concurrency-managedthreadfactory</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: managedthreadfactory</name>
+    <name>Java EE 7 Sample: concurrency - managedthreadfactory</name>
 </project>

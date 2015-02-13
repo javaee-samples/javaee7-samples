@@ -1,10 +1,8 @@
-
 package org.javaee7.jaxws.client.gen;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for saveBookResponse complex type.
@@ -27,6 +25,5 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "saveBookResponse")
 public class SaveBookResponse {
-
 
 }

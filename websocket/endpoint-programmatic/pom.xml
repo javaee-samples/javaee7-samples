@@ -12,5 +12,5 @@
     <artifactId>websocket-endpoint-programmatic</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: endpoint-programmatic</name>
+    <name>Java EE 7 Sample: websocket - endpoint-programmatic</name>
 </project>

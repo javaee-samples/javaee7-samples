@@ -10,5 +10,5 @@
     </parent>
     <artifactId>jaxrs-jaxrs-security-declarative</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: jaxrs-security-declarative</name>
+    <name>Java EE 7 Sample: jaxrs - jaxrs-security-declarative</name>
 </project>

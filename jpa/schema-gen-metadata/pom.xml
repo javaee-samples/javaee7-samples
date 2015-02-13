@@ -10,5 +10,5 @@
     </parent>
     <artifactId>jpa-schema-gen-metadata</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: schema-gen-metadata</name>
+    <name>Java EE 7 Sample: jpa - schema-gen-metadata</name>
 </project>

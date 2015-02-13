@@ -9,5 +9,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
     <artifactId>cdi-interceptors-priority</artifactId>
-    <name>Java EE 7 Sample: interceptors-priority</name>
+    <name>Java EE 7 Sample: cdi - interceptors-priority</name>
 </project>

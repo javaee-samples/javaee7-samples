@@ -12,5 +12,5 @@
     <artifactId>websocket-properties</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: properties</name>
+    <name>Java EE 7 Sample: websocket - properties</name>
 </project>

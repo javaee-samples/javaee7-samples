@@ -16,7 +16,7 @@
     <artifactId>jaspic-common</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Java EE 7 Sample: common</name>
+    <name>Java EE 7 Sample: jaspic - common</name>
 
     <dependencies>
         <dependency>

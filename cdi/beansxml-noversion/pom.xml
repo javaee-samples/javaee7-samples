@@ -12,5 +12,5 @@
     <artifactId>cdi-beansxml-noversion</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: beansxml-noversion</name>
+    <name>Java EE 7 Sample: cdi - beansxml-noversion</name>
 </project>

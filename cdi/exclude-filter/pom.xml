@@ -12,5 +12,5 @@
     <artifactId>cdi-exclude-filter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: exclude-filter</name>
+    <name>Java EE 7 Sample: cdi - exclude-filter</name>
 </project>

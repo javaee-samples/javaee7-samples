@@ -12,7 +12,7 @@
     <artifactId>jca</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 Sample: javaee7-samples - jca</name>
+    <name>Java EE 7 Sample: jca</name>
 
     <modules>
     <module>connector-simple</module>

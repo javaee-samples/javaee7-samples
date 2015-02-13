@@ -11,5 +11,5 @@
     <groupId>org.javaee7</groupId>
     <artifactId>servlet-programmatic-registration</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: programmatic-registration</name>
+    <name>Java EE 7 Sample: servlet - programmatic-registration</name>
 </project>

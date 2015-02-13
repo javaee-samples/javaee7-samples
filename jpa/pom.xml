@@ -12,7 +12,7 @@
     <artifactId>jpa</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 Sample: javaee7-samples - jpa</name>
+    <name>Java EE 7 Sample: jpa</name>
 
     <modules>
         <module>criteria</module>

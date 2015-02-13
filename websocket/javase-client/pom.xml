@@ -18,7 +18,7 @@
     </parent>
     <artifactId>websocket-javase-client</artifactId>
     <packaging>jar</packaging>
-    <name>Java EE 7 Sample: javase-client</name>
+    <name>Java EE 7 Sample: websocket - javase-client</name>
 
     <dependencies>
         <dependency>

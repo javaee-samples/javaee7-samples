@@ -12,5 +12,5 @@
     <artifactId>websocket-subprotocol</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: subprotocol</name>
+    <name>Java EE 7 Sample: websocket - subprotocol</name>
 </project>

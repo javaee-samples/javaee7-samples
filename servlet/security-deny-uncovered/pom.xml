@@ -10,5 +10,5 @@
     </parent>
     <artifactId>servlet-security-deny-uncovered</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: security-deny-uncovered</name>
+    <name>Java EE 7 Sample: servlet - security-deny-uncovered</name>
 </project>

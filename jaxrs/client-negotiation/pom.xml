@@ -12,5 +12,5 @@
     <artifactId>jaxrs-client-negotiation</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: client-negotiation</name>
+    <name>Java EE 7 Sample: jaxrs - client-negotiation</name>
 </project>

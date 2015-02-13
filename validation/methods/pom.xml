@@ -12,5 +12,5 @@
     <artifactId>validation-methods</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: methods</name>
+    <name>Java EE 7 Sample: validation - methods</name>
 </project>

@@ -10,7 +10,7 @@
     </parent>
     <artifactId>batch-chunk-optional-processor</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: chunk-optional-processor</name>
+    <name>Java EE 7 Sample: batch - chunk-optional-processor</name>
     <description>Chunk Processing - Read and Write</description>
 
     <dependencies>

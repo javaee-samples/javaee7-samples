@@ -9,6 +9,6 @@
   </parent>
     <artifactId>jms-temp-destination</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: temp-destination</name>
+    <name>Java EE 7 Sample: jms - temp-destination</name>
     <description>Request/Response over JMS</description>
 </project>

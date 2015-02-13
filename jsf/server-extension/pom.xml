@@ -12,5 +12,5 @@
     <artifactId>jsf-server-extension</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: server-extension</name>
+    <name>Java EE 7 Sample: jsf - server-extension</name>
 </project>

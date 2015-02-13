@@ -11,7 +11,7 @@
     </parent>
     <artifactId>batch-chunk-csv-database</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: chunk-csv-database</name>
+    <name>Java EE 7 Sample: batch - chunk-csv-database</name>
     <description>Chunk Processing - Read, Process, Write to a Database</description>
 
     <dependencies>

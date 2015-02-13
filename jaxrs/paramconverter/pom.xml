@@ -12,5 +12,5 @@
     <artifactId>jaxrs-paramconverter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: paramconverter</name>
+    <name>Java EE 7 Sample: jaxrs - paramconverter</name>
 </project>

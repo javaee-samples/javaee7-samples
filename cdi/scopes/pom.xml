@@ -12,5 +12,5 @@
     <artifactId>cdi-scopes</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: scopes</name>
+    <name>Java EE 7 Sample: cdi - scopes</name>
 </project>

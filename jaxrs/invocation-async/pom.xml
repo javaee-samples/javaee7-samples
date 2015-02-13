@@ -12,5 +12,5 @@
     <artifactId>jaxrs-invocation-async</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: invocation-async</name>
+    <name>Java EE 7 Sample: jaxrs - invocation-async</name>
 </project>

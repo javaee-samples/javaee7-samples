@@ -10,7 +10,7 @@
     </parent>
     <artifactId>batch-chunk-mapper</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: chunk-mapper</name>
+    <name>Java EE 7 Sample: batch - chunk-mapper</name>
     <description>Chunk Processing - Read, Process, Write in multiple Threads</description>
 
     <dependencies>

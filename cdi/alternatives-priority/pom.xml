@@ -9,5 +9,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
     <artifactId>cdi-alternatives-priority</artifactId>
-    <name>Java EE 7 Sample: alternatives-priority</name>
+    <name>Java EE 7 Sample: cdi - alternatives-priority</name>
 </project>

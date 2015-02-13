@@ -9,5 +9,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
     <artifactId>interceptor-around-construct</artifactId>
-    <name>Java EE 7 Sample: around-construct</name>
+    <name>Java EE 7 Sample: interceptor - around-construct</name>
 </project>

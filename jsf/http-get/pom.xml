@@ -10,5 +10,5 @@
     </parent>
     <artifactId>jsf-http-get</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: http-get</name>
+    <name>Java EE 7 Sample: jsf - http-get</name>
 </project>

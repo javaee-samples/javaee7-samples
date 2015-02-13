@@ -12,5 +12,5 @@
     <artifactId>cdi-extension</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: extension</name>
+    <name>Java EE 7 Sample: cdi - extension</name>
 </project>

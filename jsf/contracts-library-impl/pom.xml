@@ -11,5 +11,5 @@
     <groupId>org.javaee7</groupId>
     <artifactId>jsf-contracts-library-impl</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Java EE 7 Sample: contracts-library-impl</name>
+    <name>Java EE 7 Sample: jsf - contracts-library-impl</name>
 </project>

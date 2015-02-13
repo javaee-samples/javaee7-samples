@@ -10,5 +10,5 @@
     </parent>
     <artifactId>jaxrs-jsonp</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: jsonp</name>
+    <name>Java EE 7 Sample: jaxrs - jsonp</name>
 </project>
