@@ -18,5 +18,5 @@ public class MyAnalyzer implements PartitionAnalyzer {
     public void analyzeStatus(BatchStatus bs, String string) throws Exception {
         System.out.println("analyzeStatus");
     }
-    
+
 }

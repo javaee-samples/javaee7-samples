@@ -18,5 +18,6 @@ public abstract class AbstractTimerBatch {
         afterRun();
     }
 
-    protected void afterRun() {}
+    protected void afterRun() {
+    }
 }

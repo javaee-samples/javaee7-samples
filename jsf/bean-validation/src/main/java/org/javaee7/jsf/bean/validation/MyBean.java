@@ -14,14 +14,14 @@ import javax.validation.constraints.Size;
 @Named
 @SessionScoped
 public class MyBean implements Serializable {
-    
+
     @Size(min = 3, message = "At least 3 characters")
     private String name;
-    
+
     @Min(18)
     @Max(25)
     private int age;
-    
+
     @Pattern(regexp = "[0-9]{5}")
     private String zip;
 

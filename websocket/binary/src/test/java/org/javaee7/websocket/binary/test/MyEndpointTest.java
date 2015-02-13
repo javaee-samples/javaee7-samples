@@ -43,13 +43,13 @@ public class MyEndpointTest {
      * Arquillian specific method for creating a file which can be deployed
      * while executing the test.
      */
-    @Deployment(testable=false)
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyEndpointByteBuffer.class,
-                        MyEndpointByteArray.class,
-                        MyEndpointInputStream.class,
-                        MyEndpointClient.class);
+            .addClasses(MyEndpointByteBuffer.class,
+                MyEndpointByteArray.class,
+                MyEndpointInputStream.class,
+                MyEndpointClient.class);
     }
 
     /**
@@ -120,13 +120,13 @@ public class MyEndpointTest {
     public Session connectToServer(String endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
-                        + base.getHost()
-                        + ":"
-                        + base.getPort()
-                        + "/"
-                        + base.getPath()
-                        + "/"
-                        + endpoint);
+            + base.getHost()
+            + ":"
+            + base.getPort()
+            + "/"
+            + base.getPath()
+            + "/"
+            + endpoint);
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(MyEndpointClient.class, uri);
     }

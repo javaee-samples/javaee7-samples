@@ -9,10 +9,10 @@ import javax.jms.*;
  * @author Patrik Dudits
  */
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup",
-                propertyValue = Resources.REQUEST_QUEUE),
-        @ActivationConfigProperty(propertyName = "destinationType",
-                propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "destinationLookup",
+        propertyValue = Resources.REQUEST_QUEUE),
+    @ActivationConfigProperty(propertyName = "destinationType",
+        propertyValue = "javax.jms.Queue"),
 })
 public class RequestResponseOverJMS implements MessageListener {
 
@@ -27,12 +27,12 @@ public class RequestResponseOverJMS implements MessageListener {
                 return;
             }
             TextMessage request = (TextMessage) message;
-            String payload = request.getText();            // <2> read the payload
+            String payload = request.getText(); // <2> read the payload
 
-            System.out.println("Got request: "+payload);
+            System.out.println("Got request: " + payload);
 
-            String response = "Processed: "+payload;       // <3> process the request
-            jms.createProducer().send(replyTo, response);  // <4> send the response
+            String response = "Processed: " + payload; // <3> process the request
+            jms.createProducer().send(replyTo, response); // <4> send the response
         } catch (JMSException e) {
             e.printStackTrace();
         }

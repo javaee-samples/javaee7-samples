@@ -41,9 +41,9 @@ public class MyResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(
-                        MyApplication.class, MyResource.class, People.class,
-                        Person.class, PersonSessionBean.class);
+            .addClasses(
+                MyApplication.class, MyResource.class, People.class,
+                Person.class, PersonSessionBean.class);
     }
 
     @ArquillianResource
@@ -95,10 +95,10 @@ public class MyResourceTest {
     @Test
     public void test2GetSingle() {
         Person p = target
-                .path("{id}")
-                .resolveTemplate("id", "1")
-                .request(MediaType.APPLICATION_XML)
-                .get(Person.class);
+            .path("{id}")
+            .resolveTemplate("id", "1")
+            .request(MediaType.APPLICATION_XML)
+            .get(Person.class);
         assertEquals("Leonard", p.getName());
         assertEquals(2, p.getAge());
     }
@@ -126,10 +126,10 @@ public class MyResourceTest {
     @Test
     public void test4Delete() {
         target
-                .path("{name}")
-                .resolveTemplate("name", "Howard")
-                .request()
-                .delete();
+            .path("{name}")
+            .resolveTemplate("name", "Howard")
+            .request()
+            .delete();
         Person[] list = target.request().get(Person[].class);
         assertEquals(3, list.length);
     }
@@ -153,10 +153,10 @@ public class MyResourceTest {
         Person[] list = target.request().get(Person[].class);
         for (Person p : list) {
             target
-                    .path("{name}")
-                    .resolveTemplate("name", p.getName())
-                    .request()
-                    .delete();
+                .path("{name}")
+                .resolveTemplate("name", p.getName())
+                .request()
+                .delete();
         }
         list = target.request().get(Person[].class);
         assertEquals(0, list.length);

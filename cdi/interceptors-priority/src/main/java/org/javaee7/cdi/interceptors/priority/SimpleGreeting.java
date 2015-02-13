@@ -5,13 +5,13 @@ package org.javaee7.cdi.interceptors.priority;
  */
 @MyInterceptorBinding
 public class SimpleGreeting implements Greeting {
-	private String greet;
+    private String greet;
 
-	public String getGreet() {
-		return greet;
-	}
+    public String getGreet() {
+        return greet;
+    }
 
-	public void setGreet(String greet) {
-		this.greet = greet;
-	}
+    public void setGreet(String greet) {
+        this.greet = greet;
+    }
 }

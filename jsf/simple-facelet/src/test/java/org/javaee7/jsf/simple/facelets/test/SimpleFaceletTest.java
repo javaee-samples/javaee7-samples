@@ -28,27 +28,27 @@ public class SimpleFaceletTest {
     private static final String WEBAPP_SRC = "src/main/webapp/";
 
     private static final List<String> EXPECTED_TABLE_NAMES = Arrays.asList("Penny", "Sheldon",
-            "Amy", "Leonard", "Bernadette", "Raj", "Priya", "Howard");
-    
+        "Amy", "Leonard", "Bernadette", "Raj", "Priya", "Howard");
+
     @Drone
     private WebDriver browser;
 
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClass(CustomerSessionBean.class)
-                .addClass(Name.class)
-                .addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
-                .addAsWebResource(new File(WEBAPP_SRC + "resources/css/cssLayout.css"), "resources/css/cssLayout.css")
-                .addAsWebResource(new File(WEBAPP_SRC + "resources/css/default.css"), "resources/css/default.css")
-                .addAsWebInfResource(new File(WEBAPP_SRC, "/WEB-INF/template.xhtml"))
-                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"));
+            .addClass(CustomerSessionBean.class)
+            .addClass(Name.class)
+            .addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
+            .addAsWebResource(new File(WEBAPP_SRC + "resources/css/cssLayout.css"), "resources/css/cssLayout.css")
+            .addAsWebResource(new File(WEBAPP_SRC + "resources/css/default.css"), "resources/css/default.css")
+            .addAsWebInfResource(new File(WEBAPP_SRC, "/WEB-INF/template.xhtml"))
+            .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"));
     }
 
     @Test
     public void testDataTableRendered(@InitialPage SimpleFaceletPage simpleFaceletPage) {
         Assert.assertEquals(
-                "The simple facelet was not rendered correctly!", 
-                EXPECTED_TABLE_NAMES, simpleFaceletPage.getNames());
+            "The simple facelet was not rendered correctly!",
+            EXPECTED_TABLE_NAMES, simpleFaceletPage.getNames());
     }
 }

@@ -16,21 +16,23 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author Arun Gupta
  */
-@Path("persons") @RequestScoped
+@Path("persons")
+@RequestScoped
 public class MyResource {
     // Ideally this state should be stored in a database
-    @EJB PersonSessionBean bean;
+    @EJB
+    PersonSessionBean bean;
 
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces({ "application/xml", "application/json" })
     public Person[] getList() {
         return bean.getPersons().toArray(new Person[0]);
     }
-    
+
     @GET
-    @Produces({"application/json", "application/xml"})
+    @Produces({ "application/json", "application/xml" })
     @Path("{id}")
-    public Person getPerson(@PathParam("id")int id) {
+    public Person getPerson(@PathParam("id") int id) {
         if (id < bean.getPersons().size())
             return bean.getPersons().get(id);
         else

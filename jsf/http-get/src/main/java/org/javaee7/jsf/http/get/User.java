@@ -28,7 +28,7 @@ public class User {
         System.out.println("process called");
         name = name.toUpperCase();
     }
-    
+
     public void process2() {
         System.out.println("process2 called");
         name = name.toUpperCase();

@@ -11,7 +11,8 @@ import javax.inject.Named;
 public class UserAge {
     int age;
 
-    public UserAge() { }
+    public UserAge() {
+    }
 
     public UserAge(int age) {
         this.age = age;

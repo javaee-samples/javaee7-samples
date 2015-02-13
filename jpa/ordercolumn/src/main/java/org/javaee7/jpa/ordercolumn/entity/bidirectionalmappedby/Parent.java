@@ -16,28 +16,28 @@ import javax.persistence.OrderColumn;
 @Entity
 public class Parent {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
 
-	@OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "parent")
-	@OrderColumn
-	private List<Child> children = new ArrayList<>();
+    @OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "parent")
+    @OrderColumn
+    private List<Child> children = new ArrayList<>();
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public List<Child> getChildren() {
-		return children;
-	}
+    public List<Child> getChildren() {
+        return children;
+    }
 
-	public void setChildren(List<Child> children) {
-		this.children = children;
-	}
+    public void setChildren(List<Child> children) {
+        this.children = children;
+    }
 
 }

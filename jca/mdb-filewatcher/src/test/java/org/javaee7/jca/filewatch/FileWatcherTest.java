@@ -51,33 +51,32 @@ public class FileWatcherTest {
     public static EnterpriseArchive deploy() throws Exception {
 
         final JavaArchive fsWatcherFileAdapter = ShrinkWrap.create(JavaArchive.class, "rar.jar")
-                                                           .addPackages(true, Created.class.getPackage(), FileSystemWatcher.class.getPackage());
+            .addPackages(true, Created.class.getPackage(), FileSystemWatcher.class.getPackage());
 
         final ResourceAdapterArchive rar = ShrinkWrap.create(ResourceAdapterArchive.class, "fswatcher.rar")
-                                                     .addAsLibrary(fsWatcherFileAdapter);
+            .addAsLibrary(fsWatcherFileAdapter);
 
         final JavaArchive fileWatcher = ShrinkWrap.create(JavaArchive.class, "mdb.jar")
-                                                  .addClasses(FileEvent.class, FileWatchingMDB.class)
-                                                  // appropriate descriptor will be only picked up by the target container
-                                                  .addAsManifestResource("glassfish-ejb-jar.xml")
-                                                  .addAsManifestResource("jboss-ejb3.xml")
-                                                  .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addClasses(FileEvent.class, FileWatchingMDB.class)
+            // appropriate descriptor will be only picked up by the target container
+            .addAsManifestResource("glassfish-ejb-jar.xml")
+            .addAsManifestResource("jboss-ejb3.xml")
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 
         final JavaArchive test = ShrinkWrap.create(JavaArchive.class, "test.jar")
-                                           .addClasses(FileWatcherTest.class)
-                                           .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-
+            .addClasses(FileWatcherTest.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 
         final JavaArchive[] testArchives = Maven.resolver()
-                                                .loadPomFromFile("pom.xml")
-                                                .resolve("org.assertj:assertj-core", "com.jayway.awaitility:awaitility")
-                                                .withTransitivity()
-                                                .as(JavaArchive.class);
+            .loadPomFromFile("pom.xml")
+            .resolve("org.assertj:assertj-core", "com.jayway.awaitility:awaitility")
+            .withTransitivity()
+            .as(JavaArchive.class);
 
         return ShrinkWrap.create(EnterpriseArchive.class, "test.ear")
-                         .addAsModules(rar, fileWatcher)
-                         .addAsLibraries(testArchives)
-                         .addAsLibrary(test);
+            .addAsModules(rar, fileWatcher)
+            .addAsLibraries(testArchives)
+            .addAsLibrary(test);
 
     }
 
@@ -98,7 +97,7 @@ public class FileWatcherTest {
 
         // when
         await().atMost(TEN_SECONDS).with().pollInterval(FIVE_HUNDRED_MILLISECONDS)
-               .until(fileEventObserved());
+            .until(fileEventObserved());
 
         // then
         assertThat(tempFile.getName()).isEqualTo(observedFileEvent.getFile().getName());
@@ -115,7 +114,7 @@ public class FileWatcherTest {
 
         // when
         await().atMost(TEN_SECONDS).with().pollInterval(FIVE_HUNDRED_MILLISECONDS)
-               .until(fileEventObserved());
+            .until(fileEventObserved());
 
         // then
         assertThat(tempFile.getName()).isEqualTo(observedFileEvent.getFile().getName());
@@ -131,7 +130,7 @@ public class FileWatcherTest {
 
         // when
         await().atMost(TEN_SECONDS).with().pollInterval(FIVE_HUNDRED_MILLISECONDS)
-               .until(fileEventObserved());
+            .until(fileEventObserved());
         // then
         assertThat(tempFile.getName()).isEqualTo(observedFileEvent.getFile().getName());
         assertThat(DELETED).isEqualTo(observedFileEvent.getType());

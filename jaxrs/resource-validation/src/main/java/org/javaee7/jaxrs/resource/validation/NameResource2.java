@@ -15,8 +15,8 @@ public class NameResource2 {
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public String registerUser(@NotNull @FormParam("firstName") String firstName,
-            @NotNull @FormParam("lastName") String lastName,
-            @Email @FormParam("email") String email) {
+        @NotNull @FormParam("lastName") String lastName,
+        @Email @FormParam("email") String email) {
         return firstName + " " + lastName + " with email " + email + " registered";
     }
 

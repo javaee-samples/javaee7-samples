@@ -39,10 +39,10 @@ public class EncoderEndpointTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyEndpoint.class,
-                        MyMessage.class,
-                        MyMessageEncoder.class,
-                        MyMessageDecoder.class);
+            .addClasses(MyEndpoint.class,
+                MyMessage.class,
+                MyMessageEncoder.class,
+                MyMessageDecoder.class);
     }
 
     @Test
@@ -75,11 +75,11 @@ public class EncoderEndpointTest {
     public Session connectToServer(Class<?> endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
-                + base.getHost()
-                + ":"
-                + base.getPort()
-                + base.getPath()
-                + "encoder");
+            + base.getHost()
+            + ":"
+            + base.getPort()
+            + base.getPath()
+            + "encoder");
         return container.connectToServer(endpoint, uri);
     }
 }

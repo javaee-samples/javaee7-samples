@@ -35,13 +35,13 @@ public class PublicServletProtectedEJB extends HttpServlet {
         String ejbName = protectedEJB.getUserName();
 
         response.getWriter().write("web username: " + webName + "\n" + "EJB username: " + ejbName + "\n");
-        
+
         boolean webHasRole = request.isUserInRole("architect");
         boolean ejbHasRole = protectedEJB.isUserArchitect();
 
         response.getWriter().write(
-                "web user has role \"architect\": " + webHasRole + "\n" + "EJB user has role \"architect\": " + ejbHasRole
-                        + "\n");
+            "web user has role \"architect\": " + webHasRole + "\n" + "EJB user has role \"architect\": " + ejbHasRole
+                + "\n");
 
     }
 

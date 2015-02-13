@@ -37,7 +37,7 @@ public class SummingItemWriter extends AbstractItemWriter {
     private int computeSum(List<Object> objects) {
         int subTotal = 0;
         for (Object o : objects) {
-            subTotal += (Integer)o;
+            subTotal += (Integer) o;
         }
         return subTotal;
     }

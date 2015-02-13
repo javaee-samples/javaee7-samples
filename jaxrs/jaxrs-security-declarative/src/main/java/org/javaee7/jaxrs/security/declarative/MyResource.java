@@ -23,10 +23,10 @@ public class MyResource {
     public String get() {
         return "get";
     }
-    
+
     @GET
     @Path("{id}")
-    public String getPerson(@PathParam("id")int id) {
+    public String getPerson(@PathParam("id") int id) {
         return "get" + id;
     }
 

@@ -53,9 +53,9 @@ public class OrderColumnUniTest {
     @Deployment
     private static Archive<?> createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addPackages(true, Child.class.getPackage())
-                         .addPackages(true, OrderColumnTesterService.class.getPackage())
-                         .addAsResource("META-INF/persistence.xml");
+            .addPackages(true, Child.class.getPackage())
+            .addPackages(true, OrderColumnTesterService.class.getPackage())
+            .addAsResource("META-INF/persistence.xml");
     }
 
     @EJB
@@ -90,9 +90,8 @@ public class OrderColumnUniTest {
 
         Parent savedParent = indexColumnTesterService.getParentById(parent.getId());
 
-        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different", 
-            2, savedParent.getChildren().size()
-        );
+        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different",
+            2, savedParent.getChildren().size());
     }
 
     /**
@@ -125,9 +124,8 @@ public class OrderColumnUniTest {
 
         Parent savedParent = indexColumnTesterService.getParentById(parent.getId());
 
-        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different", 
-            2, savedParent.getChildren().size()
-        );
+        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different",
+            2, savedParent.getChildren().size());
 
     }
 
@@ -163,9 +161,8 @@ public class OrderColumnUniTest {
 
         Parent savedParent = indexColumnTesterService.getParentById(parent.getId());
 
-        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different", 
-            2, savedParent.getChildren().size()
-        );
+        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different",
+            2, savedParent.getChildren().size());
 
     }
 

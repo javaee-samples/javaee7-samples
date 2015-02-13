@@ -6,9 +6,9 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/websocket", configurator = MyConfigurator.class)
+@ServerEndpoint(value = "/websocket", configurator = MyConfigurator.class)
 public class MyEndpoint {
-    
+
     @OnMessage
     public String echoText(String name) {
         return name;

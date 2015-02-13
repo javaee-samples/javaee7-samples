@@ -13,7 +13,7 @@ public class ApplicationSingletonResource {
     // Ideally this state should be stored in a database
     // But this is a singleton resource and so state can be saved here too
     private List<String> strings;
-    
+
     public ApplicationSingletonResource() {
         strings = new ArrayList<>();
     }
@@ -23,11 +23,11 @@ public class ApplicationSingletonResource {
     public String getAll() {
         return strings.toString();
     }
-    
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("{id}")
-    public String getString(@PathParam("id")int id) {
+    public String getString(@PathParam("id") int id) {
         return strings.get(id);
     }
 

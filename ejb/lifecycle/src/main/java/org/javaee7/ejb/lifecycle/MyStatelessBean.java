@@ -13,17 +13,17 @@ public class MyStatelessBean {
     public MyStatelessBean() {
         System.out.println("MyStatelessBean.ctor");
     }
-    
+
     @PostConstruct
     private void postConstruct() {
         System.out.println("MyStatelessBean.postConstruct");
     }
-    
+
     @PreDestroy
     private void preDestroy() {
         System.out.println("MyStatelessBean.preDestroy");
     }
-    
+
     public void method1() {
         System.out.println("MyBean.method1");
     }

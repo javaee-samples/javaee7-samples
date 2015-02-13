@@ -12,7 +12,7 @@ import javax.persistence.metamodel.StaticMetamodel;
  */
 @StaticMetamodel(TestEntity.class)
 public class TestEntity_ {
-    
+
     public static volatile SingularAttribute<TestEntity, Long> id;
     public static volatile SingularAttribute<TestEntity, String> value;
 

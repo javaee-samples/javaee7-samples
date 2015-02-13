@@ -23,8 +23,8 @@ public class SchemaGenIndexTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                                   .addPackage("org.javaee7.jpa.index")
-                                   .addAsResource("META-INF/persistence.xml");
+            .addPackage("org.javaee7.jpa.index")
+            .addAsResource("META-INF/persistence.xml");
         System.out.println(war.toString(true));
         return war;
     }

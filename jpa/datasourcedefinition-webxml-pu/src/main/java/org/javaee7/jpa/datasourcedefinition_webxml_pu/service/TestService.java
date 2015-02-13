@@ -23,18 +23,16 @@ public class TestService {
     private EntityManager entityManager;
 
     public void saveNewEntity() {
-        
+
         TestEntity testEntity = new TestEntity();
         testEntity.setValue("mytest");
-        
+
         entityManager.persist(testEntity);
     }
-    
+
     public List<TestEntity> getAllEntities() {
         return entityManager.createQuery("SELECT _testEntity FROM TestEntity _testEntity", TestEntity.class)
-                            .getResultList();
+            .getResultList();
     }
-
-    
 
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "MOVIE_OPTIMISTIC")
 @NamedQueries({
-        @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
+    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
 })
 public class Movie implements Serializable {
     @Id
@@ -63,8 +63,12 @@ public class Movie implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) { return true; }
-        if (o == null || getClass() != o.getClass()) { return false; }
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Movie movie = (Movie) o;
 
@@ -81,15 +85,15 @@ public class Movie implements Serializable {
     @Override
     public String toString() {
         return "Movie{id=" +
-               id +
-               ", version=" +
-               version +
-               ", name='" +
-               name +
-               '\'' +
-               ", actors='" +
-               actors +
-               '\'' +
-               '}';
+            id +
+            ", version=" +
+            version +
+            ", name='" +
+            name +
+            '\'' +
+            ", actors='" +
+            actors +
+            '\'' +
+            '}';
     }
 }

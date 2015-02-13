@@ -42,7 +42,7 @@ public class SyncTest {
 
     @EJB
     MessageReceiverAppManaged appManagedReceiver;
-    
+
     @Test
     public void testClassicApi() {
         String message = "The test message over JMS 1.1 API";
@@ -84,13 +84,13 @@ public class SyncTest {
     @Deployment
     public static WebArchive deploy() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MessageSenderSync.class,
-                        MessageReceiverSync.class,
-                        ClassicMessageSender.class,
-                        ClassicMessageReceiver.class,
-                        MessageSenderAppManaged.class,
-                        MessageReceiverAppManaged.class,
-                        Resources.class);
+            .addClasses(MessageSenderSync.class,
+                MessageReceiverSync.class,
+                ClassicMessageSender.class,
+                ClassicMessageReceiver.class,
+                MessageSenderAppManaged.class,
+                MessageReceiverAppManaged.class,
+                Resources.class);
     }
 
 }

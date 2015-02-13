@@ -14,7 +14,7 @@ import javax.websocket.EndpointConfig;
 public class FigureEncoder implements Encoder.Text<Figure> {
 
     private static final Logger LOGGER = Logger.getLogger(FigureDecoder.class.getName());
-    
+
     @Override
     public String encode(Figure figure) throws EncodeException {
         LOGGER.log(Level.INFO, "encoding: {0}", figure);

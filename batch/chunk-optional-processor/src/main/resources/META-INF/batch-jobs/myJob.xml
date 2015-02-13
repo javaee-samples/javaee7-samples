@@ -4,7 +4,7 @@
         <chunk item-count="3">
             <reader ref="myItemReader"/>
             <writer ref="myItemWriter"/>
-        </chunk>	
+        </chunk>    
     </step>
 </job>
 

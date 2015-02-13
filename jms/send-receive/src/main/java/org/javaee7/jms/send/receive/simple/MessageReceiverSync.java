@@ -21,14 +21,14 @@ public class MessageReceiverSync {
 
     @Inject
     private JMSContext context;
-    
-    @Resource(mappedName=Resources.SYNC_CONTAINER_MANAGED_QUEUE)
+
+    @Resource(mappedName = Resources.SYNC_CONTAINER_MANAGED_QUEUE)
     Queue myQueue;
 
     public String receiveMessage() {
         return context.createConsumer(myQueue).receiveBody(String.class, 1000);
     }
-    
+
     public void receiveAll() {
         System.out.println("--> Receiving redundant messages ...");
         try {

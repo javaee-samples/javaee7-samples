@@ -24,11 +24,11 @@ public class MultiplePuTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                                   .addPackage("org.javaee7.jpa.multiple.pu")
-                                   .addAsResource("META-INF/persistence.xml")
-                                   .addAsResource("META-INF/create.sql")
-                                   .addAsResource("META-INF/drop.sql")
-                                   .addAsResource("META-INF/load.sql");
+            .addPackage("org.javaee7.jpa.multiple.pu")
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/create.sql")
+            .addAsResource("META-INF/drop.sql")
+            .addAsResource("META-INF/load.sql");
         System.out.println(war.toString(true));
         return war;
     }

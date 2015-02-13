@@ -11,11 +11,11 @@ public class Movie {
     @Id
     @NotNull
     private Integer id;
-    
+
     @NotNull
     @Size(min = 1, max = 50)
     private String name;
-    
+
     @NotNull
     @Size(min = 1, max = 200)
     private String actors;
@@ -28,7 +28,7 @@ public class Movie {
         this.name = name;
         this.actors = actors;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +51,5 @@ public class Movie {
 
     public void setActors(String actors) {
         this.actors = actors;
-    }    
+    }
 }

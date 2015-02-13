@@ -19,7 +19,7 @@ public class MyResponseRecord implements Record {
     public void setData(String data) {
         this.data = data;
     }
-    
+
     @Override
     public String getRecordName() {
         return name;
@@ -39,16 +39,16 @@ public class MyResponseRecord implements Record {
     public String getRecordShortDescription() {
         return description;
     }
-    
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         super.clone();
-        
+
         MyOrderRecord record = new MyOrderRecord();
         record.setData(this.data);
         record.setRecordName(this.name);
         record.setRecordShortDescription(this.description);
         return record;
     }
-    
+
 }

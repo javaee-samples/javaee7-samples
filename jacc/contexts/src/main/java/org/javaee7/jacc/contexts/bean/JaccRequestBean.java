@@ -16,11 +16,11 @@ public class JaccRequestBean {
     public HttpServletRequest getRequest() throws PolicyContextException {
         return (HttpServletRequest) PolicyContext.getContext("javax.servlet.http.HttpServletRequest");
     }
-    
+
     public boolean hasAttribute() throws PolicyContextException {
         return "true".equals(getRequest().getAttribute("jaccTest"));
     }
-    
+
     public boolean hasParameter() throws PolicyContextException {
         return "true".equals(getRequest().getParameter("jacc_test"));
     }

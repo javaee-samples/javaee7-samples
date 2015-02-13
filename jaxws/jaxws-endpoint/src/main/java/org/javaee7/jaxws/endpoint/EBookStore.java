@@ -14,12 +14,16 @@ import javax.jws.WebService;
 public interface EBookStore {
     @WebMethod
     public String welcomeMessage(String name);
+
     @WebMethod
     public List<String> findEBooks(String text);
+
     @WebMethod
     public EBook takeBook(String title);
+
     @WebMethod
     public void saveBook(EBook eBook);
+
     @WebMethod
-    public EBook addAppendix(EBook eBook,int appendixPages);
+    public EBook addAppendix(EBook eBook, int appendixPages);
 }

@@ -28,9 +28,10 @@ public class MyResourceTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(MyApplication.class, MyResource.class, MyPathParams.class, MyQueryParams.class);
+        return ShrinkWrap.create(WebArchive.class)
+            .addClasses(MyApplication.class, MyResource.class, MyPathParams.class, MyQueryParams.class);
     }
+
     private static WebTarget target;
 
     @ArquillianResource
@@ -44,8 +45,8 @@ public class MyResourceTest {
 
     @Test
     public void testRequestWithAllParams() {
-    	WebTarget t = target.path("/123").path("/abc").queryParam("param1", "foo").queryParam("param2", "bar").queryParam("param3", "baz");
-        String r = t.request(). get(String.class);
+        WebTarget t = target.path("/123").path("/abc").queryParam("param1", "foo").queryParam("param2", "bar").queryParam("param3", "baz");
+        String r = t.request().get(String.class);
         assertEquals("/123/abc?param1=foo&param2=bar&param3=baz", r);
     }
 

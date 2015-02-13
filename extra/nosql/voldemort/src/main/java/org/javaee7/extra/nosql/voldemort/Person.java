@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Named
 @ApplicationScoped
 public class Person implements Serializable {
-    
+
     @Size(min = 1, max = 20)
     private String name;
 
@@ -46,11 +46,11 @@ public class Person implements Serializable {
     public String toString() {
         return name + ", " + age;
     }
-    
+
     public static Person fromString(String string) {
         StringTokenizer tokens = new StringTokenizer(string, ",");
-        
+
         return new Person(tokens.nextToken(), Integer.parseInt(tokens.nextToken().trim()));
     }
-    
+
 }

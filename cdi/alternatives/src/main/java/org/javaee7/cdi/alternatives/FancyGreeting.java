@@ -12,5 +12,5 @@ public class FancyGreeting implements Greeting {
     public String greet(String name) {
         return "Nice to meet you, hello" + name;
     }
-    
+
 }

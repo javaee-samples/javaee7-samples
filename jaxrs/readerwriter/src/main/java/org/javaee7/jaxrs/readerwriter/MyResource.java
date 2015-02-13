@@ -10,15 +10,15 @@ import javax.ws.rs.Path;
 @Path("fruits")
 public class MyResource {
     private final String[] response = { "apple", "banana", "mango" };
-    
+
     @POST
     @Consumes(MyObject.MIME_TYPE)
     public String postWithCustomMimeType(MyObject mo) {
         System.out.println("endpoint invoked (getFruit(" + mo.getIndex() + "))");
-        
+
         return response[Integer.valueOf(mo.getIndex()) % 3];
     }
-    
+
     @POST
     @Path("index")
     @Consumes("text/plain")

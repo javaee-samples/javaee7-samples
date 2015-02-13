@@ -21,12 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 //            @HttpMethodConstraint(value = "GET", rolesAllowed = {"g1"}),
 //            @HttpMethodConstraint(value = "POST", rolesAllowed = {"g1"})
 //        })
-@ServletSecurity(@HttpConstraint(rolesAllowed={"g1"}))
+@ServletSecurity(@HttpConstraint(rolesAllowed = { "g1" }))
 @RolesAllowed("g1")
 public class SecureServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String method)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");
@@ -52,7 +52,7 @@ public class SecureServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response, "GET");
     }
 
@@ -66,7 +66,7 @@ public class SecureServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response, "POST");
     }
 

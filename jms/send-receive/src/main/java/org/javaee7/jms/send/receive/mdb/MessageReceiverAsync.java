@@ -17,9 +17,9 @@ import org.javaee7.jms.send.receive.Resources;
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup",
-            propertyValue = Resources.ASYNC_QUEUE),
+        propertyValue = Resources.ASYNC_QUEUE),
     @ActivationConfigProperty(propertyName = "destinationType",
-            propertyValue = "javax.jms.Queue"),    
+        propertyValue = "javax.jms.Queue"),
 })
 public class MessageReceiverAsync implements MessageListener {
 

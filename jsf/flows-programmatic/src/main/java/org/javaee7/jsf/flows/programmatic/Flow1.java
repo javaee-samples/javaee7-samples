@@ -11,23 +11,24 @@ import javax.faces.flow.builder.FlowDefinition;
  */
 public class Flow1 {
 
-    @Produces @FlowDefinition
+    @Produces
+    @FlowDefinition
     public Flow defineFlow(@FlowBuilderParameter FlowBuilder flowBuilder) {
         String flowId = "flow1";
         flowBuilder.id("", flowId);
         flowBuilder.viewNode(flowId, "/" + flowId + "/" + flowId + ".xhtml").markAsStartNode();
-        
+
         flowBuilder.returnNode("taskFlowReturn1").
-                fromOutcome("#{flow1Bean.returnValue}");
+            fromOutcome("#{flow1Bean.returnValue}");
         flowBuilder.returnNode("goHome").
-                fromOutcome("#{flow1Bean.homeValue}");
-        
+            fromOutcome("#{flow1Bean.homeValue}");
+
         flowBuilder.inboundParameter("param1FromFlow2", "#{flowScope.param1Value}");
         flowBuilder.inboundParameter("param2FromFlow2", "#{flowScope.param2Value}");
-        
+
         flowBuilder.flowCallNode("call2").flowReference("", "flow2").
-                outboundParameter("param1FromFlow1", "param1 flow1 value").
-                outboundParameter("param2FromFlow1", "param2 flow1 value");
+            outboundParameter("param1FromFlow1", "param1 flow1 value").
+            outboundParameter("param2FromFlow1", "param2 flow1 value");
 
         return flowBuilder.getFlow();
     }

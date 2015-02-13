@@ -25,7 +25,7 @@ public class MyEndpointInputStreamClient {
             ioe.printStackTrace();
         }
     }
-    
+
     @OnMessage
     public void processMessage(byte[] message) {
         response = message;

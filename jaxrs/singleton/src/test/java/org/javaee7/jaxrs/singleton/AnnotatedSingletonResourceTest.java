@@ -47,9 +47,9 @@ public class AnnotatedSingletonResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addClasses(
-                                 MyAnnotatedApplication.class,
-                                 AnnotatedSingletonResource.class);
+            .addClasses(
+                MyAnnotatedApplication.class,
+                AnnotatedSingletonResource.class);
     }
 
     @Test

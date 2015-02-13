@@ -32,14 +32,14 @@ public class Bootstrap {
             context.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() {
-//                    from("test-jms:queue:test.queue").to("file://test");
+                    //                    from("test-jms:queue:test.queue").to("file://test");
                     from("timer://timer1?period=1000")
-                            .process(new Processor() {
-                                @Override
-                                public void process(Exchange message) throws Exception {
-                                    logger.info("Processing {}", message);
-                                }
-                            });
+                        .process(new Processor() {
+                            @Override
+                            public void process(Exchange message) throws Exception {
+                                logger.info("Processing {}", message);
+                            }
+                        });
                 }
             });
         } catch (Exception ex) {
@@ -47,7 +47,7 @@ public class Bootstrap {
         }
 
         // Define Timer URI
-//        simpleRoute.setTimerUri("timer://simple?fixedRate=true&period=10s");
+        //        simpleRoute.setTimerUri("timer://simple?fixedRate=true&period=10s");
         // Start Camel Context
         context.start();
 

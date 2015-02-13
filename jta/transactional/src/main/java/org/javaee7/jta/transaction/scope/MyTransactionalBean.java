@@ -10,7 +10,7 @@ public class MyTransactionalBean {
 
     @Inject
     MyTransactionScopedBean bean1;
-    
+
     @Inject
     MyTransactionScopedBean bean2;
 

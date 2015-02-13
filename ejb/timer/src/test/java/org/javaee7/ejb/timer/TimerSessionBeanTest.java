@@ -33,12 +33,12 @@ public class TimerSessionBeanTest {
     @Deployment
     public static WebArchive deploy() {
         File[] jars = Maven.resolver().loadPomFromFile("pom.xml")
-                .resolve("com.jayway.awaitility:awaitility")
-                .withTransitivity().asFile();
+            .resolve("com.jayway.awaitility:awaitility")
+            .withTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class)
-                .addAsLibraries(jars)
-                .addClasses(Ping.class, PingsListener.class, TimerSessionBean.class);
+            .addAsLibraries(jars)
+            .addClasses(Ping.class, PingsListener.class, TimerSessionBean.class);
     }
 
     @Test
@@ -54,18 +54,18 @@ public class TimerSessionBeanTest {
     }
 
     private Matcher<Long> withinWindow(final long timeout, final long tolerance) {
-            return new BaseMatcher<Long>() {
-                @Override
-                public boolean matches(Object item) {
-                    final Long actual = (Long) item;
-                    return Math.abs(actual - timeout) < tolerance;
-                }
+        return new BaseMatcher<Long>() {
+            @Override
+            public boolean matches(Object item) {
+                final Long actual = (Long) item;
+                return Math.abs(actual - timeout) < tolerance;
+            }
 
-                @Override
-                public void describeTo(Description description) {
-                    //To change body of implemented methods use File | Settings | File Templates.
-                }
-            };
+            @Override
+            public void describeTo(Description description) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        };
     }
 
 }

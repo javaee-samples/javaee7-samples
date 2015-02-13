@@ -10,21 +10,22 @@ import javax.persistence.Table;
  * @author Arun Gupta
  */
 @Entity
-@Table(name="EMPLOYEE_NATIVE_SQL")
+@Table(name = "EMPLOYEE_NATIVE_SQL")
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private int id;
-    
-    @Column(length=50)
+
+    @Column(length = 50)
     private String name;
-    
-    public Employee() { }
-    
+
+    public Employee() {
+    }
+
     public Employee(String name) {
         this.name = name;
     }
-    
+
     public int getId() {
         return id;
     }

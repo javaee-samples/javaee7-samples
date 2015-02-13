@@ -6,7 +6,7 @@
             <processor ref="myItemProcessor"/>
             <writer ref="myItemWriter"/>
             <checkpoint-algorithm ref="myCheckpointAlgorithm"/>
-        </chunk>	
+        </chunk>    
     </step>
 </job>
 

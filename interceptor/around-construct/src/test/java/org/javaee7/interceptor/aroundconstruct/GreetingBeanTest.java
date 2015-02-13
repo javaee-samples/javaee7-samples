@@ -21,22 +21,22 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(Arquillian.class)
 public class GreetingBeanTest {
-	@Inject
-	private Greeting bean;
+    @Inject
+    private Greeting bean;
 
-	@Deployment
-	public static Archive<?> deploy() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(Greeting.class, GreetingBean.class, GreetingParam.class, MyInterceptor.class, MyInterceptorBinding.class, Param.class)
-				.addAsManifestResource("beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deploy() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClasses(Greeting.class, GreetingBean.class, GreetingParam.class, MyInterceptor.class, MyInterceptorBinding.class, Param.class)
+            .addAsManifestResource("beans.xml");
+    }
 
-	@Test
-	public void should_be_ready() throws Exception {
-		assertThat(bean, is(notNullValue()));
-		assertThat(bean, instanceOf(GreetingBean.class));
-		assertTrue(bean.isConstructed());
-		assertTrue(bean.isInitialized());
-		assertThat(bean.getParam(), instanceOf(GreetingParam.class));
-	}
+    @Test
+    public void should_be_ready() throws Exception {
+        assertThat(bean, is(notNullValue()));
+        assertThat(bean, instanceOf(GreetingBean.class));
+        assertTrue(bean.isConstructed());
+        assertTrue(bean.isInitialized());
+        assertThat(bean.getParam(), instanceOf(GreetingParam.class));
+    }
 }

@@ -12,14 +12,14 @@ import javax.inject.Named;
  */
 @Named
 public class MyItemReader extends AbstractItemReader {
-    
+
     private StringTokenizer tokens;
-    
+
     @Override
     public void open(Serializable c) {
         tokens = new StringTokenizer("1,2,3,4,5,6,7,8,9,10", ",");
     }
-    
+
     @Override
     public Object readItem() {
         if (tokens.hasMoreTokens()) {

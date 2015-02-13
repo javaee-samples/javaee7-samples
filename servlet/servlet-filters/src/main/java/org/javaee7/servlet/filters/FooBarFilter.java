@@ -14,13 +14,13 @@ import java.io.PrintWriter;
 /**
  * @author Arun Gupta
  */
-@WebFilter(filterName = "FooBarFilter", urlPatterns = {"/filtered/*"})
+@WebFilter(filterName = "FooBarFilter", urlPatterns = { "/filtered/*" })
 public class FooBarFilter implements Filter {
 
     private FilterConfig filterConfig;
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
-            throws IOException, ServletException {
+        throws IOException, ServletException {
         try (PrintWriter out = response.getWriter()) {
             out.print("foo--");
             out.flush();
@@ -28,7 +28,7 @@ public class FooBarFilter implements Filter {
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
-            throws IOException, ServletException {
+        throws IOException, ServletException {
         try (PrintWriter out = response.getWriter()) {
             out.print("--bar");
             out.flush();
@@ -37,11 +37,11 @@ public class FooBarFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-            throws IOException, ServletException {
+        FilterChain chain)
+        throws IOException, ServletException {
         PrintWriter out = response.getWriter();
         CharResponseWrapper wrappedResponse = new CharResponseWrapper(
-                (HttpServletResponse)response);
+            (HttpServletResponse) response);
 
         doBeforeProcessing(request, wrappedResponse);
         chain.doFilter(request, wrappedResponse);

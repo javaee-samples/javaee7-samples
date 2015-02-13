@@ -50,7 +50,7 @@ public class MyManagedScheduledBatchBean implements MyManagedScheduledBatch {
 
                 for (Long executedBatch : executedBatchs) {
                     if (!BatchRuntime.getJobOperator().getJobExecution(executedBatch).getBatchStatus().equals(
-                            BatchStatus.COMPLETED)) {
+                        BatchStatus.COMPLETED)) {
                         return true;
                     }
                 }

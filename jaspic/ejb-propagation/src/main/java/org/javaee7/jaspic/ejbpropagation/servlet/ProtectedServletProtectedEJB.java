@@ -40,8 +40,8 @@ public class ProtectedServletProtectedEJB extends HttpServlet {
         boolean ejbHasRole = protectedEJB.isUserArchitect();
 
         response.getWriter().write(
-                "web user has role \"architect\": " + webHasRole + "\n" + "EJB user has role \"architect\": " + ejbHasRole
-                        + "\n");
+            "web user has role \"architect\": " + webHasRole + "\n" + "EJB user has role \"architect\": " + ejbHasRole
+                + "\n");
 
     }
 

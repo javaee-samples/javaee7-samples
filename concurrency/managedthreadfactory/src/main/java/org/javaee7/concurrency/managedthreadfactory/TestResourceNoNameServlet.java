@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestResourceNoNameServlet"})
+@WebServlet(urlPatterns = { "/TestResourceNoNameServlet" })
 public class TestResourceNoNameServlet extends HttpServlet {
 
     @Resource
     ManagedThreadFactory factory;
-    
 
     /**
      * Processes requests for both HTTP
@@ -31,7 +30,7 @@ public class TestResourceNoNameServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
@@ -64,7 +63,7 @@ public class TestResourceNoNameServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -79,7 +78,7 @@ public class TestResourceNoNameServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

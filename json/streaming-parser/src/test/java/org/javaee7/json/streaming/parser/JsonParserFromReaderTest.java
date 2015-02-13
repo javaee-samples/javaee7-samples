@@ -24,11 +24,11 @@ public class JsonParserFromReaderTest {
     @Deployment
     public static Archive<?> deploy() {
         File[] requiredLibraries = Maven.resolver().loadPomFromFile("pom.xml")
-                .resolve("org.json:json")
-                .withTransitivity().asFile();
+            .resolve("org.json:json")
+            .withTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class)
-                .addAsLibraries(requiredLibraries);
+            .addAsLibraries(requiredLibraries);
     }
 
     @Test
@@ -42,9 +42,9 @@ public class JsonParserFromReaderTest {
     @Test
     public void testSimpleObject() throws JSONException {
         String json = "{"
-                + "  \"apple\":\"red\","
-                + "  \"banana\":\"yellow\""
-                + "}";
+            + "  \"apple\":\"red\","
+            + "  \"banana\":\"yellow\""
+            + "}";
         JsonParser parser = Json.createParser(new StringReader(json));
         assertEquals(JsonParser.Event.START_OBJECT, parser.next());
         assertEquals(JsonParser.Event.KEY_NAME, parser.next());

@@ -20,8 +20,8 @@ public class Ping {
     @Override
     public String toString() {
         return "Ping {" +
-                "timeInfo='" + timeInfo + '\'' +
-                ", time=" + time +
-                '}';
+            "timeInfo='" + timeInfo + '\'' +
+            ", time=" + time +
+            '}';
     }
 }

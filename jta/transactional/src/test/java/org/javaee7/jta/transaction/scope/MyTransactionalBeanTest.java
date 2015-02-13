@@ -24,11 +24,12 @@ public class MyTransactionalBeanTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addClasses(MyTransactionalBean.class, MyTransactionScopedBean.class)
-                         .addAsManifestResource("beans.xml");
+            .addClasses(MyTransactionalBean.class, MyTransactionScopedBean.class)
+            .addAsManifestResource("beans.xml");
     }
 
-    @Inject MyTransactionalBean bean;
+    @Inject
+    MyTransactionalBean bean;
 
     @Test
     public void should_withTransaction_have_only_one_instance_injected() {

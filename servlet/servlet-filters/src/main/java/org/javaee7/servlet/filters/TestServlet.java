@@ -11,12 +11,12 @@ import java.io.PrintWriter;
 /**
  * @author Kuba Marchwicki
  */
-@WebServlet(urlPatterns = {"/TestServlet", "/filtered/TestServlet"})
+@WebServlet(urlPatterns = { "/TestServlet", "/filtered/TestServlet" })
 public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.print("bar");

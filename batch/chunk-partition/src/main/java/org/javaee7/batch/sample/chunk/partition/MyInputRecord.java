@@ -5,9 +5,10 @@ package org.javaee7.batch.sample.chunk.partition;
  */
 public class MyInputRecord {
     private int id;
-            
-    public MyInputRecord() { }
-    
+
+    public MyInputRecord() {
+    }
+
     public MyInputRecord(int id) {
         this.id = id;
     }
@@ -19,7 +20,7 @@ public class MyInputRecord {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     @Override
     public String toString() {
         return "MyInputRecord: " + id;

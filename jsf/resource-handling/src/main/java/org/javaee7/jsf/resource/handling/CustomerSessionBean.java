@@ -13,7 +13,7 @@ import javax.inject.Named;
 public class CustomerSessionBean {
     public List<Name> getCustomerNames() {
         List<Name> names = new ArrayList<>();
-        
+
         names.add(new Name("Penny", "TBBT"));
         names.add(new Name("Sheldon", "TBBT"));
         names.add(new Name("Amy", "TBBT"));
@@ -22,7 +22,7 @@ public class CustomerSessionBean {
         names.add(new Name("Raj", "TBBT"));
         names.add(new Name("Priya", "TBBT"));
         names.add(new Name("Howard", "TBBT"));
-        
+
         return names;
     }
 }

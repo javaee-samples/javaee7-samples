@@ -10,9 +10,9 @@ import javax.enterprise.inject.Produces;
 @Priority(3000)
 public class ProducerMethodGreeting {
 
-	@Produces
-	@Alternative
-	public Greeting getGreeting() {
-		return new SimpleGreeting();
-	}
+    @Produces
+    @Alternative
+    public Greeting getGreeting() {
+        return new SimpleGreeting();
+    }
 }

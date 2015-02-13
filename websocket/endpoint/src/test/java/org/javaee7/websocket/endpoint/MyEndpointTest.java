@@ -34,19 +34,19 @@ public class MyEndpointTest {
     @ArquillianResource
     URI base;
 
-    @Deployment(testable=false)
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyEndpointText.class,
-                        MyEndpointTextClient.class,
-                        MyEndpointByteArray.class,
-                        MyEndpointByteArrayClient.class,
-                        MyEndpointByteBuffer.class,
-                        MyEndpointByteBufferClient.class,
-                        MyEndpointInputStream.class,
-                        MyEndpointInputStreamClient.class);
+            .addClasses(MyEndpointText.class,
+                MyEndpointTextClient.class,
+                MyEndpointByteArray.class,
+                MyEndpointByteArrayClient.class,
+                MyEndpointByteBuffer.class,
+                MyEndpointByteBufferClient.class,
+                MyEndpointInputStream.class,
+                MyEndpointInputStreamClient.class);
     }
-    
+
     @Test
     public void testTextEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointTextClient.latch = new CountDownLatch(1);
@@ -55,7 +55,7 @@ public class MyEndpointTest {
         assertTrue(MyEndpointTextClient.latch.await(2, TimeUnit.SECONDS));
         assertEquals(TEXT, MyEndpointTextClient.response);
     }
-    
+
     @Test
     public void testEndpointByteBuffer() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointByteBufferClient.latch = new CountDownLatch(1);
@@ -84,16 +84,15 @@ public class MyEndpointTest {
         assertNotNull(MyEndpointInputStreamClient.response);
         assertArrayEquals(TEXT.getBytes(), MyEndpointInputStreamClient.response);
     }
-    
-    
+
     public Session connectToServer(Class<?> endpoint, String uriPart) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         URI uri = new URI("ws://"
-              + base.getHost()
-              + ":"
-              + base.getPort()
-              + base.getPath()
-              + uriPart);
+            + base.getHost()
+            + ":"
+            + base.getPort()
+            + base.getPath()
+            + uriPart);
         System.out.println("Connecting to: " + uri);
         return container.connectToServer(endpoint, uri);
     }

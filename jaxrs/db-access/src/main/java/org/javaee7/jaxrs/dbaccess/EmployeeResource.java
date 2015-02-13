@@ -16,7 +16,7 @@ public class EmployeeResource {
 
     @PersistenceContext
     EntityManager em;
-    
+
     @GET
     @Produces("application/xml")
     public Employee[] get() {

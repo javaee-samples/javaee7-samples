@@ -16,5 +16,6 @@ public class MyJob implements Runnable {
         afterRun();
     }
 
-    protected void afterRun() {}
+    protected void afterRun() {
+    }
 }

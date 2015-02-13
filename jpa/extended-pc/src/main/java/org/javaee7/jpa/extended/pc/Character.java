@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Arun Gupta
  */
 @Entity
-@Table(name="CHARACTERS")
+@Table(name = "CHARACTERS")
 @NamedQueries({
     @NamedQuery(name = Character.FIND_ALL, query = "SELECT c FROM Character c")
 })
@@ -24,11 +24,12 @@ public class Character implements Serializable {
 
     @Id
     private int id;
-    
-    @Column(length=50)
+
+    @Column(length = 50)
     private String name;
-    
-    public Character() { }
+
+    public Character() {
+    }
 
     public Character(int id, String name) {
         this.id = id;
@@ -38,7 +39,7 @@ public class Character implements Serializable {
     public Character(String name) {
         this.name = name;
     }
-    
+
     public int getId() {
         return id;
     }

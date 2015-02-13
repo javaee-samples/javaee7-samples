@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT c FROM Person c"),
     @NamedQuery(name = "Person.findByName", query = "SELECT c FROM Person c WHERE c.name = :name"),
-    @NamedQuery(name = "Person.findByHiredate", query = "SELECT c FROM Person c WHERE c.hiredate = :hiredate")})
+    @NamedQuery(name = "Person.findByHiredate", query = "SELECT c FROM Person c WHERE c.hiredate = :hiredate") })
 public class Person implements Serializable {
 
     @Id

@@ -26,15 +26,16 @@ public class DataSourceDefinitionTest {
     @Deployment
     public static Archive<?> deploy() {
         File h2Library = Maven.resolver().loadPomFromFile("pom.xml")
-                .resolve("com.h2database:h2").withoutTransitivity()
-                .asSingleFile();
+            .resolve("com.h2database:h2").withoutTransitivity()
+            .asSingleFile();
 
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(DataSourceDefinitionHolder.class)
-                .addAsLibraries(h2Library);
+            .addClasses(DataSourceDefinitionHolder.class)
+            .addAsLibraries(h2Library);
     }
 
-    @Resource(lookup = "java:global/MyApp/MyDataSource") DataSource dataSource;
+    @Resource(lookup = "java:global/MyApp/MyDataSource")
+    DataSource dataSource;
 
     @Test
     public void should_bean_be_injected() throws Exception {

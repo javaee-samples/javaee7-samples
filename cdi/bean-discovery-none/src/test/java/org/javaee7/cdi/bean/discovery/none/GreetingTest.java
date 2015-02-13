@@ -22,11 +22,12 @@ public class GreetingTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClasses(Greeting.class, FancyGreeting.class)
-                .addAsManifestResource("beans.xml");
+            .addClasses(Greeting.class, FancyGreeting.class)
+            .addAsManifestResource("beans.xml");
     }
 
-    @Inject BeanManager beanManager;
+    @Inject
+    BeanManager beanManager;
 
     @Test
     public void should_bean_be_injected() throws Exception {

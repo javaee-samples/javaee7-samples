@@ -23,20 +23,22 @@ public class JmsClient {
     @Inject
     JMSContext jms;
 
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)        // <1> we need to send message in the middle of the method, therefore we cannot be transactional
-    public String process(String request) {
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    // <1> we need to send message in the middle of the method, therefore we cannot be transactional
+        public
+        String process(String request) {
 
         TextMessage requestMessage = jms.createTextMessage(request);
         TemporaryQueue responseQueue = jms.createTemporaryQueue();
         jms.createProducer()
-                .setJMSReplyTo(responseQueue)                            // <2> set the temporary queue as replyToDestination
-                .send(requestQueue, requestMessage);                     // <3> immediately send the request message
+            .setJMSReplyTo(responseQueue) // <2> set the temporary queue as replyToDestination
+            .send(requestQueue, requestMessage); // <3> immediately send the request message
 
         try (JMSConsumer consumer = jms.createConsumer(responseQueue)) { // <4> listen on the temporary queue
 
-            String response = consumer.receiveBody(String.class, 2000);  // <5> wait for a +TextMessage+ to arrive
+            String response = consumer.receiveBody(String.class, 2000); // <5> wait for a +TextMessage+ to arrive
 
-            if (response == null) {                                      // <6> +receiveBody+  returns +null+ in case of timeout
+            if (response == null) { // <6> +receiveBody+  returns +null+ in case of timeout
                 throw new IllegalStateException("Message processing timed out");
             } else {
                 return response;

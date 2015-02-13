@@ -37,7 +37,7 @@ final class WatchingThread extends Thread {
     private FileSystemWatcherResourceAdapter resourceAdapter;
 
     WatchingThread(WatchService watchService,
-                   FileSystemWatcherResourceAdapter ra) {
+        FileSystemWatcherResourceAdapter ra) {
         this.watchService = watchService;
         this.resourceAdapter = ra;
     }
@@ -59,24 +59,24 @@ final class WatchingThread extends Thread {
     }
 
     private void dispatchEvents(List<WatchEvent<?>> events, MessageEndpointFactory messageEndpointFactory) {
-        for (WatchEvent<?> event: events) {
+        for (WatchEvent<?> event : events) {
             Path path = (Path) event.context();
 
             try {
                 MessageEndpoint endpoint = messageEndpointFactory.createEndpoint(null);
                 Class<?> beanClass = resourceAdapter.getBeanClass(messageEndpointFactory);
-                for (Method m: beanClass.getMethods()) {
+                for (Method m : beanClass.getMethods()) {
                     if (StandardWatchEventKinds.ENTRY_CREATE.equals(event.kind())
-                            && m.isAnnotationPresent(Created.class)
-                            && path.toString().matches(m.getAnnotation(Created.class).value())) {
+                        && m.isAnnotationPresent(Created.class)
+                        && path.toString().matches(m.getAnnotation(Created.class).value())) {
                         invoke(endpoint, m, path);
                     } else if (StandardWatchEventKinds.ENTRY_DELETE.equals(event.kind())
-                            && m.isAnnotationPresent(Deleted.class)
-                            && path.toString().matches(m.getAnnotation(Deleted.class).value())) {
+                        && m.isAnnotationPresent(Deleted.class)
+                        && path.toString().matches(m.getAnnotation(Deleted.class).value())) {
                         invoke(endpoint, m, path);
                     } else if (StandardWatchEventKinds.ENTRY_MODIFY.equals(event.kind())
-                            && m.isAnnotationPresent(Modified.class)
-                            && path.toString().matches(m.getAnnotation(Modified.class).value())) {
+                        && m.isAnnotationPresent(Modified.class)
+                        && path.toString().matches(m.getAnnotation(Modified.class).value())) {
                         invoke(endpoint, m, path);
                     }
                 }
@@ -104,7 +104,8 @@ final class WatchingThread extends Thread {
             }
 
             @Override
-            public void release() {}
+            public void release() {
+            }
         });
     }
 }

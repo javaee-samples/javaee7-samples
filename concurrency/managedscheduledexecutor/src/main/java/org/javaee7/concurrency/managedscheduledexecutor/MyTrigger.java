@@ -27,5 +27,5 @@ public class MyTrigger implements Trigger {
     public boolean skipRun(LastExecution le, Date scheduledRunTime) {
         return firetime.before(scheduledRunTime);
     }
-    
+
 }

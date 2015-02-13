@@ -21,10 +21,9 @@ public class MySingleton {
         builder = new StringBuilder();
     }
 
-
     @Lock(LockType.READ)
     public String readSomething() {
-        return "current timestamp: "+ new Date();
+        return "current timestamp: " + new Date();
     }
 
     @Lock(LockType.WRITE)

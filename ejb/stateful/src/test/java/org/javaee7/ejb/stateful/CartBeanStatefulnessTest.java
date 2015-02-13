@@ -29,12 +29,12 @@ public class CartBeanStatefulnessTest {
     @EJB
     private CartBean bean2;
 
-	@Deployment
-	public static Archive<?> deployment() {
-		return ShrinkWrap.create(JavaArchive.class, "test.jar")
-				.addClass(CartBean.class)
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deployment() {
+        return ShrinkWrap.create(JavaArchive.class, "test.jar")
+            .addClass(CartBean.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
     /**
      * JSR 318: Enterprise JavaBeans, Version 3.1
@@ -52,19 +52,19 @@ public class CartBeanStatefulnessTest {
         assertThat("Expect different instances", bean1, is(not(bean2)));
     }
 
-	@Test
+    @Test
     @InSequence(2)
-	public void should_add_items_to_first_cart() {
-		// when
-		bean1.addItem(item_to_add);
+    public void should_add_items_to_first_cart() {
+        // when
+        bean1.addItem(item_to_add);
 
-		// then
-		assertThat(bean1.getItems(), hasItem(item_to_add));
-	}
+        // then
+        assertThat(bean1.getItems(), hasItem(item_to_add));
+    }
 
-	@Test
+    @Test
     @InSequence(3)
-	public void should_not_contain_any_items_in_second_cart() {
-		assertThat(bean2.getItems().isEmpty(), is(true));
-	}
+    public void should_not_contain_any_items_in_second_cart() {
+        assertThat(bean2.getItems().isEmpty(), is(true));
+    }
 }

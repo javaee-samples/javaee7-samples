@@ -20,10 +20,10 @@ import javax.ws.rs.container.TimeoutHandler;
 @Path("fruits")
 public class MyResource {
     private final String[] response = { "apple", "banana", "mango" };
-    
-//    @Resource(name = "DefaultManagedThreadFactory")
-//    ManagedThreadFactory threadFactory;
-    
+
+    //    @Resource(name = "DefaultManagedThreadFactory")
+    //    ManagedThreadFactory threadFactory;
+
     @GET
     public void getList(@Suspended final AsyncResponse ar) throws NamingException {
         ar.setTimeoutHandler(new TimeoutHandler() {
@@ -34,13 +34,13 @@ public class MyResource {
             }
         });
         ar.setTimeout(4000, TimeUnit.MILLISECONDS);
-        
+
         ar.register(new MyCompletionCallback());
         ar.register(new MyConnectionCallback());
-        
+
         ManagedThreadFactory threadFactory = (ManagedThreadFactory) new InitialContext()
-                .lookup("java:comp/DefaultManagedThreadFactory");
-        
+            .lookup("java:comp/DefaultManagedThreadFactory");
+
         Executors.newSingleThreadExecutor(threadFactory).submit(new Runnable() {
 
             @Override
@@ -49,29 +49,29 @@ public class MyResource {
                     Thread.sleep(3000);
                     ar.resume(response[0]);
                 } catch (InterruptedException ex) {
-                    
+
                 }
             }
-            
+
         });
     }
-    
+
     class MyCompletionCallback implements CompletionCallback {
 
         @Override
         public void onComplete(Throwable t) {
             System.out.println("onComplete");
         }
-        
+
     }
-    
+
     class MyConnectionCallback implements ConnectionCallback {
 
         @Override
         public void onDisconnect(AsyncResponse ar) {
             System.out.println("onDisconnect");
         }
-        
+
     }
 
 }

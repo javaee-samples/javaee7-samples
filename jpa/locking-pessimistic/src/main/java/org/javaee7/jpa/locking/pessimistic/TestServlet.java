@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServlet"})
+@WebServlet(urlPatterns = { "/TestServlet" })
 public class TestServlet extends HttpServlet {
-    
-    @EJB MovieBean bean;
+
+    @EJB
+    MovieBean bean;
 
     /**
      * Processes requests for both HTTP
@@ -28,7 +29,7 @@ public class TestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -43,7 +44,7 @@ public class TestServlet extends HttpServlet {
             for (Movie m : bean.listMovies()) {
                 out.println(m.getName() + "<br>");
             }
-            
+
             out.println("<p>Updating a movie<br>");
             bean.updateMovie();
             out.println("Listing movies");
@@ -56,7 +57,7 @@ public class TestServlet extends HttpServlet {
             for (Movie m : bean.listMovies()) {
                 out.println(m.getName() + "<br>");
             }
-            
+
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,7 +74,7 @@ public class TestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -87,7 +88,7 @@ public class TestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

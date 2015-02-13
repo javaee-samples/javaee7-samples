@@ -8,7 +8,7 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/websocket-int")
 public class MyEndpointInt {
-    
+
     @OnMessage
     public int echoInt(int i) {
         System.out.println("echoInt");

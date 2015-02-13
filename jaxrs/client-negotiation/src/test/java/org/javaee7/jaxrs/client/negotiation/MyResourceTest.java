@@ -30,10 +30,10 @@ public class MyResourceTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(MyApplication.class, MyResource.class, People.class, Person.class);
+        return ShrinkWrap.create(WebArchive.class)
+            .addClasses(MyApplication.class, MyResource.class, People.class, Person.class);
     }
-    
+
     private WebTarget target;
 
     @ArquillianResource
@@ -49,7 +49,10 @@ public class MyResourceTest {
     public void testXML() throws SAXException, IOException {
         String xml = target.request("application/xml").get(String.class);
         System.out.println(xml);
-        XMLAssert.assertXMLEqual("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><people><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></people>", xml);
+        XMLAssert
+            .assertXMLEqual(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><people><person><age>1</age><name>Penny</name></person><person><age>2</age><name>Leonard</name></person><person><age>3</age><name>Sheldon</name></person></people>",
+                xml);
     }
 
     @Test
@@ -57,5 +60,5 @@ public class MyResourceTest {
         String json = target.request("application/json").get(String.class);
         JSONAssert.assertEquals("[{\"age\":1,\"name\":\"Penny\"},{\"age\":2,\"name\":\"Leonard\"},{\"age\":3,\"name\":\"Sheldon\"}]", json, false);
     }
-    
+
 }

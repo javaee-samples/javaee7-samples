@@ -21,13 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/AnnotatedEmailServlet"})
+@WebServlet(urlPatterns = { "/AnnotatedEmailServlet" })
 @MailSessionDefinition(name = "java:comp/myMailSession",
-                host = "smtp.gmail.com",
-                transportProtocol = "smtps",
-        properties = {
-            "mail.debug=true"
-        })
+    host = "smtp.gmail.com",
+    transportProtocol = "smtps",
+    properties = {
+        "mail.debug=true"
+    })
 public class AnnotatedEmailServlet extends HttpServlet {
 
     @Resource(lookup = "java:comp/myMailSession")
@@ -46,7 +46,7 @@ public class AnnotatedEmailServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -59,16 +59,16 @@ public class AnnotatedEmailServlet extends HttpServlet {
 
             try {
                 out.println("Sending message from \""
-                        + creds.getFrom()
-                        + "\" to \""
-                        + creds.getTo()
-                        + "\"...<br>");
+                    + creds.getFrom()
+                    + "\" to \""
+                    + creds.getTo()
+                    + "\"...<br>");
 
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(creds.getFrom()));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(creds.getTo()));
                 message.setSubject("Sending message using Annotated JavaMail "
-                        + Calendar.getInstance().getTime());
+                    + Calendar.getInstance().getTime());
                 message.setText("Java EE 7 is cool!");
 
                 Transport t = session.getTransport();
@@ -97,7 +97,7 @@ public class AnnotatedEmailServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -111,7 +111,7 @@ public class AnnotatedEmailServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

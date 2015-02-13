@@ -9,13 +9,13 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 public class OrderNotFoundExceptionMapper
-        implements ExceptionMapper<OrderNotFoundException> {
+    implements ExceptionMapper<OrderNotFoundException> {
 
     @Override
     public Response toResponse(OrderNotFoundException exception) {
         return Response
-                .status(Response.Status.PRECONDITION_FAILED)
-                .entity("Response not found")
-                .build();
+            .status(Response.Status.PRECONDITION_FAILED)
+            .entity("Response not found")
+            .build();
     }
 }

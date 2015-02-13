@@ -46,13 +46,13 @@ public class TimerScheduleBatchTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClasses(
-                        MyBatchlet.class,
-                        MyJob.class,
-                        AbstractTimerBatch.class,
-                        MyTimerScheduleAlternative.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addClasses(
+                MyBatchlet.class,
+                MyJob.class,
+                AbstractTimerBatch.class,
+                MyTimerScheduleAlternative.class)
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml");
 
         System.out.println(war.toString(true));
         return war;
@@ -75,7 +75,7 @@ public class TimerScheduleBatchTest {
 
         for (Long executedBatch : MyTimerScheduleAlternative.executedBatchs) {
             assertEquals(BatchStatus.COMPLETED,
-                    BatchRuntime.getJobOperator().getJobExecution(executedBatch).getBatchStatus());
+                BatchRuntime.getJobOperator().getJobExecution(executedBatch).getBatchStatus());
         }
     }
 }

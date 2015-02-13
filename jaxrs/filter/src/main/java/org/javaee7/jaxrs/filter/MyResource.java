@@ -23,9 +23,9 @@ public class MyResource {
         String serverHeaderValue = headers.getHeaderString("serverHeader");
 
         if (clientHeaderValue != null
-                && clientHeaderValue.equals("clientHeaderValue")
-                && serverHeaderValue != null
-                && serverHeaderValue.equals("serverHeaderValue")) {
+            && clientHeaderValue.equals("clientHeaderValue")
+            && serverHeaderValue != null
+            && serverHeaderValue.equals("serverHeaderValue")) {
             return "apple";
         } else {
             return "banana";
@@ -40,9 +40,9 @@ public class MyResource {
         String serverHeaderValue = headers.getHeaderString("serverHeader");
 
         if (clientHeaderValue != null
-                && clientHeaderValue.equals("clientHeaderValue")
-                && serverHeaderValue != null
-                && serverHeaderValue.equals("serverHeaderValue")) {
+            && clientHeaderValue.equals("clientHeaderValue")
+            && serverHeaderValue != null
+            && serverHeaderValue.equals("serverHeaderValue")) {
             return fruit;
         } else {
             return fruit.toUpperCase();

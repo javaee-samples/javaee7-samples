@@ -8,7 +8,7 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/websocket")
 public class MyEndpoint {
-    
+
     @OnMessage
     public String echoText(String name) {
         return name;

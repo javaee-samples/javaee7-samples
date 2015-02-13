@@ -50,7 +50,8 @@ public class ExecutorInjectTest {
     Callable<Product> callableTask;
     Runnable runnableTask;
     MyTaskWithListener taskWithListener;
-    @Inject // Inject so we have a managed bean to handle the TX
+    @Inject
+    // Inject so we have a managed bean to handle the TX
     MyTaskWithTransaction taskWithTransaction;
     Collection<Callable<Product>> callableTasks = new ArrayList<>();
 
@@ -59,16 +60,16 @@ public class ExecutorInjectTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).
-                addClasses(MyRunnableTask.class,
-                        MyCallableTask.class,
-                        Product.class,
-                        TestStatus.class,
-                        MyTaskWithListener.class,
-                        MyTaskWithTransaction.class,
-                        MyTransactionScopedBean.class,
-                        TestBean.class).
-                setWebXML(new FileAsset(new File("src/main/webapp/WEB-INF/web.xml"))).
-                addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml"); // Adding beans.xml shouldn't be required? WildFly Beta1
+            addClasses(MyRunnableTask.class,
+                MyCallableTask.class,
+                Product.class,
+                TestStatus.class,
+                MyTaskWithListener.class,
+                MyTaskWithTransaction.class,
+                MyTransactionScopedBean.class,
+                TestBean.class).
+            setWebXML(new FileAsset(new File("src/main/webapp/WEB-INF/web.xml"))).
+            addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml"); // Adding beans.xml shouldn't be required? WildFly Beta1
     }
 
     @Before

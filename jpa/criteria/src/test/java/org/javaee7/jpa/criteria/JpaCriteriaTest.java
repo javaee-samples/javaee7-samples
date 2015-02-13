@@ -56,11 +56,11 @@ public class JpaCriteriaTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                                   .addPackage("org.javaee7.jpa.criteria")
-                                   .addAsResource("META-INF/persistence.xml")
-                                   .addAsResource("META-INF/create.sql")
-                                   .addAsResource("META-INF/drop.sql")
-                                   .addAsResource("META-INF/load.sql");
+            .addPackage("org.javaee7.jpa.criteria")
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/create.sql")
+            .addAsResource("META-INF/drop.sql")
+            .addAsResource("META-INF/load.sql");
         System.out.println(war.toString(true));
         return war;
     }
@@ -71,22 +71,22 @@ public class JpaCriteriaTest {
      */
     @Test
     public void testCriteria() {
-        List<Movie> movies = movieBean.listMovies();        // <1> Get a list of all the movies in the database.
-        assertEquals(4, movies.size());                     // <2> 4 movies loaded on the db, so the size shoud be 4.
+        List<Movie> movies = movieBean.listMovies(); // <1> Get a list of all the movies in the database.
+        assertEquals(4, movies.size()); // <2> 4 movies loaded on the db, so the size shoud be 4.
         assertTrue(movies.contains(new Movie(1)));
         assertTrue(movies.contains(new Movie(2)));
         assertTrue(movies.contains(new Movie(3)));
         assertTrue(movies.contains(new Movie(4)));
 
-        movieBean.updateMovie();                            // <3> Update name to "INCEPTION" where name is "Inception"
+        movieBean.updateMovie(); // <3> Update name to "INCEPTION" where name is "Inception"
         movies = movieBean.listMovies();
-        assertEquals(4, movies.size());                     // <4> Size of movies should still be 4.
+        assertEquals(4, movies.size()); // <4> Size of movies should still be 4.
         assertEquals("INCEPTION", movies.get(2).getName()); // <5> Verify the movie name change.
 
-        movieBean.deleteMovie();                            // <6> Now delete the movie "Matrix"
+        movieBean.deleteMovie(); // <6> Now delete the movie "Matrix"
         movies = movieBean.listMovies();
         assertFalse(movies.isEmpty());
-        assertEquals(3, movies.size());                     // <7> Size of movies should be 3 now.
-        assertFalse(movies.contains(new Movie(1)));         // <8> Check if the movie "Matrix" is not on the list.
+        assertEquals(3, movies.size()); // <7> Size of movies should be 3 now.
+        assertFalse(movies.contains(new Movie(1))); // <8> Check if the movie "Matrix" is not on the list.
     }
 }

@@ -12,8 +12,8 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class EhcacheTest extends AbstractOgmTest {
 
-	@Deployment
-	public static WebArchive createDeployment() {
-		return AbstractOgmTest.createDeployment( "ehcache" );
-	}
+    @Deployment
+    public static WebArchive createDeployment() {
+        return AbstractOgmTest.createDeployment("ehcache");
+    }
 }

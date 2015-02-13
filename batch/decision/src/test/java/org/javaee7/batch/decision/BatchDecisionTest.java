@@ -52,10 +52,10 @@ public class BatchDecisionTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(BatchTestHelper.class)
-                .addPackage("org.javaee7.batch.decision")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addClass(BatchTestHelper.class)
+            .addPackage("org.javaee7.batch.decision")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
@@ -84,7 +84,7 @@ public class BatchDecisionTest {
         // <1> Make sure that only two steps were executed.
         assertEquals(2, stepExecutions.size());
         // <2> Make sure that only the expected steps were executed an in order.
-        assertArrayEquals(new String[] {"step1", "step3"}, executedSteps.toArray());
+        assertArrayEquals(new String[] { "step1", "step3" }, executedSteps.toArray());
         // <3> Make sure that this step was never executed.
         assertFalse(executedSteps.contains("step2"));
         // <4> Job should be completed.

@@ -14,5 +14,5 @@ public class MyCronJob implements Job {
     public void execute(JobExecutionContext jec) throws JobExecutionException {
         System.out.println("MyCronJob.execute: " + Calendar.getInstance().getTime());
     }
-    
+
 }

@@ -12,15 +12,15 @@ public class Database {
     static public String getAll() {
         return list.toString();
     }
-    
+
     static public String get(String fruit) {
         return list.contains(fruit) ? fruit : "";
     }
-    
+
     static public void add(String fruit) {
         list.add(fruit);
     }
-    
+
     static public void delete(String fruit) {
         list.remove(fruit);
     }

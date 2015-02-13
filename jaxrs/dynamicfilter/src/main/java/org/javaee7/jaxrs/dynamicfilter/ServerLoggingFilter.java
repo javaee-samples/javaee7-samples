@@ -18,10 +18,10 @@ public class ServerLoggingFilter implements ContainerRequestFilter, ContainerRes
         for (String key : crc.getHeaders().keySet()) {
             System.out.println("<header> " + key + ": " + crc.getHeaders().get(key));
         }
-        
+
         // add a header, check in test
         crc.getHeaders().add("myHeader", "myValue");
-        
+
         System.out.println("ContainerRequestFilter<end>");
     }
 

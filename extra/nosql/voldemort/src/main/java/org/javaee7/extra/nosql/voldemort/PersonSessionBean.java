@@ -32,10 +32,10 @@ public class PersonSessionBean {
 
     @PostConstruct
     private void initDB() {
-//        // start embedded
-//        VoldemortConfig config = VoldemortConfig.loadFromEnvironmentVariable();
-//        VoldemortServer server = new VoldemortServer(config);
-//        server.start();
+        //        // start embedded
+        //        VoldemortConfig config = VoldemortConfig.loadFromEnvironmentVariable();
+        //        VoldemortServer server = new VoldemortServer(config);
+        //        server.start();
 
         // bootstrap
         String bootstrapUrl = "tcp://localhost:6666";

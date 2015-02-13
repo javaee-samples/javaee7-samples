@@ -13,11 +13,11 @@ public class EmployeeBean {
 
     @PersistenceContext
     EntityManager em;
-    
+
     public void persist(Employee e) {
         em.persist(e);
     }
-    
+
     public List<Employee> get() {
         return em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
     }
