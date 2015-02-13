@@ -32,8 +32,8 @@ import static org.junit.Assert.*;
  * include::myJob.xml[]
  *
  * Three Steps and one Decider are configured in the file +myJob.xml+. We start by executing one +step1+ and
- * hand over the control to the Decider, which will execute +step2+, since the Decider is always returning the value
- * +foobar+ which forwards the execution to +step2+.
+ * hand over the control to the Decider, which will execute +step3+, since the Decider is always returning the value
+ * +foobar+ which forwards the execution to +step3+.
  *
  * @author Roberto Cortez
  */
