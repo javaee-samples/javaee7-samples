@@ -17,9 +17,9 @@ public class MyResource {
     }
 
     @POST
-    @Consumes(value="*/*")
+    @Consumes(value = "*/*")
     @Produces("text/plain")
     public String getFruit2(String index) {
         return "apple";
-    }    
+    }
 }

@@ -14,12 +14,12 @@ import javax.websocket.Session;
 /**
  * @author Arun Gupta
  */
-@ClientEndpoint(encoders = {MyMessageEncoder.class},
-        decoders={MyMessageDecoder.class})
+@ClientEndpoint(encoders = { MyMessageEncoder.class },
+    decoders = { MyMessageDecoder.class })
 public class MyClient {
-    public static CountDownLatch latch= new CountDownLatch(3);
+    public static CountDownLatch latch = new CountDownLatch(3);
     public static MyMessage response;
-    
+
     @OnOpen
     public void onOpen(Session session) {
         try {
@@ -29,13 +29,13 @@ public class MyClient {
             Logger.getLogger(MyClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @OnMessage
     public void processMessage(MyMessage message) {
-       response = message;
-       latch.countDown();
+        response = message;
+        latch.countDown();
     }
-    
+
     @OnError
     public void onError(Throwable t) {
         t.printStackTrace();

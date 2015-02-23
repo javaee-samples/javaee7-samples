@@ -23,8 +23,10 @@ public class MyMessageDecoder implements Decoder.Text<MyMessage> {
     }
 
     @Override
-    public void init(EndpointConfig ec) { }
+    public void init(EndpointConfig ec) {
+    }
 
     @Override
-    public void destroy() { }
+    public void destroy() {
+    }
 }

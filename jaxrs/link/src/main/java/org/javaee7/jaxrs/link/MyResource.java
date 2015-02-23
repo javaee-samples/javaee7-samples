@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 @Path("fruits")
 public class MyResource {
 
-    private final String[] response = {"apple", "banana", "mango"};
+    private final String[] response = { "apple", "banana", "mango" };
 
     @GET
     public String getList() {
@@ -25,9 +25,9 @@ public class MyResource {
     @GET
     public Response get() throws URISyntaxException {
         return Response.ok().
-                link("http://oracle.com", "parent").
-                link(new URI("http://jersey.java.net"), "framework").
-                links(
+            link("http://oracle.com", "parent").
+            link(new URI("http://jersey.java.net"), "framework").
+            links(
                 Link.fromUri("test1").rel("test1").build(),
                 Link.fromUri("test2").rel("test2").build(),
                 Link.fromUri("test3").rel("test3").build()).build();

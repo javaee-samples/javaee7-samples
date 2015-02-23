@@ -25,12 +25,12 @@ public class MyClient {
             Logger.getLogger(MyClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @OnMessage
     public void processMessage(String message) {
         System.out.println("Received message in client: " + message);
     }
-    
+
     @OnError
     public void processError(Throwable t) {
         t.printStackTrace();

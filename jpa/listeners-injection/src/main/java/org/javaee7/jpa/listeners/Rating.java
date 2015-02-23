@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "MOVIE_RATINGS")
 @NamedQueries({
-        @NamedQuery(name = Rating.FIND_BY_NAME, query = "SELECT r FROM Rating r WHERE r.name = :name")
+    @NamedQuery(name = Rating.FIND_BY_NAME, query = "SELECT r FROM Rating r WHERE r.name = :name")
 })
 public class Rating implements Serializable {
 
@@ -59,8 +59,10 @@ public class Rating implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Rating)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Rating))
+            return false;
 
         Rating ratings = (Rating) o;
 

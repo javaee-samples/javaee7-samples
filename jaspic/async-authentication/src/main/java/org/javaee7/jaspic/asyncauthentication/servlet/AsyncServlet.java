@@ -24,13 +24,13 @@ public class AsyncServlet extends HttpServlet {
 
     @EJB
     private AsyncBean asyncBean;
-    
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         AsyncContext asyncContext = request.startAsync();
         asyncContext.setTimeout(5000);
-        
+
         asyncBean.doAsync(asyncContext);
     }
 

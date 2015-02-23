@@ -16,7 +16,8 @@ import javax.ws.rs.ext.Provider;
  * @author Arun Gupta
  */
 @Provider
-@Priority(Priorities.USER)      // default value
+@Priority(Priorities.USER)
+// default value
 public class ServerLoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
     @Override

@@ -10,7 +10,7 @@ import javax.enterprise.context.SessionScoped;
  * the HTTP session expires. A new instance would be created with start of a fresh HTTP session
  */
 @SessionScoped
-public class MySessionScopedBean implements Serializable{
+public class MySessionScopedBean implements Serializable {
     public String getID() {
         return this + "";
     }

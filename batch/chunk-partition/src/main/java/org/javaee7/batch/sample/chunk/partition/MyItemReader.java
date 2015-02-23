@@ -14,13 +14,13 @@ import java.util.StringTokenizer;
 public class MyItemReader extends AbstractItemReader {
     public static int totalReaders = 0;
     private int readerId;
-    
+
     private StringTokenizer tokens;
-    
+
     @Inject
     @BatchProperty(name = "start")
     private String startProp;
-    
+
     @Inject
     @BatchProperty(name = "end")
     private String endProp;
@@ -30,16 +30,16 @@ public class MyItemReader extends AbstractItemReader {
         int start = new Integer(startProp);
         int end = new Integer(endProp);
         StringBuilder builder = new StringBuilder();
-        for (int i=start; i<=end; i++) {
+        for (int i = start; i <= end; i++) {
             builder.append(i);
             if (i < end)
                 builder.append(",");
         }
 
         readerId = ++totalReaders;
-        tokens = new StringTokenizer(builder.toString(), ",");        
+        tokens = new StringTokenizer(builder.toString(), ",");
     }
-    
+
     @Override
     public MyInputRecord readItem() {
         if (tokens.hasMoreTokens()) {

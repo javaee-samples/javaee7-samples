@@ -10,7 +10,7 @@ import javax.inject.Named;
  */
 @Named
 public class MyItemReader extends AbstractItemReader {
-    
+
     private StringTokenizer tokens;
     static int COUNT = 0;
 
@@ -18,7 +18,7 @@ public class MyItemReader extends AbstractItemReader {
     public void open(Serializable checkpoint) throws Exception {
         tokens = new StringTokenizer("1,2,3,4,5,6,7,8,9,10", ",");
     }
-    
+
     @Override
     public MyInputRecord readItem() {
         if (tokens.hasMoreTokens()) {

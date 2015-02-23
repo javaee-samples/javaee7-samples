@@ -14,7 +14,7 @@ public class AccountSessionBeanWithInterface implements Account {
     }
 
     @Override
-    public String deposit(float amount) { 
+    public String deposit(float amount) {
         return "Deposited: " + amount;
     }
 }

@@ -15,7 +15,7 @@ public class MyClientReaderInterceptor implements ReaderInterceptor {
 
     @Override
     public Object aroundReadFrom(ReaderInterceptorContext ric) throws IOException, WebApplicationException {
-        
+
         System.out.println("MyClientReaderInterceptor");
         final InputStream old = ric.getInputStream();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -24,9 +24,9 @@ public class MyClientReaderInterceptor implements ReaderInterceptor {
             baos.write(c);
         }
         System.out.println("MyClientReaderInterceptor --> " + baos.toString());
-        
+
         ric.setInputStream(new ByteArrayInputStream(baos.toByteArray()));
-        
+
         return ric.proceed();
     }
 }

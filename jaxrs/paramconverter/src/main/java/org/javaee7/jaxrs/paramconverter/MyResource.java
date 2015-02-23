@@ -20,11 +20,11 @@ public class MyResource {
     public String getWithQuery(@DefaultValue("bar") @QueryParam("search") MyBean myBean) {
         return myBean.getValue();
     }
-    
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.TEXT_PLAIN)
     public String getByPath(@PathParam("id") MyBean myBean) {
-    	return myBean.getValue();
+        return myBean.getValue();
     }
 }

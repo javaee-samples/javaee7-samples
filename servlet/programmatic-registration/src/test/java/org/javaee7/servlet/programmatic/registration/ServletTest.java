@@ -24,20 +24,20 @@ import org.xml.sax.SAXException;
  */
 @RunWith(Arquillian.class)
 public class ServletTest {
-    
+
     @ArquillianResource
     private URL base;
-    
+
     WebClient webClient;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(ParentServlet.class).
-                addClass(ChildServlet.class);
+            addClass(ParentServlet.class).
+            addClass(ChildServlet.class);
         return war;
     }
-    
+
     @Before
     public void setup() {
         webClient = new WebClient();

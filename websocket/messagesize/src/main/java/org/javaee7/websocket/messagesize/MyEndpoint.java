@@ -11,24 +11,24 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/websocket")
+@ServerEndpoint(value = "/websocket")
 public class MyEndpoint {
-    
-    @OnMessage(maxMessageSize=6)
+
+    @OnMessage(maxMessageSize = 6)
     public String echoText(String data) {
         return data;
     }
 
-    @OnMessage(maxMessageSize=6)
+    @OnMessage(maxMessageSize = 6)
     public ByteBuffer echoBinary(ByteBuffer data) throws IOException {
         return data;
     }
-    
+
     @OnClose
     public void onClose(CloseReason reason) {
         System.out.println("CLOSED: " + reason.getCloseCode() + ", " + reason.getReasonPhrase());
     }
-    
+
     @OnError
     public void onError(Throwable t) {
         t.printStackTrace();

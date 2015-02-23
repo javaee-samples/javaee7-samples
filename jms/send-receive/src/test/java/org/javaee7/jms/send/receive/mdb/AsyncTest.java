@@ -24,26 +24,25 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class AsyncTest {
-    
+
     @EJB
     MessageSenderAsync asyncSender;
-    
-    
+
     @Test
     public void testAsync() throws Exception {
         asyncSender.sendMessage("Fire!");
         ReceptionSynchronizer.waitFor(MessageReceiverAsync.class, "onMessage");
         // unless we timed out, the test passes
     }
-    
+
     @Deployment
     public static WebArchive deploy() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClass(MessageSenderAsync.class)
-                .addClass(Resources.class)
-                .addClass(MessageReceiverAsync.class)
-                .addClass(ReceptionSynchronizer.class)
-                .addAsWebInfResource(new File("src/test/resources/WEB-INF/ejb-jar.xml"));
+            .addClass(MessageSenderAsync.class)
+            .addClass(Resources.class)
+            .addClass(MessageReceiverAsync.class)
+            .addClass(ReceptionSynchronizer.class)
+            .addAsWebInfResource(new File("src/test/resources/WEB-INF/ejb-jar.xml"));
     }
-    
+
 }

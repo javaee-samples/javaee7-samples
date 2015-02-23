@@ -9,13 +9,14 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/encoder-client")
 public class MyEndpoint {
-    
+
     @OnOpen
-    public void onOpen() { }
-    
+    public void onOpen() {
+    }
+
     @OnMessage
-    public String echoText(String text) { 
+    public String echoText(String text) {
         return text;
     }
-    
+
 }

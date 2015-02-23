@@ -16,10 +16,10 @@ import org.javaee7.jms.send.receive.Resources;
 public class MessageSenderSync {
 
     @Inject
-//    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
+    //    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
     JMSContext context;
-    
-    @Resource(mappedName=Resources.SYNC_CONTAINER_MANAGED_QUEUE)
+
+    @Resource(mappedName = Resources.SYNC_CONTAINER_MANAGED_QUEUE)
     Queue syncQueue;
 
     public void sendMessage(String message) {

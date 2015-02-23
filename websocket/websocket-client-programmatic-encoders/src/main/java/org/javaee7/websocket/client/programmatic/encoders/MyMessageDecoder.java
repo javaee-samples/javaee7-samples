@@ -21,14 +21,14 @@ public class MyMessageDecoder implements Decoder.Text<MyMessage> {
     public boolean willDecode(String string) {
         return true;
     }
-    
+
     @Override
     public void init(EndpointConfig ec) {
-//        System.out.println("init");
+        //        System.out.println("init");
     }
 
     @Override
     public void destroy() {
-//        System.out.println("desroy");
+        //        System.out.println("desroy");
     }
 }

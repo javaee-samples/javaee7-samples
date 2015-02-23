@@ -18,5 +18,5 @@ public class CreditCardConverter implements AttributeConverter<CreditCard, Strin
     public CreditCard convertToEntityAttribute(String card) {
         return new CreditCard(card);
     }
-    
+
 }

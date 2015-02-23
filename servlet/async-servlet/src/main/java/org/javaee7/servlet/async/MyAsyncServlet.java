@@ -1,7 +1,5 @@
 package org.javaee7.servlet.async;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.servlet.AsyncContext;
@@ -12,14 +10,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Arun Gupta
  */
 @WebServlet(urlPatterns = "/MyAsyncServlet", asyncSupported = true)
 public class MyAsyncServlet extends HttpServlet {
-    
-//    @Resource(lookup="java:comp/DefaultManagedExecutorService")
+
+    //    @Resource(lookup="java:comp/DefaultManagedExecutorService")
     @Resource
     ManagedExecutorService executor;
 
@@ -33,44 +32,32 @@ public class MyAsyncServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (final PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Async Servlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Async Servlet</h1>");
-            AsyncContext ac = request.startAsync();
+        throws ServletException, IOException {
+        AsyncContext ac = request.startAsync();
 
-            ac.addListener(new AsyncListener() {
-                @Override
-                public void onComplete(AsyncEvent event) throws IOException {
-                    System.out.println("onComplete");
-                }
+        ac.addListener(new AsyncListener() {
+            @Override
+            public void onComplete(AsyncEvent event) throws IOException {
+                event.getSuppliedResponse().getWriter().println("onComplete");
+            }
 
-                @Override
-                public void onTimeout(AsyncEvent event) throws IOException {
-                    System.out.println("onTimeout");
-                }
+            @Override
+            public void onTimeout(AsyncEvent event) throws IOException {
+                event.getSuppliedResponse().getWriter().println("onTimeout");
+                event.getAsyncContext().complete();
+            }
 
-                @Override
-                public void onError(AsyncEvent event) throws IOException {
-                    System.out.println("onError");
-                }
+            @Override
+            public void onError(AsyncEvent event) throws IOException {
+                event.getSuppliedResponse().getWriter().println("onError");
+            }
 
-                @Override
-                public void onStartAsync(AsyncEvent event) throws IOException {
-                    System.out.println("onStartAsync");
-                }
-            });
-            executor.submit(new MyAsyncService(ac));
-            out.println("Check \"server.log\" for output from Async Servlet");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            @Override
+            public void onStartAsync(AsyncEvent event) throws IOException {
+                event.getSuppliedResponse().getWriter().println("onStartAsync");
+            }
+        });
+        executor.submit(new MyAsyncService(ac));
     }
 
     class MyAsyncService implements Runnable {
@@ -83,7 +70,11 @@ public class MyAsyncServlet extends HttpServlet {
 
         @Override
         public void run() {
-            System.out.println("Running inside MyAsyncService");
+            try {
+                ac.getResponse().getWriter().println("Running inside MyAsyncService");
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
             ac.complete();
         }
     }
@@ -99,7 +90,7 @@ public class MyAsyncServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -113,7 +104,7 @@ public class MyAsyncServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

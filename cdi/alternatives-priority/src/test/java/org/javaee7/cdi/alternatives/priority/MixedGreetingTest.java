@@ -20,19 +20,19 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(Arquillian.class)
 public class MixedGreetingTest {
-	@Deployment
-	public static Archive<?> deploy() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class)
-				.addAsManifestResource("beans-alternatives.xml", "beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deploy() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class)
+            .addAsManifestResource("beans-alternatives.xml", "beans.xml");
+    }
 
-	@Inject
-	BeanManager beanManager;
+    @Inject
+    BeanManager beanManager;
 
-	@Test
-	public void should_be_ambiguous() throws Exception {
-		Set<Bean<?>> beans = beanManager.getBeans(Greeting.class);
-		assertTrue(beans.size() == 2);
-	}
+    @Test
+    public void should_be_ambiguous() throws Exception {
+        Set<Bean<?>> beans = beanManager.getBeans(Greeting.class);
+        assertTrue(beans.size() == 2);
+    }
 }

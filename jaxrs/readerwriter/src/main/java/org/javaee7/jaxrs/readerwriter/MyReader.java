@@ -27,14 +27,14 @@ public class MyReader implements MessageBodyReader<MyObject> {
     }
 
     @Override
-    public MyObject readFrom(Class<MyObject> type, 
-                Type type1, 
-                Annotation[] antns, 
-                MediaType mt, MultivaluedMap<String, String> mm, 
-                InputStream in) throws IOException, WebApplicationException {
+    public MyObject readFrom(Class<MyObject> type,
+        Type type1,
+        Annotation[] antns,
+        MediaType mt, MultivaluedMap<String, String> mm,
+        InputStream in) throws IOException, WebApplicationException {
         try {
             ObjectInputStream ois = new ObjectInputStream(in);
-            return (MyObject)ois.readObject();
+            return (MyObject) ois.readObject();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MyReader.class.getName()).log(Level.SEVERE, null, ex);
         }

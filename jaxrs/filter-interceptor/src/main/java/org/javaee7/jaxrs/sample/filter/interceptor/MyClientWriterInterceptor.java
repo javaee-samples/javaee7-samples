@@ -20,7 +20,7 @@ public class MyClientWriterInterceptor implements WriterInterceptor {
         wic.setOutputStream(new FilterOutputStream(wic.getOutputStream()) {
 
             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            
+
             @Override
             public void write(int b) throws IOException {
                 baos.write(b);
@@ -33,17 +33,17 @@ public class MyClientWriterInterceptor implements WriterInterceptor {
                 super.close();
             }
         });
-        
-//        wic.setOutputStream(new FilterOutputStream(wic.getOutputStream()) {
-//            
-//            @Override
-//            public void write(int b) throws IOException {
-//                System.out.println("**** "  + (char)b);
-//                super.write(b);
-//            }
-//            
-//        });
-                
+
+        //        wic.setOutputStream(new FilterOutputStream(wic.getOutputStream()) {
+        //            
+        //            @Override
+        //            public void write(int b) throws IOException {
+        //                System.out.println("**** "  + (char)b);
+        //                super.write(b);
+        //            }
+        //            
+        //        });
+
         wic.proceed();
     }
 

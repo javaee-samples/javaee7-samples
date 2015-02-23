@@ -18,24 +18,24 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(Arquillian.class)
 public class ProducerMethodGreetingTest {
-	@Deployment
-	public static Archive<?> deploy() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class, PriorityGreeting.class, ProducerMethodGreeting.class)
-				.addAsManifestResource("beans-empty.xml", "beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deploy() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class, PriorityGreeting.class, ProducerMethodGreeting.class)
+            .addAsManifestResource("beans-empty.xml", "beans.xml");
+    }
 
-	@Inject
-	Greeting bean;
+    @Inject
+    Greeting bean;
 
-	@Test
-	public void should_bean_be_injected() throws Exception {
-		assertThat(bean, is(notNullValue()));
-	}
+    @Test
+    public void should_bean_be_injected() throws Exception {
+        assertThat(bean, is(notNullValue()));
+    }
 
-	@Test
-	public void should_bean_be_simple() throws Exception {
-		// because it has the highest priority from Priority annotated alternatives
-		assertThat(bean, instanceOf(SimpleGreeting.class));
-	}
+    @Test
+    public void should_bean_be_simple() throws Exception {
+        // because it has the highest priority from Priority annotated alternatives
+        assertThat(bean, instanceOf(SimpleGreeting.class));
+    }
 }

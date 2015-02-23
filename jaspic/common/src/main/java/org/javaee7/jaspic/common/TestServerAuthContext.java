@@ -32,7 +32,7 @@ public class TestServerAuthContext implements ServerAuthContext {
 
     @Override
     public AuthStatus validateRequest(MessageInfo messageInfo, Subject clientSubject, Subject serviceSubject)
-            throws AuthException {
+        throws AuthException {
         return serverAuthModule.validateRequest(messageInfo, clientSubject, serviceSubject);
     }
 

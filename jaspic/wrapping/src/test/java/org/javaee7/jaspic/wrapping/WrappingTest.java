@@ -29,22 +29,22 @@ public class WrappingTest extends ArquillianBase {
 
     @Test
     public void testRequestWrapping() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet");
 
         // The SAM wrapped a request so that it always contains the request attribute "isWrapped" with value true.
         assertTrue("Request wrapped by SAM did not arrive in Servlet.",
-                response.contains("request isWrapped: true"));
+            response.contains("request isWrapped: true"));
     }
 
     @Test
     public void testResponseWrapping() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet");
 
         // The SAM wrapped a response so that it always contains the header "isWrapped" with value true.
         assertTrue("Response wrapped by SAM did not arrive in Servlet.",
-                response.contains("response isWrapped: true"));
+            response.contains("response isWrapped: true"));
     }
 
 }

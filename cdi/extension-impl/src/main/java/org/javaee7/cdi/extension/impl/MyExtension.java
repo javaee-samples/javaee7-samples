@@ -10,11 +10,11 @@ import javax.enterprise.inject.spi.ProcessAnnotatedType;
  * @author Arun Gupta
  */
 public class MyExtension implements Extension {
-    
+
     <T> void processAnnotatedType(@Observes ProcessAnnotatedType<T> pat) {
         Logger.getAnonymousLogger().log(Level.INFO,
-                "CDI Extension Processing Annotation -> {0}",
-                pat.
+            "CDI Extension Processing Annotation -> {0}",
+            pat.
                 getAnnotatedType().
                 getJavaClass().
                 getName());

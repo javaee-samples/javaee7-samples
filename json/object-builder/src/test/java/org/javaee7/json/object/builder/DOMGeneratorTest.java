@@ -23,15 +23,15 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
  */
 @RunWith(Arquillian.class)
 public class DOMGeneratorTest {
-    
+
     @Deployment
     public static Archive<?> deploy() {
         File[] requiredLibraries = Maven.resolver().loadPomFromFile("pom.xml")
-                .resolve("org.json:json", "org.skyscreamer:jsonassert")
-                .withTransitivity().asFile();
-        
+            .resolve("org.json:json", "org.skyscreamer:jsonassert")
+            .withTransitivity().asFile();
+
         return ShrinkWrap.create(WebArchive.class)
-                .addAsLibraries(requiredLibraries);
+            .addAsLibraries(requiredLibraries);
     }
 
     @Test
@@ -47,9 +47,9 @@ public class DOMGeneratorTest {
     @Test
     public void testSimpleObject() throws JSONException {
         JsonObject jsonObject = Json.createObjectBuilder()
-                .add("apple", "red")
-                .add("banana", "yellow")
-                .build();
+            .add("apple", "red")
+            .add("banana", "yellow")
+            .build();
         StringWriter w = new StringWriter();
         try (JsonWriter writer = Json.createWriter(w)) {
             writer.write(jsonObject);
@@ -60,9 +60,9 @@ public class DOMGeneratorTest {
     @Test
     public void testArray() throws JSONException {
         JsonArray jsonArray = Json.createArrayBuilder()
-                .add(Json.createObjectBuilder().add("apple", "red"))
-                .add(Json.createObjectBuilder().add("banana", "yellow"))
-                .build();
+            .add(Json.createObjectBuilder().add("apple", "red"))
+            .add(Json.createObjectBuilder().add("banana", "yellow"))
+            .build();
         StringWriter w = new StringWriter();
         try (JsonWriter writer = Json.createWriter(w)) {
             writer.write(jsonArray);
@@ -73,17 +73,18 @@ public class DOMGeneratorTest {
     @Test
     public void testNestedStructure() throws JSONException {
         JsonObject jsonObject = Json.createObjectBuilder()
-                .add("title", "The Matrix")
-                .add("year", 1999)
-                .add("cast", Json.createArrayBuilder()
-                        .add("Keanu Reaves")
-                        .add("Laurence Fishburne")
-                        .add("Carrie-Anne Moss"))
-                .build();
+            .add("title", "The Matrix")
+            .add("year", 1999)
+            .add("cast", Json.createArrayBuilder()
+                .add("Keanu Reaves")
+                .add("Laurence Fishburne")
+                .add("Carrie-Anne Moss"))
+            .build();
         StringWriter w = new StringWriter();
         try (JsonWriter writer = Json.createWriter(w)) {
             writer.write(jsonObject);
         }
-        JSONAssert.assertEquals("{\"title\":\"The Matrix\",\"year\":1999,\"cast\":[\"Keanu Reaves\",\"Laurence Fishburne\",\"Carrie-Anne Moss\"]}", w.toString(), JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("{\"title\":\"The Matrix\",\"year\":1999,\"cast\":[\"Keanu Reaves\",\"Laurence Fishburne\",\"Carrie-Anne Moss\"]}", w.toString(),
+            JSONCompareMode.STRICT);
     }
 }

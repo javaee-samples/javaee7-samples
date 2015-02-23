@@ -18,6 +18,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 /**
  * This tests that a data source defined via the data-source element in an EAR's application.xml can be used by JPA. 
  * <p>
@@ -34,53 +35,53 @@ public class DataSourceDefinitionApplicationXMLPuEJBTest {
 
     @Inject
     private TestService testService;
-    
+
     @Deployment
     public static Archive<?> deploy() {
-        return 
-            // EAR archive
-            create(EnterpriseArchive.class, "test.ear")
-                
-                // Data-source is defined here
-                .setApplicationXML("application-ejb.xml")
-                
-                // JDBC driver for data source
-                .addAsLibraries(Maven.resolver()
-                    .loadPomFromFile("pom.xml")
-                    .resolve("com.h2database:h2")
-                    .withoutTransitivity()
-                    .asSingleFile())
-                
-                // EJB module
-                .addAsModule(
-                    create(JavaArchive.class, "test.jar")
-                    
-                        // Persistence unit is defined here, references data source
-                        .addAsResource("META-INF/persistence.xml")
-                        
-                        // Service class that uses persistence unit
-                        .addClasses(TestEntity.class, TestService.class)
-                )
-                
-                // Web module
-                // This is needed to prevent Arquillian generating an illegal application.xml
-                .addAsModule(
-                    create(WebArchive.class, "test.war")
-                        // This class containing the test
-                        .addClass(DataSourceDefinitionApplicationXMLPuEJBTest.class)
-                        
-                );
+        return
+        // EAR archive
+        create(EnterpriseArchive.class, "test.ear")
+
+            // Data-source is defined here
+            .setApplicationXML("application-ejb.xml")
+
+            // JDBC driver for data source
+            .addAsLibraries(Maven.resolver()
+                .loadPomFromFile("pom.xml")
+                .resolve("com.h2database:h2")
+                .withoutTransitivity()
+                .asSingleFile())
+
+            // EJB module
+            .addAsModule(
+                create(JavaArchive.class, "test.jar")
+
+                    // Persistence unit is defined here, references data source
+                    .addAsResource("META-INF/persistence.xml")
+
+                    // Service class that uses persistence unit
+                    .addClasses(TestEntity.class, TestService.class)
+            )
+
+            // Web module
+            // This is needed to prevent Arquillian generating an illegal application.xml
+            .addAsModule(
+                create(WebArchive.class, "test.war")
+                    // This class containing the test
+                    .addClass(DataSourceDefinitionApplicationXMLPuEJBTest.class)
+
+            );
     }
 
     @Test
     public void insertAndQueryEntity() throws Exception {
-        
+
         testService.saveNewEntity();
-        
+
         List<TestEntity> testEntities = testService.getAllEntities();
-        
+
         assertTrue(testEntities.size() == 1);
         assertTrue(testEntities.get(0).getValue().equals("mytest"));
     }
-    
+
 }

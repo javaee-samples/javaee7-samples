@@ -22,8 +22,9 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @Consumes(MyObject.MIME_TYPE)
 public class MyReader implements MessageBodyReader<MyObject> {
-    
-    @Inject AnotherObject another;
+
+    @Inject
+    AnotherObject another;
 
     @Override
     public boolean isReadable(Class<?> type, Type type1, Annotation[] antns, MediaType mt) {
@@ -33,10 +34,10 @@ public class MyReader implements MessageBodyReader<MyObject> {
 
     @Override
     public MyObject readFrom(Class<MyObject> type,
-            Type type1,
-            Annotation[] antns,
-            MediaType mt, MultivaluedMap<String, String> mm,
-            InputStream in) throws IOException, WebApplicationException {
+        Type type1,
+        Annotation[] antns,
+        MediaType mt, MultivaluedMap<String, String> mm,
+        InputStream in) throws IOException, WebApplicationException {
         try {
             ObjectInputStream ois = new ObjectInputStream(in);
             MyObject mo = (MyObject) ois.readObject();

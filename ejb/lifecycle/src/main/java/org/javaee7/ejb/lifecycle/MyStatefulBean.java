@@ -18,42 +18,42 @@ import javax.interceptor.InvocationContext;
 @Stateful
 public class MyStatefulBean {
     private List<String> list;
-    
+
     public MyStatefulBean() {
         System.out.println("MyStatefulBean.ctor");
     }
-    
+
     @PostConstruct
     private void postConstruct() {
         list = new ArrayList<>();
         System.out.println("MyStatefulBean.postConstruct");
     }
-    
+
     @PreDestroy
     private void preDestroy() {
         System.out.println("MyStatefulBean.preDestroy");
     }
 
     @PrePassivate
-    private void prePassivate(InvocationContext context) {
+    private void prePassivate() {
         System.out.println("MyStatefulBean.prePassivate");
     }
-    
+
     @PostActivate
-    private void postActivate(InvocationContext context) {
+    private void postActivate() {
         System.out.println("MyStatefulBean.postActivate");
     }
-    
+
     public void addItem(String item) {
         list.add(item);
         System.out.println("MyBean.addItem");
     }
-    
+
     public void removeItem(String item) {
         list.remove(item);
         System.out.println("MyBean.removeItem");
     }
-    
+
     public List<String> items() {
         return list;
     }

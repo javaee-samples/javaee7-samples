@@ -30,7 +30,7 @@ public class BasicAuthenticationProtectedTest extends ArquillianBase {
 
     @Test
     public void testProtectedPageNotLoggedin() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet");
 
         // Not logged-in thus should not be accessible.
@@ -39,7 +39,7 @@ public class BasicAuthenticationProtectedTest extends ArquillianBase {
 
     @Test
     public void testProtectedPageLoggedin() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet?doLogin=true");
 
         // Now has to be logged-in so page is accessible

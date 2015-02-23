@@ -35,8 +35,8 @@ public class MyAsyncEndpointTest {
     @Deployment(testable = false)
     public static WebArchive deploy() throws URISyntaxException {
         return ShrinkWrap.create(WebArchive.class)
-                .addClass(MyAsyncEndpointText.class)
-                .addClass(MyAsyncEndpointByteBuffer.class);
+            .addClass(MyAsyncEndpointText.class)
+            .addClass(MyAsyncEndpointByteBuffer.class);
     }
 
     @Test
@@ -76,10 +76,10 @@ public class MyAsyncEndpointTest {
 
     private URI getURI(String uriPart) throws URISyntaxException {
         return new URI("ws://"
-                + base.getHost()
-                + ":"
-                + base.getPort()
-                + base.getPath()
-                + uriPart);
+            + base.getHost()
+            + ":"
+            + base.getPort()
+            + base.getPath()
+            + uriPart);
     }
 }

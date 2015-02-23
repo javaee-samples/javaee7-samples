@@ -22,7 +22,7 @@ import org.quartz.impl.StdSchedulerFactory;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServlet"})
+@WebServlet(urlPatterns = { "/TestServlet" })
 public class TestServlet extends HttpServlet {
 
     /**
@@ -35,7 +35,7 @@ public class TestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -50,35 +50,35 @@ public class TestServlet extends HttpServlet {
             JobDetail cronJob = JobBuilder.newJob(MyCronJob.class).build();
 
             Trigger simpleTrigger = TriggerBuilder
-                    .newTrigger()
-                    .withSchedule(
-                            SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(1).repeatForever()
-                    )
-                    .build();
+                .newTrigger()
+                .withSchedule(
+                    SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(1).repeatForever()
+                )
+                .build();
 
             Trigger cronTrigger = TriggerBuilder
-                    .newTrigger()
-                    .withSchedule(
-                            CronScheduleBuilder.cronSchedule("0/3 * * * * ?")
-                    )
-                    .build();
+                .newTrigger()
+                .withSchedule(
+                    CronScheduleBuilder.cronSchedule("0/3 * * * * ?")
+                )
+                .build();
 
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-            
+
             out.println("Starting the scheduler");
             scheduler.start();
-            
+
             out.println("<h2>Starting Simple Trigger - every 1 second</h2>");
             scheduler.scheduleJob(simpleJob, simpleTrigger);
             out.println("<h2>Starting Cron Trigger - every 3 seconds</h2>");
             scheduler.scheduleJob(cronJob, cronTrigger);
-            
+
             out.println("Sleeping for 7 seconds");
             Thread.sleep(7000);
 
             out.println("<br>Shutting down the scheduler");
             scheduler.shutdown();
-            
+
             out.println("<br><br>Check \"server.log\" for output - 8 outputs from simple trigger, 3 from cron trigger");
             out.println("</body>");
             out.println("</html>");
@@ -98,7 +98,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -112,7 +112,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

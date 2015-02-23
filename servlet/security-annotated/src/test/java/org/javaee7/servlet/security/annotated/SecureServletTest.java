@@ -22,28 +22,28 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class SecureServletTest {
-    
+
     @ArquillianResource
     private URL base;
-    
+
     DefaultCredentialsProvider correctCreds = new DefaultCredentialsProvider();
     DefaultCredentialsProvider incorrectCreds = new DefaultCredentialsProvider();
     WebClient webClient;
-    
+
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(SecureServlet.class);
+            addClass(SecureServlet.class);
         return war;
     }
-    
+
     @Before
     public void setup() {
         correctCreds.addCredentials("u1", "p1");
         incorrectCreds.addCredentials("random", "random");
         webClient = new WebClient();
     }
-    
+
     @Test
     public void testGetWithCorrectCredentials() throws Exception {
         webClient.setCredentialsProvider(correctCreds);
@@ -56,7 +56,7 @@ public class SecureServletTest {
         webClient.setCredentialsProvider(incorrectCreds);
         try {
             webClient.getPage(base + "/SecureServlet");
-        } catch(FailingHttpStatusCodeException e) {
+        } catch (FailingHttpStatusCodeException e) {
             assertNotNull(e);
             assertEquals(401, e.getStatusCode());
             return;
@@ -84,5 +84,5 @@ public class SecureServletTest {
         }
         fail("/SecureServlet could be accessed without proper security credentials");
     }
-    
+
 }

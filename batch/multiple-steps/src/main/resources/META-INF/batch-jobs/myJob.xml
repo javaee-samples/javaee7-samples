@@ -5,7 +5,7 @@
             <reader ref="myItemReader"/>
             <processor ref="myItemProcessor"/>
             <writer ref="myItemWriter"/>
-        </chunk>	
+        </chunk>    
     </step>
     <step id="step2" >
         <batchlet ref="myBatchlet"/>

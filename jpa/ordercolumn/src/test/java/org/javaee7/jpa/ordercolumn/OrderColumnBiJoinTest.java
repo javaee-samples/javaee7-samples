@@ -58,9 +58,9 @@ public class OrderColumnBiJoinTest {
     @Deployment
     private static Archive<?> createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addPackages(true, Child.class.getPackage())
-                         .addPackages(true, OrderColumnTesterService.class.getPackage())
-                         .addAsResource("META-INF/persistence.xml");
+            .addPackages(true, Child.class.getPackage())
+            .addPackages(true, OrderColumnTesterService.class.getPackage())
+            .addAsResource("META-INF/persistence.xml");
     }
 
     @EJB
@@ -84,9 +84,8 @@ public class OrderColumnBiJoinTest {
         // Reload parent fresh from data source again
         Parent savedParent = indexColumnTesterService.getParentById(parent.getId());
 
-        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different", 
-            2, savedParent.getChildren().size()
-        );
+        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different",
+            2, savedParent.getChildren().size());
     }
 
     /**
@@ -122,9 +121,8 @@ public class OrderColumnBiJoinTest {
 
         Parent savedParent = indexColumnTesterService.getParentById(parent.getId());
 
-        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different", 
-            2, savedParent.getChildren().size()
-        );
+        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different",
+            2, savedParent.getChildren().size());
 
     }
 
@@ -148,9 +146,8 @@ public class OrderColumnBiJoinTest {
 
         Parent savedParent = indexColumnTesterService.getParentById(parent.getId());
 
-        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different", 
-            2, savedParent.getChildren().size()
-        );
+        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different",
+            2, savedParent.getChildren().size());
     }
 
     @Test
@@ -175,9 +172,8 @@ public class OrderColumnBiJoinTest {
 
         Parent savedParent = indexColumnTesterService.getParentById(parent.getId());
 
-        assertEquals("3 children added to parent and saved, but after re-loading number of chilren different", 
-            3, savedParent.getChildren().size()
-        );
+        assertEquals("3 children added to parent and saved, but after re-loading number of chilren different",
+            3, savedParent.getChildren().size());
 
         // Removing child at position 1 and saving again
         savedParent.getChildren().remove(1);
@@ -185,9 +181,8 @@ public class OrderColumnBiJoinTest {
         savedParent = indexColumnTesterService.save(savedParent);
         savedParent = indexColumnTesterService.getParentById(savedParent.getId());
 
-        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different", 
-            2, savedParent.getChildren().size()
-        );
+        assertEquals("2 children added to parent and saved, but after re-loading number of chilren different",
+            2, savedParent.getChildren().size());
 
     }
 

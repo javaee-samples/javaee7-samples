@@ -26,10 +26,9 @@ public class ReentrantCallTest {
     @Deployment
     public static Archive<?> deployment() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addClass(ReentrantStatefulBean.class);
+            .addClass(ReentrantStatefulBean.class);
     }
 
-   
     @Test
     public void doReentrantCall() {
         // initialMethod() will internally call another method on itself.

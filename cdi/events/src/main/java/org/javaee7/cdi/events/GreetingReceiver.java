@@ -9,14 +9,14 @@ import java.io.Serializable;
  */
 @SessionScoped
 public class GreetingReceiver implements EventReceiver, Serializable {
-	private String greet = "Willkommen";
+    private String greet = "Willkommen";
 
-	void receive(@Observes String greet) {
-		this.greet = greet;
-	}
+    void receive(@Observes String greet) {
+        this.greet = greet;
+    }
 
-	@Override
-	public String getGreet() {
-		return greet;
-	}
+    @Override
+    public String getGreet() {
+        return greet;
+    }
 }

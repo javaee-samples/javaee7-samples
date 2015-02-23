@@ -27,12 +27,12 @@ public class MyEndpointConfiguration implements ServerApplicationConfig {
 
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
-       Set<ServerEndpointConfig> config = new HashSet<ServerEndpointConfig>();
-       config.add(ServerEndpointConfig.Builder.create(MyEndpoint.class, "/encoder-programmatic")
-                        .encoders(encoders)
-                        .decoders(decoders)
-                        .build());
-       return config;
+        Set<ServerEndpointConfig> config = new HashSet<ServerEndpointConfig>();
+        config.add(ServerEndpointConfig.Builder.create(MyEndpoint.class, "/encoder-programmatic")
+            .encoders(encoders)
+            .decoders(decoders)
+            .build());
+        return config;
     }
 
     @Override

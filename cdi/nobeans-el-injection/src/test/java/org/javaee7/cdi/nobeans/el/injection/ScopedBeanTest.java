@@ -18,18 +18,18 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
  */
 @RunWith(Arquillian.class)
 public class ScopedBeanTest {
-    
+
     private static final String WEBAPP_SRC = "src/main/webapp";
 
     @ArquillianResource
     private URL base;
-    
-    @Deployment(testable=false)
+
+    @Deployment(testable = false)
     public static WebArchive deploy() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addClass(ScopedBean.class)
-                .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
-                .addAsWebResource((new File(WEBAPP_SRC, "index.xhtml")));
+            .addClass(ScopedBean.class)
+            .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
+            .addAsWebResource((new File(WEBAPP_SRC, "index.xhtml")));
     }
 
     @Test
@@ -37,6 +37,6 @@ public class ScopedBeanTest {
         WebConversation conv = new WebConversation();
         GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/faces/index.xhtml");
         String responseText = conv.getResponse(getRequest).getText();
-        assert(responseText.contains("Hello there!"));
+        assert (responseText.contains("Hello there!"));
     }
 }

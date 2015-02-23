@@ -24,13 +24,13 @@ public class MyBean {
     String inputTextarea;
     boolean selectBooleanCheckbox;
     String[] selectManyCheckbox;
-    
+
     @PostConstruct
     public void init() {
         list = Arrays.asList(
-                new Person(1, "Penny"), 
-                new Person(2, "Leonard"),
-                new Person(3, "Sheldon")).toArray(new Person[0]);
+            new Person(1, "Penny"),
+            new Person(2, "Leonard"),
+            new Person(3, "Sheldon")).toArray(new Person[0]);
     }
 
     public String getCommandLink() {
@@ -52,7 +52,7 @@ public class MyBean {
     public void setList(Person[] list) {
         this.list = list;
     }
-    
+
     public Person[] getList() {
         return list;
     }
@@ -97,6 +97,4 @@ public class MyBean {
         this.selectManyCheckbox = selectManyCheckbox;
     }
 
-    
-    
 }

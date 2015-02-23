@@ -17,12 +17,12 @@ public class NameResource1 {
     @Size(min = 1)
     @FormParam("firstName")
     private String firstName;
-    
+
     @NotNull
     @Size(min = 1)
     @FormParam("lastName")
     private String lastName;
-    
+
     private String email;
 
     @FormParam("email")
@@ -30,15 +30,15 @@ public class NameResource1 {
         this.email = email;
     }
 
-//    @Email
+    //    @Email
     public String getEmail() {
         return email;
     }
-    
+
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public String registerUser() {
         return firstName + " " + lastName + " with email " + email + " registered";
     }
-    
+
 }

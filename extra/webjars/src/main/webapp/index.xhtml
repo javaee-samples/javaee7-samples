@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet name="webjars/normalize.css/3.0.1/normalize.css" />
+        <h:outputStylesheet name="webjars/foundation/5.5.0/css/foundation.min.css" />
+        <h:outputStylesheet name="css/app.css" />
+        <h:outputScript name="webjars/jquery/2.1.1/jquery.min.js" />
+        <h:outputScript name="webjars/foundation/5.5.0/js/foundation.min.js" />
+        <h:outputScript name="webjars/modernizr/2.8.3/modernizr.min.js" />
+    </h:head>
+    <h:body>
+        <h1 align="center">Hello Webjars + Foundation!</h1>
+        <h:form>
+            <div class="row">
+                <div class="large-12 columns">
+                    <h:outputLabel>Input Label
+                        <h:inputText a:placeholder="large-12.columns" />
+                    </h:outputLabel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-4 columns">
+                    <h:outputLabel>Input Label
+                        <h:inputText a:placeholder="large-4.columns" />
+                    </h:outputLabel>
+                </div>
+                <div class="large-4 columns">
+                    <h:outputLabel>Input Label
+                        <h:inputText a:placeholder="large-4.columns" />
+                    </h:outputLabel>
+                </div>
+                <div class="large-4 columns">
+                    <div class="row collapse">
+                        <h:outputLabel for="row2col3">Input Label</h:outputLabel>
+                        <div class="small-9 columns">
+                            <h:inputText id="row2col3" a:placeholder="small-9.columns" />
+                        </div>
+                        <div class="small-3 columns">
+                            <span class="postfix">.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <h:outputLabel>Select Box
+                        <h:selectOneMenu>
+                            <f:selectItem itemValue="husker" itemLabel="Husker"/>
+                            <f:selectItem itemValue="starbuck" itemLabel="Starbuck"/>
+                            <f:selectItem itemValue="hotdog" itemLabel="Hot Dog"/>
+                            <f:selectItem itemValue="apollo" itemLabel="Apollo"/>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-6 columns">
+                    <h:outputLabel>Choose Your Favorite</h:outputLabel>
+                    <h:selectOneRadio id="pokemon" styleClass="jsf-select">
+                        <f:selectItem itemValue="Red" itemLabel="Red"/>
+                        <f:selectItem itemValue="Blue" itemLabel="Blue"/>
+                    </h:selectOneRadio>
+                </div>
+                <div class="large-6 columns">
+                    <h:outputLabel>Check these out</h:outputLabel>
+                    <h:selectManyCheckbox styleClass="jsf-select">
+                        <f:selectItem itemLabel="Checkbox 1"/>
+                        <f:selectItem itemLabel="Checkbox 2"/>
+                    </h:selectManyCheckbox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <h:outputLabel>Textarea Label
+                        <h:inputTextarea a:placeholder="small-12.columns"></h:inputTextarea>
+                    </h:outputLabel>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>

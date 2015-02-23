@@ -22,10 +22,12 @@ public class MyMessageDecoder implements Decoder.Text<MyMessage> {
     public boolean willDecode(String string) {
         return true;
     }
-    
-    @Override
-    public void init(EndpointConfig ec) { }
 
     @Override
-    public void destroy() { }
+    public void init(EndpointConfig ec) {
+    }
+
+    @Override
+    public void destroy() {
+    }
 }

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ProductCode.findAll", query = "SELECT p FROM ProductCode p"),
     @NamedQuery(name = "ProductCode.findByProdCode", query = "SELECT p FROM ProductCode p WHERE p.prodCode = :prodCode"),
     @NamedQuery(name = "ProductCode.findByDiscountCode", query = "SELECT p FROM ProductCode p WHERE p.discountCode = :discountCode"),
-    @NamedQuery(name = "ProductCode.findByDescription", query = "SELECT p FROM ProductCode p WHERE p.description = :description")})
+    @NamedQuery(name = "ProductCode.findByDescription", query = "SELECT p FROM ProductCode p WHERE p.description = :description") })
 public class ProductCode implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -99,5 +99,5 @@ public class ProductCode implements Serializable {
     public String toString() {
         return "org.javaee7.jpa.multiple.pu.ProductCode[ prodCode=" + prodCode + " ]";
     }
-    
+
 }

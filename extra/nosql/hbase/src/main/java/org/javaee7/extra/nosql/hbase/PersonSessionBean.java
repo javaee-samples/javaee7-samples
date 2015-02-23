@@ -49,23 +49,23 @@ public class PersonSessionBean {
             // By default, it's localhost, don't worry.
             Configuration config = HBaseConfiguration.create();
 
-//            HTable table = new HTable(config, personsTable);
+            //            HTable table = new HTable(config, personsTable);
 
             HBaseAdmin admin = new HBaseAdmin(config);
             HTableDescriptor blogstable = new HTableDescriptor(personsTable);
             admin.createTable(blogstable);
-//
-//            // Cannot edit a stucture on an active table.
-//            admin.disableTable(personsTable);
-//
-//            HColumnDescriptor userCol = new HColumnDescriptor("name");
-//            admin.addColumn(personsTable, userCol);
-//
-//            HColumnDescriptor ageCol = new HColumnDescriptor("age");
-//            admin.addColumn(personsTable, ageCol);
-//
-//            // For readin, it needs to be re-enabled.
-//            admin.enableTable(personsTable);
+            //
+            //            // Cannot edit a stucture on an active table.
+            //            admin.disableTable(personsTable);
+            //
+            //            HColumnDescriptor userCol = new HColumnDescriptor("name");
+            //            admin.addColumn(personsTable, userCol);
+            //
+            //            HColumnDescriptor ageCol = new HColumnDescriptor("age");
+            //            admin.addColumn(personsTable, ageCol);
+            //
+            //            // For readin, it needs to be re-enabled.
+            //            admin.enableTable(personsTable);
         } catch (IOException ex) {
             Logger.getLogger(PersonSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,20 +80,20 @@ public class PersonSessionBean {
 
             Put put = new Put(Bytes.toBytes(person.getName()), Calendar.getInstance().getTime().getTime());
             put.add(Bytes.toBytes(personsColumnFamily),
-                    Bytes.toBytes("name"),
-                    Calendar.getInstance().getTime().getTime(),
-                    Bytes.toBytes(person.getName()));
+                Bytes.toBytes("name"),
+                Calendar.getInstance().getTime().getTime(),
+                Bytes.toBytes(person.getName()));
             put.add(Bytes.toBytes(personsColumnFamily),
-                    Bytes.toBytes("age"),
-                    Calendar.getInstance().getTime().getTime(),
-                    Bytes.toBytes(person.getAge()));
+                Bytes.toBytes("age"),
+                Calendar.getInstance().getTime().getTime(),
+                Bytes.toBytes(person.getAge()));
             table.put(put);
         }
     }
 
     public List<Person> getPersons() throws IOException {
         List<Person> persons = new ArrayList<>();
-        
+
         try (HTableInterface table = pool.getTable(personsTable)) {
             Scan scan = new Scan();
             scan.addFamily(Bytes.toBytes(personsColumnFamily));
@@ -101,9 +101,9 @@ public class PersonSessionBean {
                 for (Result result : resultScanner) {
                     for (KeyValue kv : result.raw()) {
                         Person p = new Person();
-//                    p.setTitle(Bytes.toString(kv.getQualifier()));
-//                    p.setBody(Bytes.toString(kv.getValue()));
-//                    p.setId(Bytes.toString(result.getRow()));
+                        //                    p.setTitle(Bytes.toString(kv.getQualifier()));
+                        //                    p.setBody(Bytes.toString(kv.getValue()));
+                        //                    p.setId(Bytes.toString(result.getRow()));
                         persons.add(person);
                     }
                 }

@@ -7,10 +7,10 @@ import javax.websocket.server.ServerEndpoint;
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint(value="/greet/{name}")
+@ServerEndpoint(value = "/greet/{name}")
 public class GreetingBean {
     @OnMessage
-    public String sayHello(String payload, @PathParam("name")String name) {
+    public String sayHello(String payload, @PathParam("name") String name) {
         return payload + " " + name + "!";
     }
 }

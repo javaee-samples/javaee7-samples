@@ -62,10 +62,10 @@ public class BatchChunkPartitionTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(BatchTestHelper.class)
-                .addPackage("org.javaee7.batch.sample.chunk.partition")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addClass(BatchTestHelper.class)
+            .addPackage("org.javaee7.batch.sample.chunk.partition")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
@@ -86,7 +86,7 @@ public class BatchChunkPartitionTest {
         Long executionId = jobOperator.start("myJob", new Properties());
         JobExecution jobExecution = jobOperator.getJobExecution(executionId);
 
-        BatchTestHelper.keepTestAlive(jobExecution);
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {

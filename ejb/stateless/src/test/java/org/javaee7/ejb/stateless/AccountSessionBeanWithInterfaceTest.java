@@ -24,50 +24,50 @@ import static org.junit.Assert.assertThat;
 @RunWith(Arquillian.class)
 public class AccountSessionBeanWithInterfaceTest {
 
-	@EJB
-	private Account sut;
+    @EJB
+    private Account sut;
 
-	/**
-	 * Arquillian specific method for creating a file which can be deployed
-	 * while executing the test.
-	 *
-	 * @return a war file
-	 */
-	@Deployment
-	public static Archive<?> deployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClass(AccountSessionBeanWithInterface.class)
-				.addClass(Account.class)
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    /**
+     * Arquillian specific method for creating a file which can be deployed
+     * while executing the test.
+     *
+     * @return a war file
+     */
+    @Deployment
+    public static Archive<?> deployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClass(AccountSessionBeanWithInterface.class)
+            .addClass(Account.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	/**
-	 * Test of withdraw method, of class AccountSessionBean.
-	 */
-	@Test
-	public void shouldWithdrawGivenAmount() {
-		// given
-		final float amount = 5.0F;
+    /**
+     * Test of withdraw method, of class AccountSessionBean.
+     */
+    @Test
+    public void shouldWithdrawGivenAmount() {
+        // given
+        final float amount = 5.0F;
 
-		// when
-		final String actual = sut.withdraw(amount);
+        // when
+        final String actual = sut.withdraw(amount);
 
-		// then
-		assertThat(actual, is(equalTo("Withdrawn: " + amount)));
-	}
+        // then
+        assertThat(actual, is(equalTo("Withdrawn: " + amount)));
+    }
 
-	/**
-	 * Test of deposit method, of class AccountSessionBean.
-	 */
-	@Test
-	public void shouldDepositGivenAmount() {
-		// given
-		final float amount = 10.0F;
+    /**
+     * Test of deposit method, of class AccountSessionBean.
+     */
+    @Test
+    public void shouldDepositGivenAmount() {
+        // given
+        final float amount = 10.0F;
 
-		// when
-		final String actual = sut.deposit(amount);
+        // when
+        final String actual = sut.deposit(amount);
 
-		// then
-		assertThat(actual, is(equalTo("Deposited: " + amount)));
-	}
+        // then
+        assertThat(actual, is(equalTo("Deposited: " + amount)));
+    }
 }

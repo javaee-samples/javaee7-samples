@@ -15,11 +15,11 @@ import javax.validation.constraints.Size;
  * @author Arun Gupta
  */
 @Documented
-@Target({ElementType.ANNOTATION_TYPE,
+@Target({ ElementType.ANNOTATION_TYPE,
     ElementType.METHOD,
     ElementType.FIELD,
     ElementType.CONSTRUCTOR,
-    ElementType.PARAMETER})
+    ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ZipCodeValidator.class)
 @Size(min = 5, message = "{org.sample.zipcode.min_size}")

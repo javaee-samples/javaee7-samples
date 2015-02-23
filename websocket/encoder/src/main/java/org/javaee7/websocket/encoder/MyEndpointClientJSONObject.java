@@ -26,7 +26,7 @@ public class MyEndpointClientJSONObject {
             ioe.printStackTrace();
         }
     }
-    
+
     @OnMessage
     public void processMessage(String message) {
         response = message;

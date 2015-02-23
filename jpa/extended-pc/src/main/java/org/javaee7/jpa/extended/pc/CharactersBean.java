@@ -18,16 +18,16 @@ public class CharactersBean implements Serializable {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     EntityManager em;
-    
+
     public void save(Character e) {
         em.persist(e);
     }
-    
+
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void commitChanges() {
 
     }
-    
+
     public List<Character> get() {
         return em.createNamedQuery(Character.FIND_ALL, Character.class).getResultList();
     }

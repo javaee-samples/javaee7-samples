@@ -8,7 +8,7 @@ import javax.websocket.HandshakeResponse;
 /**
  * @author Arun Gupta
  */
- public class MyConfigurator extends ClientEndpointConfig.Configurator {
+public class MyConfigurator extends ClientEndpointConfig.Configurator {
 
     @Override
     public void beforeRequest(Map<String, List<String>> headers) {

@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/ScheduleWithFixedDelayServlet"})
+@WebServlet(urlPatterns = { "/ScheduleWithFixedDelayServlet" })
 public class ScheduleWithFixedDelayServlet extends HttpServlet {
 
-//    @Resource(name = "concurrent/myScheduledExecutor2")
-//    @Resource(name = "DefaultManagedScheduledExecutorService")
+    //    @Resource(name = "concurrent/myScheduledExecutor2")
+    //    @Resource(name = "DefaultManagedScheduledExecutorService")
     @Resource
     ManagedScheduledExecutorService executor;
-    
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -33,21 +33,21 @@ public class ScheduleWithFixedDelayServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Schedule with fixed delay</title>");            
+            out.println("<title>Schedule with fixed delay</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Schedule tasks with fixed delay</h1>");
-            
+
             executor.scheduleWithFixedDelay(new MyRunnableTask(5), 2, 3, TimeUnit.SECONDS);
             out.println("<br><br>Check server.log for output");
             System.out.println("Runnable Task submitted");
-            
+
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +65,7 @@ public class ScheduleWithFixedDelayServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -80,7 +80,7 @@ public class ScheduleWithFixedDelayServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

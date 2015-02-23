@@ -15,10 +15,10 @@ public class SimpleFaceletPage {
 
     @FindBy(tagName = "td")
     private List<WebElement> names;
-    
+
     public List<String> getNames() {
         List<String> result = new ArrayList<String>();
-        for(WebElement nameElement : names) {
+        for (WebElement nameElement : names) {
             result.add(nameElement.getText());
         }
         return result;

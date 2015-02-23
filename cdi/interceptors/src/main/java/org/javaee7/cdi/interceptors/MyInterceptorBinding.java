@@ -14,6 +14,6 @@ import javax.interceptor.InterceptorBinding;
 @Inherited
 @InterceptorBinding
 @Retention(RUNTIME)
-@Target({METHOD, TYPE})
+@Target({ METHOD, TYPE })
 public @interface MyInterceptorBinding {
 }

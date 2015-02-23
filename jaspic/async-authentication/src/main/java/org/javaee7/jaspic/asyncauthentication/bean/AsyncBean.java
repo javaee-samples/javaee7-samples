@@ -19,20 +19,20 @@ public class AsyncBean {
 
     @Asynchronous
     public void doAsync(AsyncContext asyncContext) {
-        
+
         try {
             sleep(1000);
         } catch (InterruptedException e) {
             interrupted();
         }
-        
+
         try {
             asyncContext.getResponse().getWriter().write("async response");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         asyncContext.complete();
     }
-    
+
 }

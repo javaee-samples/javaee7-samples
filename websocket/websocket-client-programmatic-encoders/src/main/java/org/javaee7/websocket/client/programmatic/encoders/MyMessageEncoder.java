@@ -12,14 +12,14 @@ public class MyMessageEncoder implements Encoder.Text<MyMessage> {
     public String encode(MyMessage myMessage) throws EncodeException {
         return myMessage.getJsonObject().toString();
     }
-    
+
     @Override
     public void init(EndpointConfig ec) {
-//        System.out.println("init");
+        //        System.out.println("init");
     }
 
     @Override
     public void destroy() {
-//        System.out.println("desroy");
-    }    
+        //        System.out.println("desroy");
+    }
 }

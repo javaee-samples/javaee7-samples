@@ -14,8 +14,8 @@ public class MovieBean {
 
     public Movie getMovieByName(String name) {
         return em.createNamedQuery(Movie.FIND_BY_NAME, Movie.class)
-                .setParameter("name", name)
-                .getSingleResult();
+            .setParameter("name", name)
+            .getSingleResult();
     }
 
 }

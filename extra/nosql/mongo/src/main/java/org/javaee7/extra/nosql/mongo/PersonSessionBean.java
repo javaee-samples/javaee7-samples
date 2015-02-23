@@ -30,7 +30,7 @@ public class PersonSessionBean {
 
     @PostConstruct
     private void initDB() {
-        try {                        
+        try {
             // Get an instance of Mongo
             Mongo m = new Mongo("localhost", 27017);
             DB db = m.getDB("personDB");
@@ -42,7 +42,7 @@ public class PersonSessionBean {
             Logger.getLogger(PersonSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void createPerson() {
         BasicDBObject doc = person.toDBObject();
         personCollection.insert(doc);

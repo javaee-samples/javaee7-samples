@@ -23,29 +23,29 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
  */
 @RunWith(Arquillian.class)
 public class JsonReaderFromStreamTest {
-    
+
     @Deployment
     public static Archive<?> deploy() {
         File[] requiredLibraries = Maven.resolver().loadPomFromFile("pom.xml")
-                .resolve("org.json:json", "org.skyscreamer:jsonassert")
-                .withTransitivity().asFile();
+            .resolve("org.json:json", "org.skyscreamer:jsonassert")
+            .withTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class)
-                .addAsResource("1.json")
-                .addAsResource("2.json")
-                .addAsResource("3.json")
-                .addAsResource("4.json")
-                .addAsLibraries(requiredLibraries);
+            .addAsResource("1.json")
+            .addAsResource("2.json")
+            .addAsResource("3.json")
+            .addAsResource("4.json")
+            .addAsLibraries(requiredLibraries);
     }
 
     @Test
     public void testEmptyObject() throws JSONException {
         JsonReader jsonReader = Json.createReader(Thread
-                .currentThread()
-                .getContextClassLoader()
-                .getResourceAsStream("/1.json"));
+            .currentThread()
+            .getContextClassLoader()
+            .getResourceAsStream("/1.json"));
         JsonObject json = jsonReader.readObject();
-        
+
         assertNotNull(json);
         assertTrue(json.isEmpty());
     }
@@ -53,11 +53,11 @@ public class JsonReaderFromStreamTest {
     @Test
     public void testSimpleObjectWithTwoElements() throws JSONException {
         JsonReader jsonReader = Json.createReader(Thread
-                .currentThread()
-                .getContextClassLoader()
-                .getResourceAsStream("/2.json"));
+            .currentThread()
+            .getContextClassLoader()
+            .getResourceAsStream("/2.json"));
         JsonObject json = jsonReader.readObject();
-        
+
         assertNotNull(json);
         assertFalse(json.isEmpty());
         assertTrue(json.containsKey("apple"));
@@ -69,13 +69,13 @@ public class JsonReaderFromStreamTest {
     @Test
     public void testArray() throws JSONException {
         JsonReader jsonReader = Json.createReader(Thread
-                .currentThread()
-                .getContextClassLoader()
-                .getResourceAsStream("/3.json"));
+            .currentThread()
+            .getContextClassLoader()
+            .getResourceAsStream("/3.json"));
         JsonArray jsonArr = jsonReader.readArray();
         assertNotNull(jsonArr);
         assertEquals(2, jsonArr.size());
-        
+
         JSONAssert.assertEquals("{\"apple\":\"red\"}", jsonArr.get(0).toString(), JSONCompareMode.STRICT);
         JSONAssert.assertEquals("{\"banana\":\"yellow\"}", jsonArr.get(1).toString(), JSONCompareMode.STRICT);
     }
@@ -83,9 +83,9 @@ public class JsonReaderFromStreamTest {
     @Test
     public void testNestedStructure() throws JSONException {
         JsonReader jsonReader = Json.createReader(Thread
-                .currentThread()
-                .getContextClassLoader()
-                .getResourceAsStream("/4.json"));
+            .currentThread()
+            .getContextClassLoader()
+            .getResourceAsStream("/4.json"));
         JsonObject json = jsonReader.readObject();
 
         assertNotNull(json);
@@ -98,11 +98,11 @@ public class JsonReaderFromStreamTest {
         JsonArray jsonArr = json.getJsonArray("cast");
         assertNotNull(jsonArr);
         assertEquals(3, jsonArr.size());
-        
+
         JSONAssert.assertEquals("["
-                + "    \"Keanu Reaves\","
-                + "    \"Laurence Fishburne\","
-                + "    \"Carrie-Anne Moss\""
-                + "  ]", jsonArr.toString(), JSONCompareMode.STRICT);
+            + "    \"Keanu Reaves\","
+            + "    \"Laurence Fishburne\","
+            + "    \"Carrie-Anne Moss\""
+            + "  ]", jsonArr.toString(), JSONCompareMode.STRICT);
     }
 }

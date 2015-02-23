@@ -14,7 +14,7 @@ import javax.transaction.xa.XAResource;
  * @author arungup
  */
 public class MyResoureAdapter implements ResourceAdapter {
-    
+
     private static final Logger LOGGER = Logger.getLogger("MyResourceAdapter");
 
     @Override
@@ -41,5 +41,5 @@ public class MyResoureAdapter implements ResourceAdapter {
     public XAResource[] getXAResources(ActivationSpec[] specs) throws ResourceException {
         return null;
     }
-    
+
 }

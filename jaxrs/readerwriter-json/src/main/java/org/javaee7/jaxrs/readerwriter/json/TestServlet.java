@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServlet"})
+@WebServlet(urlPatterns = { "/TestServlet" })
 public class TestServlet extends HttpServlet {
 
     /**
@@ -30,7 +30,7 @@ public class TestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<html>");
@@ -41,19 +41,19 @@ public class TestServlet extends HttpServlet {
         out.println("<h1>JAX-RS Reader/Writer w/ JSON</h1>");
         Client client = ClientBuilder.newClient();
         client
-                .register(MyReader.class)
-                .register(MyWriter.class);
+            .register(MyReader.class)
+            .register(MyWriter.class);
 
         WebTarget target = client.target("http://"
-                + request.getServerName()
-                + ":"
-                + request.getServerPort()
-                + request.getContextPath()
-                + "/webresources/endpoint");
+            + request.getServerName()
+            + ":"
+            + request.getServerPort()
+            + request.getContextPath()
+            + "/webresources/endpoint");
         out.println("POST request");
         MyObject mo = target
-                .request()
-                .post(Entity.entity(new MyObject("Duke", 18), MediaType.APPLICATION_JSON), MyObject.class);
+            .request()
+            .post(Entity.entity(new MyObject("Duke", 18), MediaType.APPLICATION_JSON), MyObject.class);
         out.println("Received response: " + mo.getName() + ", " + mo.getAge() + "<br><br>");
         out.println("Message exchanged using application/json type.");
         out.println("</body>");
@@ -72,7 +72,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -87,7 +87,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

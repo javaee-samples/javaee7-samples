@@ -19,15 +19,15 @@ public class MyTransactionalTxTypeBeanTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addClass(MyTransactionalTxTypeBean.class);
+            .addClass(MyTransactionalTxTypeBean.class);
     }
 
-    @Inject MyTransactionalTxTypeBean bean;
-
+    @Inject
+    MyTransactionalTxTypeBean bean;
 
     @Test
     public void should_required_work() {
-         bean.required();
+        bean.required();
     }
 
     @Test

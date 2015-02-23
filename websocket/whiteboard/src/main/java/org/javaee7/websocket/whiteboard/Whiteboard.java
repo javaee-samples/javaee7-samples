@@ -19,14 +19,14 @@ import javax.websocket.server.ServerEndpoint;
  * @author Arun Gupta
  */
 @ServerEndpoint(value = "/websocket",
-        encoders = {FigureEncoder.class},
-        decoders = {FigureDecoder.class})
+    encoders = { FigureEncoder.class },
+    decoders = { FigureDecoder.class })
 public class Whiteboard {
 
     private static final Logger LOGGER = Logger.getLogger(Whiteboard.class.getName());
 
     private static final Object PRESENT = new Object();
-    
+
     private static final ConcurrentMap<Session, Object> peers = new ConcurrentHashMap<>();
 
     @OnOpen
@@ -43,7 +43,7 @@ public class Whiteboard {
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
         LOGGER.log(Level.INFO, "boradcastFigure: {0}", figure);
         for (Session peer : session.getOpenSessions()) {
-//        for (Session peer : peers.keySet()) {
+            //        for (Session peer : peers.keySet()) {
             if (!peer.equals(session)) {
                 peer.getBasicRemote().sendObject(figure);
             }
@@ -54,7 +54,7 @@ public class Whiteboard {
     public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
         LOGGER.log(Level.INFO, "broadcastBinary: {0}", data);
         for (Session peer : session.getOpenSessions()) {
-//        for (Session peer : peers.keySet()) {
+            //        for (Session peer : peers.keySet()) {
             if (!peer.equals(session)) {
                 peer.getBasicRemote().sendBinary(data);
             }

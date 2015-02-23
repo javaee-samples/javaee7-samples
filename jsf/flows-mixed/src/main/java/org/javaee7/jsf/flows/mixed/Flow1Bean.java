@@ -21,5 +21,5 @@ public class Flow1Bean implements Serializable {
 
     public String getHomeValue() {
         return "/index";
-    }    
+    }
 }

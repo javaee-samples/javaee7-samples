@@ -3,7 +3,7 @@ package org.javaee7.concurrency.dynamicproxy;
 /**
  * @author Arun Gupta
  */
-public class MyRunnableWork implements Runnable , MyWork {
+public class MyRunnableWork implements Runnable, MyWork {
 
     @Override
     public void run() {

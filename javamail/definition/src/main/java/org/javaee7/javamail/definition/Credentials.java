@@ -21,8 +21,8 @@ public class Credentials {
         try {
             final Properties creds = new Properties();
             creds.load(new FileInputStream(System.getProperty("user.home")
-                    + System.getProperty("file.separator")
-                    + ".javamail"));
+                + System.getProperty("file.separator")
+                + ".javamail"));
             from = creds.getProperty("from");
             password = creds.getProperty("password");
             to = creds.getProperty("to");

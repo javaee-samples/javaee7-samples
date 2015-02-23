@@ -17,17 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestMultipleInterfaceServlet"})
+@WebServlet(urlPatterns = { "/TestMultipleInterfaceServlet" })
 public class TestMultipleInterfaceServlet extends HttpServlet {
 
-//    @Resource(name = "java:comp/DefaultManagedThreadFactory")
+    //    @Resource(name = "java:comp/DefaultManagedThreadFactory")
     @Resource
     ManagedThreadFactory factory;
-    
-//    @Resource(name = "java:comp/DefaultContextService")
+
+    //    @Resource(name = "java:comp/DefaultContextService")
     @Resource
     ContextService service;
-    
 
     /**
      * Processes requests for both HTTP
@@ -40,7 +39,7 @@ public class TestMultipleInterfaceServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
@@ -52,11 +51,11 @@ public class TestMultipleInterfaceServlet extends HttpServlet {
 
             Object proxy = service.createContextualProxy(new MyRunnableWork(), Runnable.class, MyWork.class);
             out.println("Calling MyWork interface<br>");
-            ((MyWork)proxy).myWork();
+            ((MyWork) proxy).myWork();
             out.println("Creating Java SE style ExecutorService<br>");
             ExecutorService executor = Executors.newFixedThreadPool(10, factory);
             out.println("Submitting the task<br>");
-            Future f = executor.submit((Runnable)proxy);
+            Future f = executor.submit((Runnable) proxy);
             out.println("done<br><br>");
             out.println("Check server.log for output from the task.");
             out.println("</body>");
@@ -76,7 +75,7 @@ public class TestMultipleInterfaceServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -91,7 +90,7 @@ public class TestMultipleInterfaceServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

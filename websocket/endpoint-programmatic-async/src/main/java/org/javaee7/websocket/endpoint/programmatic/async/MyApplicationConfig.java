@@ -14,10 +14,12 @@ public class MyApplicationConfig implements ServerApplicationConfig {
 
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
-        return new HashSet<ServerEndpointConfig>() {{
-            add(ServerEndpointConfig.Builder.create(MyEndpointHandler.class, "/websocket-handler").build());
-            add(ServerEndpointConfig.Builder.create(MyEndpointFuture.class, "/websocket-future").build());
-        }};
+        return new HashSet<ServerEndpointConfig>() {
+            {
+                add(ServerEndpointConfig.Builder.create(MyEndpointHandler.class, "/websocket-handler").build());
+                add(ServerEndpointConfig.Builder.create(MyEndpointFuture.class, "/websocket-future").build());
+            }
+        };
     }
 
     @Override

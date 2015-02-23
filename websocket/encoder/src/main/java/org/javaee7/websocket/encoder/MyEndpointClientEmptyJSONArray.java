@@ -15,7 +15,7 @@ import javax.websocket.Session;
 @ClientEndpoint
 public class MyEndpointClientEmptyJSONArray {
     public static String JSON = "{}";
-    public static CountDownLatch latch= new CountDownLatch(1);
+    public static CountDownLatch latch = new CountDownLatch(1);
     public static String response;
 
     @OnOpen
@@ -26,7 +26,7 @@ public class MyEndpointClientEmptyJSONArray {
             ioe.printStackTrace();
         }
     }
-    
+
     @OnMessage
     public void processMessage(String message) {
         response = message;

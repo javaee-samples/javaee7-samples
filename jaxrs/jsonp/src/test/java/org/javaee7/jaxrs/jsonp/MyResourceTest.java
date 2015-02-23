@@ -55,10 +55,10 @@ public class MyResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(
-                        MyApplication.class,
-                        MyObjectResource.class,
-                        MyArrayResource.class);
+            .addClasses(
+                MyApplication.class,
+                MyObjectResource.class,
+                MyArrayResource.class);
     }
 
     /**
@@ -67,13 +67,13 @@ public class MyResourceTest {
     @Test
     public void testEchoObject() {
         JsonObject jsonObject = Json.createObjectBuilder()
-                .add("apple", "red")
-                .add("banana", "yellow")
-                .build();
+            .add("apple", "red")
+            .add("banana", "yellow")
+            .build();
 
         JsonObject json = targetObject
-                .request()
-                .post(Entity.entity(jsonObject, MediaType.APPLICATION_JSON), JsonObject.class);
+            .request()
+            .post(Entity.entity(jsonObject, MediaType.APPLICATION_JSON), JsonObject.class);
         assertNotNull(json);
         assertFalse(json.isEmpty());
         assertTrue(json.containsKey("apple"));
@@ -85,15 +85,15 @@ public class MyResourceTest {
     @Test
     public void testEchoArray() {
         JsonArray jsonArray = Json.createArrayBuilder()
-                .add(Json.createObjectBuilder()
-                        .add("apple", "red"))
-                .add(Json.createObjectBuilder()
-                        .add("banana", "yellow"))
-                .build();
+            .add(Json.createObjectBuilder()
+                .add("apple", "red"))
+            .add(Json.createObjectBuilder()
+                .add("banana", "yellow"))
+            .build();
 
         JsonArray json = targetArray
-                .request()
-                .post(Entity.entity(jsonArray, MediaType.APPLICATION_JSON), JsonArray.class);
+            .request()
+            .post(Entity.entity(jsonArray, MediaType.APPLICATION_JSON), JsonArray.class);
         assertNotNull(json);
         assertEquals(2, json.size());
         assertTrue(json.getJsonObject(0).containsKey("apple"));

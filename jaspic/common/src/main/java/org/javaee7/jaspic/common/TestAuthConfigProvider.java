@@ -51,14 +51,14 @@ public class TestAuthConfigProvider implements AuthConfigProvider {
      */
     @Override
     public ServerAuthConfig getServerAuthConfig(String layer, String appContext, CallbackHandler handler) throws AuthException,
-            SecurityException {
+        SecurityException {
         return new TestServerAuthConfig(layer, appContext, handler == null ? createDefaultCallbackHandler() : handler,
-                providerProperties, serverAuthModule);
+            providerProperties, serverAuthModule);
     }
 
     @Override
     public ClientAuthConfig getClientAuthConfig(String layer, String appContext, CallbackHandler handler) throws AuthException,
-            SecurityException {
+        SecurityException {
         return null;
     }
 

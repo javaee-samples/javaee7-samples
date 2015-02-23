@@ -7,7 +7,7 @@ import javax.resource.cci.Record;
  * @author arungup
  */
 public class MyOrderRecord implements Record {
-    
+
     private String data;
     private String name;
     private String description;
@@ -19,7 +19,7 @@ public class MyOrderRecord implements Record {
     public void setData(String data) {
         this.data = data;
     }
-    
+
     @Override
     public String getRecordName() {
         return name;
@@ -39,16 +39,16 @@ public class MyOrderRecord implements Record {
     public String getRecordShortDescription() {
         return description;
     }
-    
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         super.clone();
-        
+
         MyOrderRecord record = new MyOrderRecord();
         record.setData(this.data);
         record.setRecordName(this.name);
         record.setRecordShortDescription(this.description);
         return record;
     }
-    
+
 }

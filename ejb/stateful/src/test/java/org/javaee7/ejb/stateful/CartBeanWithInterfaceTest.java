@@ -28,85 +28,85 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(Arquillian.class)
 public class CartBeanWithInterfaceTest {
 
-	@EJB
-	private Cart sut;
+    @EJB
+    private Cart sut;
 
-	@Deployment
-	public static Archive<?> deployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClass(Cart.class)
-				.addClass(CartBeanWithInterface.class)
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClass(Cart.class)
+            .addClass(CartBeanWithInterface.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	/**
-	 * Test of addItem method, of class CartBean
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void shouldAddOneItem() throws Exception {
-		// given
+    /**
+     * Test of addItem method, of class CartBean
+     *
+     * @throws Exception
+     */
+    @Test
+    public void shouldAddOneItem() throws Exception {
+        // given
 
-		// when
-		sut.addItem("apple");
+        // when
+        sut.addItem("apple");
 
-		// then
-		assertThat(sut.getItems(), hasItem("apple"));
-	}
+        // then
+        assertThat(sut.getItems(), hasItem("apple"));
+    }
 
-	/**
-	 * Test of addItem method, of class CartBean
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void shouldAddManyItems() throws Exception {
-		// given
-		final List<String> items = Arrays.asList("apple", "banana", "mango", "kiwi", "passion fruit");
+    /**
+     * Test of addItem method, of class CartBean
+     *
+     * @throws Exception
+     */
+    @Test
+    public void shouldAddManyItems() throws Exception {
+        // given
+        final List<String> items = Arrays.asList("apple", "banana", "mango", "kiwi", "passion fruit");
 
-		// when
-		for (final String item : items) {
-			sut.addItem(item);
-		}
+        // when
+        for (final String item : items) {
+            sut.addItem(item);
+        }
 
-		// then
-		assertThat(sut.getItems(), is(items));
-	}
+        // then
+        assertThat(sut.getItems(), is(items));
+    }
 
-	/**
-	 * Test of removeItem method, of class CartBean
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void shouldRemoveOneItem() throws Exception {
-		// given
-		final List<String> items = Arrays.asList("apple", "banana", "mango", "kiwi", "passion fruit");
-		for (final String item : items) {
-			sut.addItem(item);
-		}
+    /**
+     * Test of removeItem method, of class CartBean
+     *
+     * @throws Exception
+     */
+    @Test
+    public void shouldRemoveOneItem() throws Exception {
+        // given
+        final List<String> items = Arrays.asList("apple", "banana", "mango", "kiwi", "passion fruit");
+        for (final String item : items) {
+            sut.addItem(item);
+        }
 
-		// when
-		sut.removeItem("banana");
+        // when
+        sut.removeItem("banana");
 
-		// then
-		assertThat(sut.getItems(), not(hasItem("banana")));
-	}
+        // then
+        assertThat(sut.getItems(), not(hasItem("banana")));
+    }
 
-	/**
-	 * Test of getItems method, of class CartBean
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void shouldBeEmpty() throws Exception {
-		// given
+    /**
+     * Test of getItems method, of class CartBean
+     *
+     * @throws Exception
+     */
+    @Test
+    public void shouldBeEmpty() throws Exception {
+        // given
 
-		// when
-		final List<String> actual = sut.getItems();
+        // when
+        final List<String> actual = sut.getItems();
 
-		// then
-		assertThat(actual.isEmpty(), is(true));
-	}
+        // then
+        assertThat(actual.isEmpty(), is(true));
+    }
 }

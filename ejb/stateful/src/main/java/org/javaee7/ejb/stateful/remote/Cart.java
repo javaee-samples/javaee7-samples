@@ -14,7 +14,7 @@ public interface Cart {
     public void removeItem(String item);
 
     public void purchase();
-    
+
     public List<String> getItems();
 
 }

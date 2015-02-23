@@ -20,25 +20,25 @@ import javax.validation.ConstraintViolationException;
 @RunWith(Arquillian.class)
 public class ConstructorParametersInjectionTest {
 
-	@Inject
-	MyBean2 bean;
+    @Inject
+    MyBean2 bean;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-	@Deployment
-	public static Archive<?> deployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-                .addClasses(MyBean2.class, MyParameter.class)
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClasses(MyBean2.class, MyParameter.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@Test
-	public void constructorViolationsWhenNullParameters() {
+    @Test
+    public void constructorViolationsWhenNullParameters() {
         thrown.expect(ConstraintViolationException.class);
         thrown.expectMessage("javax.validation.constraints.NotNull");
         thrown.expectMessage("MyBean2.arg0.value");
-		bean.getValue();
-	}
+        bean.getValue();
+    }
 
 }

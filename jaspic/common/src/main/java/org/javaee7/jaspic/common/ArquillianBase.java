@@ -25,20 +25,18 @@ public class ArquillianBase {
 
     public static WebArchive defaultArchive() {
         return ShrinkWrap.create(WebArchive.class)
-                         .addPackages(true, "org.javaee7.jaspic")
-                         .addAsWebInfResource(resource("web.xml"))
-                         .addAsWebInfResource(resource("jboss-web.xml"))
-                         .addAsWebInfResource(resource("glassfish-web.xml"));
+            .addPackages(true, "org.javaee7.jaspic")
+            .addAsWebInfResource(resource("web.xml"))
+            .addAsWebInfResource(resource("jboss-web.xml"))
+            .addAsWebInfResource(resource("glassfish-web.xml"));
     }
 
     private static File resource(String name) {
         return new File(WEBAPP_SRC + "/WEB-INF", name);
     }
-    
+
     @ArquillianResource
     private URL base;
-    
-    
 
     @Before
     public void setUp() {
@@ -51,15 +49,15 @@ public class ArquillianBase {
         webClient.getCookieManager().clearCookies();
         webClient.closeAllWindows();
     }
-    
+
     protected WebClient getWebClient() {
         return webClient;
     }
-    
+
     protected URL getBase() {
         return base;
     }
-    
+
     /**
      * Gets content from the path that's relative to the base URL on which the Arquillian test
      * archive is deployed.

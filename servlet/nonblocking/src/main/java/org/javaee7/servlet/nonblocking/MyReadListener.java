@@ -27,7 +27,7 @@ public class MyReadListener implements ReadListener {
             int len = -1;
             byte b[] = new byte[1024];
             while (input.isReady()
-                    && (len = input.read(b)) != -1) {
+                && (len = input.read(b)) != -1) {
                 String data = new String(b, 0, len);
                 System.out.println("--> " + data);
             }

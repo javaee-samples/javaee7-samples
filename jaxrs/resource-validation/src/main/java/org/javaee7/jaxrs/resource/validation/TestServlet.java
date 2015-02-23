@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = {"/TestServlet"})
+@WebServlet(urlPatterns = { "/TestServlet" })
 public class TestServlet extends HttpServlet {
 
     /**
@@ -32,7 +32,7 @@ public class TestServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<html>");
@@ -45,7 +45,7 @@ public class TestServlet extends HttpServlet {
         List<WebTarget> targets = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             targets.add(client
-                    .target("http://"
+                .target("http://"
                     + request.getServerName()
                     + ":"
                     + request.getServerPort()
@@ -91,7 +91,7 @@ public class TestServlet extends HttpServlet {
         }
 
         WebTarget target = client
-                .target("http://"
+            .target("http://"
                 + request.getServerName()
                 + ":"
                 + request.getServerPort()
@@ -100,26 +100,26 @@ public class TestServlet extends HttpServlet {
         out.println("<h2>Using target: " + target.getUri() + "</h2>");
         out.print("<br><br>POSTing using @Valid (all vaild data) ...<br>");
         Response r = target
-                .request()
-                .post(Entity.json(new Name("Sheldon", "Cooper", "sheldon@cooper.com")));
+            .request()
+            .post(Entity.json(new Name("Sheldon", "Cooper", "sheldon@cooper.com")));
         printResponseStatus(out, r, 200);
 
         out.print("<br><br>POSTing using @Valid, with invalid (null) \"firstName\" ...<br>");
         r = target
-                .request()
-                .post(Entity.json(new Name(null, "Cooper", "sheldon@cooper.com")));
+            .request()
+            .post(Entity.json(new Name(null, "Cooper", "sheldon@cooper.com")));
         printResponseStatus(out, r, 400);
 
         out.print("<br><br>POSTing using @Valid, with invalid (null) \"lastName\" ...<br>");
         r = target
-                .request()
-                .post(Entity.json(new Name("Sheldon", null, "sheldon@cooper.com")));
+            .request()
+            .post(Entity.json(new Name("Sheldon", null, "sheldon@cooper.com")));
         printResponseStatus(out, r, 400);
 
         out.print("<br><br>POSTing using @Valid, with invalid (missing @) email \"email\" ...<br>");
         r = target
-                .request()
-                .post(Entity.json(new Name("Sheldon", "Cooper", "sheldoncooper.com")));
+            .request()
+            .post(Entity.json(new Name("Sheldon", "Cooper", "sheldoncooper.com")));
         printResponseStatus(out, r, 400);
 
         out.println("<br>... done.<br>");
@@ -144,7 +144,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -158,7 +158,7 @@ public class TestServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

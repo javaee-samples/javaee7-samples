@@ -2,10 +2,15 @@ package org.javaee7.jaxrs.client;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -36,9 +41,9 @@ public class MyResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(
-                        MyApplication.class, MyResource.class, People.class,
-                        Person.class, PersonSessionBean.class);
+            .addClasses(
+                MyApplication.class, MyResource.class, People.class,
+                Person.class, PersonSessionBean.class);
     }
 
     @ArquillianResource
@@ -90,10 +95,10 @@ public class MyResourceTest {
     @Test
     public void test2GetSingle() {
         Person p = target
-                .path("{id}")
-                .resolveTemplate("id", "1")
-                .request(MediaType.APPLICATION_XML)
-                .get(Person.class);
+            .path("{id}")
+            .resolveTemplate("id", "1")
+            .request(MediaType.APPLICATION_XML)
+            .get(Person.class);
         assertEquals("Leonard", p.getName());
         assertEquals(2, p.getAge());
     }
@@ -121,10 +126,10 @@ public class MyResourceTest {
     @Test
     public void test4Delete() {
         target
-                .path("{name}")
-                .resolveTemplate("name", "Howard")
-                .request()
-                .delete();
+            .path("{name}")
+            .resolveTemplate("name", "Howard")
+            .request()
+            .delete();
         Person[] list = target.request().get(Person[].class);
         assertEquals(3, list.length);
     }
@@ -132,7 +137,15 @@ public class MyResourceTest {
     @Test
     public void test5ClientSideNegotiation() {
         String json = target.request().accept(MediaType.APPLICATION_JSON).get(String.class);
-        assertEquals("[{\"name\":\"Penny\",\"age\":1},{\"name\":\"Leonard\",\"age\":2},{\"name\":\"Sheldon\",\"age\":3}]", json);
+
+        JsonReader reader = Json.createReader(new StringReader(json));
+        JsonArray jsonArray = reader.readArray();
+        assertEquals(1, jsonArray.getJsonObject(0).getInt("age"));
+        assertEquals("Penny", jsonArray.getJsonObject(0).getString("name"));
+        assertEquals(2, jsonArray.getJsonObject(1).getInt("age"));
+        assertEquals("Leonard", jsonArray.getJsonObject(1).getString("name"));
+        assertEquals(3, jsonArray.getJsonObject(2).getInt("age"));
+        assertEquals("Sheldon", jsonArray.getJsonObject(2).getString("name"));
     }
 
     @Test
@@ -140,10 +153,10 @@ public class MyResourceTest {
         Person[] list = target.request().get(Person[].class);
         for (Person p : list) {
             target
-                    .path("{name}")
-                    .resolveTemplate("name", p.getName())
-                    .request()
-                    .delete();
+                .path("{name}")
+                .resolveTemplate("name", p.getName())
+                .request()
+                .delete();
         }
         list = target.request().get(Person[].class);
         assertEquals(0, list.length);

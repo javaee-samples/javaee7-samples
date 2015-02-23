@@ -18,29 +18,29 @@ public class MyResource {
         System.out.println("GET");
         return Database.getAll();
     }
-    
+
     @GET
     @Path("{name}")
-    public String get(@PathParam("name")String payload) {
+    public String get(@PathParam("name") String payload) {
         System.out.println("GET");
         return Database.get(payload);
     }
-    
+
     @POST
     public void post(String payload) {
         System.out.println("POST");
         Database.add(payload);
     }
-    
+
     @PUT
     public void put(String payload) {
         System.out.println("PUT");
         Database.add(payload);
     }
-    
+
     @DELETE
     @Path("{name}")
-    public void delete(@PathParam("name")String payload) {
+    public void delete(@PathParam("name") String payload) {
         System.out.println("DELETE");
         Database.delete(payload);
     }

@@ -26,16 +26,17 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
-    @Column(length=40)
+
+    @Column(length = 40)
     private String name;
-    
-    public Employee() { }
-    
+
+    public Employee() {
+    }
+
     public Employee(String name) {
         this.name = name;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -63,7 +64,7 @@ public class Employee implements Serializable {
             return false;
         if (!(obj instanceof Employee))
             return false;
-        Employee that = (Employee)obj;
+        Employee that = (Employee) obj;
         if (that.name.equals(this.name) && that.id == this.id)
             return true;
         else
@@ -74,6 +75,5 @@ public class Employee implements Serializable {
     public int hashCode() {
         return Objects.hash(this.id, this.name);
     }
-    
-    
+
 }

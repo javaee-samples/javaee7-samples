@@ -27,9 +27,9 @@ public class PersonSessionBean {
 
     @Inject
     Person person;
-    
+
     CouchbaseClient client;
-    
+
     Set<String> set = new HashSet<>();
 
     @PostConstruct
@@ -37,8 +37,8 @@ public class PersonSessionBean {
         try {
             // Get an instance of Couchbase
             List<URI> hosts = Arrays.asList(
-                    new URI("http://localhost:8091/pools")
-            );
+                new URI("http://localhost:8091/pools")
+                );
 
             // Get an instance of Couchbase
             // Name of the Bucket to connect to
@@ -68,7 +68,7 @@ public class PersonSessionBean {
         List<Person> persons = new ArrayList();
         Map<String, Object> map = client.getBulk(set.iterator());
         for (String key : map.keySet()) {
-            persons.add((Person)map.get(key));
+            persons.add((Person) map.get(key));
         }
         return persons;
     }

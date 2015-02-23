@@ -5,26 +5,26 @@ package org.javaee7.jaxrs.paramconverter;
  *
  */
 public class MyBean {
-	
-	private String value;
 
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
+    private String value;
 
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	@Override
-	public String toString() {
-		return getValue();
-	}
-	
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
+    }
+
+    /**
+     * @param value the value to set
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return getValue();
+    }
+
 }

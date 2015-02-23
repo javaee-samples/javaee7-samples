@@ -1,18 +1,13 @@
 package org.javaee7.jpasamples.schema.gen.scripts.generate;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
 /**
  * @author Arun Gupta
  */
 @Entity
-@Table(name="EMPLOYEE_SCHEMA_GEN_SCRIPTS_GENERATE")
+@Table(name = "EMPLOYEE_SCHEMA_GEN_SCRIPTS_GENERATE")
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 })
@@ -20,16 +15,10 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private int id;
-    
-    @Column(length=50)
+
+    @Column(length = 50)
     private String name;
-    
-    public Employee() { }
-    
-    public Employee(String name) {
-        this.name = name;
-    }
-    
+
     public int getId() {
         return id;
     }

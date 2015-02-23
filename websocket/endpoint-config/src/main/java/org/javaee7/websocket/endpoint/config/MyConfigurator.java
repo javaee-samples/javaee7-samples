@@ -21,5 +21,5 @@ public class MyConfigurator extends ServerEndpointConfig.Configurator {
             }
         }
     }
-    
+
 }
