@@ -19,6 +19,7 @@ import static com.jayway.awaitility.Awaitility.to;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.javaee7.ejb.timer.WithinWindowMatcher.withinWindow;
 
 /**
  * author: Jacek Jackowiak
@@ -40,7 +41,7 @@ public class MultipleScheduleTimerBeanTest {
 
         return ShrinkWrap.create(WebArchive.class)
             .addAsLibraries(jars)
-            .addClasses(Ping.class, PingsListener.class, MultipleScheduleTimerBean.class);
+            .addClasses(WithinWindowMatcher.class, Ping.class, PingsListener.class, MultipleScheduleTimerBean.class);
     }
 
     @Test
@@ -58,20 +59,4 @@ public class MultipleScheduleTimerBeanTest {
         long smallerDelay = Math.min(delay, delay2);
         assertThat(smallerDelay, is(withinWindow(TIMEOUT, TOLERANCE)));
     }
-
-    private Matcher<Long> withinWindow(final long timeout, final long tolerance) {
-        return new BaseMatcher<Long>() {
-            @Override
-            public boolean matches(Object item) {
-                final Long actual = (Long) item;
-                return Math.abs(actual - timeout) < tolerance;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-    }
-
 }

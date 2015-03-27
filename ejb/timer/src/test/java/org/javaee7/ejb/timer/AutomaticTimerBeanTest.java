@@ -17,6 +17,7 @@ import java.io.File;
 import static com.jayway.awaitility.Awaitility.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.javaee7.ejb.timer.WithinWindowMatcher.withinWindow;
 
 /**
  * author: Jakub Marchwicki
@@ -38,7 +39,7 @@ public class AutomaticTimerBeanTest {
 
         return ShrinkWrap.create(WebArchive.class)
             .addAsLibraries(jars)
-            .addClasses(Ping.class, PingsListener.class, AutomaticTimerBean.class);
+            .addClasses(WithinWindowMatcher.class, Ping.class, PingsListener.class, AutomaticTimerBean.class);
     }
 
     @Test
@@ -52,20 +53,4 @@ public class AutomaticTimerBeanTest {
         System.out.println("Actual timeout = " + delay);
         assertThat(delay, is(withinWindow(TIMEOUT, TOLERANCE)));
     }
-
-    private Matcher<Long> withinWindow(final long timeout, final long tolerance) {
-        return new BaseMatcher<Long>() {
-            @Override
-            public boolean matches(Object item) {
-                final Long actual = (Long) item;
-                return Math.abs(actual - timeout) < tolerance;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-    }
-
 }

@@ -1,7 +1,5 @@
 package org.javaee7.ejb.timer;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -19,6 +17,7 @@ import static com.jayway.awaitility.Awaitility.to;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.javaee7.ejb.timer.WithinWindowMatcher.withinWindow;
 
 /**
  * author: Jacek Jackowiak
@@ -40,7 +39,7 @@ public class SchedulesTimerBeanTest {
 
         return ShrinkWrap.create(WebArchive.class)
             .addAsLibraries(jars)
-            .addClasses(Ping.class, PingsListener.class, SchedulesTimerBean.class);
+            .addClasses(WithinWindowMatcher.class, Ping.class, PingsListener.class, SchedulesTimerBean.class);
     }
 
     @Test
@@ -58,20 +57,4 @@ public class SchedulesTimerBeanTest {
         long smallerDelay = Math.min(delay, delay2);
         assertThat(smallerDelay, is(withinWindow(TIMEOUT, TOLERANCE)));
     }
-
-    private Matcher<Long> withinWindow(final long timeout, final long tolerance) {
-        return new BaseMatcher<Long>() {
-            @Override
-            public boolean matches(Object item) {
-                final Long actual = (Long) item;
-                return Math.abs(actual - timeout) < tolerance;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-    }
-
 }
