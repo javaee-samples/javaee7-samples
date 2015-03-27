@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.*;
  * author: Jakub Marchwicki
  */
 @RunWith(Arquillian.class)
-public class TimerSessionBeanTest {
+public class AutomaticTimerBeanTest {
 
     final static long TIMEOUT = 5000l;
     final static long TOLERANCE = 1000l;
@@ -38,7 +38,7 @@ public class TimerSessionBeanTest {
 
         return ShrinkWrap.create(WebArchive.class)
             .addAsLibraries(jars)
-            .addClasses(Ping.class, PingsListener.class, TimerSessionBean.class);
+            .addClasses(Ping.class, PingsListener.class, AutomaticTimerBean.class);
     }
 
     @Test
