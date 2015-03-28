@@ -20,11 +20,11 @@ public class ProgrammaticTimerBean {
     TimerService timerService;
 
     @PostConstruct
-    public void initialize(){
-        ScheduleExpression scheduleExpression = new ScheduleExpression();
-        scheduleExpression.hour("*");
-        scheduleExpression.minute("*");
-        scheduleExpression.second("*/5");
+    public void initialize() {
+        ScheduleExpression scheduleExpression = new ScheduleExpression()
+                .hour("*")
+                .minute("*")
+                .second("*/5");
 
         TimerConfig timerConfig = new TimerConfig();
         timerConfig.setInfo("Every 5 second timer");
