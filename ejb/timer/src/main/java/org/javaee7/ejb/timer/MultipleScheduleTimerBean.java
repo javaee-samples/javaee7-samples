@@ -18,12 +18,12 @@ public class MultipleScheduleTimerBean {
     Event<Ping> pingEvent;
 
     @Schedule(hour = "*", minute = "*", second = "*/5", info = "Every 5 second timer")
-    public void automaticallyScheduled(Timer timer) {
+    public void fastAutomaticallyScheduled(Timer timer) {
         fireEvent(timer);
     }
 
     @Schedule(hour = "*", minute = "*", second = "*/10", info = "Every 10 second timer")
-    public void automaticallyScheduled2(Timer timer) {
+    public void slowlyAutomaticallyScheduled(Timer timer) {
         fireEvent(timer);
     }
 
