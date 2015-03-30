@@ -15,7 +15,7 @@ import java.util.Collection;
  */
 @Startup
 @Singleton
-public class TimerSessionBean {
+public class AutomaticTimerBean {
 
     @Resource
     SessionContext ctx;
