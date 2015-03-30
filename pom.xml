@@ -729,7 +729,7 @@
                             <arq.container.wildfly-docker.configuration.password>Admin#70365</arq.container.wildfly-docker.configuration.password>
                             <arq.extension.docker.serverVersion>1.15</arq.extension.docker.serverVersion>
                             <!--<arq.extension.docker.serverUri>http://192.168.59.103:2376</arq.extension.docker.serverUri>-->
-                            <arq.extension.docker.serverUri>http://boot2docker:2376</arq.extension.docker.serverUri>
+                            <arq.extension.docker.serverUri>http://127.0.0.1:2375</arq.extension.docker.serverUri>
                             <arq.extension.docker.dockerContainers>
                                 wildfly-docker:
                                     image: arungupta/javaee7-samples-wildfly

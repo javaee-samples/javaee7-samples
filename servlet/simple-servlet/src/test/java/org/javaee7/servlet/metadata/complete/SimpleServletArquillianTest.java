@@ -1,7 +1,6 @@
 package org.javaee7.servlet.metadata.complete;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.gargoylesoftware.htmlunit.*;
@@ -37,11 +36,8 @@ public class SimpleServletArquillianTest {
     }
     
     @Before
-    public void setup() throws MalformedURLException {
+    public void setup() {
         webClient = new WebClient();
-        if (base == null) {
-            base = new URL(System.getProperty("test.url"));
-        }
     }
 
     @Test
