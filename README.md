@@ -8,6 +8,8 @@ Some samples/tests have documentation otherwise read the code. The [Java EE 7 Es
 
 Samples are tested on Wildfly and GlassFish using the Arquillian ecosystem.
 
+A brief instruction how to clone, build, import and run the samples on your local machine @radcortez provides in this sample video https://www.youtube.com/watch?v=BB4b-Yz9cF0
+
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
 There are 4 available container profiles:

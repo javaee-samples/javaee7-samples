@@ -14,15 +14,18 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 import java.io.File;
 
-import static com.jayway.awaitility.Awaitility.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static com.jayway.awaitility.Awaitility.await;
+import static com.jayway.awaitility.Awaitility.to;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.javaee7.ejb.timer.WithinWindowMatcher.withinWindow;
 
 /**
- * author: Jakub Marchwicki
+ * author: Jacek Jackowiak
  */
 @RunWith(Arquillian.class)
-public class TimerSessionBeanTest {
+public class ProgrammaticTimerBeanTest {
 
     final static long TIMEOUT = 5000l;
     final static long TOLERANCE = 1000l;
@@ -33,12 +36,12 @@ public class TimerSessionBeanTest {
     @Deployment
     public static WebArchive deploy() {
         File[] jars = Maven.resolver().loadPomFromFile("pom.xml")
-            .resolve("com.jayway.awaitility:awaitility")
-            .withTransitivity().asFile();
+                .resolve("com.jayway.awaitility:awaitility")
+                .withTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class)
-            .addAsLibraries(jars)
-            .addClasses(Ping.class, PingsListener.class, TimerSessionBean.class);
+                .addAsLibraries(jars)
+                .addClasses(WithinWindowMatcher.class, Ping.class, PingsListener.class, ProgrammaticTimerBean.class);
     }
 
     @Test
@@ -52,20 +55,4 @@ public class TimerSessionBeanTest {
         System.out.println("Actual timeout = " + delay);
         assertThat(delay, is(withinWindow(TIMEOUT, TOLERANCE)));
     }
-
-    private Matcher<Long> withinWindow(final long timeout, final long tolerance) {
-        return new BaseMatcher<Long>() {
-            @Override
-            public boolean matches(Object item) {
-                final Long actual = (Long) item;
-                return Math.abs(actual - timeout) < tolerance;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-    }
-
 }
