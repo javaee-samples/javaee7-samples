@@ -12,7 +12,7 @@
         <java.min.version>1.7</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.jboss.arquillian.version>1.1.1.Final</org.jboss.arquillian.version>
+        <org.jboss.arquillian.version>1.1.7.Final</org.jboss.arquillian.version>
         <org.jboss.arquillian.drone.version>1.3.0.Final</org.jboss.arquillian.drone.version>
         <org.jboss.arquillian.selenium.bom.version>2.40.0</org.jboss.arquillian.selenium.bom.version>
         <org.jboss.arquillian.graphene.version>2.0.2.Final</org.jboss.arquillian.graphene.version>
@@ -747,70 +747,111 @@
             </build>
         </profile>
         <profile>
-            <id>wildfly-docker-arquillian-maven</id>
+            <id>wildfly-docker-maven</id>
             <properties>
-                <browser>chromium-browser</browser>
-                <serverProfile>standalone-full.xml</serverProfile>
-                <serverRoot>${project.build.directory}/wildfly-${org.wildfly}</serverRoot>
+                <docker.api.host>localhost</docker.api.host>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.arquillian.cube</groupId>
-                    <artifactId>arquillian-cube-docker</artifactId>
-                    <version>${org.jboss.arquillian.cube.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>io.undertow</groupId>
-                    <artifactId>undertow-websockets-jsr</artifactId>
-                    <version>1.0.0.Beta25</version>
-                    <scope>test</scope>
-                </dependency>
-                <!--                <dependency>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-client</artifactId>
-                    <version>3.0.5.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-jaxb-provider</artifactId>
-                    <version>3.0.5.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-json-p-provider</artifactId>
-                    <version>3.0.5.Final</version>
-                    <scope>test</scope>
-                </dependency>-->
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${org.wildfly}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
             <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
                 <plugins>
                     <plugin>
                         <groupId>org.jolokia</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.10.4</version>
+                        <version>0.11.3-SNAPSHOT</version>
                         <configuration>
                             <images>
                                 <image>
-                                    <name>arungupta/wildfly-centos</name>
+                                    <name>${project.groupId}/${project.artifactId}</name>
+                                    <alias>wildfly</alias>
+                                    <!-- How to build image with servlet included -->
+                                    <build>
+                                        <!-- Base image (aka "USE") -->
+                                        <from>arungupta/javaee7-samples-wildfly</from>
+                                        <!-- Exposed ports -->
+                                        <ports>
+                                            <port>8080</port>
+                                            <port>9990</port>
+                                        </ports>
+                                        <!-- Describe what to put into the image with an assembly -->
+                                        <assembly>
+                                            <!-- The artefact will be copied there into the image -->
+                                            <basedir>/opt/wildfly/standalone/deployments</basedir>
+                                            <!-- Use the artifact (predefined descriptor) -->
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly>
+                                    </build>
+                                    <!-- How to run it for integration tests or "docker:start" and "docker:stop" -->
+                                    <run>
+                                        <ports>
+                                            <!-- Dynamically let Docker choose ports, store them in ${wildfly.http.port}
+                                                 and ${wildfly.admin.port} -->
+                                            <port>wildfly.http.port:8080</port>
+                                            <port>wildfly.admin.port:9990</port>
+                                        </ports>
+                                        <wait>
+                                            <!-- The plugin waits until this URL is reachable via HTTP ... -->
+                                            <url>http://${docker.api.host}:${wildfly.http.port}</url>
+                                            <!-- ... but at most 10 seconds -->
+                                            <time>10000</time>
+                                        </wait>
+                                    </run>
                                 </image>
                             </images>
                         </configuration>
+                        <executions>
+                            <!-- Hook this plugin into pre- and post-integration tests -->
+                            <execution>
+                                <id>start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
+
+                    <!-- Skip Arquillian Tests -->
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+
+                     <plugin>
+                         <artifactId>maven-failsafe-plugin</artifactId>
+                         <version>2.18.1</version>
+                         <configuration>
+                             <systemPropertyVariables>
+                                 <!-- In our example, since we use the "artifact" assembly descriptor ref, the WAR is
+                                      called like the artifacto ("simple-servlet.war") and hence the webapp context is
+                                      also the same -->
+                                 <test.url>http://${docker.api.host}:${wildfly.http.port}/${project.artifactId}</test.url>
+                             </systemPropertyVariables>
+                         </configuration>
+                         <!--  Boilerplate for enablign the failsafe tests (test classes need to end with "IT") -->
+                         <executions>
+                             <execution>
+                                 <id>integration-test</id>
+                                 <goals>
+                                     <goal>integration-test</goal>
+                                 </goals>
+                             </execution>
+                             <execution>
+                                 <id>verify</id>
+                                 <goals>
+                                     <goal>verify</goal>
+                                 </goals>
+                             </execution>
+                         </executions>
+                     </plugin>
                 </plugins>
             </build>
         </profile>
