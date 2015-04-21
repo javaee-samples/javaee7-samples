@@ -12,7 +12,7 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 4 available container profiles:
+There are 5 available container profiles:
 
 * ``wildfly-managed-arquillian``
     
@@ -35,8 +35,45 @@ There are 4 available container profiles:
     This profile requires you to start up a GlassFish server outside of the build. Each sample will then
     reuse this instance to run the tests.
     Useful for development to avoid the server start up cost per sample.
+    
+* ``liberty-managed-arquillian``
 
-Each of the containers allow you to override the version used
+    This profile will start up the server per sample, and optionally connects to a running server that you
+    can start up outside of the build (with the restriction that this server has to run on the host as where
+    the tests are run using the same user).
+    
+    To connect to a running server the ``org.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer`` 
+    system property has to be set to true. E.g.
+    
+    ``-Dorg.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer=true``
+    
+    This profile requires you to set the location where Liberty is installed via the ``libertyManagedArquillian_wlpHome``
+    system property. E.g.
+    
+    ``-DlibertyManagedArquillian_wlpHome=/opt/wlp``
+    
+    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run at least the
+    javaee-7.0 feature and jaspic-1.1 (even though this is part of Java EE 7 already). E.g.
+    
+    ```xml
+    <featureManager>
+        <feature>javaee-7.0</feature>
+        <feature>jaspic-1.1</feature>
+        <feature>localConnector-1.0</feature>
+    </featureManager>
+    ```
+    
+    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a user in Liberty's internal user registry:
+    
+    ```xml
+    <basicRegistry id="basic">
+        <user name="test" password="not needed"/>
+        <group name="architect"/>
+    </basicRegistry>
+    ```
+    
+    
+Some of the containers allow you to override the version used
 
 * `-Dorg.wildfly=8.1.0.Final`
 

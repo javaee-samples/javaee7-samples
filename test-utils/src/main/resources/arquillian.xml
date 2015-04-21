@@ -15,4 +15,12 @@
         </configuration>
     </container>
 
+	<container qualifier="liberty-managed-arquillian">
+		<configuration>
+			<!-- Has to be "xml", otherwise user registry in server.xml won't be processed -->
+			<property name="deployType">xml</property>
+			<property name="wlpHome">${libertyManagedArquillian_wlpHome}</property>
+		</configuration>
+	</container>
+
 </arquillian>

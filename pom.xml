@@ -481,6 +481,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>wildfly-managed-arquillian</id>
             <properties>
@@ -574,6 +575,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>wildfly-remote-arquillian</id>
             <activation>
@@ -624,6 +626,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>jbosseap-remote-arquillian</id>
             <dependencies>
@@ -665,6 +668,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>glassfish-embedded-arquillian</id>
             <dependencies>
@@ -718,6 +722,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>glassfish-remote-arquillian</id>
             <dependencies>
@@ -777,6 +782,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>tomee-embedded-arquillian</id>
             <dependencies>
@@ -839,6 +845,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>tomee-remote-arquillian</id>
             <dependencies>
@@ -856,6 +863,33 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        <profile>
+            <id>liberty-managed-arquillian</id>
+            
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wlp-managed-8.5</artifactId>
+                    <version>1.0.0.Beta2</version>
+                </dependency>
+            </dependencies>
+            
+             <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>liberty-managed-arquillian</arquillian.launch>
+                                <useEarForJaspic>true</useEarForJaspic>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
 
         <!-- Browser profiles. Used for UI testing -->
         <profile>

@@ -1,11 +1,15 @@
 package org.javaee7.jaspic.common;
 
+import static java.lang.Boolean.getBoolean;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
@@ -23,12 +27,31 @@ public class ArquillianBase {
     private static final String WEBAPP_SRC = "src/main/webapp";
     private WebClient webClient;
 
-    public static WebArchive defaultArchive() {
-        return ShrinkWrap.create(WebArchive.class)
-            .addPackages(true, "org.javaee7.jaspic")
-            .addAsWebInfResource(resource("web.xml"))
-            .addAsWebInfResource(resource("jboss-web.xml"))
-            .addAsWebInfResource(resource("glassfish-web.xml"));
+    public static Archive<?> defaultArchive() {
+        
+        WebArchive webArchive = 
+            create(WebArchive.class, "test.war")
+                .addPackages(true, "org.javaee7.jaspic")
+                .addAsWebInfResource(resource("web.xml"))
+                .addAsWebInfResource(resource("jboss-web.xml"))
+                .addAsWebInfResource(resource("glassfish-web.xml"));
+        
+        if (getBoolean("useEarForJaspic")) {
+            return
+                // EAR archive
+                create(EnterpriseArchive.class, "test.ear")
+                
+                    // Liberty needs to have the binding file in an ear.
+                    .addAsManifestResource(resource("ibm-application-bnd.xml"))
+    
+                    // Web module
+                    // This is needed to prevent Arquillian generating an illegal application.xml
+                    .addAsModule(
+                        webArchive
+                    );	
+        } else {
+            return webArchive;
+        }
     }
 
     private static File resource(String name) {
