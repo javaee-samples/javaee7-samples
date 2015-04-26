@@ -72,6 +72,34 @@ There are 5 available container profiles:
     </basicRegistry>
     ```
     
+* ``weblogic-remote-arquillian``
+    
+    This profile requires you to start up a WebLogic server outside of the build. Each sample will then
+    reuse this instance to run the tests. NOTE: this has been tested on WebLogic 12.1.3, which is a Java EE 6 implementation,
+    but it has some Java EE 7 features which can be optionally activated.
+    
+    This profile requires you to set the location where WebLogic is installed via the ``weblogicRemoteArquillian_wlHome``
+    system property. E.g.
+    
+    ``-DweblogicRemoteArquillian_wlHome=/opt/wls12130``
+    
+    The default username/password are assumed to be "admin" and "admin007" respectively. This can be changed using the
+    ``weblogicRemoteArquillian_adminUserName`` and ``weblogicRemoteArquillian_adminPassword`` system properties. E.g.
+    
+    ``-DweblogicRemoteArquillian_adminUserName=myuser``
+    ``-DweblogicRemoteArquillian_adminPassword=mypassword``
+    
+    This profile also requires a library from your local WebLogic installation to be installed in your local Maven
+    repository:
+
+	cd into ``[wlHome]/wlserver/server/lib``
+
+	execute:
+
+	``mvn install:install-file -DgroupId=wlthint3client.jar -DartifactId=wlthint3client.jar -Dversion=12.1.3 -Dpackaging=jar -Dfile=wlthint3client.jar``
+    
+    
+    
     
 Some of the containers allow you to override the version used
 
