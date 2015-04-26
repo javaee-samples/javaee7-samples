@@ -15,12 +15,33 @@
         </configuration>
     </container>
 
-	<container qualifier="liberty-managed-arquillian">
-		<configuration>
-			<!-- Has to be "xml", otherwise user registry in server.xml won't be processed -->
-			<property name="deployType">xml</property>
-			<property name="wlpHome">${libertyManagedArquillian_wlpHome}</property>
-		</configuration>
-	</container>
+    <container qualifier="liberty-managed-arquillian">
+        <configuration>
+            <!-- Has to be "xml", otherwise user registry in server.xml won't be processed -->
+            <property name="deployType">xml</property>
+            <property name="wlpHome">${libertyManagedArquillian_wlpHome}</property>
+        </configuration>
+    </container>
+
+    <container qualifier="weblogic-remote-arquillian">
+        <configuration>
+            <property name="adminUrl">${adminUrl}</property>
+            <property name="adminUserName">${adminUserName}</property>
+            <property name="adminPassword">${adminPassword}</property>
+            <property name="target">${target}</property>
+
+            <property name="wlHome">${wlHome}</property>
+            
+            <!-- weblogicJarPath should be deduced automatically, but current WLS 
+                container uses following pattern: wlHome + server/lib/weblogic.jar, which 
+                misses "wlserver". -->
+            <property name="weblogicJarPath">${wlHome}/wlserver/server/lib/weblogic.jar</property>
+            
+            <!-- jmxClientJarPath should be deduced automatically, but current WLS 
+                container uses following pattern: wlHome + server/lib/wljmxclient.jar, which 
+                misses "wlserver". -->
+            <property name="jmxClientJarPath">${wlHome}/wlserver/server/lib/wljmxclient.jar</property>
+        </configuration>
+    </container>
 
 </arquillian>
