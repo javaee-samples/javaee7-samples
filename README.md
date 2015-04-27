@@ -89,18 +89,6 @@ There are 5 available container profiles:
     ``-DweblogicRemoteArquillian_adminUserName=myuser``
     ``-DweblogicRemoteArquillian_adminPassword=mypassword``
     
-    This profile also requires a library from your local WebLogic installation to be installed in your local Maven
-    repository:
-
-	cd into ``[wlHome]/wlserver/server/lib``
-
-	execute:
-
-	``mvn install:install-file -DgroupId=wlthint3client.jar -DartifactId=wlthint3client.jar -Dversion=12.1.3 -Dpackaging=jar -Dfile=wlthint3client.jar``
-    
-    
-    
-    
 Some of the containers allow you to override the version used
 
 * `-Dorg.wildfly=8.1.0.Final`

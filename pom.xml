@@ -915,13 +915,6 @@
 					<version>1.0.0.Alpha3</version>
 					<scope>test</scope>
 				</dependency>
-		
-				<dependency>
-					<groupId>wlthint3client.jar</groupId>
-					<artifactId>wlthint3client.jar</artifactId>
-					<version>12.1.3</version>
-					<scope>test</scope>
-				</dependency>
 			</dependencies>
 
 			<build>

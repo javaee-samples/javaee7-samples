@@ -31,10 +31,16 @@
 			<property name="target">${target}</property>
 
 			<property name="wlHome">${wlHome}</property>
+			
 			<!-- weblogicJarPath should be deduced automatically, but current WLS 
 				container uses following pattern: wlHome + server/lib/weblogic.jar, which 
 				misses "wlserver". -->
 			<property name="weblogicJarPath">${wlHome}/wlserver/server/lib/weblogic.jar</property>
+			
+			<!-- jmxClientJarPath should be deduced automatically, but current WLS 
+				container uses following pattern: wlHome + server/lib/wljmxclient.jar, which 
+				misses "wlserver". -->
+			<property name="jmxClientJarPath">${wlHome}/wlserver/server/lib/wljmxclient.jar</property>
 		</configuration>
 	</container>
 
