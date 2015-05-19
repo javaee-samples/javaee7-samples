@@ -26,16 +26,22 @@ public class ArquillianBase {
 
     private static final String WEBAPP_SRC = "src/main/webapp";
     private WebClient webClient;
-
+    
     public static Archive<?> defaultArchive() {
-        
-        WebArchive webArchive = 
+        return tryWrapEAR(defaultWebArchive());
+    }
+    
+    public static WebArchive defaultWebArchive() {
+        return 
             create(WebArchive.class, "test.war")
                 .addPackages(true, "org.javaee7.jaspic")
+                .deleteClass(ArquillianBase.class)
                 .addAsWebInfResource(resource("web.xml"))
                 .addAsWebInfResource(resource("jboss-web.xml"))
                 .addAsWebInfResource(resource("glassfish-web.xml"));
-        
+    }
+    
+    public static Archive<?> tryWrapEAR(WebArchive webArchive) {
         if (getBoolean("useEarForJaspic")) {
             return
                 // EAR archive
@@ -48,14 +54,18 @@ public class ArquillianBase {
                     // This is needed to prevent Arquillian generating an illegal application.xml
                     .addAsModule(
                         webArchive
-                    );	
+                    );  
         } else {
             return webArchive;
         }
     }
 
-    private static File resource(String name) {
+    public static File resource(String name) {
         return new File(WEBAPP_SRC + "/WEB-INF", name);
+    }
+    
+    public static File web(String name) {
+        return new File(WEBAPP_SRC, name);
     }
 
     @ArquillianResource
