@@ -39,6 +39,20 @@
         <!-- Like Servlet filters, a JASPIC SAM for the Servlet Profile can wrap the request and response. This tests that 
             this indeed happens. -->
         <module>wrapping</module>
+        
+         <!-- Like a Servlet a JASPIC SAM for the Servlet Profile can dispatch a request via a forward or include. This tests that 
+            this is indeed possible by using plain Servlets and nothing else. -->
+        <module>dispatching</module>
+        
+        <!-- Like a Servlet a JASPIC SAM for the Servlet Profile can dispatch a request via a forward or include. This tests that 
+            this is indeed possible by using Servlets that are injected with a CDI bean and JSF views. -->
+        <module>dispatching-jsf-cdi</module>
+        
+        <!-- Variant of basic-authentication that tests whether a custom principal that's set by a SAM is available
+             in a Servlet via HttpServletRequest#getUserPrincipal
+         -->
+        <module>custom-principal</module>
+        
     </modules>
 
     <dependencies>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<glassfish-web-app>
+
+    <security-role-mapping>
+        <role-name>architect</role-name>
+        <group-name>architect</group-name>
+    </security-role-mapping>
+
+    <parameter-encoding default-charset="UTF-8" />
+
+</glassfish-web-app>
