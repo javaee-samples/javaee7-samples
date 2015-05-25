@@ -10,9 +10,7 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -42,9 +40,7 @@ public class GreetingTest {
         assertThat(receiver, is(notNullValue()));
         assertThat(receiver, instanceOf(GreetingReceiver.class));
 
-        // default greet
-        assertEquals("Willkommen", receiver.getGreet());
-        // send a new greet
+        // send a new greet, default greet "Willkommen" should be overwritten
         sender.send("Welcome");
         // receiver must not belongs to the dependent pseudo-scope since we are checking the result
         assertEquals("Welcome", receiver.getGreet());
