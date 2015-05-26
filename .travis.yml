@@ -1,7 +1,6 @@
 language: java
-
 jdk:
   - oraclejdk8
   - oraclejdk7
 
-script: mvn clean install -Ptomee-embedded-arquillian
+script: travis_wait mvn -q --fail-at-end verify -Ptomee-embedded-arquillian
