@@ -36,6 +36,8 @@
         <module>nobeans-el-injection-flowscoped</module>
         <module>events</module>
         <module>events-conditional-reception</module>
+        <module>instance</module>
+        <module>instance-qualifiers</module>
     </modules>
 
     <dependencies>
