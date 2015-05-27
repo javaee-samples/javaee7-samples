@@ -5,4 +5,4 @@ jdk:
   
 install: mvn install --quiet -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
-script: travis_wait mvn --fail-at-end install -Ptomee-embedded-arquillian
+script: mvn --fail-at-end install -Ptomee-embedded-arquillian -B
