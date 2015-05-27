@@ -11,29 +11,30 @@ import org.junit.runner.RunWith;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Radim Hanus
  */
 @RunWith(Arquillian.class)
-public class GreetingTest {
+public class PersonalGreetingTest {
 	@Deployment
 	public static Archive<?> deploy() {
 		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class)
+				.addClasses(Greeting.class, SimpleGreeting.class, FormalGreeting.class, Business.class, Personal.class)
 				.addAsManifestResource("beans.xml");
 	}
 
-	@Inject
+	/**
+	 * Qualifier @Personal is not qualifying any bean.
+	 */
+	@Inject @Personal
 	private Instance<Greeting> instance;
 
 	@Test
 	public void test() throws Exception {
-		// there should be both request scoped bean instances available
-		assertThat(instance, containsInAnyOrder(instanceOf(SimpleGreeting.class), instanceOf(FancyGreeting.class)));
+		// no instance should be available
+		assertTrue(instance.isUnsatisfied());
 	}
 }
 
