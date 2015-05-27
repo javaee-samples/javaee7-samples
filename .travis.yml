@@ -3,7 +3,8 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk7
-  
+env: MAVEN_OPTS="-Dorg.slf4j.simpleLogger.defaultLogLevel=warn"
+
 install: mvn install --quiet -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script: mvn -q --fail-at-end install -Ptomee-embedded-arquillian -B 2>&1
