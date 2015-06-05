@@ -20,6 +20,7 @@
         <module>quartz</module>
         <module>twitter-search</module>
         <module>webjars</module>
+        <module>spock-tests</module>
     </modules>
     <dependencies>
         <dependency>

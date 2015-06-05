@@ -1,18 +1,17 @@
 package org.javaee7.servlet.filters
 
-import javax.ws.rs.client.Client
-import javax.ws.rs.client.ClientBuilder
-import javax.ws.rs.client.WebTarget
-import javax.ws.rs.core.Response
-
 import org.jboss.arquillian.container.test.api.Deployment
 import org.jboss.arquillian.spock.ArquillianSputnik
 import org.jboss.arquillian.test.api.ArquillianResource
 import org.jboss.shrinkwrap.api.ShrinkWrap
 import org.jboss.shrinkwrap.api.spec.WebArchive
 import org.junit.runner.RunWith
-
 import spock.lang.Specification
+
+import javax.ws.rs.client.Client
+import javax.ws.rs.client.ClientBuilder
+import javax.ws.rs.client.WebTarget
+import javax.ws.rs.core.Response
 
 @RunWith(ArquillianSputnik)
 class FilterServletSpecification extends Specification{
