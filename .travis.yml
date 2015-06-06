@@ -29,4 +29,4 @@ env:
   
 install: mvn install --quiet -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
-script: cd $TESTFOLDER && mvn -q --fail-at-end install -Pwildfly-embedded-arquillian -B 2>&1
+script: cd $TESTFOLDER && mvn -q --fail-at-end install -Pglassfish-embedded-arquillian -B 2>&1
