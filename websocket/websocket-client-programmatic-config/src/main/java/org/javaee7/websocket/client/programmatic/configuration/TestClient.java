@@ -43,7 +43,7 @@ public class TestClient extends HttpServlet {
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
 
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-            String uri = "ws://localhost:8080" + request.getContextPath() + "/websocket";
+            String uri = "ws://localhost:" + request.getLocalPort() + request.getContextPath() + "/websocket";
             out.println("Connecting to " + uri);
             container.connectToServer(MyClient.class,
                 ClientEndpointConfig.Builder.create().configurator(new MyConfigurator()).build(),
