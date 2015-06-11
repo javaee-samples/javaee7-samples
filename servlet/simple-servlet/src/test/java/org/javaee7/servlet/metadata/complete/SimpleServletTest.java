@@ -44,13 +44,13 @@ public class SimpleServletTest {
 
     @Test
     public void testGet() throws IOException, SAXException {
-        TextPage page = webClient.getPage(base + "/SimpleServlet");
+        TextPage page = webClient.getPage(base + "SimpleServlet");
         assertEquals("my GET", page.getContent());
     }
 
     @Test
     public void testPost() throws IOException, SAXException {
-        WebRequest request = new WebRequest(new URL(base + "/SimpleServlet"), HttpMethod.POST);
+        WebRequest request = new WebRequest(new URL(base + "SimpleServlet"), HttpMethod.POST);
         TextPage page = webClient.getPage(request);
         assertEquals("my POST", page.getContent());
     }
