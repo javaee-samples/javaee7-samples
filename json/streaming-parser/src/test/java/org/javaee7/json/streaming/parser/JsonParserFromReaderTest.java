@@ -37,6 +37,7 @@ public class JsonParserFromReaderTest {
         JsonParser parser = Json.createParser(new StringReader(json));
         assertEquals(JsonParser.Event.START_OBJECT, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
+        parser.close();
     }
 
     @Test
@@ -52,6 +53,7 @@ public class JsonParserFromReaderTest {
         assertEquals(JsonParser.Event.KEY_NAME, parser.next());
         assertEquals(JsonParser.Event.VALUE_STRING, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
+        parser.close();
     }
 
     @Test
@@ -68,6 +70,7 @@ public class JsonParserFromReaderTest {
         assertEquals(JsonParser.Event.VALUE_STRING, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
         assertEquals(JsonParser.Event.END_ARRAY, parser.next());
+        parser.close();
     }
 
     @Test
@@ -86,5 +89,6 @@ public class JsonParserFromReaderTest {
         assertEquals(JsonParser.Event.VALUE_STRING, parser.next());
         assertEquals(JsonParser.Event.END_ARRAY, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
+        parser.close();
     }
 }
