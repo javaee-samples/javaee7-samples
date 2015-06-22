@@ -46,7 +46,7 @@ public class UserTest {
     @Before
     public void setup() throws IOException {
         webClient = new WebClient();
-        page = webClient.getPage(base + "/faces/index.xhtml");
+        page = webClient.getPage((base + "/faces/index.xhtml").replace("//faces", "/faces"));
     }
 
     @Test
