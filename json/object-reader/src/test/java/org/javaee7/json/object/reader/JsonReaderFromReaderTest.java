@@ -42,6 +42,7 @@ public class JsonReaderFromReaderTest {
 
         assertNotNull(json);
         assertTrue(json.isEmpty());
+        jsonReader.close();
     }
 
     @Test
@@ -58,6 +59,7 @@ public class JsonReaderFromReaderTest {
         assertEquals("red", json.getString("apple"));
         assertTrue(json.containsKey("banana"));
         assertEquals("yellow", json.getString("banana"));
+        jsonReader.close();
     }
 
     @Test
@@ -72,6 +74,7 @@ public class JsonReaderFromReaderTest {
 
         JSONAssert.assertEquals("{\"apple\":\"red\"}", jsonArr.get(0).toString(), JSONCompareMode.STRICT);
         JSONAssert.assertEquals("{\"banana\":\"yellow\"}", jsonArr.get(1).toString(), JSONCompareMode.STRICT);
+        jsonReader.close();
     }
 
     @Test
@@ -103,5 +106,6 @@ public class JsonReaderFromReaderTest {
             + "    \"Laurence Fishburne\","
             + "    \"Carrie-Anne Moss\""
             + "  ]", jsonArr.toString(), JSONCompareMode.STRICT);
+        jsonReader.close();
     }
 }
