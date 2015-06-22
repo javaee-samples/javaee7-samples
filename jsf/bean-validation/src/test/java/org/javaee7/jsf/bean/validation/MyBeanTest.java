@@ -54,7 +54,7 @@ public class MyBeanTest {
     @Before
     public void setup() throws IOException {
         webClient = new WebClient();
-        page = webClient.getPage(base + "/faces/index.xhtml");
+        page = webClient.getPage((base + "/faces/index.xhtml").replace("//faces", "/faces"));
         nameInputText = (HtmlTextInput) page.getElementById("nameInputText");
         ageInputText = (HtmlTextInput) page.getElementById("ageInputText");
         zipInputText = (HtmlTextInput) page.getElementById("zipInputText");
