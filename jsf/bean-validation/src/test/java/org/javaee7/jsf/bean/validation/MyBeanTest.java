@@ -68,7 +68,7 @@ public class MyBeanTest {
         zipInputText.setText("12345");
         HtmlPage result = button.click();
         HtmlSpan span = (HtmlSpan) result.getElementById("nameMessage");
-        assertEquals("At least 3 characters", span.asText());
+        assertEquals("nameInputText: At least 3 characters", span.asText());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class MyBeanTest {
         zipInputText.setText("12345");
         HtmlPage result = button.click();
         HtmlSpan span = (HtmlSpan) result.getElementById("ageMessage");
-        assertEquals("must be greater than or equal to 18", span.asText());
+        assertEquals("ageInputText: must be greater than or equal to 18", span.asText());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class MyBeanTest {
         zipInputText.setText("12345");
         HtmlPage result = button.click();
         HtmlSpan span = (HtmlSpan) result.getElementById("ageMessage");
-        assertEquals("must be less than or equal to 25", span.asText());
+        assertEquals("ageInputText: must be less than or equal to 25", span.asText());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class MyBeanTest {
         zipInputText.setText("abcde");
         HtmlPage result = button.click();
         HtmlSpan span = (HtmlSpan) result.getElementById("zipMessage");
-        assertEquals("must match \"[0-9]{5}\"", span.asText());
+        assertEquals("zipInputText: must match the following regular expression: [0-9]{5}", span.asText());
     }
 
     @Test
@@ -138,7 +138,7 @@ public class MyBeanTest {
         zipInputText.setText("1234");
         HtmlPage result = button.click();
         HtmlSpan span = (HtmlSpan) result.getElementById("zipMessage");
-        assertEquals("must match \"[0-9]{5}\"", span.asText());
+        assertEquals("zipInputText: must match the following regular expression: [0-9]{5}", span.asText());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class MyBeanTest {
         zipInputText.setText("123456");
         HtmlPage result = button.click();
         HtmlSpan span = (HtmlSpan) result.getElementById("zipMessage");
-        assertEquals("must match \"[0-9]{5}\"", span.asText());
+        assertEquals("zipInputText: must match the following regular expression: [0-9]{5}", span.asText());
     }
 
     @Test
