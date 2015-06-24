@@ -8,20 +8,20 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Inject;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * @author Radim Hanus
  */
 @RunWith(Arquillian.class)
-public class GreetingTest {
+public class AnyGreetingTest {
 	@Deployment
 	public static Archive<?> deploy() {
 		return ShrinkWrap.create(JavaArchive.class)
@@ -30,13 +30,13 @@ public class GreetingTest {
 	}
 
 	/**
-	 * Container will assume built-in @Default qualifier here as well as for beans that don't declare a qualifier.
+	 * Built-in qualifier @Any is assumed on each bean regardless other qualifiers specified.
 	 */
-	@Inject
+	@Inject @Any
 	private Instance<Greeting> instance;
 
 	/**
-	 * Only instance of SimpleGreeting class should be available.<br/>
+	 * Both bean instances of Greeting interface should be available.<br/>
 	 *
 	 * When dependent scoped bean is retrieved via an instance then explicit destroy action should be taken.
 	 * This is a known memory leak in CDI 1.0 fixed in CDI 1.1 see the link bellow for details.
@@ -46,17 +46,16 @@ public class GreetingTest {
 	@Test
 	public void test() throws Exception {
 		assertFalse(instance.isUnsatisfied());
-		assertFalse(instance.isAmbiguous());
-
-		// use Instance<T>#get()
-		Greeting bean = instance.get();
-		assertThat(bean, instanceOf(SimpleGreeting.class));
-		instance.destroy(bean);
+		assertTrue(instance.isAmbiguous());
 
 		// use Instance<T>#select()
-		Greeting anotherBean = instance.select(new AnnotationLiteral<Default>() {}).get();
-		assertThat(anotherBean, instanceOf(SimpleGreeting.class));
-		instance.destroy(anotherBean);
+		Greeting businessBean = instance.select(new AnnotationLiteral<Business>() {}).get();
+		assertThat(businessBean, instanceOf(FormalGreeting.class));
+		instance.destroy(businessBean);
+
+		Greeting defaultBean = instance.select(new AnnotationLiteral<Default>() {}).get();
+		assertThat(defaultBean, instanceOf(SimpleGreeting.class));
+		instance.destroy(defaultBean);
 	}
 }
 
