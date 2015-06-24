@@ -12,7 +12,8 @@
     <artifactId>hbase</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    
+    <name>Java EE 7 Samples: extras - nosql: hbase</name>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.hadoop</groupId>

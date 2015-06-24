@@ -136,10 +136,6 @@ When developing and runing them from IDE, remember to activate the profile befor
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
 
-### Importing in Eclipse ###
-
-To import the samples in an Eclipse workspace, please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
-
 ## How to contribute ##
 
 With your help we can improve this set of samples, learn from each other and grow the community full of passionate people who care about the technology, innovation and code quality. Every contribution matters!
@@ -148,7 +144,9 @@ There is just a bunch of things you should keep in mind before sending a pull re
 
 Standard tests are jUnit based - for example [this commit](servlet/servlet-filters/src/test/java/org/javaee7/servlet/filters/FilterServletTest.java). Test classes naming must comply with surefire naming standards `**/*Test.java`, `**/*Test*.java` or `**/*TestCase.java`.
 
-However, if you fancy something new, hip and fashionable we also accept Spock specifications - [like here](/servlet/servlet-filters/src/test/groovy/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The spec files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+However, if you fancy something new, hip and fashionable it is perfectly legal to write  Spock specifications as standard JavaEE integration test. For the sake of clarity and consistency, to minimize the upfront complexity, in this project we prefare standard jUnit test. However, some Spock example are provided in the `extra/spock-tests` folder  - [like here](extra/spock-tests/src/test/java/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The `spock-tests` project also showcases the Maven configuration. In this particular case the Groovy Specification files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+
+The extras folder is not included by default, to limit Groovy dependency. If you want to import the extra samples in an Eclipse workspace (including the Spock tests), please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
 
 ### Some coding principles ###
 
