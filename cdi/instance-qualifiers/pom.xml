@@ -12,6 +12,6 @@
 	</parent>
 
 	<artifactId>cdi-instance-qualifiers</artifactId>
-	<name>Java EE 7 Sample: cdi/instance-qualifiers</name>
+	<name>Java EE 7 Sample: cdi - instance-qualifiers</name>
 
 </project>
