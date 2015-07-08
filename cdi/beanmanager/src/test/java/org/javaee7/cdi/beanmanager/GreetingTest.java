@@ -50,7 +50,7 @@ public class GreetingTest {
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void testJNDI() throws Exception {
 		// Third way to get BeanManager: name service
 		BeanManager bm = InitialContext.doLookup("java:comp/BeanManager");
 
