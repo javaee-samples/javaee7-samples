@@ -11,6 +11,6 @@
 	</parent>
 
 	<artifactId>cdi-instance</artifactId>
-	<name>Java EE 7 Sample: cdi/instance</name>
+	<name>Java EE 7 Sample: cdi - instance</name>
 
 </project>

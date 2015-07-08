@@ -9,5 +9,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
     <artifactId>cdi-events-conditional-reception</artifactId>
-    <name>Java EE 7 Sample: conditional reception of cdi events</name>
+    <name>Java EE 7 Sample: cdi - events-conditional-reception</name>
 </project>

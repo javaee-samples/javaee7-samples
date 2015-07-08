@@ -1,4 +1,4 @@
-package org.javaee7.cdisamples.beanmanager;
+package org.javaee7.cdi.beanmanager;
 
 /**
  * @author Arun Gupta
