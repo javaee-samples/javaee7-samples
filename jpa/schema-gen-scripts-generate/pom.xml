@@ -13,4 +13,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jpa - schema-gen-scripts-generate</name>
+    <build>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
 </project>
