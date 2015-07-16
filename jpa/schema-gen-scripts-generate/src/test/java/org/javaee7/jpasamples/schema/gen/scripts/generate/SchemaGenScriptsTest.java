@@ -14,6 +14,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,27 +23,30 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(Arquillian.class)
 public class SchemaGenScriptsTest {
+
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-            .addPackage("org.javaee7.jpasamples.schema.gen.scripts.generate")
-            .addAsResource("META-INF/persistence.xml");
+                .addPackage("org.javaee7.jpasamples.schema.gen.scripts.generate")
+                .addAsResource("META-INF/persistence.xml");
         System.out.println(war.toString(true));
         return war;
     }
 
     @After
     public void tearDown() throws Exception {
-        new File("/tmp/create.sql").delete();
-        new File("/tmp/drop.sql").delete();
+        System.out.println(new File("target/create-script.sql").getAbsolutePath());
+        new File("target/create-script.sql").delete();
+        new File("target/drop-script.sql").delete();
     }
 
     @Test
+    @RunAsClient
     public void testSchemaGenIndex() throws Exception {
-        Path create = Paths.get("/tmp/create.sql");
+        Path create = Paths.get("target","create-script.sql");
         assertTrue(Files.exists(create));
 
-        Path drop = Paths.get("/tmp/drop.sql");
+        Path drop = Paths.get("target","drop-script.sql");
         assertTrue(Files.exists(create));
 
         String line;
