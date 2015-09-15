@@ -15,7 +15,7 @@ public class SimpleServletContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Servlet context initialized: " + sce.getServletContext().getContextPath());
         ServletRegistration.Dynamic registration = sce.getServletContext().addServlet("dynamic", DynamicServlet.class);
-        registration.addMapping("dynamic");
+        registration.addMapping("/dynamic");
     }
 
     @Override
