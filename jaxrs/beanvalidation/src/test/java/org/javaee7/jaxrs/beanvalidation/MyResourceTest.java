@@ -33,8 +33,9 @@ public class MyResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyApplication.class, MyResource.class);
+            .addClasses(MyApplication.class, MyResource.class);
     }
+
     private static WebTarget target;
 
     @ArquillianResource

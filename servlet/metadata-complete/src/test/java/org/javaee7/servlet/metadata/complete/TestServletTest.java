@@ -28,17 +28,17 @@ public class TestServletTest {
 
     @ArquillianResource
     private URL base;
-    
+
     WebClient webClient;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(TestServlet.class).
-                addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
+            addClass(TestServlet.class).
+            addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
         return war;
     }
-    
+
     @Before
     public void setup() {
         webClient = new WebClient();
@@ -46,13 +46,13 @@ public class TestServletTest {
 
     @Test
     public void testGet() throws IOException, SAXException {
-        TextPage page = webClient.getPage(base + "/TestServlet");
+        TextPage page = webClient.getPage(base + "TestServlet");
         assertEquals("my GET", page.getContent());
     }
 
     @Test
     public void testPost() throws IOException, SAXException {
-        WebRequest request = new WebRequest(new URL(base + "/TestServlet"), HttpMethod.POST);
+        WebRequest request = new WebRequest(new URL(base + "TestServlet"), HttpMethod.POST);
         TextPage page = webClient.getPage(request);
         assertEquals("my POST", page.getContent());
     }

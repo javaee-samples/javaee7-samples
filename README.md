@@ -8,9 +8,11 @@ Some samples/tests have documentation otherwise read the code. The [Java EE 7 Es
 
 Samples are tested on Wildfly and GlassFish using the Arquillian ecosystem.
 
+A brief instruction how to clone, build, import and run the samples on your local machine @radcortez provides in this sample video https://www.youtube.com/watch?v=BB4b-Yz9cF0
+
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 4 available container profiles:
+There are 5 available container profiles:
 
 * ``wildfly-managed-arquillian``
     
@@ -33,6 +35,69 @@ There are 4 available container profiles:
     This profile requires you to start up a GlassFish server outside of the build. Each sample will then
     reuse this instance to run the tests.
     Useful for development to avoid the server start up cost per sample.
+    
+* ``liberty-managed-arquillian``
+
+    This profile will start up the server per sample, and optionally connects to a running server that you
+    can start up outside of the build (with the restriction that this server has to run on the host as where
+    the tests are run using the same user).
+    
+    To connect to a running server the ``org.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer`` 
+    system property has to be set to true. E.g.
+    
+    ``-Dorg.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer=true``
+    
+    This profile requires you to set the location where Liberty is installed via the ``libertyManagedArquillian_wlpHome``
+    system property. E.g.
+    
+    ``-DlibertyManagedArquillian_wlpHome=/opt/wlp``
+    
+    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run at least the
+    javaee-7.0 feature and jaspic-1.1 (even though this is part of Java EE 7 already). E.g.
+    
+    ```xml
+    <featureManager>
+        <feature>javaee-7.0</feature>
+        <feature>jaspic-1.1</feature>
+        <feature>localConnector-1.0</feature>
+    </featureManager>
+    ```
+    
+    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a user in Liberty's internal user registry:
+    
+    ```xml
+    <basicRegistry id="basic">
+        <user name="test" password="not needed"/>
+        <group name="architect"/>
+    </basicRegistry>
+    ```
+    
+* ``weblogic-remote-arquillian``
+    
+    This profile requires you to start up a WebLogic server outside of the build. Each sample will then
+    reuse this instance to run the tests. NOTE: this has been tested on WebLogic 12.1.3, which is a Java EE 6 implementation,
+    but it has some Java EE 7 features which can be optionally activated.
+    
+    This profile requires you to set the location where WebLogic is installed via the ``weblogicRemoteArquillian_wlHome``
+    system property. E.g.
+    
+    ``-DweblogicRemoteArquillian_wlHome=/opt/wls12130``
+    
+    The default username/password are assumed to be "admin" and "admin007" respectively. This can be changed using the
+    ``weblogicRemoteArquillian_adminUserName`` and ``weblogicRemoteArquillian_adminPassword`` system properties. E.g.
+    
+    ``-DweblogicRemoteArquillian_adminUserName=myuser``
+    ``-DweblogicRemoteArquillian_adminPassword=mypassword``
+    
+Some of the containers allow you to override the version used
+
+* `-Dorg.wildfly=8.1.0.Final`
+
+    This will change the version from 8.0.0 to 8.1.0.Final for WildFly.
+
+* `-Dglassfish.version=4.1`
+
+    This will change the version from 4.0 to 4.1 for GlassFish testing purposes.
 
 Similarly, there are 6 profiles to choose a browser to test on:
 
@@ -71,10 +136,6 @@ When developing and runing them from IDE, remember to activate the profile befor
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
 
-### Importing in Eclipse ###
-
-To import the samples in an Eclipse workspace, please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
-
 ## How to contribute ##
 
 With your help we can improve this set of samples, learn from each other and grow the community full of passionate people who care about the technology, innovation and code quality. Every contribution matters!
@@ -83,7 +144,9 @@ There is just a bunch of things you should keep in mind before sending a pull re
 
 Standard tests are jUnit based - for example [this commit](servlet/servlet-filters/src/test/java/org/javaee7/servlet/filters/FilterServletTest.java). Test classes naming must comply with surefire naming standards `**/*Test.java`, `**/*Test*.java` or `**/*TestCase.java`.
 
-However, if you fancy something new, hip and fashionable we also accept Spock specifications - [like here](/servlet/servlet-filters/src/test/groovy/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The spec files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+However, if you fancy something new, hip and fashionable it is perfectly legal to write  Spock specifications as standard JavaEE integration test. For the sake of clarity and consistency, to minimize the upfront complexity, in this project we prefare standard jUnit test. However, some Spock example are provided in the `extra/spock-tests` folder  - [like here](extra/spock-tests/src/test/java/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The `spock-tests` project also showcases the Maven configuration. In this particular case the Groovy Specification files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+
+The extras folder is not included by default, to limit Groovy dependency. If you want to import the extra samples in an Eclipse workspace (including the Spock tests), please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
 
 ### Some coding principles ###
 
@@ -99,5 +162,29 @@ That's it! Welcome in the community!
 
 ## CI Job ##
 
-* [WildFly](https://arungupta.ci.cloudbees.com/job/javaee7-samples-on-wildfly-cb/)
-* [GlassFish](https://arungupta.ci.cloudbees.com/job/Java%20EE%207%20Samples%20on%20GlassFish-cb/)
+* [WildFly](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-wildfly-8.1/)
+* [GlassFish](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-glassfish-4.1/)
+* [TomEE](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-tomee-2.0/)
+
+## Run each sample in Docker
+
+* Install Docker client from http://boot2docker.io/
+* Build the sample that you want to run as
+  
+  ``mvn clean package -DskipTests``
+
+  For example:
+
+  ``mvn -f jaxrs/jaxrs-client/pom.xml clean package -DskipTests``
+
+* Change the second line in ``Dockerfile`` to specify the location of the generated WAR file
+* Run boot2docker and give the command
+
+  ``docker build -it -p 80:8080 javaee7-sample``
+
+* In a different shell, find out the IP address of the running container as:
+
+  ``boot2docker ip``
+
+* Access the sample as http://IP_ADDRESS:80/jaxrs-client/webresources/persons. The exact URL would differ based upon the sample.
+

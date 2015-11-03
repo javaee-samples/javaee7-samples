@@ -16,21 +16,21 @@ public class MyTaskTest {
 
     @Resource
     ManagedThreadFactory factory;
-    
+
     @Resource(name = "DefaultManagedThreadFactory")
     ManagedThreadFactory factory2;
-    
+
     /**
      * Test of run method, of class MyTask.
      * 
      * using JNDI lookup
      */
-//    @Test
+    //    @Test
     public void testJNDILookup() {
         try {
             InitialContext ctx = new InitialContext();
 
-//            ManagedExecutorService executor = (ManagedExecutorService) ctx.lookup("concurrent/myExecutor");
+            //            ManagedExecutorService executor = (ManagedExecutorService) ctx.lookup("concurrent/myExecutor");
             ManagedThreadFactory myFactory = (ManagedThreadFactory) ctx.lookup("java:comp/DefaultManagedThreadFactory");
             assertNotNull(myFactory);
             Thread thread = myFactory.newThread(new MyTask(1));
@@ -46,19 +46,19 @@ public class MyTaskTest {
      * 
      * using @Resource, with no name
      */
-//    @Test
+    //    @Test
     public void testResourceNoName() {
         Thread thread = factory.newThread(new MyTask(1));
         assertNotNull(thread);
         thread.start();
     }
-    
+
     /**
      * Test of run method, of class MyTask.
      * 
      * using @Resource, with no name
      */
-//    @Test
+    //    @Test
     public void testResourceWithName() {
         Thread thread = factory2.newThread(new MyTask(1));
         assertNotNull(thread);

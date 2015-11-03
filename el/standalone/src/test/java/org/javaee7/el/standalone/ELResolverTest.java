@@ -13,7 +13,6 @@ import javax.el.ELProcessor;
 
 import static org.junit.Assert.assertEquals;
 
-
 /**
  * @author Alexis Hassler
  */
@@ -24,6 +23,7 @@ public class ELResolverTest {
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class);
     }
+
     private ELProcessor elProcessor;
 
     @Before

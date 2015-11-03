@@ -16,5 +16,5 @@ public class AnotherObject {
     public void setValue(int value) {
         this.value = value;
     }
-    
+
 }

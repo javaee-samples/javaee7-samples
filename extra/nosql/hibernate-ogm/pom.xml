@@ -10,5 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hibernate-ogm</artifactId>
+    <name>Java EE 7 Samples: extras - nosql: hibernate-ogm</name>
 
 </project>

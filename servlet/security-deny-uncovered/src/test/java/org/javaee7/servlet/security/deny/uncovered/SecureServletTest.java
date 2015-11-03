@@ -35,14 +35,14 @@ public class SecureServletTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(SecureServlet.class)
-                .addAsResource(new File("src/main/resources/log4j.properties"))
-                .addAsWebInfResource((new File("src/main/webapp/WEB-INF/web.xml")));
-        
+            .addClass(SecureServlet.class)
+            .addAsResource(new File("src/main/resources/log4j.properties"))
+            .addAsWebInfResource((new File("src/main/webapp/WEB-INF/web.xml")));
+
         System.out.println(war.toString(true));
         return war;
     }
-    
+
     @BeforeClass
     public static void beforeSetup() {
         System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SimpleLog");

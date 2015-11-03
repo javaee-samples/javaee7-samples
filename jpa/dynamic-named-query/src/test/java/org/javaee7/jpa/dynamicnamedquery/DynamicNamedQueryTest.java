@@ -32,7 +32,7 @@ public class DynamicNamedQueryTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).addPackages(true, "org.javaee7.jpa.dynamicnamedquery")
-                .addAsResource("META-INF/persistence.xml");
+            .addAsResource("META-INF/persistence.xml");
     }
 
     @Test

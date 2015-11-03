@@ -1,12 +1,29 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <prerequisites>
+      <maven>${maven.min.version}</maven>
+    </prerequisites>
+
+    <reporting>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-report-plugin</artifactId>
+          <version>2.17</version>
+          <configuration>
+            <aggregate>true</aggregate>
+            <linkXRef>true</linkXRef>
+          </configuration>
+        </plugin>
+      </plugins>
+    </reporting>
+    <modelVersion>4.0.0</modelVersion>
     <groupId>org.javaee7</groupId>
-    <artifactId>javaee7-samples</artifactId>
+    <artifactId>samples-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 Samples</name>
+    <name>Java EE 7 Sample: javaee7-samples</name>
 
     <properties>
         <java.min.version>1.7</java.min.version>
@@ -16,22 +33,17 @@
         <org.jboss.arquillian.drone.version>1.3.0.Final</org.jboss.arquillian.drone.version>
         <org.jboss.arquillian.selenium.bom.version>2.40.0</org.jboss.arquillian.selenium.bom.version>
         <org.jboss.arquillian.graphene.version>2.0.2.Final</org.jboss.arquillian.graphene.version>
-        <org.jboss.arquillian.spock>1.0.0.Beta2</org.jboss.arquillian.spock>
-        <org.wildfly>8.0.0.Final</org.wildfly>
+        <org.wildfly>8.2.0.Final</org.wildfly>
         <org.jboss.eap>7.2.0.Final</org.jboss.eap>
         <!-- Plugin versions -->
         <plugin.enforcer.version>1.3.1</plugin.enforcer.version>
         <maven.test.skip>false</maven.test.skip>
         <hamcrest.version>1.3</hamcrest.version>
-        <spock.version>0.7-groovy-2.0</spock.version>
-        <groovy.version>2.1.5</groovy.version>
+        <glassfish.version>4.0</glassfish.version>
     </properties>
 
-    <prerequisites>
-      <maven>${maven.min.version}</maven>
-    </prerequisites>
-
     <modules>
+      <module>test-utils</module>
       <module>batch</module>
       <module>cdi</module>
       <module>concurrency</module>
@@ -87,8 +99,13 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-test-api</artifactId>
+                <version>${org.jboss.arquillian.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.javaee7</groupId>
-                <artifactId>util-samples</artifactId>
+                <artifactId>util</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <type>jar</type>
                 <scope>test</scope>
@@ -137,12 +154,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.spock</groupId>
-            <artifactId>arquillian-spock-container</artifactId>
-            <version>${org.jboss.arquillian.spock}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
@@ -156,18 +167,6 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>${spock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>${groovy.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -213,33 +212,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>codehaus-snapshots</id>
-            <name>Codehaus Snapshots</name>
-            <url>http://nexus.codehaus.org/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <repositories>
-        <repository>
-            <id>codehaus-snapshots</id>
-            <name>Codehaus Snapshots</name>
-            <url>http://nexus.codehaus.org/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -257,60 +229,7 @@
                 <configuration>
                     <source>${java.min.version}</source>
                     <target>${java.min.version}</target>
-                    <compilerId>groovy-eclipse-compiler</compilerId>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-eclipse-compiler</artifactId>
-                        <version>2.8.0-01</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-eclipse-batch</artifactId>
-                        <version>2.1.5-03</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-eclipse-compiler</artifactId>
-                <version>2.8.0-01</version>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.17</version>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <classpathDependencyExcludes>
-                                <classpathDependencyExcludes>org.jboss.arquillian.spock:arquillian-spock-container</classpathDependencyExcludes>
-                            </classpathDependencyExcludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>spock-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>**/*Specification.java</include>
-                            </includes>
-                            <classpathDependencyExcludes>
-                                <classpathDependencyExcludes>org.jboss.arquillian.junit:arquillian-junit-container</classpathDependencyExcludes>
-                            </classpathDependencyExcludes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -326,6 +245,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
                 <configuration>
+                    <attachClasses>true</attachClasses>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
@@ -353,6 +273,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.2.Final</version>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -364,21 +289,6 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <reporting>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-report-plugin</artifactId>
-          <version>2.17</version>
-          <configuration>
-            <aggregate>true</aggregate>
-            <linkXRef>true</linkXRef>
-          </configuration>
-        </plugin>
-      </plugins>
-    </reporting>
-
 
     <profiles>
         <profile>
@@ -465,6 +375,7 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <arquillian.launch>wildfly</arquillian.launch>
                             </systemPropertyVariables>
                             <environmentVariables>
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
@@ -474,6 +385,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>wildfly-managed-arquillian</id>
             <properties>
@@ -559,11 +471,15 @@
                             <environmentVariables>
                                 <JBOSS_HOME>${project.build.directory}/wildfly-${org.wildfly}</JBOSS_HOME>
                             </environmentVariables>
+                            <systemPropertyVariables>
+                                <arquillian.launch>wildfly</arquillian.launch>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>wildfly-remote-arquillian</id>
             <activation>
@@ -614,6 +530,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>jbosseap-remote-arquillian</id>
             <dependencies>
@@ -655,13 +572,14 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>glassfish-embedded-arquillian</id>
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish.main.extras</groupId>
                     <artifactId>glassfish-embedded-all</artifactId>
-                    <version>4.0</version>
+                    <version>${glassfish.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -708,6 +626,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>glassfish-remote-arquillian</id>
             <dependencies>
@@ -767,6 +686,190 @@
                 </testResources>
             </build>
         </profile>
+        
+        <profile>
+            <id>tomee-embedded-arquillian</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.tomee</groupId>
+                    <artifactId>arquillian-tomee-embedded</artifactId>
+                    <version>7.0.0-M1</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomee</groupId>
+                    <artifactId>tomee-embedded</artifactId>
+                    <version>7.0.0-M1</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomee</groupId>
+                    <artifactId>tomee-webservices</artifactId>
+                    <version>7.0.0-M1</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomee</groupId>
+                    <artifactId>tomee-jaxrs</artifactId>
+                    <version>7.0.0-M1</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.batchee</groupId>
+                    <artifactId>batchee-jbatch</artifactId>
+                    <version>0.2-incubating</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.johnzon</groupId>
+                    <artifactId>johnzon-core</artifactId>
+                    <version>0.1-incubating</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-el-api</artifactId>
+                    <version>8.0.14</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jasper-el</artifactId>
+                    <version>8.0.14</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-lang3</artifactId>
+                    <version>3.3.2</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javax.el.ExpressionFactory>org.apache.el.ExpressionFactoryImpl</javax.el.ExpressionFactory>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>tomee-remote-arquillian</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.openejb</groupId>
+                    <artifactId>arquillian-tomee-remote</artifactId>
+                    <version>2.0.0-SNAPSHOT</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openejb</groupId>
+                    <artifactId>apache-tomee</artifactId>
+                    <version>2.0.0-SNAPSHOT</version>
+                    <classifier>plus</classifier>
+                    <type>zip</type>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>liberty-managed-arquillian</id>
+            
+            <dependencies>
+		<dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wlp-managed-8.5</artifactId>
+                    <version>1.0.0.Beta2</version>
+		</dependency>		
+		<dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+		</dependency>		
+		<dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.json</artifactId>
+                    <version>1.0.4</version>
+                    <scope>test</scope>
+		</dependency>			
+		<dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-container-grizzly-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+                </dependency>
+		<dependency>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-client</artifactId>
+                    <version>2.4</version>
+                    <scope>test</scope>
+                </dependency>
+		<dependency>
+                    <groupId>org.glassfish.jersey.media</groupId>
+                    <artifactId>jersey-media-json-processing</artifactId>
+                    <version>2.4</version>
+                    <scope>test</scope>
+                </dependency>
+	     </dependencies>
+            
+             <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>liberty-managed-arquillian</arquillian.launch>
+                                <useEarForJaspic>true</useEarForJaspic>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>weblogic-remote-arquillian</id>
+        
+            <properties>
+                <!-- Default username/password that instructions in README.md ask to use 
+                    when starting up WebLogic for the first time. Note that WebLogic does not 
+                    have any default username/password of its own. -->
+                <weblogicRemoteArquillian_adminUserName>admin</weblogicRemoteArquillian_adminUserName>
+                <weblogicRemoteArquillian_adminPassword>admin007</weblogicRemoteArquillian_adminPassword>
+        
+                <!-- Default host and port when running WLS locally -->
+                <weblogicRemoteArquillian_adminUrl>t3://localhost:7001</weblogicRemoteArquillian_adminUrl>
+        
+                <!-- Default target after having installed developer zip distribution for 
+                    WebLogic -->
+                <weblogicRemoteArquillian_target>myserver</weblogicRemoteArquillian_target>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
+                    <version>1.0.0.Alpha3</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>weblogic-remote-arquillian</arquillian.launch>
+                                <wlHome>${weblogicRemoteArquillian_wlHome}</wlHome>
+                                <adminUrl>${weblogicRemoteArquillian_adminUrl}</adminUrl>
+                                <adminUserName>${weblogicRemoteArquillian_adminUserName}</adminUserName>
+                                <adminPassword>${weblogicRemoteArquillian_adminPassword}</adminPassword>
+                                <target>${weblogicRemoteArquillian_target}</target>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
 
         <!-- Browser profiles. Used for UI testing -->
         <profile>

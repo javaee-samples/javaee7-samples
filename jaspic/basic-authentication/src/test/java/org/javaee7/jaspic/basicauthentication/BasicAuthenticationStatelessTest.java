@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -22,10 +22,9 @@ import org.xml.sax.SAXException;
 public class BasicAuthenticationStatelessTest extends ArquillianBase {
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+    public static Archive<?> createDeployment() {
         return defaultArchive();
     }
-    
 
     /**
      * Tests that access to a protected page does not depend on the authenticated identity that was established in a previous
@@ -33,16 +32,14 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
      */
     @Test
     public void testProtectedAccessIsStateless() throws IOException, SAXException {
-        
 
         // -------------------- Request 1 ---------------------------
 
         // Accessing protected page without login
         String response = getFromServerPath("protected/servlet");
-        
+
         // Not logged-in thus should not be accessible.
         assertFalse(response.contains("This is a protected servlet"));
-        
 
         // -------------------- Request 2 ---------------------------
 
@@ -57,9 +54,8 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
 
         // Now has to be logged-in so page is accessible
         assertTrue("Could not access protected page, but should be able to. "
-                + "Did the container remember the previously set 'unauthenticated identity'?",
-                response.contains("This is a protected servlet"));
-        
+            + "Did the container remember the previously set 'unauthenticated identity'?",
+            response.contains("This is a protected servlet"));
 
         // -------------------- Request 3 ---------------------------
 
@@ -71,8 +67,8 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
 
         // Not logged-in thus should not be accessible.
         assertFalse("Could access protected page, but should not be able to. "
-                + "Did the container remember the authenticated identity that was set in previous request?", 
-                response.contains("This is a protected servlet"));
+            + "Did the container remember the authenticated identity that was set in previous request?",
+            response.contains("This is a protected servlet"));
     }
 
     /**
@@ -86,7 +82,6 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
 
         // Start with doing a login
         String response = getFromServerPath("protected/servlet?doLogin");
-        
 
         // -------------------- Request 2 ---------------------------
 
@@ -100,8 +95,8 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
 
         // Not logged-in thus should not be accessible.
         assertFalse("Could access protected page, but should not be able to. "
-                + "Did the container remember the authenticated identity that was set in previous request?", 
-                response.contains("This is a protected servlet"));
+            + "Did the container remember the authenticated identity that was set in previous request?",
+            response.contains("This is a protected servlet"));
     }
 
     /**
@@ -110,13 +105,11 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
      */
     @Test
     public void testUserIdentityIsStateless() throws IOException, SAXException {
-        
 
         // -------------------- Request 1 ---------------------------
 
         // Accessing protected page with login
         String response = getFromServerPath("protected/servlet?doLogin");
-        
 
         // -------------------- Request 2 ---------------------------
 
@@ -125,13 +118,13 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
 
         // No details should linger around
         assertFalse("User principal was 'test', but it should be null here. "
-                + "The container seemed to have remembered it from the previous request.",
-                response.contains("web username: test"));
+            + "The container seemed to have remembered it from the previous request.",
+            response.contains("web username: test"));
         assertTrue("User principal was not null, but it should be null here. ",
-                response.contains("web username: null"));
+            response.contains("web username: null"));
         assertTrue("The unauthenticated user has the role 'architect', which should not be the case. "
-                + "The container seemed to have remembered it from the previous request.",
-                response.contains("web user has role \"architect\": false"));
+            + "The container seemed to have remembered it from the previous request.",
+            response.contains("web user has role \"architect\": false"));
     }
 
 }

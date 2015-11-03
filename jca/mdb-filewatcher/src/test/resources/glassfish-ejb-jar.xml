@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<glassfish-ejb-jar>
+    <enterprise-beans>
+        <ejb>
+            <ejb-name>FileWatchingMDB</ejb-name>
+            <mdb-resource-adapter>
+                <resource-adapter-mid>test#fswatcher</resource-adapter-mid>
+            </mdb-resource-adapter>
+        </ejb>
+    </enterprise-beans>
+</glassfish-ejb-jar>

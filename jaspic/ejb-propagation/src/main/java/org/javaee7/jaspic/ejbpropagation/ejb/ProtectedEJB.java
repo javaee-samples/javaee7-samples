@@ -19,7 +19,6 @@ import javax.ejb.Stateless;
  * @author Arjan Tijms
  */
 @Stateless
-
 //Required by GlassFish
 @DeclareRoles({ "architect" })
 //JBoss EAP 6.1+ defaults unchecked methods to DenyAll

@@ -15,26 +15,16 @@ import javax.persistence.Table;
  * @author Arun Gupta
  */
 @Entity
-@Table(name = "EMPLOYEE_SCHEMA_GEN_INDEX", 
-        indexes = @Index(columnList="NAME"))
-@NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-})
+@Table(name = "EMPLOYEE_SCHEMA_GEN_INDEX", indexes = @Index(columnList = "NAME"))
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
-    @Column(length=40)
+
+    @Column(length = 40)
     private String name;
-    
-    public Employee() { }
-    
-    public Employee(String name) {
-        this.name = name;
-    }
-    
+
     public int getId() {
         return id;
     }

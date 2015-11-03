@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -23,28 +23,28 @@ import org.xml.sax.SAXException;
 public class WrappingTest extends ArquillianBase {
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+    public static Archive<?> createDeployment() {
         return defaultArchive();
     }
 
     @Test
     public void testRequestWrapping() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet");
 
         // The SAM wrapped a request so that it always contains the request attribute "isWrapped" with value true.
         assertTrue("Request wrapped by SAM did not arrive in Servlet.",
-                response.contains("request isWrapped: true"));
+            response.contains("request isWrapped: true"));
     }
 
     @Test
     public void testResponseWrapping() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet");
 
         // The SAM wrapped a response so that it always contains the header "isWrapped" with value true.
         assertTrue("Response wrapped by SAM did not arrive in Servlet.",
-                response.contains("response isWrapped: true"));
+            response.contains("response isWrapped: true"));
     }
 
 }

@@ -25,7 +25,7 @@ public class TestServerAuthConfig implements ServerAuthConfig {
     private ServerAuthModule serverAuthModule;
 
     public TestServerAuthConfig(String layer, String appContext, CallbackHandler handler,
-            Map<String, String> providerProperties, ServerAuthModule serverAuthModule) {
+        Map<String, String> providerProperties, ServerAuthModule serverAuthModule) {
         this.layer = layer;
         this.appContext = appContext;
         this.handler = handler;
@@ -35,7 +35,7 @@ public class TestServerAuthConfig implements ServerAuthConfig {
 
     @Override
     public ServerAuthContext getAuthContext(String authContextID, Subject serviceSubject,
-            @SuppressWarnings("rawtypes") Map properties) throws AuthException {
+        @SuppressWarnings("rawtypes") Map properties) throws AuthException {
         return new TestServerAuthContext(handler, serverAuthModule);
     }
 

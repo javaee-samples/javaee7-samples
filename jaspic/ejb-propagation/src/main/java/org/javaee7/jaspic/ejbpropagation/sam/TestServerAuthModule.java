@@ -34,13 +34,13 @@ public class TestServerAuthModule implements ServerAuthModule {
 
     @Override
     public void initialize(MessagePolicy requestPolicy, MessagePolicy responsePolicy, CallbackHandler handler,
-            @SuppressWarnings("rawtypes") Map options) throws AuthException {
+        @SuppressWarnings("rawtypes") Map options) throws AuthException {
         this.handler = handler;
     }
 
     @Override
     public AuthStatus validateRequest(MessageInfo messageInfo, Subject clientSubject, Subject serviceSubject)
-            throws AuthException {
+        throws AuthException {
 
         HttpServletRequest request = (HttpServletRequest) messageInfo.getRequestMessage();
 
@@ -49,7 +49,7 @@ public class TestServerAuthModule implements ServerAuthModule {
         if (request.getParameter("doLogin") != null) {
 
             callbacks = new Callback[] { new CallerPrincipalCallback(clientSubject, "test"),
-                    new GroupPrincipalCallback(clientSubject, new String[] { "architect" }) };
+                new GroupPrincipalCallback(clientSubject, new String[] { "architect" }) };
         } else {
 
             // The JASPIC protocol for "do nothing"

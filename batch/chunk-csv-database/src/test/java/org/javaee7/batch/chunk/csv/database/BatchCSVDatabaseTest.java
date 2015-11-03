@@ -69,14 +69,14 @@ public class BatchCSVDatabaseTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(BatchTestHelper.class)
-                .addPackage("org.javaee7.batch.chunk.csv.database")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsResource("META-INF/batch-jobs/myJob.xml")
-                .addAsResource("META-INF/persistence.xml")
-                .addAsResource("META-INF/create.sql")
-                .addAsResource("META-INF/drop.sql")
-                .addAsResource("META-INF/mydata.csv");
+            .addClass(BatchTestHelper.class)
+            .addPackage("org.javaee7.batch.chunk.csv.database")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml")
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/create.sql")
+            .addAsResource("META-INF/drop.sql")
+            .addAsResource("META-INF/mydata.csv");
         System.out.println(war.toString(true));
         return war;
     }
@@ -97,7 +97,7 @@ public class BatchCSVDatabaseTest {
         Long executionId = jobOperator.start("myJob", new Properties());
         JobExecution jobExecution = jobOperator.getJobExecution(executionId);
 
-        BatchTestHelper.keepTestAlive(jobExecution);
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {

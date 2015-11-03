@@ -12,8 +12,8 @@ import javax.jms.JMSDestinationDefinitions;
         name = Resources.REQUEST_QUEUE,
         resourceAdapter = "jmsra",
         interfaceName = "javax.jms.Queue",
-        destinationName="requestQueue",
-        description="Queue for service requests"),
+        destinationName = "requestQueue",
+        description = "Queue for service requests"),
 })
 public class Resources {
     public static final String REQUEST_QUEUE = "java:global/jms/requestQueue";

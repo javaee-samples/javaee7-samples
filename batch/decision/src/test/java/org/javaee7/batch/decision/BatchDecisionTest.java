@@ -32,8 +32,8 @@ import static org.junit.Assert.*;
  * include::myJob.xml[]
  *
  * Three Steps and one Decider are configured in the file +myJob.xml+. We start by executing one +step1+ and
- * hand over the control to the Decider, which will execute +step2+, since the Decider is always returning the value
- * +foobar+ which forwards the execution to +step2+.
+ * hand over the control to the Decider, which will execute +step3+, since the Decider is always returning the value
+ * +foobar+ which forwards the execution to +step3+.
  *
  * @author Roberto Cortez
  */
@@ -52,10 +52,10 @@ public class BatchDecisionTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClass(BatchTestHelper.class)
-                .addPackage("org.javaee7.batch.decision")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addClass(BatchTestHelper.class)
+            .addPackage("org.javaee7.batch.decision")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
@@ -73,7 +73,7 @@ public class BatchDecisionTest {
         Long executionId = jobOperator.start("myJob", new Properties());
         JobExecution jobExecution = jobOperator.getJobExecution(executionId);
 
-        BatchTestHelper.keepTestAlive(jobExecution);
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         List<String> executedSteps = new ArrayList<>();
@@ -84,7 +84,7 @@ public class BatchDecisionTest {
         // <1> Make sure that only two steps were executed.
         assertEquals(2, stepExecutions.size());
         // <2> Make sure that only the expected steps were executed an in order.
-        assertArrayEquals(new String[] {"step1", "step3"}, executedSteps.toArray());
+        assertArrayEquals(new String[] { "step1", "step3" }, executedSteps.toArray());
         // <3> Make sure that this step was never executed.
         assertFalse(executedSteps.contains("step2"));
         // <4> Job should be completed.

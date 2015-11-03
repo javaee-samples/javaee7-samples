@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
  */
 @RunWith(Arquillian.class)
 public class LoginServletTest {
-    
+
     private static final String WEBAPP_SRC = "src/main/webapp";
 
     @ArquillianResource
@@ -31,8 +31,8 @@ public class LoginServletTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class).
-                addClass(LoginServlet.class).
-                addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
+            addClass(LoginServlet.class).
+            addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
         return war;
     }
 
@@ -41,17 +41,16 @@ public class LoginServletTest {
         WebClient webClient = new WebClient();
         HtmlPage page = webClient.getPage(base + "/LoginServlet");
         String responseText = page.asText();
-        
-//        WebRequest request = new WebRequest(new URL(base + "/LoginServlet"), HttpMethod.GET);
-//        WebResponse response = webClient.getWebConnection().getResponse(request);
-//        String responseText = response.getContentAsString();
 
-        assert(responseText.contains("isUserInRole?false"));
-        assert(responseText.contains("getRemoteUser?null"));
-        assert(responseText.contains("getUserPrincipal?null"));
-        assert(responseText.contains("getAuthType?null"));
+        //        WebRequest request = new WebRequest(new URL(base + "/LoginServlet"), HttpMethod.GET);
+        //        WebResponse response = webClient.getWebConnection().getResponse(request);
+        //        String responseText = response.getContentAsString();
+
+        assert (responseText.contains("isUserInRole?false"));
+        assert (responseText.contains("getRemoteUser?null"));
+        assert (responseText.contains("getUserPrincipal?null"));
+        assert (responseText.contains("getAuthType?null"));
     }
-
 
     @Test
     public void testAuthenticatedRequest() throws IOException, SAXException {
@@ -60,10 +59,10 @@ public class LoginServletTest {
         WebResponse response = webClient.getWebConnection().getResponse(request);
         String responseText = response.getContentAsString();
         System.out.println(responseText);
-        
-        assert(responseText.contains("isUserInRole?true"));
-        assert(responseText.contains("getRemoteUser?u1"));
-        assert(responseText.contains("getUserPrincipal?u1"));
-        assert(responseText.contains("getAuthType?BASIC"));
+
+        assert (responseText.contains("isUserInRole?true"));
+        assert (responseText.contains("getRemoteUser?u1"));
+        assert (responseText.contains("getUserPrincipal?u1"));
+        assert (responseText.contains("getAuthType?BASIC"));
     }
 }

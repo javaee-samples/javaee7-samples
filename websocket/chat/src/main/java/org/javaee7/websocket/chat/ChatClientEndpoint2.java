@@ -25,7 +25,7 @@ public class ChatClientEndpoint2 {
             ioe.printStackTrace();
         }
     }
-    
+
     @OnMessage
     public void processMessage(String message) {
         response = message;

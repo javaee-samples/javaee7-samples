@@ -33,14 +33,14 @@ public class MyResourceTest {
 
     @ArquillianResource
     private URL base;
-    
+
     private static final String WEBAPP_SRC = "src/main/webapp";
-    
+
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
-                .addClasses(MyApplication.class, MyResource.class);
+            .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
+            .addClasses(MyApplication.class, MyResource.class);
     }
 
     @Test

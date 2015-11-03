@@ -1,4 +1,26 @@
-     *
+package org.javaee7.websocket.atmosphere;
+
+import org.atmosphere.config.service.Disconnect;
+import org.atmosphere.config.service.ManagedService;
+import org.atmosphere.config.service.Ready;
+import org.atmosphere.cpr.AtmosphereResource;
+import org.atmosphere.cpr.AtmosphereResourceEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+
+/**
+ * Simple annotated class that demonstrate the power of Atmosphere. This class supports all transports, support
+ * message length guarantee, heart beat, message cache thanks to the @ManagedAService.
+ *
+ * The client will first try with WebSocket and then fallback using the client's preference.
+ */
+@ManagedService(path = "/chat")
+public class ChatEndpoint {
+    private final Logger logger = LoggerFactory.getLogger(ChatEndpoint.class);
+
+    /**     *
      * @param r
      */
     @Ready
@@ -28,7 +50,7 @@
      * @return
      * @throws IOException
      */
-    @org.atmosphere.config.service.Message(encoders = {JacksonEncoder.class}, decoders = {JacksonDecoder.class})
+    @org.atmosphere.config.service.Message(encoders = { JacksonEncoder.class }, decoders = { JacksonDecoder.class })
     public Message onMessage(Message message) throws IOException {
         logger.info("{} just send {}", message.getAuthor(), message.getMessage());
         return message;

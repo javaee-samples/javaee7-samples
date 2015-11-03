@@ -15,8 +15,8 @@ public class MessageReceiverAppManaged {
 
     @Resource
     private ConnectionFactory factory;
-    
-    @Resource(mappedName=Resources.SYNC_APP_MANAGED_QUEUE)
+
+    @Resource(mappedName = Resources.SYNC_APP_MANAGED_QUEUE)
     Queue myQueue;
 
     public String receiveMessage() {

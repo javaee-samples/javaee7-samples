@@ -19,7 +19,7 @@ public class TestEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String value;
-    
+
     public Long getId() {
         return id;
     }
@@ -35,5 +35,5 @@ public class TestEntity {
     public void setValue(String value) {
         this.value = value;
     }
-    
+
 }

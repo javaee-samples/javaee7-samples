@@ -1,41 +1,37 @@
 package org.javaee7.jaxrs.singleton;
 
-import static org.junit.Assert.assertEquals;
-
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.StringTokenizer;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.StringTokenizer;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Arun Gupta
  */
 @RunWith(Arquillian.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ApplicationSingletonResourceTest {
-
     @ArquillianResource
     private URL base;
 
-    Client client;
-    WebTarget target;
+    private Client client;
+    private WebTarget target;
 
     @Before
     public void setUp() throws MalformedURLException {
@@ -51,13 +47,14 @@ public class ApplicationSingletonResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(
-                        MyApplication.class,
-                        ApplicationSingletonResource.class);
+            .addClasses(
+                MyApplication.class,
+                ApplicationSingletonResource.class);
     }
 
     @Test
-    public void test1Post() {
+    @InSequence(1)
+    public void testPost() {
         target.request().post(Entity.text("pineapple"));
         target.request().post(Entity.text("mango"));
         target.request().post(Entity.text("kiwi"));
@@ -69,13 +66,15 @@ public class ApplicationSingletonResourceTest {
     }
 
     @Test
-    public void test2Get() {
+    @InSequence(2)
+    public void testGet() {
         String response = target.path("2").request().get(String.class);
         assertEquals("kiwi", response);
     }
 
     @Test
-    public void test3Delete() {
+    @InSequence(3)
+    public void testDelete() {
         target.path("kiwi").request().delete();
 
         String list = target.request().get(String.class);
@@ -84,12 +83,12 @@ public class ApplicationSingletonResourceTest {
     }
 
     @Test
-    public void test4Put() {
+    @InSequence(4)
+    public void testPut() {
         target.request().put(Entity.text("apple"));
 
         String list = target.request().get(String.class);
         StringTokenizer tokens = new StringTokenizer(list, ",");
         assertEquals(4, tokens.countTokens());
     }
-
 }

@@ -22,10 +22,11 @@ public class ScopedBeanTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addClass(ScopedBean.class);
+            .addClass(ScopedBean.class);
     }
 
-    @Inject ScopedBean bean;
+    @Inject
+    ScopedBean bean;
 
     @Test
     public void should_scope_bean_be_injected() throws Exception {

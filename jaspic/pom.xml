@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.javaee7</groupId>
-        <artifactId>javaee7-samples</artifactId>
+        <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.javaee7.jaspic</groupId>
-    <artifactId>jaspic-samples</artifactId>
+    <groupId>org.javaee7</groupId>
+    <artifactId>jaspic</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 Jaspic Samples</name>
+    <name>Java EE 7 Sample: jaspic</name>
 
     <modules>
         <!-- Not a module with tests, but contains common code for the other modules -->
         <module>common</module>
+   
+           <!-- Tests behavior of authentication involving asynchronous requests -->
+        <module>async-authentication</module>
 
         <!-- Tests a simple authentication from both public and protected resources -->
         <module>basic-authentication</module>
@@ -38,6 +39,27 @@
         <!-- Like Servlet filters, a JASPIC SAM for the Servlet Profile can wrap the request and response. This tests that 
             this indeed happens. -->
         <module>wrapping</module>
+        
+         <!-- Like a Servlet a JASPIC SAM for the Servlet Profile can dispatch a request via a forward or include. This tests that 
+            this is indeed possible by using plain Servlets and nothing else. -->
+        <module>dispatching</module>
+        
+        <!-- Like a Servlet a JASPIC SAM for the Servlet Profile can dispatch a request via a forward or include. This tests that 
+            this is indeed possible by using Servlets that are injected with a CDI bean and JSF views. -->
+        <module>dispatching-jsf-cdi</module>
+        
+        <!-- Variant of basic-authentication that tests whether a custom principal that's set by a SAM is available
+             in a Servlet via HttpServletRequest#getUserPrincipal
+         -->
+        <module>custom-principal</module>
+        
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.javaee7</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

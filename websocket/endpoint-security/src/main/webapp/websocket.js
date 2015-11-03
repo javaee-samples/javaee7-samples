@@ -38,10 +38,8 @@
  * holder.
  */
 
-//var wsUri = "ws://u1:p1@" + document.location.host + document.location.pathname + "websocket";
-
-
 function echo() {
+//    var wsUri = "ws://u1:p1@" + document.location.host + document.location.pathname + "websocket";
     var wsUri = "ws://" + document.location.host + document.location.pathname + "websocket";
     console.log("Connecting to " + wsUri);
     var websocket = new WebSocket(wsUri);
@@ -50,23 +48,7 @@ function echo() {
         writeToScreen("SENT: " + myField.value);
     };
     websocket.onmessage = function(evt) { writeToScreen("RECEIVED: " + evt.data); };
-//    websocket.onerror = function(evt) { onError(evt) };
-    
-    
 }
-
-//function onOpen() {
-//    console.log("onOpen");
-//    writeToScreen("CONNECTED");
-//}
-//
-//function onMessage(evt) {
-//    writeToScreen("RECEIVED: " + evt.data);
-//}
-//
-//function onError(evt) {
-//    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-//}
 
 function writeToScreen(message) {
     var output = document.getElementById("output");

@@ -26,8 +26,8 @@ public class FilterServletTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClass(CharResponseWrapper.class)
-                .addClasses(TestServlet.class, FooBarFilter.class);
+            .addClass(CharResponseWrapper.class)
+            .addClasses(TestServlet.class, FooBarFilter.class);
     }
 
     @ArquillianResource

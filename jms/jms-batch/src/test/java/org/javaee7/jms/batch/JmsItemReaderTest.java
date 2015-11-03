@@ -54,10 +54,10 @@ public class JmsItemReaderTest {
     @Deployment
     public static WebArchive deployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .addClass(BatchTestHelper.class)
-                .addPackage(JmsItemReader.class.getPackage())
-                .addAsResource("META-INF/batch-jobs/jms-job.xml");
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addClass(BatchTestHelper.class)
+            .addPackage(JmsItemReader.class.getPackage())
+            .addAsResource("META-INF/batch-jobs/jms-job.xml");
     }
 
     @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
@@ -128,7 +128,7 @@ public class JmsItemReaderTest {
         Random r = new Random();
         try (JMSContext jms = factory.createContext(Session.AUTO_ACKNOWLEDGE)) {
             JMSProducer producer = jms.createProducer();
-            for (int i=0; i< count; i++) {
+            for (int i = 0; i < count; i++) {
                 int payload = r.nextInt();
                 producer.send(topic, payload);
                 sum += payload;

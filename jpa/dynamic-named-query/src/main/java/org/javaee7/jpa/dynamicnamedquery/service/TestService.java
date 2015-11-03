@@ -45,7 +45,7 @@ public class TestService {
      */
     public List<TestEntity> getByValue(String value) {
         return entityManager.createNamedQuery(TEST_ENTITY_GET_BY_VALUE.name(), TestEntity.class)
-                .setParameter(TestEntity_.value.getName(), value).getResultList();
+            .setParameter(TestEntity_.value.getName(), value).getResultList();
     }
 
 }

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.javaee7</groupId>
-        <artifactId>javaee7-samples</artifactId>
+        <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
-    <groupId>org.javaee7.jpa</groupId>
-    <artifactId>jpa-samples</artifactId>
+    <groupId>org.javaee7</groupId>
+    <artifactId>jpa</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 JPA Samples</name>
+    <name>Java EE 7 Sample: jpa</name>
 
     <modules>
         <module>criteria</module>
@@ -29,6 +29,7 @@
         <module>jndi-context</module>
         <module>locking-optimistic</module>
         <module>locking-pessimistic</module>
+        <module>ordercolumn</module>
         <module>pu-typesafe</module>
         <module>schema-gen-metadata</module>
         <module>schema-gen-scripts</module>
@@ -43,4 +44,11 @@
         <module>default-datasource</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.javaee7</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

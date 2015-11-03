@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 /**
  * 
  * @author Patrik Dudits
@@ -24,9 +25,9 @@ public class ReceptionSynchronizerTest {
             public void run() {
                 cut.registerInvocation(method);
             }
-        }, 1, TimeUnit.SECONDS);        
+        }, 1, TimeUnit.SECONDS);
         ReceptionSynchronizer.waitFor(ReceptionSynchronizerTest.class, "testWaiting");
-        long waitTime = System.currentTimeMillis()-startTime;
+        long waitTime = System.currentTimeMillis() - startTime;
         assertTrue("Waited more than 950ms", waitTime > 950);
         assertTrue("Waited no longer than 1050ms", waitTime < 1050);
     }

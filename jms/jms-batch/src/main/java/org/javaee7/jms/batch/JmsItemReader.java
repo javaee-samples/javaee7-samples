@@ -43,5 +43,4 @@ public class JmsItemReader extends AbstractItemReader {
         jms.close();
     }
 
-
 }

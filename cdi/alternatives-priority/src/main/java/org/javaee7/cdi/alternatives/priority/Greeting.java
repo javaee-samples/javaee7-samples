@@ -5,5 +5,5 @@ package org.javaee7.cdi.alternatives.priority;
  * @author Radim Hanus
  */
 public interface Greeting {
-	public String greet(String name);
+    public String greet(String name);
 }

@@ -37,10 +37,10 @@ public class MyClientTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(MyEndpoint.class,
-                        MyMessage.class,
-                        MyMessageEncoder.class,
-                        MyMessageDecoder.class);
+            .addClasses(MyEndpoint.class,
+                MyMessage.class,
+                MyMessageEncoder.class,
+                MyMessageDecoder.class);
     }
 
     @Test
@@ -51,18 +51,18 @@ public class MyClientTest {
         assertTrue(MyClient.latch.await(2, TimeUnit.SECONDS));
         assertEquals(JSON, MyClient.response.toString());
     }
-    
+
     public Session connectToServer(Class endpoint) throws DeploymentException, IOException, URISyntaxException {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         assertNotNull(container);
         assertNotNull(base);
         URI uri = new URI("ws://"
-                + base.getHost()
-                + ":"
-                + base.getPort()
-                + base.getPath()
-                + "encoder-client");
+            + base.getHost()
+            + ":"
+            + base.getPort()
+            + base.getPath()
+            + "encoder-client");
         return container.connectToServer(endpoint, uri);
     }
-    
+
 }

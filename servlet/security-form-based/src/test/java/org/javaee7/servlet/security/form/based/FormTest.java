@@ -34,11 +34,11 @@ public class FormTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addAsWebResource(new File(WEBAPP_SRC, "index.jsp"))
-                .addAsWebResource(new File(WEBAPP_SRC, "loginerror.jsp"))
-                .addAsWebResource(new File(WEBAPP_SRC, "loginform.jsp"))
-                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
-                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "glassfish-web.xml"));
+            .addAsWebResource(new File(WEBAPP_SRC, "index.jsp"))
+            .addAsWebResource(new File(WEBAPP_SRC, "loginerror.jsp"))
+            .addAsWebResource(new File(WEBAPP_SRC, "loginform.jsp"))
+            .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
+            .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "glassfish-web.xml"));
     }
 
     @Before
@@ -55,7 +55,7 @@ public class FormTest {
         loginForm.getInputByName("j_password").setValueAttribute("p1");
         HtmlSubmitInput submitButton = loginForm.getInputByName("submitButton");
         HtmlPage page2 = submitButton.click();
-        
+
         assertEquals("Form-based Security - Success", page2.getTitleText());
     }
 
@@ -65,7 +65,7 @@ public class FormTest {
         loginForm.getInputByName("j_password").setValueAttribute("random");
         HtmlSubmitInput submitButton = loginForm.getInputByName("submitButton");
         HtmlPage page2 = submitButton.click();
-        
+
         assertEquals("Form-Based Login Error Page", page2.getTitleText());
     }
 }

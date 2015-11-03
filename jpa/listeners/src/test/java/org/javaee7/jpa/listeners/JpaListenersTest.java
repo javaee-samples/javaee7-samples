@@ -52,11 +52,11 @@ public class JpaListenersTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                                   .addPackage("org.javaee7.jpa.listeners")
-                                   .addAsResource("META-INF/persistence.xml")
-                                   .addAsResource("META-INF/create.sql")
-                                   .addAsResource("META-INF/drop.sql")
-                                   .addAsResource("META-INF/load.sql");
+            .addPackage("org.javaee7.jpa.listeners")
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/create.sql")
+            .addAsResource("META-INF/drop.sql")
+            .addAsResource("META-INF/load.sql");
         System.out.println(war.toString(true));
         return war;
     }
@@ -67,37 +67,36 @@ public class JpaListenersTest {
      */
     @Test
     public void testListeners() throws Exception {
-        List<Movie> movies = movieBean.listMovies();    // <1> 4 movies in the database, so +@PostLoad+ method called 4x
+        List<Movie> movies = movieBean.listMovies(); // <1> 4 movies in the database, so +@PostLoad+ method called 4x
         assertEquals(4, movies.size());
 
         assertFalse(prePersistInvoked);
         assertFalse(postPersistInvoked);
-        movieBean.createMovie();                        // <2> On persist both +@PrePersist+ and +@PostPersist+ are called
+        movieBean.createMovie(); // <2> On persist both +@PrePersist+ and +@PostPersist+ are called
         assertTrue(prePersistInvoked);
         assertTrue(postPersistInvoked);
 
-        movies = movieBean.listMovies();                // <3> 5 movies now, so +@PostLoad+ method called 5x
+        movies = movieBean.listMovies(); // <3> 5 movies now, so +@PostLoad+ method called 5x
         assertEquals(5, movies.size());
         assertTrue(movies.contains(new Movie(5)));
 
-
         assertFalse(preUpdateInvoked);
         assertFalse(postUpdateInvoked);
-        movieBean.updateMovie();                        // <4> On merge both +@PreUpdate+ and +@PostUpdate+ are called
+        movieBean.updateMovie(); // <4> On merge both +@PreUpdate+ and +@PostUpdate+ are called
         assertTrue(preUpdateInvoked);
         assertTrue(postUpdateInvoked);
 
-        movies = movieBean.listMovies();                // <5> Still 5 mpvies, so +@PostLoad+ method called again 5x
+        movies = movieBean.listMovies(); // <5> Still 5 mpvies, so +@PostLoad+ method called again 5x
         assertEquals(5, movies.size());
         assertEquals("Inception2", movies.get(2).getName());
 
         assertFalse(preRemoveInvoked);
         assertFalse(postRemoveInvoked);
-        movieBean.deleteMovie();                        // <6> On remove both +@PreRemove+ and +@PostRemove+ are called
+        movieBean.deleteMovie(); // <6> On remove both +@PreRemove+ and +@PostRemove+ are called
         assertTrue(preRemoveInvoked);
         assertTrue(postRemoveInvoked);
 
-        movies = movieBean.listMovies();                // <7> 4 movies now, so +@PostLoad+ method called 4x
+        movies = movieBean.listMovies(); // <7> 4 movies now, so +@PostLoad+ method called 4x
         assertFalse(movies.isEmpty());
         assertEquals(4, movies.size());
         assertFalse(movies.contains(new Movie(3)));

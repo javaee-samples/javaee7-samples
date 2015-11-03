@@ -53,18 +53,18 @@ public class ManagedScheduledBatchTest {
         BeansDescriptor beansXml = Descriptors.create(BeansDescriptor.class);
 
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClasses(
-                        MyBatchlet.class,
-                        MyJob.class,
-                        MyJobAlternative.class,
-                        MyManagedScheduledBatch.class,
-                        MyManagedScheduledBatchBean.class,
-                        MyManagedScheduledBatchAlternative.class)
-                .addAsWebInfResource(
-                        new StringAsset(beansXml.createAlternatives().clazz(
-                                MyManagedScheduledBatchAlternative.class.getName()).up().exportAsString()),
-                        beansXml.getDescriptorName())
-                .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addClasses(
+                MyBatchlet.class,
+                MyJob.class,
+                MyJobAlternative.class,
+                MyManagedScheduledBatch.class,
+                MyManagedScheduledBatchBean.class,
+                MyManagedScheduledBatchAlternative.class)
+            .addAsWebInfResource(
+                new StringAsset(beansXml.createAlternatives().clazz(
+                    MyManagedScheduledBatchAlternative.class.getName()).up().exportAsString()),
+                beansXml.getDescriptorName())
+            .addAsResource("META-INF/batch-jobs/myJob.xml");
         System.out.println(war.toString(true));
         return war;
     }
@@ -88,7 +88,7 @@ public class ManagedScheduledBatchTest {
 
         for (Long executedBatch : MyJob.executedBatchs) {
             assertEquals(BatchStatus.COMPLETED,
-                    BatchRuntime.getJobOperator().getJobExecution(executedBatch).getBatchStatus());
+                BatchRuntime.getJobOperator().getJobExecution(executedBatch).getBatchStatus());
         }
     }
 }

@@ -28,11 +28,11 @@ public class EmployeeResourceTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(Employee.class,
-                        EmployeeResource.class,
-                        MyApplication.class)
-                .addAsResource("META-INF/persistence.xml")
-                .addAsResource("META-INF/load.sql");
+            .addClasses(Employee.class,
+                EmployeeResource.class,
+                MyApplication.class)
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/load.sql");
     }
 
     @ArquillianResource
@@ -44,12 +44,12 @@ public class EmployeeResourceTest {
         target = client.target(URI.create(new URL(base, "webresources/employee").toExternalForm()));
         target.register(Employee.class);
     }
-    
+
     @Test
     public void testGet() {
         Employee[] list = target
-                .request(MediaType.APPLICATION_XML)
-                .get(Employee[].class);
+            .request(MediaType.APPLICATION_XML)
+            .get(Employee[].class);
         assertNotNull(list);
         assertEquals(8, list.length);
         assertFalse(list[0].equals(new Employee("Penny")));

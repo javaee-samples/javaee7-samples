@@ -31,27 +31,26 @@ public class DataSourceDefinitionAnnotationPuTest {
 
     @Inject
     private TestService testService;
-    
+
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(WebArchive.class)
-                .addPackages(true, DataSourceDefinitionAnnotationPuTest.class.getPackage())
-                .addAsResource("META-INF/persistence.xml")
-                .addAsLibraries(Maven.resolver()
-                    .loadPomFromFile("pom.xml")
-                    .resolve("com.h2database:h2")
-                    .withoutTransitivity()
-                    .asSingleFile())
-                ;
+            .addPackages(true, DataSourceDefinitionAnnotationPuTest.class.getPackage())
+            .addAsResource("META-INF/persistence.xml")
+            .addAsLibraries(Maven.resolver()
+                .loadPomFromFile("pom.xml")
+                .resolve("com.h2database:h2")
+                .withoutTransitivity()
+                .asSingleFile());
     }
 
     @Test
     public void insertAndQueryEntity() throws Exception {
-        
+
         testService.saveNewEntity();
-        
+
         List<TestEntity> testEntities = testService.getAllEntities();
-        
+
         assertTrue(testEntities.size() == 1);
         assertTrue(testEntities.get(0).getValue().equals("mytest"));
     }

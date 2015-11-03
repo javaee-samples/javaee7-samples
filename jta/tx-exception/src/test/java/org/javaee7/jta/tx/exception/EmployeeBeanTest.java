@@ -23,14 +23,16 @@ public class EmployeeBeanTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClasses(EmployeeBean.class, Employee.class)
-                .addAsManifestResource("beans.xml")
-                .addAsResource("META-INF/persistence.xml")
-                .addAsResource("META-INF/create.sql")
-                .addAsResource("META-INF/load.sql")
-                .addAsResource("META-INF/drop.sql");
+            .addClasses(EmployeeBean.class, Employee.class)
+            .addAsManifestResource("beans.xml")
+            .addAsResource("META-INF/persistence.xml")
+            .addAsResource("META-INF/create.sql")
+            .addAsResource("META-INF/load.sql")
+            .addAsResource("META-INF/drop.sql");
     }
-    @Inject EmployeeBean bean;
+
+    @Inject
+    EmployeeBean bean;
 
     @Test
     public void should_have_7_employees() {
@@ -41,7 +43,8 @@ public class EmployeeBeanTest {
     public void should_have_1_more_employee_after_checked_exception() {
         try {
             bean.addAndThrowChecked();
-        } catch (Exception ex) { }
+        } catch (Exception ex) {
+        }
         assertEquals(8, bean.getEmployees().size());
     }
 
@@ -49,7 +52,8 @@ public class EmployeeBeanTest {
     public void should_not_have_1_more_employee_after_runtime_exception() {
         try {
             bean.addAndThrowRuntime();
-        } catch (Exception ex) { }
+        } catch (Exception ex) {
+        }
         assertEquals(7, bean.getEmployees().size());
     }
 

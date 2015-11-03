@@ -27,8 +27,8 @@ public class DecoratorTest {
     @Deployment
     public static Archive<?> deploy() throws URISyntaxException {
         return ShrinkWrap.create(JavaArchive.class)
-                .addAsManifestResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
-                .addPackage(SimpleGreeting.class.getPackage());
+            .addAsManifestResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
+            .addPackage(SimpleGreeting.class.getPackage());
     }
 
     @Test

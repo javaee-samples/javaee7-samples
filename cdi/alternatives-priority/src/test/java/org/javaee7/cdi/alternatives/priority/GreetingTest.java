@@ -19,24 +19,24 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(Arquillian.class)
 public class GreetingTest {
-	@Deployment
-	public static Archive<?> deploy() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class, PriorityGreeting.class)
-				.addAsManifestResource("beans-empty.xml", "beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deploy() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class, PriorityGreeting.class)
+            .addAsManifestResource("beans-empty.xml", "beans.xml");
+    }
 
-	@Inject
-	Greeting bean;
+    @Inject
+    Greeting bean;
 
-	@Test
-	public void should_bean_be_injected() throws Exception {
-		assertThat(bean, is(notNullValue()));
-	}
+    @Test
+    public void should_bean_be_injected() throws Exception {
+        assertThat(bean, is(notNullValue()));
+    }
 
-	@Test
-	public void should_bean_be_priority() throws Exception {
-		// because it has the highest priority from Priority annotated alternatives
-		assertThat(bean, instanceOf(PriorityGreeting.class));
-	}
+    @Test
+    public void should_bean_be_priority() throws Exception {
+        // because it has the highest priority from Priority annotated alternatives
+        assertThat(bean, instanceOf(PriorityGreeting.class));
+    }
 }

@@ -12,6 +12,7 @@
     <artifactId>riak</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Samples: extras - nosql: riak</name>
     
     <repositories>
         <repository>

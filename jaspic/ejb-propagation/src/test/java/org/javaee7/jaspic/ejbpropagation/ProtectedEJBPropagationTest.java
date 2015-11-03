@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -23,13 +23,13 @@ import org.xml.sax.SAXException;
 public class ProtectedEJBPropagationTest extends ArquillianBase {
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+    public static Archive<?> createDeployment() {
         return defaultArchive();
     }
 
     @Test
     public void testProtectedServletWithLoginCallingEJB() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet-protected-ejb?doLogin");
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see the same
@@ -41,7 +41,7 @@ public class ProtectedEJBPropagationTest extends ArquillianBase {
         // user has the role "architect".
         assertTrue(response.contains("web user has role \"architect\": true"));
         assertTrue("Web user principal has role \"architect\", but one in EJB doesn't.",
-                response.contains("EJB user has role \"architect\": true"));
+            response.contains("EJB user has role \"architect\": true"));
     }
 
     /**
@@ -51,7 +51,7 @@ public class ProtectedEJBPropagationTest extends ArquillianBase {
      */
     @Test
     public void testPublicServletWithLoginCallingEJB() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("public/servlet-protected-ejb?doLogin");
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see the same
@@ -63,7 +63,7 @@ public class ProtectedEJBPropagationTest extends ArquillianBase {
         // user has the role "architect".
         assertTrue(response.contains("web user has role \"architect\": true"));
         assertTrue("Web user principal has role \"architect\", but one in EJB doesn't.",
-                response.contains("EJB user has role \"architect\": true"));
+            response.contains("EJB user has role \"architect\": true"));
     }
 
 }

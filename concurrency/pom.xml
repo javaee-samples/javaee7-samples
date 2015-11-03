@@ -1,19 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.javaee7</groupId>
-        <artifactId>javaee7-samples</artifactId>
+        <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.javaee7.concurrency</groupId>
-    <artifactId>concurrency-samples</artifactId>
+    <groupId>org.javaee7</groupId>
+    <artifactId>concurrency</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE 7 Concurrency Samples</name>
+    <name>Java EE 7 Sample: concurrency</name>
 
     <modules>
         <module>managedexecutor</module>
@@ -22,4 +21,11 @@
         <module>dynamicproxy</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.javaee7</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

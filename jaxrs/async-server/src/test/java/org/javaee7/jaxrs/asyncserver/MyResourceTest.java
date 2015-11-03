@@ -24,11 +24,11 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class MyResourceTest {
-    
+
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(MyApplication.class, MyResource.class);
+        return ShrinkWrap.create(WebArchive.class)
+            .addClasses(MyApplication.class, MyResource.class);
     }
 
     private WebTarget target;
@@ -41,7 +41,7 @@ public class MyResourceTest {
         Client client = ClientBuilder.newClient();
         target = client.target(URI.create(new URL(base, "webresources/fruits").toExternalForm()));
     }
-    
+
     /**
      * Test of getList method, of class MyResource.
      */
@@ -50,5 +50,5 @@ public class MyResourceTest {
         String result = target.request().get(String.class);
         assertEquals("apple", result);
     }
-    
+
 }

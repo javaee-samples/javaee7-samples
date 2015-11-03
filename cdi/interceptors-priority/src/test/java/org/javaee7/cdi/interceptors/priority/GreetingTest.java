@@ -22,22 +22,22 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(Arquillian.class)
 public class GreetingTest {
-	@Deployment
-	public static Archive<?> deploy() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(Greeting.class, SimpleGreeting.class, MyInterceptorBinding.class, LowPriorityInterceptor.class, HighPriorityInterceptor.class)
-				.addAsManifestResource("beans.xml");
-	}
+    @Deployment
+    public static Archive<?> deploy() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClasses(Greeting.class, SimpleGreeting.class, MyInterceptorBinding.class, LowPriorityInterceptor.class, HighPriorityInterceptor.class)
+            .addAsManifestResource("beans.xml");
+    }
 
-	@Inject
-	Greeting bean;
+    @Inject
+    Greeting bean;
 
-	@Test
-	public void test() throws Exception {
-		assertThat(bean, is(notNullValue()));
-		assertThat(bean, instanceOf(SimpleGreeting.class));
+    @Test
+    public void test() throws Exception {
+        assertThat(bean, is(notNullValue()));
+        assertThat(bean, instanceOf(SimpleGreeting.class));
 
-		bean.setGreet("Arun");
-		assertEquals(bean.getGreet(), "Hi Arun ! Nice to meet you.");
-	}
+        bean.setGreet("Arun");
+        assertEquals(bean.getGreet(), "Hi Arun ! Nice to meet you.");
+    }
 }

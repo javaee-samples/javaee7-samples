@@ -15,9 +15,9 @@ public class RatingService {
 
     public Integer movieRating(String name) {
         return em.createNamedQuery(Rating.FIND_BY_NAME, Rating.class)
-                .setParameter("name", name)
-                .getSingleResult()
-                .getRating();
+            .setParameter("name", name)
+            .getSingleResult()
+            .getRating();
     }
 
 }

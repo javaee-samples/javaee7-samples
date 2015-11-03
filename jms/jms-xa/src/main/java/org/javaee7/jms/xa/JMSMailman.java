@@ -6,13 +6,12 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@MessageDriven(activationConfig = {@ActivationConfigProperty(propertyName = "destinationLookup",
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationLookup",
     propertyValue = Mailman.CLASSIC_QUEUE), @ActivationConfigProperty(propertyName = "destinationType",
-    propertyValue = "javax.jms.Queue"),})
+    propertyValue = "javax.jms.Queue"), })
 public class JMSMailman implements MessageListener {
 
     private static final Logger logger = Logger.getLogger(JMSMailman.class.getName());
@@ -24,8 +23,8 @@ public class JMSMailman implements MessageListener {
     public void onMessage(Message message)
     {
         try {
-            TextMessage tm = (TextMessage) message;
-            logger.info("Message received (async): " + tm.getText());
+            String text = message.getBody(String.class);
+            logger.info("Message received (async): " + text);
             deliveryStats.messageDelivered();
         } catch (JMSException ex) {
             logger.log(Level.SEVERE, null, ex);

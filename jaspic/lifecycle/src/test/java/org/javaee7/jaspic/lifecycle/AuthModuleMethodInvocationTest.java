@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
 public class AuthModuleMethodInvocationTest extends ArquillianBase {
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+    public static Archive<?> createDeployment() {
         return defaultArchive();
     }
 
@@ -43,24 +43,23 @@ public class AuthModuleMethodInvocationTest extends ArquillianBase {
      */
     @Test
     public void testBasicSAMMethodsCalled() throws IOException, SAXException {
-        
+
         String response = getFromServerPath("protected/servlet");
-        
 
         // First test if individual methods are called
         assertTrue("SAM method validateRequest not called, but should have been.",
-                response.contains("validateRequest invoked"));
+            response.contains("validateRequest invoked"));
         assertTrue("Resource (Servlet) not invoked, but should have been.", response.contains("Resource invoked"));
 
         // The previous two methods are rare to not be called, but secureResponse is more likely to fail. Seemingly it's hard
         // to understand what this method should do exactly.
         assertTrue("SAM method secureResponse not called, but should have been.",
-                response.contains("secureResponse invoked"));
+            response.contains("secureResponse invoked"));
 
         // Finally the order should be correct. More than a few implementations call secureResponse before the resource is
         // invoked.
         assertTrue("SAM methods called in wrong order",
-                response.contains("validateRequest invoked\nResource invoked\nsecureResponse invoked\n"));
+            response.contains("validateRequest invoked\nResource invoked\nsecureResponse invoked\n"));
     }
 
     /**
@@ -77,7 +76,7 @@ public class AuthModuleMethodInvocationTest extends ArquillianBase {
         String response = getFromServerPath("protected/servlet?doLogout");
 
         assertTrue("SAM method cleanSubject not called, but should have been.",
-                response.contains("cleanSubject invoked"));
+            response.contains("cleanSubject invoked"));
     }
 
 }

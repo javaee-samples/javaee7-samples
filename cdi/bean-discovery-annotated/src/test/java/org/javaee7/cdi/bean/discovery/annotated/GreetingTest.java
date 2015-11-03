@@ -23,16 +23,18 @@ public class GreetingTest {
     @Deployment
     public static Archive<?> deploy() {
         return ShrinkWrap.create(JavaArchive.class)
-                         .addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class)
-                         .addAsManifestResource("beans.xml");
+            .addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class)
+            .addAsManifestResource("beans.xml");
     }
 
-    @Inject Greeting bean;
+    @Inject
+    Greeting bean;
 
     @Test
     public void should_bean_be_injected() throws Exception {
         assertThat(bean, is(CoreMatchers.notNullValue()));
     }
+
     @Test
     public void should_bean_be_simple() throws Exception {
         // because SimpleGreeting is annotated (scope)

@@ -25,14 +25,14 @@ public class EmployeeRepositoryTest {
     @Deployment
     public static Archive<?> createDeployment() {
         final File[] assertJ = Maven.resolver().loadPomFromFile("pom.xml")
-                                               .resolve("org.assertj:assertj-core")
-                                               .withTransitivity()
-                                               .asFile();
+            .resolve("org.assertj:assertj-core")
+            .withTransitivity()
+            .asFile();
 
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "employee-card-converter-sample.jar")
-                                              .addPackage(Employee.class.getPackage())
-                                              .addAsManifestResource("test-persistence.xml", "persistence.xml")
-                                              .merge(metaInfFolder(), "/META-INF", Filters.include(".*\\.sql"));
+            .addPackage(Employee.class.getPackage())
+            .addAsManifestResource("test-persistence.xml", "persistence.xml")
+            .merge(metaInfFolder(), "/META-INF", Filters.include(".*\\.sql"));
         mergeDependencies(archive, assertJ);
 
         return archive;
@@ -49,9 +49,9 @@ public class EmployeeRepositoryTest {
 
         // then
         assertThat(employees).hasSize(6)
-                             .contains(employee("Leonard", "11-22-33-44"), employee("Sheldon", "22-33-44-55"),
-                                       employee("Penny", "33-44-55-66"), employee("Raj", "44-55-66-77"),
-                                       employee("Howard", "55-66-77-88"), employee("Bernadette", "66-77-88-99"));
+            .contains(employee("Leonard", "11-22-33-44"), employee("Sheldon", "22-33-44-55"),
+                employee("Penny", "33-44-55-66"), employee("Raj", "44-55-66-77"),
+                employee("Howard", "55-66-77-88"), employee("Bernadette", "66-77-88-99"));
     }
 
     // -- Test utility methods
@@ -61,7 +61,7 @@ public class EmployeeRepositoryTest {
         return new Employee(name, creditCard);
     }
 
-    private static void mergeDependencies(JavaArchive archive, File ... dependencies) {
+    private static void mergeDependencies(JavaArchive archive, File... dependencies) {
         for (File file : dependencies) {
             archive.merge(ShrinkWrap.createFromZipFile(JavaArchive.class, file));
         }
@@ -69,8 +69,8 @@ public class EmployeeRepositoryTest {
 
     private static GenericArchive metaInfFolder() {
         return ShrinkWrap.create(GenericArchive.class)
-                .as(ExplodedImporter.class)
-                .importDirectory("src/main/resources/META-INF")
-                .as(GenericArchive.class);
+            .as(ExplodedImporter.class)
+            .importDirectory("src/main/resources/META-INF")
+            .as(GenericArchive.class);
     }
 }

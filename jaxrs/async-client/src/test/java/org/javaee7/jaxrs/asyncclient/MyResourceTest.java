@@ -41,10 +41,10 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class MyResourceTest {
-    
+
     /**
      * Since +JAX-RS+ webservices are, well, web related and require a
-     * web contex, they are required to be deployed within a +web archive+.
+     * web context, they are required to be deployed within a +web archive+.
      * By default, +JAX-RS+ will perform autodiscovery of our services.
      * That means there is no need to add a +web.xml+ in this scenario.
      * 
@@ -63,13 +63,13 @@ public class MyResourceTest {
      */
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-       return ShrinkWrap.create(WebArchive.class)
-             .addClasses(MyApplication.class, MyResource.class);
+        return ShrinkWrap.create(WebArchive.class)
+            .addClasses(MyApplication.class, MyResource.class);
     }
 
     @ArquillianResource
     private URL base;
-    
+
     private static WebTarget target;
 
     @Before
@@ -83,7 +83,7 @@ public class MyResourceTest {
      * 
      * include::MyResourceTest#setUpClass[]
      *
-     * Now we're free to invoke our deployed service by using the +JAX-RS+
+     * Now we are free to invoke our deployed service by using the +JAX-RS+
      * client library.
      * 
      * The asynchronous client library comes with multiple option on how
@@ -93,8 +93,8 @@ public class MyResourceTest {
     @Test
     public void testPollingResponse() throws InterruptedException, ExecutionException {
         Future<Response> r1 = target.request().async().get(); // <1> Build an asynchronous request handler for the +Response+ object
-        String response = r1.get().readEntity(String.class);  // <2> Read the entity from the body of the +Response+
-        assertEquals("apple", response);                      // <3> Validate we got the expected value
+        String response = r1.get().readEntity(String.class); // <2> Read the entity from the body of the +Response+
+        assertEquals("apple", response); // <3> Validate we got the expected value
     }
 
     /**
@@ -103,8 +103,8 @@ public class MyResourceTest {
     @Test
     public void testPollingString() throws InterruptedException, ExecutionException {
         Future<String> r1 = target.request().async().get(String.class); // <1> Build an asynchronous request handler for the body of the +Response+
-        String response = r1.get();                                     // <2> Read the entity directly from the +Future+
-        assertEquals("apple", response);                                // <3> Validate we got the expected value
+        String response = r1.get(); // <2> Read the entity directly from the +Future+
+        assertEquals("apple", response); // <3> Validate we got the expected value
     }
 
     /**
@@ -112,18 +112,18 @@ public class MyResourceTest {
      */
     @Test
     public void testInvocationCallback() throws InterruptedException, ExecutionException {
-            target.request().async().get(new InvocationCallback<String>() { // <1> Build an asynchronous request callback for the body of the +Response+
+        target.request().async().get(new InvocationCallback<String>() { // <1> Build an asynchronous request callback for the body of the +Response+
 
                 @Override
-                public void completed(String r) {                           // <2> Called when the +Request+ is completed and our entiy parsed
+                public void completed(String r) { // <2> Called when the +Request+ is completed and our entiy parsed
                     assertEquals("apple", r);
                 }
 
                 @Override
-                public void failed(Throwable t) {                           // <3> Called if the +Request+ failed to complete
+                public void failed(Throwable t) { // <3> Called if the +Request+ failed to complete
                     fail(t.getMessage());
                 }
-                
+
             });
     }
 

@@ -8,4 +8,5 @@ import javax.ejb.Startup;
  */
 @Startup
 @Singleton
-public class MyTimerScheduleBean extends AbstractTimerBatch {}
+public class MyTimerScheduleBean extends AbstractTimerBatch {
+}

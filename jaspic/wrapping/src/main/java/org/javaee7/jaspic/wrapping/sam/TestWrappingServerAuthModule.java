@@ -35,16 +35,16 @@ public class TestWrappingServerAuthModule implements ServerAuthModule {
 
     @Override
     public void initialize(MessagePolicy requestPolicy, MessagePolicy responsePolicy, CallbackHandler handler,
-            @SuppressWarnings("rawtypes") Map options) throws AuthException {
+        @SuppressWarnings("rawtypes") Map options) throws AuthException {
         this.handler = handler;
     }
 
     @Override
     public AuthStatus validateRequest(MessageInfo messageInfo, Subject clientSubject, Subject serviceSubject)
-            throws AuthException {
+        throws AuthException {
 
         try {
-            handler.handle(new Callback[] { 
+            handler.handle(new Callback[] {
                 new CallerPrincipalCallback(clientSubject, "test"),
                 new GroupPrincipalCallback(clientSubject, new String[] { "architect" }) });
         } catch (IOException | UnsupportedCallbackException e) {
@@ -54,12 +54,12 @@ public class TestWrappingServerAuthModule implements ServerAuthModule {
         // Wrap the request - the resource to be invoked should get to see this
         messageInfo.setRequestMessage(new TestHttpServletRequestWrapper(
             (HttpServletRequest) messageInfo.getRequestMessage())
-        );
+            );
 
         // Wrap the response - the resource to be invoked should get to see this
         messageInfo.setResponseMessage(new TestHttpServletResponseWrapper(
             (HttpServletResponse) messageInfo.getResponseMessage())
-        );
+            );
 
         return SUCCESS;
     }
