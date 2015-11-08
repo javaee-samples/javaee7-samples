@@ -168,7 +168,7 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
      * authenticated identity are remembered
      */
     @Test
-    public void testUserIdentityIsStateless() throws IOException, SAXException {
+    public void testProtectedThenPublicAccessIsStateless() throws IOException, SAXException {
 
         // -------------------- Request 1 ---------------------------
 
