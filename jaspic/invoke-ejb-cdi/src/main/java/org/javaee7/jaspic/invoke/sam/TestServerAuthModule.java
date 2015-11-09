@@ -71,6 +71,39 @@ public class TestServerAuthModule implements ServerAuthModule {
             throw (AuthException) new AuthException().initCause(e);
         }
     }
+
+    @Override
+    public Class<?>[] getSupportedMessageTypes() {
+        return supportedMessageTypes;
+    }
+
+    @Override
+    public AuthStatus secureResponse(MessageInfo messageInfo, Subject serviceSubject) throws AuthException {
+
+        HttpServletRequest request = (HttpServletRequest) messageInfo.getRequestMessage();
+        HttpServletResponse response = (HttpServletResponse) messageInfo.getResponseMessage();
+
+        if ("cdi".equals(request.getParameter("tech"))) {
+            callCDIBean(response, "secureResponse");
+        } else if ("ejb".equals(request.getParameter("tech"))) {
+            callEJBBean(response, "secureResponse");
+        }
+
+        return SEND_SUCCESS;
+    }
+
+    @Override
+    public void cleanSubject(MessageInfo messageInfo, Subject subject) throws AuthException {
+        
+        HttpServletRequest request = (HttpServletRequest) messageInfo.getRequestMessage();
+        HttpServletResponse response = (HttpServletResponse) messageInfo.getResponseMessage();
+
+        if ("cdi".equals(request.getParameter("tech"))) {
+            callCDIBean(response, "cleanSubject");
+        } else if ("ejb".equals(request.getParameter("tech"))) {
+            callEJBBean(response, "cleanSubject");
+        }
+    }
     
     private void callCDIBean(HttpServletResponse response, String phase) {
         try {
@@ -88,22 +121,6 @@ public class TestServerAuthModule implements ServerAuthModule {
         } catch (Exception e) {
             logger.log(SEVERE, "", e);
         }
-    }
-    
-
-    @Override
-    public Class<?>[] getSupportedMessageTypes() {
-        return supportedMessageTypes;
-    }
-
-    @Override
-    public AuthStatus secureResponse(MessageInfo messageInfo, Subject serviceSubject) throws AuthException {
-        return SEND_SUCCESS;
-    }
-
-    @Override
-    public void cleanSubject(MessageInfo messageInfo, Subject subject) throws AuthException {
-
     }
     
     
