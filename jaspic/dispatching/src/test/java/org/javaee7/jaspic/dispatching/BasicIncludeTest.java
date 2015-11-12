@@ -27,7 +27,7 @@ public class BasicIncludeTest extends ArquillianBase {
     }
 
     @Test
-    public void testBasicForwardViaPublicResource() throws IOException, SAXException {
+    public void testBasicIncludeViaPublicResource() throws IOException, SAXException {
 
         String response = getFromServerPath("public/servlet?dispatch=include");
         
