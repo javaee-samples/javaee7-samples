@@ -36,12 +36,14 @@ public class RegisterSessionTest extends ArquillianBase {
 
         // We access the protected page again and now login
 
-        response = getFromServerPath("protected/servlet?doLogin");
+        response = getFromServerPath("protected/servlet?doLogin=true");
 
         // Now has to be logged-in so page is accessible
-        assertTrue("Could not access protected page, but should be able to. "
-            + "Did the container remember the previously set 'unauthenticated identity'?",
-            response.contains("This is a protected servlet"));
+        assertTrue(
+            "Could not access protected page, but should be able to. " + 
+            "Did the container remember the previously set 'unauthenticated identity'?",
+            response.contains("This is a protected servlet")
+        );
 
         // -------------------- Request 3 ---------------------------
 
@@ -51,9 +53,11 @@ public class RegisterSessionTest extends ArquillianBase {
         response = getFromServerPath("protected/servlet?continueSession");
 
         // Logged-in thus should be accessible.
-        assertTrue("Could not access protected page, but should be able to. "
-            + "Did the container not remember the authenticated identity via 'javax.servlet.http.registerSession'?",
-            response.contains("This is a protected servlet"));
+        assertTrue(
+            "Could not access protected page, but should be able to. " + 
+            "Did the container not remember the authenticated identity via 'javax.servlet.http.registerSession'?",
+            response.contains("This is a protected servlet")
+        );
 
         // Both the user name and roles/groups have to be restored
 
@@ -87,12 +91,14 @@ public class RegisterSessionTest extends ArquillianBase {
         // We access a protected page and login
         //
 
-        String response = getFromServerPath("protected/servlet?doLogin");
+        String response = getFromServerPath("protected/servlet?doLogin=true");
 
-        // Now has to be logged-in so page is accessible
-        assertTrue("Could not access protected page, but should be able to. "
-            + "Did the container remember the previously set 'unauthenticated identity'?",
-            response.contains("This is a protected servlet"));
+		// Now has to be logged-in so page is accessible
+		assertTrue(
+			"Could not access protected page, but should be able to. " + 
+	        "Did the container remember the previously set 'unauthenticated identity'?",
+			response.contains("This is a protected servlet")
+		);
 
         // -------------------- Request 2 ---------------------------
 
@@ -102,9 +108,11 @@ public class RegisterSessionTest extends ArquillianBase {
         response = getFromServerPath("protected/servlet?continueSession");
 
         // Logged-in thus should be accessible.
-        assertTrue("Could not access protected page, but should be able to. "
-            + "Did the container not remember the authenticated identity via 'javax.servlet.http.registerSession'?",
-            response.contains("This is a protected servlet"));
+        assertTrue(
+            "Could not access protected page, but should be able to. " + 
+            "Did the container not remember the authenticated identity via 'javax.servlet.http.registerSession'?",
+            response.contains("This is a protected servlet")
+        );
 
         // Both the user name and roles/groups have to be restored
 
@@ -128,8 +136,6 @@ public class RegisterSessionTest extends ArquillianBase {
 
         // Access to a public page is unaffected by joining or not joining the session, but if we do not join the
         // session we shouldn't see the user's name and roles.
-
-        // THIS NOW FAILS ON GLASSFISH 4.0. CHECKED WITH RON MONZILLO THAT THIS IS INDEED AN ERROR AND FILED A BUG
 
         response = getFromServerPath("public/servlet");
 

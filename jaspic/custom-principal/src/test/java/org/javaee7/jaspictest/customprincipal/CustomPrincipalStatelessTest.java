@@ -52,7 +52,7 @@ public class CustomPrincipalStatelessTest extends ArquillianBase {
         // we're not authenticated and it will deny further attempts to authenticate. This may happen when
         // the container does not correctly recognize the JASPIC protocol for "do nothing".
 
-        response = getFromServerPath("protected/servlet?doLogin");
+        response = getFromServerPath("protected/servlet?doLogin=true");
 
         // Now has to be logged-in so page is accessible
         assertTrue("Could not access protected page, but should be able to. "
@@ -83,7 +83,7 @@ public class CustomPrincipalStatelessTest extends ArquillianBase {
         // -------------------- Request 1 ---------------------------
 
         // Start with doing a login
-        String response = getFromServerPath("protected/servlet?doLogin");
+        String response = getFromServerPath("protected/servlet?doLogin=true");
 
         // -------------------- Request 2 ---------------------------
 
@@ -116,7 +116,7 @@ public class CustomPrincipalStatelessTest extends ArquillianBase {
 
         // -------------------- Request 2 ---------------------------
 
-        response = getFromServerPath("public/servlet?doLogin");
+        response = getFromServerPath("public/servlet?doLogin=true");
 
         // Now has to be logged-in
         assertTrue(
@@ -153,7 +153,7 @@ public class CustomPrincipalStatelessTest extends ArquillianBase {
         // -------------------- Request 1 ---------------------------
 
         // Accessing protected page with login
-        String response = getFromServerPath("protected/servlet?doLogin");
+        String response = getFromServerPath("protected/servlet?doLogin=true");
 
         // -------------------- Request 2 ---------------------------
 
