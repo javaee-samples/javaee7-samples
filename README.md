@@ -52,22 +52,20 @@ There are 5 available container profiles:
     
     ``-DlibertyManagedArquillian_wlpHome=/opt/wlp``
     
-    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run at least the
-    javaee-7.0 feature and jaspic-1.1 (even though this is part of Java EE 7 already). E.g.
+    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run the
+    javaee-7.0 feature E.g.
     
     ```xml
     <featureManager>
         <feature>javaee-7.0</feature>
-        <feature>jaspic-1.1</feature>
         <feature>localConnector-1.0</feature>
     </featureManager>
     ```
     
-    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a user in Liberty's internal user registry:
+    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a group in Liberty's internal user registry:
     
     ```xml
     <basicRegistry id="basic">
-        <user name="test" password="not needed"/>
         <group name="architect"/>
     </basicRegistry>
     ```
