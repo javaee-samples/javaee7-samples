@@ -33,7 +33,7 @@ public class PublicEJBPropagationLogoutTest extends ArquillianBase {
     @Test
     public void testProtectedServletWithLoginCallingEJB() throws IOException, SAXException {
 
-        String response = getFromServerPath("public/servlet-public-ejb-logout?doLogin");
+        String response = getFromServerPath("public/servlet-public-ejb-logout?doLogin=true");
 
         System.out.println(response);
 

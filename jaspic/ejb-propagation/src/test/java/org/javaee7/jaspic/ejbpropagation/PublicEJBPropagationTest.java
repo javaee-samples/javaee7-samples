@@ -30,7 +30,7 @@ public class PublicEJBPropagationTest extends ArquillianBase {
     @Test
     public void testProtectedServletWithLoginCallingEJB() throws IOException, SAXException {
 
-        String response = getFromServerPath("protected/servlet-public-ejb?doLogin");
+        String response = getFromServerPath("protected/servlet-public-ejb?doLogin=true");
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see the same
         // user name.

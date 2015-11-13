@@ -56,7 +56,7 @@ public class SubjectFromPolicyContextTest extends ArquillianBase {
     @Test
     public void testCanObtainRequestInServlet() throws IOException, SAXException {
 
-        String response = getFromServerPath("subjectServlet?doLogin");
+        String response = getFromServerPath("subjectServlet?doLogin=true");
 
         assertTrue(response.contains("Obtained subject from context."));
     }
@@ -68,7 +68,7 @@ public class SubjectFromPolicyContextTest extends ArquillianBase {
     @Test
     public void testCanObtainRolesFromSubjectInServlet() throws IOException, SAXException {
 
-        String response = getFromServerPath("subjectServlet?doLogin");
+        String response = getFromServerPath("subjectServlet?doLogin=true");
 
         // The role that was assigned to the user in TestServerAuthModule
         assertTrue(response.contains("User has role architect"));

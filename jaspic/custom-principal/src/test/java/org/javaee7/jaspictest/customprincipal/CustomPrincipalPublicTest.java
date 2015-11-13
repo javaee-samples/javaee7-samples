@@ -32,7 +32,7 @@ public class CustomPrincipalPublicTest extends ArquillianBase {
 
         // JASPIC has to be able to authenticate a user when accessing a public (non-protected) resource.
 
-        String response = getFromServerPath("public/servlet?doLogin");
+        String response = getFromServerPath("public/servlet?doLogin=true");
 
         // Has to be logged-in with the right principal
         assertTrue(

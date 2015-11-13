@@ -49,7 +49,7 @@ public class BasicAuthenticationPublicTest extends ArquillianBase {
 
         // JASPIC has to be able to authenticate a user when accessing a public (non-protected) resource.
 
-        String response = getFromServerPath("public/servlet?doLogin");
+        String response = getFromServerPath("public/servlet?doLogin=true");
 
         // Now has to be logged-in
         assertTrue(
