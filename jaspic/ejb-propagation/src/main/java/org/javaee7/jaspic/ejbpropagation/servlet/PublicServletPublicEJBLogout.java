@@ -1,6 +1,9 @@
 package org.javaee7.jaspic.ejbpropagation.servlet;
 
+import static java.util.logging.Level.SEVERE;
+
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -21,6 +24,7 @@ import org.javaee7.jaspic.ejbpropagation.ejb.PublicEJB;
 public class PublicServletPublicEJBLogout extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private final static Logger logger = Logger.getLogger(PublicServletPublicEJBLogout.class.getName());
 
     @EJB
     private PublicEJB publicEJB;
@@ -32,8 +36,13 @@ public class PublicServletPublicEJBLogout extends HttpServlet {
         if (request.getUserPrincipal() != null) {
             webName = request.getUserPrincipal().getName();
         }
-
-        String ejbName = publicEJB.getUserName();
+        
+        String ejbName = "";
+        try {
+            ejbName = publicEJB.getUserName();
+        } catch (Exception e) {
+            logger.log(SEVERE, "", e);
+        }
 
         request.logout();
         HttpSession session = request.getSession(false);
@@ -46,7 +55,12 @@ public class PublicServletPublicEJBLogout extends HttpServlet {
             webNameAfterLogout = request.getUserPrincipal().getName();
         }
 
-        String ejbNameAfterLogout = publicEJB.getUserName();
+        String ejbNameAfterLogout = "";
+        try {
+            ejbNameAfterLogout = publicEJB.getUserName();
+        } catch (Exception e) {
+            logger.log(SEVERE, "", e);
+        }
 
         response.getWriter().write("web username: " + webName + "\n" + "EJB username: " + ejbName + "\n");
         response.getWriter().write("web username after logout: " + webNameAfterLogout + "\n" + "EJB username after logout: " + ejbNameAfterLogout + "\n");
