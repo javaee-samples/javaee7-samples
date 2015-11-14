@@ -50,7 +50,7 @@ public class RegisterSessionTest extends ArquillianBase {
         // JASPIC is normally stateless, but for this test the SAM uses the register session feature so now
         // we should be logged-in when doing a call without explicitly logging in again.
 
-        response = getFromServerPath("protected/servlet?continueSession");
+        response = getFromServerPath("protected/servlet?continueSession=true");
 
         // Logged-in thus should be accessible.
         assertTrue(
@@ -72,7 +72,7 @@ public class RegisterSessionTest extends ArquillianBase {
 
         // The session should also be remembered for other resources, including public ones
 
-        response = getFromServerPath("public/servlet?continueSession");
+        response = getFromServerPath("public/servlet?continueSession=true");
 
         // This test almost can't fail, but include for clarity
         assertTrue(response.contains("This is a public servlet"));
@@ -105,7 +105,7 @@ public class RegisterSessionTest extends ArquillianBase {
         // JASPIC is normally stateless, but for this test the SAM uses the register session feature so now
         // we should be logged-in when doing a call without explicitly logging in again.
 
-        response = getFromServerPath("protected/servlet?continueSession");
+        response = getFromServerPath("protected/servlet?continueSession=true");
 
         // Logged-in thus should be accessible.
         assertTrue(
