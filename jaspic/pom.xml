@@ -36,12 +36,15 @@
         
          <!-- JASPIC is normally stateless but with a new option introduced in JASPIC 1.1 it can semi-transparently 
              remember an authenticated identity (semi, because the SAM will still be called and has to explicitly
-             indidate it wants to continue this remembered session). This tests that remembering a session indeed works.
+             indicate it wants to continue this remembered session). This tests that remembering a session indeed works.
          -->
         <module>register-session</module>
         
          <!-- Tests behavior of authentication involving asynchronous requests -->
         <module>async-authentication</module>
+        
+        <!-- Tests that a SAM is able to set a status code into the response -->
+        <module>status-codes</module>
         
          <!-- Like a Servlet a JASPIC SAM for the Servlet Profile can dispatch a request via a forward or include. This tests that 
             this is indeed possible by using plain Servlets and nothing else. -->
