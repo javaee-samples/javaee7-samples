@@ -7,19 +7,19 @@ package org.javaee7.jpa.aggregate_function_in_select.entity;
  *
  */
 public class AggregatedTestEntity {
-	
-	private String values;
 
-	public AggregatedTestEntity(String values) {
-		this.values = values;
-	}
-	
-	public String getValues() {
-		return values;
-	}
+    private String values;
 
-	public void setValues(String values) {
-		this.values = values;
-	}
+    public AggregatedTestEntity(String values) {
+        this.values = values;
+    }
+
+    public String getValues() {
+        return values;
+    }
+
+    public void setValues(String values) {
+        this.values = values;
+    }
 
 }

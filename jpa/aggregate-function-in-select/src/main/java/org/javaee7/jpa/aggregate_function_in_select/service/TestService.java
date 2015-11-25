@@ -35,15 +35,16 @@ public class TestService {
 
     public List<AggregatedTestEntity> getAggregation() {
         return entityManager
-    		.createQuery(
-	        	// Note that GROUP_CONCAT is a DB specific function, in this case for HSQLDB.
-	    		"SELECT new org.javaee7.jpa.aggregate_function_in_select.entity.AggregatedTestEntity("
-	    		+    "FUNCTION('GROUP_CONCAT', _testEntity.value)"
-	    		+ ") "
-	    		+ "FROM "
-	    		+ "    TestEntity _testEntity ", 
-	    		AggregatedTestEntity.class)
-            .getResultList();
+            .createQuery(
+                // Note that GROUP_CONCAT is a DB specific function, in this
+                // case for HSQLDB.
+                "SELECT new org.javaee7.jpa.aggregate_function_in_select.entity.AggregatedTestEntity("
+                +    "FUNCTION('GROUP_CONCAT', _testEntity.value)" 
+                +") " 
+                +"FROM "
+                +    "TestEntity _testEntity ",
+            AggregatedTestEntity.class
+            ).getResultList();
     }
 
 }

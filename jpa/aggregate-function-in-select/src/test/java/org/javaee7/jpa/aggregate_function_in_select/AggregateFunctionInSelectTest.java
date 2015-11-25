@@ -54,16 +54,16 @@ public class AggregateFunctionInSelectTest {
         List<AggregatedTestEntity> testEntities = testService.getAggregation();
         
         assertTrue(
-    		"All entities should have been aggregated into 1 result row", 
-    		testEntities.size() == 1
-		);
+            "All entities should have been aggregated into 1 result row", 
+            testEntities.size() == 1
+        );
         
         String values = testEntities.get(0).getValues();
         
         assertTrue(
-    		"Aggregation should be 1,2 or 2,1, but was: " + values, 
-    		values.equals("1,2") || values.equals("2,1") // order doesn't matter here
-    	);
+            "Aggregation should be 1,2 or 2,1, but was: " + values, 
+            values.equals("1,2") || values.equals("2,1") // order doesn't matter here
+        );
     }
 
     private static File resource(String name) {
