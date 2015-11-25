@@ -8,13 +8,14 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>jpa</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    
     <name>Java EE 7 Sample: jpa</name>
 
     <modules>
+        <module>aggregate-function-in-select</module>
         <module>criteria</module>
         <module>datasourcedefinition</module>
         <module>datasourcedefinition-webxml-pu</module>
