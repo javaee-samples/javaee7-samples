@@ -54,8 +54,11 @@
             this is indeed possible by using Servlets that are injected with a CDI bean and JSF views. -->
         <module>dispatching-jsf-cdi</module>
         
-         <!-- Tests that an established authenticated identity by JASPIC propagates correctly to the EJB layer -->
+        <!-- Tests that an established authenticated identity by JASPIC propagates correctly to the EJB layer -->
         <module>ejb-propagation</module>
+        
+        <!-- Tests that an established authenticated identity by JASPIC propagates correctly to a JACC provider -->
+        <module>jacc-propagation</module>
         
         <!-- Tests that a SAM is able to invoke EJB beans and CDI bean. NOTE; JASPIC 1.1 does not require this,
              although a JASPIC 1.1 compatible container "should" at least be able to call EJB beans (even though
