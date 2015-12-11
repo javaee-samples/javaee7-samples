@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>JAX-RS 2 Client Invocation Async API</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Client Invocation Async API</a>.
+        Invoke the <a href="${pageContext.request.contextPath}/TestServlet">Client Invocation Async API</a>.
     </body>
 </html>

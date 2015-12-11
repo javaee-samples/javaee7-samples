@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>JAX-RS 2 Filter/Interceptor</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Client</a> and check the server.log for filter output.
+        Invoke the <a href="${pageContext.request.contextPath}/TestServlet">Client</a> and check the server.log for filter output.
     </body>
 </html>

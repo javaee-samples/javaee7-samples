@@ -63,7 +63,7 @@
                 <input id="myField2" value="123456" type="text"><br>
             </form>
         </div>
-        <p/>Connection is closed if more than 6 characters are sent.<p/>
+        <p>Connection is closed if more than 6 characters are sent.</p>
         <div id="output"></div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>

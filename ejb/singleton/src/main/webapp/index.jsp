@@ -51,6 +51,6 @@
     <body>
         <h1>EJB : Singleton</h1>
         
-        <a href="${pageContext.request.contextPath}/TestServlet"/>Call bean</a>
+        <a href="${pageContext.request.contextPath}/TestServlet">Call bean</a>
     </body>
 </html>

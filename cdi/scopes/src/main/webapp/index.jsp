@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>CDI : Scopes</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/ClientServlet"/>Greeting</a>.
+        Invoke the <a href="${pageContext.request.contextPath}/ClientServlet">Greeting</a>.
     </body>
 </html>

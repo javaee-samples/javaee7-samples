@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>CDI : Built-in Beans</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting Service</a>.
+        Invoke the <a href="${pageContext.request.contextPath}/TestServlet">Greeting Service</a>.
     </body>
 </html>

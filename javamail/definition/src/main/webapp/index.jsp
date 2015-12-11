@@ -50,7 +50,7 @@
     </head>
     <body>
         <h1>JavaMail Definition</h1>
-        Make sure "<%= System.getProperty("user.home") %><%= System.getProperty("file.separator") %>.javamail" contains the following name/value pairs:<p/><p/>
+        Make sure "<%= System.getProperty("user.home") %><%= System.getProperty("file.separator") %>.javamail" contains the following name/value pairs:<br/><br/>
         <ul>
             <li>from</li>
             <li>password</li>
@@ -58,8 +58,8 @@
         </ul>
         Send an email from "username" to "to" using:
         <ol>
-            <li><a href="${pageContext.request.contextPath}/ProgrammaticEmailServlet"/>Programmatic Session</a></li>
-            <li><a href="${pageContext.request.contextPath}/AnnotatedEmailServlet"/>Declarative Session</a></li>
+            <li><a href="${pageContext.request.contextPath}/ProgrammaticEmailServlet">Programmatic Session</a></li>
+            <li><a href="${pageContext.request.contextPath}/AnnotatedEmailServlet">Declarative Session</a></li>
         </ol>
     </body>
 </html>

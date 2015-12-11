@@ -51,6 +51,6 @@
     </head>
     <body>
         <h1>Quartz Scheduler</h1>
-        Trigger <a href="${pageContext.request.contextPath}/TestServlet"/>scheduler</a>
+        Trigger <a href="${pageContext.request.contextPath}/TestServlet">scheduler</a>
 </body>
 </html>

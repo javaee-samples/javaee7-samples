@@ -51,7 +51,7 @@
     <body>
         <h1>JPA 2.1 Schema Generation (using scripts)</h1>
         
-        <a href="${pageContext.request.contextPath}/TestServlet"/>List</a> employees.
+        <a href="${pageContext.request.contextPath}/TestServlet">List</a> employees.
 
     <br><br>
         If you see this page, that means database tables are created 

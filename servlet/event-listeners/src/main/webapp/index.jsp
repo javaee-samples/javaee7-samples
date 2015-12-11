@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>Servlet : Event Listeners</h1>
-        Call the <a href="${pageContext.request.contextPath}/TestServlet"/>servlet</a> to set/update/remove attributes.
+        Call the <a href="${pageContext.request.contextPath}/TestServlet">servlet</a> to set/update/remove attributes.
     </body>
 </html>

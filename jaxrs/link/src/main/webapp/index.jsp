@@ -9,6 +9,6 @@
     </head>
     <body>
         <h1>JAX-RS 2 Links</h1>
-        Invoke the <a href="/link/TestServlet"/>Client</a>.
+        Invoke the <a href="/link/TestServlet">Client</a>.
     </body>
 </html>
