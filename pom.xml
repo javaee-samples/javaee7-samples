@@ -835,7 +835,7 @@
                 <weblogicRemoteArquillian_adminPassword>admin007</weblogicRemoteArquillian_adminPassword>
         
                 <!-- Default host and port when running WLS locally -->
-                <weblogicRemoteArquillian_adminUrl>t3://localhost:7001</weblogicRemoteArquillian_adminUrl>
+                <weblogicRemoteArquillian_adminUrl>http://localhost:7001</weblogicRemoteArquillian_adminUrl>
         
                 <!-- Default target after having installed developer zip distribution for 
                     WebLogic -->
@@ -845,10 +845,28 @@
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
-                    <version>1.0.0.Alpha3</version>
-                    <scope>test</scope>
+                    <artifactId>arquillian-wls-remote-rest</artifactId>
+                    <version>1.0.1.Final</version>
+                    <scope>test</scope>                    
                 </dependency>
+                <dependency>
+                   <groupId>org.glassfish.jersey.core</groupId>
+                   <artifactId>jersey-client</artifactId>
+                   <version>2.15</version>
+                   <scope>test</scope>
+                </dependency>
+		        <dependency>
+		            <groupId>org.glassfish.jersey.media</groupId>
+		            <artifactId>jersey-media-json-processing</artifactId>
+		            <version>2.15</version>
+		            <scope>test</scope>
+		        </dependency>
+		        <dependency>
+		            <groupId>org.glassfish.jersey.media</groupId>
+		            <artifactId>jersey-media-multipart</artifactId>
+		            <version>2.15</version>
+		            <scope>test</scope>                
+		        </dependency>
             </dependencies>
 
             <build>
@@ -858,7 +876,6 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <arquillian.launch>weblogic-remote-arquillian</arquillian.launch>
-                                <wlHome>${weblogicRemoteArquillian_wlHome}</wlHome>
                                 <adminUrl>${weblogicRemoteArquillian_adminUrl}</adminUrl>
                                 <adminUserName>${weblogicRemoteArquillian_adminUserName}</adminUserName>
                                 <adminPassword>${weblogicRemoteArquillian_adminPassword}</adminPassword>

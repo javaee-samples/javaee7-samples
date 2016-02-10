@@ -72,15 +72,10 @@ There are 5 available container profiles:
     
 * ``weblogic-remote-arquillian``
     
-    This profile requires you to start up a WebLogic server outside of the build. Each sample will then
-    reuse this instance to run the tests. NOTE: this has been tested on WebLogic 12.1.3, which is a Java EE 6 implementation,
-    but it has some Java EE 7 features which can be optionally activated.
+    This profile requires you to start up a WebLogic server outside of the build. Each sample will then reuse this instance to run the tests. NOTE: this has been tested on WebLogic 12.1.3, which is a Java EE 6 implementation, but it has some Java EE 7 features which can be optionally activated.
     
-    This profile requires you to set the location where WebLogic is installed via the ``weblogicRemoteArquillian_wlHome``
-    system property. E.g.
-    
-    ``-DweblogicRemoteArquillian_wlHome=/opt/wls12130``
-    
+    This profile requires reliead upon WebLogic REST management API which you need to explicitly enable as [described in documentation](https://docs.oracle.com/cd/E24329_01/apirefs.1211/e24401/taskhelp/domainconfig/EnableRESTfulManagementServices.html) 
+
     The default username/password are assumed to be "admin" and "admin007" respectively. This can be changed using the
     ``weblogicRemoteArquillian_adminUserName`` and ``weblogicRemoteArquillian_adminPassword`` system properties. E.g.
     
