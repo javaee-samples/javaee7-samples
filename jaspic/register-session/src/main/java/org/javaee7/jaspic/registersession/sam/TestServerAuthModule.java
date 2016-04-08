@@ -6,7 +6,6 @@ import static javax.security.auth.message.AuthStatus.SUCCESS;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
@@ -22,14 +21,13 @@ import javax.security.auth.message.module.ServerAuthModule;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * 
  * @author Arjan Tijms
  * 
  */
 public class TestServerAuthModule implements ServerAuthModule {
-
-    Logger logger = Logger.getLogger("blalllalala");
 
     private CallbackHandler handler;
     private Class<?>[] supportedMessageTypes = new Class[] { HttpServletRequest.class, HttpServletResponse.class };
@@ -65,7 +63,15 @@ public class TestServerAuthModule implements ServerAuthModule {
 
             callbacks = new Callback[] {
                 // The name of the authenticated user
-                new CallerPrincipalCallback(clientSubject, "test"),
+                
+                    request.getParameter("customPrincipal") == null?
+                        // Name based Callback 
+                        new CallerPrincipalCallback(clientSubject, "test") :
+                        
+                        // Custom principal based Callback
+                        new CallerPrincipalCallback(clientSubject, new MyPrincipal("test")),
+                
+                
                 // the roles of the authenticated user
                 new GroupPrincipalCallback(clientSubject, new String[] { "architect" }) };
 
