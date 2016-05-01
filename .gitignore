@@ -94,3 +94,10 @@ local.properties
 
 # Testing environment specific
 derby.log
+
+
+######################
+# Liberty tools
+######################
+
+.factorypath
