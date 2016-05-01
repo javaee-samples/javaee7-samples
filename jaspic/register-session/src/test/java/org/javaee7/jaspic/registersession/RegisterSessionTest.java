@@ -99,7 +99,7 @@ public class RegisterSessionTest extends ArquillianBase {
 
         // We access a protected page and login
         //
-
+            
         String response = getFromServerPath("protected/servlet?doLogin=true");
 
 		// Now has to be logged-in so page is accessible
@@ -152,9 +152,19 @@ public class RegisterSessionTest extends ArquillianBase {
 
         response = getFromServerPath("public/servlet");
 
-        assertTrue(response.contains("This is a public servlet"));
-        assertFalse(response.contains("web username: test"));
-        assertFalse(response.contains("web user has role \"architect\": true"));
+        assertTrue(
+            "Could not access public page, but should be able to. " +
+            "Does the container have an automatic session fixation prevention?",    
+            response.contains("This is a public servlet")
+        );
+        assertFalse(
+            "SAM did not join authentication session and should be anonymous, but username is name of session identity.",
+            response.contains("web username: test")
+        );
+        assertFalse(
+            "SAM did not join authentication session and should be anonymous without roles, but has role of session identity.",
+            response.contains("web user has role \"architect\": true")
+        );
     }
     
     private void checkAuthenticatedIdentity(String response) {
