@@ -40,6 +40,7 @@
         <maven.test.skip>false</maven.test.skip>
         <hamcrest.version>1.3</hamcrest.version>
         <glassfish.version>4.0</glassfish.version>
+        <tomee.version>7.0.0-M3</tomee.version>
     </properties>
 
     <modules>
@@ -693,22 +694,22 @@
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>arquillian-tomee-embedded</artifactId>
-                    <version>7.0.0-M1</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>tomee-embedded</artifactId>
-                    <version>7.0.0-M1</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>tomee-webservices</artifactId>
-                    <version>7.0.0-M1</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>tomee-jaxrs</artifactId>
-                    <version>7.0.0-M1</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.batchee</groupId>
@@ -718,22 +719,22 @@
                 <dependency>
                     <groupId>org.apache.johnzon</groupId>
                     <artifactId>johnzon-core</artifactId>
-                    <version>0.1-incubating</version>
+                    <version>0.9.3-incubating</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-el-api</artifactId>
-                    <version>8.0.14</version>
+                    <version>8.0.32</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jasper-el</artifactId>
-                    <version>8.0.14</version>
+                    <version>8.0.32</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.commons</groupId>
                     <artifactId>commons-lang3</artifactId>
-                    <version>3.3.2</version>
+                    <version>3.4</version>
                 </dependency>
             </dependencies>
             <build>
@@ -754,14 +755,14 @@
             <id>tomee-remote-arquillian</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.apache.openejb</groupId>
+                    <groupId>org.apache.tomee</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
-                    <groupId>org.apache.openejb</groupId>
+                    <groupId>org.apache.tomee</groupId>
                     <artifactId>apache-tomee</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
+                    <version>${tomee.version}</version>
                     <classifier>plus</classifier>
                     <type>zip</type>
                 </dependency>
