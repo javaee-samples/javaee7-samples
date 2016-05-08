@@ -140,13 +140,19 @@ public class ArquillianBase {
      * @return the raw content as a string as returned by the server
      */
     protected String getFromServerPath(final String path) {
-        try {
-            response = null;
-            response = webClient.getPage(base + path).getWebResponse().getContentAsString();
-            return response;
-        } catch (FailingHttpStatusCodeException | IOException e) {
-            throw new IllegalStateException(e);
+        response = null;
+        for (int i=0; i<=3; i++) {
+            try {
+                response = webClient.getPage(base + path).getWebResponse().getContentAsString();
+                if (!response.contains("The response wrapper must wrap the response obtained from getResponse()")) {
+                    return response;
+                }
+            } catch (FailingHttpStatusCodeException | IOException e) {
+                throw new IllegalStateException(e);
+            }
         }
+        
+        return response;
     }
 
 }
