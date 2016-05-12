@@ -12,18 +12,18 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 5 available container profiles:
+There are 8 available container profiles, for 5 different servers:
 
 * ``wildfly-managed-arquillian``
     
-    The default profile and it will install a Wildfly server and start up the server per sample.
+    This profile will install a Wildfly server and start up the server per sample.
     Useful for CI servers.
 
 * ``wildfly-remote-arquillian``
     
     This profile requires you to start up a Wildfly server outside of the build. Each sample will then
     reuse this instance to run the tests.
-    Useful for development to avoid the server start up cost per sample.
+    Useful for development to avoid the server start up cost per sample. This is the default profile.
 
 * ``glassfish-embedded-arquillian``
     
@@ -36,9 +36,39 @@ There are 5 available container profiles:
     reuse this instance to run the tests.
     Useful for development to avoid the server start up cost per sample.
     
+* ``tomee-managed-arquillian``
+
+    This profile will install a TomEE server and start up that server per sample.
+    Useful for CI servers. This profile cannot connect to a running server.
+    
+    Note that the version of TomEE to be used has to be present in an
+    available maven repository. The defaults in this profile assume that the arquillian adapter and
+    the TomEE server have the same version. E.g both 7.0.0-SNAPSHOT.
+    
+    To use a TomEE server that's not available in maven central, one way to use it for the samples is to
+    install it in a local .m2 as follows:
+    
+    Clone TomEE repo:
+    
+    ``git clone https://github.com/apache/tomee``
+    ``cd tomee``
+    
+    Switch to the desired version if needed, then build and install in .m2:
+    
+    ``mvn clean install -pl tomee/apache-tomee -am -Dmaven.test.skip=true``
+    
+    ``mvn clean install -pl arquillian -amd -Dmaven.test.skip=true``
+    
+    Make sure the version that's installed (see pom.xml in TomEE project) matches the ``tomee.version`` in the
+    properties section in the root pom.xml of the samples project.
+    
+* ``tomee-embedded-arquillian``
+
+    This profile uses the TomEE embedded server and runs in the same JVM as the TestClass.
+    
 * ``liberty-managed-arquillian``
 
-    This profile will start up the server per sample, and optionally connects to a running server that you
+    This profile will start up the Liberty server per sample, and optionally connects to a running server that you
     can start up outside of the build (with the restriction that this server has to run on the host as where
     the tests are run using the same user).
     

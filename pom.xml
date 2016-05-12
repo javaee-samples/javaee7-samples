@@ -40,7 +40,15 @@
         <maven.test.skip>false</maven.test.skip>
         <hamcrest.version>1.3</hamcrest.version>
         <glassfish.version>4.0</glassfish.version>
-        <tomee.version>7.0.0-M3</tomee.version>
+        
+        <!-- 
+            TomEE version that's installed and used when selecting the 
+            tomee-managed-arquillian profile. Has to be made available
+            locally or version has to be changed to a version available in
+            maven central.
+            See README.md for details.
+        -->
+        <tomee.version>7.0.0-SNAPSHOT</tomee.version>
     </properties>
 
     <modules>
@@ -707,14 +715,9 @@
                     <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
-                    <groupId>org.apache.tomee</groupId>
-                    <artifactId>tomee-jaxrs</artifactId>
-                    <version>${tomee.version}</version>
-                </dependency>
-                <dependency>
                     <groupId>org.apache.batchee</groupId>
                     <artifactId>batchee-jbatch</artifactId>
-                    <version>0.2-incubating</version>
+                    <version>0.3-incubating</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.johnzon</groupId>
@@ -724,17 +727,17 @@
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-el-api</artifactId>
-                    <version>8.0.32</version>
+                    <version>8.5.0</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jasper-el</artifactId>
-                    <version>8.0.32</version>
+                    <version>8.5.0</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.commons</groupId>
                     <artifactId>commons-lang3</artifactId>
-                    <version>3.4</version>
+                    <version>3.3.2</version>
                 </dependency>
             </dependencies>
             <build>
@@ -752,21 +755,95 @@
         </profile>
         
         <profile>
-            <id>tomee-remote-arquillian</id>
+            <id>tomee-managed-arquillian</id>
+            
             <dependencies>
+                
+                <!-- The arquillian "remote" adapter that installs and starts/stops TomEE and deploys/undeploys tests  -->
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
                     <version>${tomee.version}</version>
+                    <exclusions>
+                        <exclusion> <!-- let's use default (JTA) otherwise we need to setup the pom in a harder way -->
+                            <groupId>org.apache.tomee</groupId>
+                            <artifactId>arquillian-openejb-transaction-provider</artifactId>
+                        </exclusion>
+                    </exclusions>
                 </dependency>
+                
+                <!-- The version of TomEE that the "remote" adapter is going to install and use.
+                     Note that the adapter does *not* connect to an existing user installed TomEE
+                     instance.
+                 -->
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>apache-tomee</artifactId>
                     <version>${tomee.version}</version>
-                    <classifier>plus</classifier>
                     <type>zip</type>
+                    <classifier>plus</classifier>
+                </dependency>
+                
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.191</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-rs-client</artifactId>
+                    <version>3.1.5</version>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>-DTOMEE_LOCK_FILE=${user.dir}/.tomee-ports.lock</argLine>
+                            <systemPropertyVariables>
+                                
+                                <!--
+                                    TomEE Remote Arquillian Adapter Configuration
+                                    
+                                    The TomEE adapter can be directly configured via system properties
+                                    without requiring to shuffle these to the arquillian.xml file.
+                                -->
+
+                                <!-- Using random port to run in // tests -->
+                                <tomee.stopPort>-1</tomee.stopPort>
+                                <tomee.httpPort>-1</tomee.httpPort>
+                                <tomee.httpsPort>-1</tomee.httpsPort>
+                                <tomee.ajpPort>-1</tomee.ajpPort>
+                                
+                                <!-- Configure arquillian adapter here to do it once without any other module -->
+                                <tomee.dir>target/tomee/server</tomee.dir>
+                                <tomee.appWorkingDir>target/tomee/arquillian</tomee.appWorkingDir>
+                                <tomee.cleanOnStartUp>true</tomee.cleanOnStartUp>
+                                <tomee.classifier>plus</tomee.classifier>
+                                <tomee.properties>
+                                    # default resources are not on by default cause it can need ports etc (JMS)
+                                    openejb.environment.default=true
+
+                                    # see additionalLibs
+                                    javax.persistence.provider = org.eclipse.persistence.jpa.PersistenceProvider
+                                </tomee.properties>
+                                <tomee.additionalLibs>
+                                    # OpenJPA is not yet JPA 2.1 and a lot of test - not only JPA - rely on javax.persistence properties
+                                    remove:openjpa
+                                    mvn:org.eclipse.persistence:eclipselink:2.5.2
+                                    mvn:org.eclipse.persistence:commonj.sdo:2.1.1
+                                    # some tests rely on h2 presence so ensure it is there even if tomee default is hsqldb
+                                    mvn:com.h2database:h2:1.4.191
+                                </tomee.additionalLibs>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>
