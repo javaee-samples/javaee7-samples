@@ -49,13 +49,15 @@ public class AnyGreetingTest {
 		assertTrue(instance.isAmbiguous());
 
 		// use Instance<T>#select()
-		Greeting businessBean = instance.select(new AnnotationLiteral<Business>() {}).get();
+		Instance<Greeting> businessInstance = instance.select(new AnnotationLiteral<Business>() {});
+		Greeting businessBean = businessInstance.get();
 		assertThat(businessBean, instanceOf(FormalGreeting.class));
-		instance.destroy(businessBean);
+		businessInstance.destroy(businessBean);
 
-		Greeting defaultBean = instance.select(new AnnotationLiteral<Default>() {}).get();
+		Instance<Greeting> defaultInstance = instance.select(new AnnotationLiteral<Default>() {});
+		Greeting defaultBean = defaultInstance.get();
 		assertThat(defaultBean, instanceOf(SimpleGreeting.class));
-		instance.destroy(defaultBean);
+		defaultInstance.destroy(defaultBean);
 	}
 }
 
