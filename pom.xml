@@ -44,11 +44,10 @@
         <!-- 
             TomEE version that's installed and used when selecting the 
             tomee-managed-arquillian profile. Has to be made available
-            locally or version has to be changed to a version available in
-            maven central.
+            locally when set to version not available in Maven central.
             See README.md for details.
         -->
-        <tomee.version>7.0.0-SNAPSHOT</tomee.version>
+        <tomee.version>7.0.0</tomee.version>
     </properties>
 
     <modules>
