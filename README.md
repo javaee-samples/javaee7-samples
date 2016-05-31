@@ -43,7 +43,7 @@ There are 8 available container profiles, for 5 different servers:
     
     Note that the version of TomEE to be used has to be present in an
     available maven repository. The defaults in this profile assume that the arquillian adapter and
-    the TomEE server have the same version. E.g both 7.0.0-SNAPSHOT.
+    the TomEE server have the same version. E.g both 7.0.0.
     
     To use a TomEE server that's not available in maven central, one way to use it for the samples is to
     install it in a local .m2 as follows:
