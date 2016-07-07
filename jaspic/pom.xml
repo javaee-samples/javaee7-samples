@@ -25,6 +25,12 @@
              in a Servlet via HttpServletRequest#getUserPrincipal
          -->
         <module>custom-principal</module>
+        
+        <!-- Tests a simple authentication like basic-authentication, but uses
+             request.authenticate instead of the authentication prior to invoking
+             the resource.
+         -->
+        <module>programmatic-authentication</module>
 
         <!-- Tests that the main methods of JASPIC artifacts like the SAM are called by the container at the right moment -->
         <module>lifecycle</module>
