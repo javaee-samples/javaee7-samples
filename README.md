@@ -4,7 +4,7 @@ This workspace consists of Java EE 7 Samples and unit tests. They are categorize
 
 Some samples/tests have documentation otherwise read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to most these samples and provide an explanation. Feel free to add docs and send a pull request.
 
-## How to run ? ##
+## How to run? ##
 
 Samples are tested on Wildfly and GlassFish using the Arquillian ecosystem.
 
@@ -12,7 +12,7 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 8 available container profiles, for 5 different servers:
+There are 9 available container profiles, for 5 different servers:
 
 * ``wildfly-managed-arquillian``
     
@@ -99,6 +99,12 @@ There are 8 available container profiles, for 5 different servers:
         <group name="architect"/>
     </basicRegistry>
     ```
+        
+* ``liberty-embedded-arquillian``
+    
+    This profile will download and install a Liberty server and start up the server per sample.
+    Useful for CI servers. Note, this is not a real embedded server, but a regular server. It's now
+    called "embedded" because no separate install is needed as it's downloaded automatically. 
     
 * ``weblogic-remote-arquillian``
     
@@ -125,7 +131,7 @@ Some of the containers allow you to override the version used
 
 * `-Dglassfish.version=4.1`
 
-    This will change the version from 4.0 to 4.1 for GlassFish testing purposes.
+    This will change the version from 4.1.1 to 4.1 for GlassFish testing purposes.
 
 Similarly, there are 6 profiles to choose a browser to test on:
 
@@ -156,13 +162,20 @@ Similarly, there are 6 profiles to choose a browser to test on:
     To run tests on headless browser PhantomJS. If you do not specify the path of phantomjs binary via 
     ``-Dphantomjs.binary.path`` property, it will be downloaded automatically.
 
-To run them in the console do:
+**To run them in the console do**:
 
 1. In the terminal, ``mvn -Pwildfly-managed-arquillian,browser-firefox test`` at the top-level directory to start the tests
 
 When developing and runing them from IDE, remember to activate the profile before running the test.
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
+
+**To run only a subset of the tests do at the top-level directory**:
+
+1. Install top level dependencies: ``mvn clean install -pl "test-utils,util" -am``
+1. cd into desired module, e.g.: ``cd jaspic``
+1. Run tests against desired server, e.g.: ``mvn clean test -P liberty-embedded-arquillian``
+
 
 ## How to contribute ##
 
