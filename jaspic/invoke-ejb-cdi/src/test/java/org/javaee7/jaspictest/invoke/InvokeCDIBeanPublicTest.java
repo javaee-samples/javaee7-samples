@@ -56,5 +56,35 @@ public class InvokeCDIBeanPublicTest extends ArquillianBase {
             response.contains("secureResponse: Called from CDI")
         );
     }
+    
+    @Test
+    public void publicInvokeCDIUseInjectedRequestFromValidateRequest() {
+        String response = getFromServerPath("public/servlet?tech=cdi");
+        
+        assertTrue(
+            "Response did not contain output from CDI bean using an inject request for validateRequest for public resource. (note: this is not required by the spec)", 
+            response.contains("validateRequest: Called from CDI via injected request")
+        );
+    }
+    
+    @Test
+    public void publicInvokeCDIUseInjectedRequestFromCleanSubject() {
+        String response = getFromServerPath("public/servlet?tech=cdi");
+        
+        assertTrue(
+            "Response did not contain output from CDI bean using an inject request for cleanSubject for public resource. (note: this is not required by the spec)", 
+            response.contains("cleanSubject: Called from CDI via injected request")
+        );
+    }
+    
+    @Test
+    public void publicInvokeCDIUseInjectedRequestFromSecureResponse() {
+        String response = getFromServerPath("public/servlet?tech=cdi");
+        
+        assertTrue(
+            "Response did not contain output from CDI bean using an inject request for secureResponse for public resource. (note: this is not required by the spec)", 
+            response.contains("secureResponse: Called from CDI via injected request")
+        );
+    }
 
 }

@@ -54,7 +54,7 @@ public class TestServerAuthModule implements ServerAuthModule {
         HttpServletResponse response = (HttpServletResponse) messageInfo.getResponseMessage();
         
         if ("cdi".equals(request.getParameter("tech"))) {
-            callCDIBean(response, "validateRequest");
+            callCDIBean(request, response, "validateRequest");
         } else  if ("ejb".equals(request.getParameter("tech"))) {
             callEJBBean(response, "validateRequest");
         }
@@ -84,7 +84,7 @@ public class TestServerAuthModule implements ServerAuthModule {
         HttpServletResponse response = (HttpServletResponse) messageInfo.getResponseMessage();
 
         if ("cdi".equals(request.getParameter("tech"))) {
-            callCDIBean(response, "secureResponse");
+            callCDIBean(request, response, "secureResponse");
         } else if ("ejb".equals(request.getParameter("tech"))) {
             callEJBBean(response, "secureResponse");
         }
@@ -99,16 +99,21 @@ public class TestServerAuthModule implements ServerAuthModule {
         HttpServletResponse response = (HttpServletResponse) messageInfo.getResponseMessage();
 
         if ("cdi".equals(request.getParameter("tech"))) {
-            callCDIBean(response, "cleanSubject");
+            callCDIBean(request, response, "cleanSubject");
         } else if ("ejb".equals(request.getParameter("tech"))) {
             callEJBBean(response, "cleanSubject");
         }
     }
     
-    private void callCDIBean(HttpServletResponse response, String phase) {
+    private void callCDIBean(HttpServletRequest request, HttpServletResponse response, String phase) {
         try {
             CDIBean cdiBean = CDI.current().select(CDIBean.class).get();
-            response.getWriter().write(phase + ": " + cdiBean.getText());
+            response.getWriter().write(phase + ": " + cdiBean.getText() + "\n");
+            
+            cdiBean.setTextViaInjectedRequest();
+            
+            response.getWriter().write(phase + ": " + request.getAttribute("text")+ "\n");
+            
         } catch (Exception e) {
             logger.log(SEVERE, "", e);
         }
@@ -117,7 +122,7 @@ public class TestServerAuthModule implements ServerAuthModule {
     private void callEJBBean(HttpServletResponse response, String phase) {
         try {
             EJBBean ejbBean = (EJBBean) new InitialContext().lookup("java:module/EJBBean");
-            response.getWriter().write(phase + ": " + ejbBean.getText());
+            response.getWriter().write(phase + ": " + ejbBean.getText() + "\n");
         } catch (Exception e) {
             logger.log(SEVERE, "", e);
         }
