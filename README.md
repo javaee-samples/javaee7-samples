@@ -12,11 +12,17 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 9 available container profiles, for 5 different servers:
+There are 10 available container profiles, for 5 different servers:
 
 * ``wildfly-managed-arquillian``
     
     This profile will install a Wildfly server and start up the server per sample.
+    Useful for CI servers.
+    
+* ``wildfly-embedded-arquillian``
+    
+    This profile is almost identical to wildfly-managed-arquillian. It will install the same Wildfly server and start up 
+    that server per sample again, but instead uses the Arquillian embedded connector to run it in the same JVM. 
     Useful for CI servers.
 
 * ``wildfly-remote-arquillian``
