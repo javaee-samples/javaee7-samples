@@ -1,3 +1,4 @@
+
 package org.javaee7.jaxws.client.gen;
 
 import java.util.ArrayList;
@@ -6,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
 
 /**
  * <p>Java class for findEBooksResponse complex type.

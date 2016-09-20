@@ -12,7 +12,8 @@
     <artifactId>oracle</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    
+    <name>Java EE 7 Samples: extras - nosql: oracle</name>
+
     <dependencies>
         <dependency>
             <groupId>com.oracle.nosql</groupId>

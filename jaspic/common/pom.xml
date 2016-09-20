@@ -12,9 +12,9 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>jaspic-common</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    
     <packaging>jar</packaging>
     <name>Java EE 7 Sample: jaspic - common</name>
 
@@ -35,6 +35,11 @@
             <artifactId>htmlunit</artifactId>
             <version>2.13</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.9.1</version>
         </dependency>
     </dependencies>
 </project>

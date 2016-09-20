@@ -11,6 +11,7 @@ import org.javaee7.jacc.contexts.sam.TestServerAuthModule;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,8 +45,9 @@ import org.xml.sax.SAXException;
 public class SubjectFromPolicyContextTest extends ArquillianBase {
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return defaultArchive().addPackages(true, "org.javaee7.jacc");
+    public static Archive<?> createDeployment() {
+        // TODO: Fix for Liberty which requires EARs :(
+        return ((WebArchive)defaultArchive()).addPackages(true, "org.javaee7.jacc");
     }
 
     /**
@@ -54,7 +56,7 @@ public class SubjectFromPolicyContextTest extends ArquillianBase {
     @Test
     public void testCanObtainRequestInServlet() throws IOException, SAXException {
 
-        String response = getFromServerPath("subjectServlet?doLogin");
+        String response = getFromServerPath("subjectServlet?doLogin=true");
 
         assertTrue(response.contains("Obtained subject from context."));
     }
@@ -66,7 +68,7 @@ public class SubjectFromPolicyContextTest extends ArquillianBase {
     @Test
     public void testCanObtainRolesFromSubjectInServlet() throws IOException, SAXException {
 
-        String response = getFromServerPath("subjectServlet?doLogin");
+        String response = getFromServerPath("subjectServlet?doLogin=true");
 
         // The role that was assigned to the user in TestServerAuthModule
         assertTrue(response.contains("User has role architect"));

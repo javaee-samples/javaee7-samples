@@ -25,34 +25,6 @@
     <packaging>pom</packaging>
     <name>Java EE 7 Sample: javaee7-samples</name>
 
-    <repositories>
-        <repository>
-            <id>codehaus-snapshots</id>
-            <name>Codehaus Snapshots</name>
-            <url>http://nexus.codehaus.org/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>codehaus-snapshots</id>
-            <name>Codehaus Snapshots</name>
-            <url>http://nexus.codehaus.org/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <properties>
         <java.min.version>1.7</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
@@ -61,16 +33,22 @@
         <org.jboss.arquillian.drone.version>1.3.0.Final</org.jboss.arquillian.drone.version>
         <org.jboss.arquillian.selenium.bom.version>2.40.0</org.jboss.arquillian.selenium.bom.version>
         <org.jboss.arquillian.graphene.version>2.0.2.Final</org.jboss.arquillian.graphene.version>
-        <org.jboss.arquillian.spock>1.0.0.Beta2</org.jboss.arquillian.spock>
         <org.wildfly>8.2.0.Final</org.wildfly>
         <org.jboss.eap>7.2.0.Final</org.jboss.eap>
         <!-- Plugin versions -->
         <plugin.enforcer.version>1.3.1</plugin.enforcer.version>
         <maven.test.skip>false</maven.test.skip>
         <hamcrest.version>1.3</hamcrest.version>
-        <spock.version>0.7-groovy-2.0</spock.version>
-        <groovy.version>2.1.5</groovy.version>
-        <glassfish.version>4.0</glassfish.version>
+        <glassfish.version>4.1.1</glassfish.version>
+        <liberty.version>16.0.0.2</liberty.version>
+        
+        <!-- 
+            TomEE version that's installed and used when selecting the 
+            tomee-managed-arquillian profile. Has to be made available
+            locally when set to version not available in Maven central.
+            See README.md for details.
+        -->
+        <tomee.version>7.0.1</tomee.version>
     </properties>
 
     <modules>
@@ -130,6 +108,11 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-test-api</artifactId>
+                <version>${org.jboss.arquillian.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.javaee7</groupId>
                 <artifactId>util</artifactId>
                 <version>1.0-SNAPSHOT</version>
@@ -180,12 +163,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.spock</groupId>
-            <artifactId>arquillian-spock-container</artifactId>
-            <version>${org.jboss.arquillian.spock}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
@@ -199,18 +176,6 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>${spock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>${groovy.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -273,60 +238,7 @@
                 <configuration>
                     <source>${java.min.version}</source>
                     <target>${java.min.version}</target>
-                    <compilerId>groovy-eclipse-compiler</compilerId>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-eclipse-compiler</artifactId>
-                        <version>2.8.0-01</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-eclipse-batch</artifactId>
-                        <version>2.1.5-03</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-eclipse-compiler</artifactId>
-                <version>2.8.0-01</version>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.17</version>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <classpathDependencyExcludes>
-                                <classpathDependencyExcludes>org.jboss.arquillian.spock:arquillian-spock-container</classpathDependencyExcludes>
-                            </classpathDependencyExcludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>spock-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>**/*Specification.java</include>
-                            </includes>
-                            <classpathDependencyExcludes>
-                                <classpathDependencyExcludes>org.jboss.arquillian.junit:arquillian-junit-container</classpathDependencyExcludes>
-                            </classpathDependencyExcludes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -342,6 +254,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
                 <configuration>
+                    <attachClasses>true</attachClasses>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
@@ -481,6 +394,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>wildfly-managed-arquillian</id>
             <properties>
@@ -574,6 +488,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>wildfly-remote-arquillian</id>
             <activation>
@@ -624,6 +539,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>jbosseap-remote-arquillian</id>
             <dependencies>
@@ -665,6 +581,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>glassfish-embedded-arquillian</id>
             <dependencies>
@@ -718,6 +635,7 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>glassfish-remote-arquillian</id>
             <dependencies>
@@ -777,48 +695,44 @@
                 </testResources>
             </build>
         </profile>
+        
         <profile>
             <id>tomee-embedded-arquillian</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.apache.openejb</groupId>
+                    <groupId>org.apache.tomee</groupId>
                     <artifactId>arquillian-tomee-embedded</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
-                    <groupId>org.apache.openejb</groupId>
+                    <groupId>org.apache.tomee</groupId>
                     <artifactId>tomee-embedded</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
-                    <groupId>org.apache.openejb</groupId>
+                    <groupId>org.apache.tomee</groupId>
                     <artifactId>tomee-webservices</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.openejb</groupId>
-                    <artifactId>tomee-jaxrs</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.batchee</groupId>
                     <artifactId>batchee-jbatch</artifactId>
-                    <version>0.2-incubating</version>
+                    <version>0.3-incubating</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.johnzon</groupId>
                     <artifactId>johnzon-core</artifactId>
-                    <version>0.1-incubating</version>
+                    <version>0.9.3-incubating</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-el-api</artifactId>
-                    <version>8.0.14</version>
+                    <version>8.5.0</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jasper-el</artifactId>
-                    <version>8.0.14</version>
+                    <version>8.5.0</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.commons</groupId>
@@ -839,23 +753,282 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
-            <id>tomee-remote-arquillian</id>
+            <id>tomee-managed-arquillian</id>
+            
             <dependencies>
+                
+                <!-- The arquillian "remote" adapter that installs and starts/stops TomEE and deploys/undeploys tests  -->
                 <dependency>
-                    <groupId>org.apache.openejb</groupId>
+                    <groupId>org.apache.tomee</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
+                    <version>${tomee.version}</version>
+                    <exclusions>
+                        <exclusion> <!-- let's use default (JTA) otherwise we need to setup the pom in a harder way -->
+                            <groupId>org.apache.tomee</groupId>
+                            <artifactId>arquillian-openejb-transaction-provider</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                
+                <!-- The version of TomEE that the "remote" adapter is going to install and use.
+                     Note that the adapter does *not* connect to an existing user installed TomEE
+                     instance.
+                 -->
+                <dependency>
+                    <groupId>org.apache.tomee</groupId>
+                    <artifactId>apache-tomee</artifactId>
+                    <version>${tomee.version}</version>
+                    <type>zip</type>
+                    <classifier>plus</classifier>
+                </dependency>
+                
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.191</version>
+                    <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>org.apache.openejb</groupId>
-                    <artifactId>apache-tomee</artifactId>
-                    <version>2.0.0-SNAPSHOT</version>
-                    <classifier>plus</classifier>
-                    <type>zip</type>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-rs-client</artifactId>
+                    <version>3.1.5</version>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>-DTOMEE_LOCK_FILE=${user.dir}/.tomee-ports.lock</argLine>
+                            <systemPropertyVariables>
+                                
+                                <!--
+                                    TomEE Remote Arquillian Adapter Configuration
+                                    
+                                    The TomEE adapter can be directly configured via system properties
+                                    without requiring to shuffle these to the arquillian.xml file.
+                                -->
+
+                                <!-- Using random port to run in // tests -->
+                                <tomee.stopPort>-1</tomee.stopPort>
+                                <tomee.httpPort>-1</tomee.httpPort>
+                                <tomee.httpsPort>-1</tomee.httpsPort>
+                                <tomee.ajpPort>-1</tomee.ajpPort>
+                                
+                                <!-- Configure arquillian adapter here to do it once without any other module -->
+                                <tomee.dir>target/tomee/server</tomee.dir>
+                                <tomee.appWorkingDir>target/tomee/arquillian</tomee.appWorkingDir>
+                                <tomee.cleanOnStartUp>true</tomee.cleanOnStartUp>
+                                <tomee.classifier>plus</tomee.classifier>
+                                <tomee.properties>
+                                    # default resources are not on by default cause it can need ports etc (JMS)
+                                    openejb.environment.default=true
+
+                                    # see additionalLibs
+                                    javax.persistence.provider = org.eclipse.persistence.jpa.PersistenceProvider
+                                </tomee.properties>
+                                <tomee.additionalLibs>
+                                    # OpenJPA is not yet JPA 2.1 and a lot of test - not only JPA - rely on javax.persistence properties
+                                    remove:openjpa
+                                    mvn:org.eclipse.persistence:eclipselink:2.5.2
+                                    mvn:org.eclipse.persistence:commonj.sdo:2.1.1
+                                    # some tests rely on h2 presence so ensure it is there even if tomee default is hsqldb
+                                    mvn:com.h2database:h2:1.4.191
+                                </tomee.additionalLibs>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
+
+        <profile>
+            <id>liberty-managed-arquillian</id>
+            
+            <dependencies>
+                <dependency>
+                   <groupId>org.jboss.arquillian.container</groupId>
+                   <artifactId>arquillian-wlp-managed-8.5</artifactId>
+                   <version>1.0.0.Beta2</version>
+                </dependency>		
+                <dependency>
+                   <groupId>org.glassfish.tyrus</groupId>
+                   <artifactId>tyrus-client</artifactId>
+                   <version>1.3</version>
+                   <scope>test</scope>
+                </dependency>		
+                <dependency>
+                   <groupId>org.glassfish</groupId>
+                   <artifactId>javax.json</artifactId>
+                   <version>1.0.4</version>
+                   <scope>test</scope>
+                </dependency>			
+                <dependency>
+                   <groupId>org.glassfish.tyrus</groupId>
+                   <artifactId>tyrus-container-grizzly-client</artifactId>
+                   <version>1.3</version>
+                   <scope>test</scope>
+                </dependency>
+                <dependency>
+                   <groupId>org.glassfish.jersey.core</groupId>
+                   <artifactId>jersey-client</artifactId>
+                   <version>2.4</version>
+                   <scope>test</scope>
+                </dependency>
+                <dependency>
+                   <groupId>org.glassfish.jersey.media</groupId>
+                   <artifactId>jersey-media-json-processing</artifactId>
+                   <version>2.4</version>
+                   <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>liberty-managed-arquillian</arquillian.launch>
+                                <useEarForJaspic>true</useEarForJaspic>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        
+        <profile>
+            <id>liberty-embedded-arquillian</id>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wlp-managed-8.5</artifactId>
+                    <version>1.0.0.Beta2</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.ibm.websphere.appserver.runtime</groupId>
+                                            <artifactId>wlp-javaee7</artifactId>
+                                            <version>${liberty.version}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <!-- TODO: There has to be a better way. Look at
+                                             PR for Liberty arquillian container to modify server.xml?
+                                         -->
+                                        <echo>Copying server.xml</echo>
+                                        <copy
+                                            failonerror="false"
+                                            file="../../test-utils/src/main/resources/server.xml"
+                                            tofile="${project.build.directory}/wlp/templates/servers/defaultServer/server.xml"
+                                        />
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>liberty-embedded-arquillian</arquillian.launch>
+                                <arquillian.liberty.wlpHome>${project.build.directory}/wlp</arquillian.liberty.wlpHome>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        
+        <profile>
+            <id>weblogic-remote-arquillian</id>
+        
+            <properties>
+                <!-- Default username/password that instructions in README.md ask to use 
+                    when starting up WebLogic for the first time. Note that WebLogic does not 
+                    have any default username/password of its own. -->
+                <weblogicRemoteArquillian_adminUserName>admin</weblogicRemoteArquillian_adminUserName>
+                <weblogicRemoteArquillian_adminPassword>admin007</weblogicRemoteArquillian_adminPassword>
+        
+                <!-- Default host and port when running WLS locally -->
+                <weblogicRemoteArquillian_adminUrl>t3://localhost:7001</weblogicRemoteArquillian_adminUrl>
+        
+                <!-- Default target after having installed developer zip distribution for 
+                    WebLogic -->
+                <weblogicRemoteArquillian_target>myserver</weblogicRemoteArquillian_target>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
+                    <version>1.0.0.Alpha3</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>weblogic-remote-arquillian</arquillian.launch>
+                                <wlHome>${weblogicRemoteArquillian_wlHome}</wlHome>
+                                <adminUrl>${weblogicRemoteArquillian_adminUrl}</adminUrl>
+                                <adminUserName>${weblogicRemoteArquillian_adminUserName}</adminUserName>
+                                <adminPassword>${weblogicRemoteArquillian_adminPassword}</adminPassword>
+                                <target>${weblogicRemoteArquillian_target}</target>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
 
         <!-- Browser profiles. Used for UI testing -->
         <profile>

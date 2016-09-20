@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
 public class AuthModuleMethodInvocationTest extends ArquillianBase {
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+    public static Archive<?> createDeployment() {
         return defaultArchive();
     }
 
@@ -73,7 +73,7 @@ public class AuthModuleMethodInvocationTest extends ArquillianBase {
         // Note that we don't explicitly log-in; the test SAM uses for this test does that automatically before the resource
         // (servlet)
         // is invoked. Once we reach the Servlet we should be logged-in and can proceed to logout.
-        String response = getFromServerPath("protected/servlet?doLogout");
+        String response = getFromServerPath("protected/servlet?doLogout=true");
 
         assertTrue("SAM method cleanSubject not called, but should have been.",
             response.contains("cleanSubject invoked"));

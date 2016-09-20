@@ -24,6 +24,9 @@ The [JSR 346](https://jcp.org/en/jsr/detail?id=346) updates and clarifications t
  - nobeans-el-injection
  - nobeans-el-injection-flowscoped
  - events
+ - events-conditional-reception
+ - instance
+ - instance-qualifiers
 
 ## How to run
 

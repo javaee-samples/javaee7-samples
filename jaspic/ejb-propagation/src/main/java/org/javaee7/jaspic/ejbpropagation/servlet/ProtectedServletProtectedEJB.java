@@ -1,6 +1,9 @@
 package org.javaee7.jaspic.ejbpropagation.servlet;
 
+import static java.util.logging.Level.SEVERE;
+
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,6 +23,7 @@ import org.javaee7.jaspic.ejbpropagation.ejb.ProtectedEJB;
 public class ProtectedServletProtectedEJB extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private final static Logger logger = Logger.getLogger(ProtectedServletProtectedEJB.class.getName());
 
     @EJB
     private ProtectedEJB protectedEJB;
@@ -32,12 +36,23 @@ public class ProtectedServletProtectedEJB extends HttpServlet {
             webName = request.getUserPrincipal().getName();
         }
 
-        String ejbName = protectedEJB.getUserName();
+        String ejbName = "";
+        try {
+            ejbName = protectedEJB.getUserName();
+        } catch (Exception e) {
+            logger.log(SEVERE, "", e);
+        }
 
         response.getWriter().write("web username: " + webName + "\n" + "EJB username: " + ejbName + "\n");
 
         boolean webHasRole = request.isUserInRole("architect");
-        boolean ejbHasRole = protectedEJB.isUserArchitect();
+        
+        boolean ejbHasRole = false;
+        try {
+            ejbHasRole = protectedEJB.isUserArchitect();
+        } catch (Exception e) {
+            logger.log(SEVERE, "", e);
+        }
 
         response.getWriter().write(
             "web user has role \"architect\": " + webHasRole + "\n" + "EJB user has role \"architect\": " + ejbHasRole

@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
 public class BasicAuthenticationPublicTest extends ArquillianBase {
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+    public static Archive<?> createDeployment() {
         return defaultArchive();
     }
 
@@ -32,8 +32,16 @@ public class BasicAuthenticationPublicTest extends ArquillianBase {
         String response = getFromServerPath("public/servlet");
 
         // Not logged-in
-        assertTrue(response.contains("web username: null"));
-        assertTrue(response.contains("web user has role \"architect\": false"));
+        assertTrue(
+            "Not authenticated, but a username other than null was encountered. " +
+            "This is not correct.",
+            response.contains("web username: null")
+        );
+        assertTrue(
+            "Not authenticated, but the user seems to have the role \"architect\". " +
+            "This is not correct.",
+            response.contains("web user has role \"architect\": false")
+        );
     }
 
     @Test
@@ -41,39 +49,19 @@ public class BasicAuthenticationPublicTest extends ArquillianBase {
 
         // JASPIC has to be able to authenticate a user when accessing a public (non-protected) resource.
 
-        String response = getFromServerPath("public/servlet?doLogin");
+        String response = getFromServerPath("public/servlet?doLogin=true");
 
         // Now has to be logged-in
-        assertTrue(response.contains("web username: test"));
-        assertTrue(response.contains("web user has role \"architect\": true"));
-    }
-
-    @Test
-    public void testPublicPageNotRememberLogin() throws IOException, SAXException {
-
-        // -------------------- Request 1 ---------------------------
-
-        String response = getFromServerPath("public/servlet");
-
-        // Not logged-in
-        assertTrue(response.contains("web username: null"));
-        assertTrue(response.contains("web user has role \"architect\": false"));
-
-        // -------------------- Request 2 ---------------------------
-
-        response = getFromServerPath("public/servlet?doLogin");
-
-        // Now has to be logged-in
-        assertTrue(response.contains("web username: test"));
-        assertTrue(response.contains("web user has role \"architect\": true"));
-
-        // -------------------- Request 3 ---------------------------
-
-        response = getFromServerPath("public/servlet");
-
-        // Not logged-in
-        assertTrue(response.contains("web username: null"));
-        assertTrue(response.contains("web user has role \"architect\": false"));
+        assertTrue(
+            "User should have been authenticated and given name \"test\", " + 
+            " but does not appear to have this name",
+            response.contains("web username: test")
+        );
+        assertTrue(
+            "User should have been authenticated and given role \"architect\", " + 
+            " but does not appear to have this role",
+            response.contains("web user has role \"architect\": true")
+        );
     }
 
 }

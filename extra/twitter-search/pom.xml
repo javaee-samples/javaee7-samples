@@ -12,12 +12,18 @@
     <artifactId>twitter-search</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <name>Java EE 7 Samples: extras - twitter-search</name>
 
     <dependencies>
+        <!--
+            Non Maven dependency: https://github.com/arun-gupta/twitter-api
+        -->
         <dependency>
             <groupId>org.glassfish.samples</groupId>
             <artifactId>twitter-api</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/twitter.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey.contribs.jersey-oauth</groupId>

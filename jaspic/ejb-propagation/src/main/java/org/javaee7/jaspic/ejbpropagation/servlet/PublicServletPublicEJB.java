@@ -1,6 +1,9 @@
 package org.javaee7.jaspic.ejbpropagation.servlet;
 
+import static java.util.logging.Level.SEVERE;
+
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,6 +23,7 @@ import org.javaee7.jaspic.ejbpropagation.ejb.PublicEJB;
 public class PublicServletPublicEJB extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private final static Logger logger = Logger.getLogger(PublicServletPublicEJB.class.getName());
 
     @EJB
     private PublicEJB publicEJB;
@@ -32,7 +36,12 @@ public class PublicServletPublicEJB extends HttpServlet {
             webName = request.getUserPrincipal().getName();
         }
 
-        String ejbName = publicEJB.getUserName();
+        String ejbName = "";
+        try {
+            ejbName = publicEJB.getUserName();
+        } catch (Exception e) {
+            logger.log(SEVERE, "", e);
+        }
 
         response.getWriter().write("web username: " + webName + "\n" + "EJB username: " + ejbName + "\n");
 

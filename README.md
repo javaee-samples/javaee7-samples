@@ -4,7 +4,7 @@ This workspace consists of Java EE 7 Samples and unit tests. They are categorize
 
 Some samples/tests have documentation otherwise read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to most these samples and provide an explanation. Feel free to add docs and send a pull request.
 
-## How to run ? ##
+## How to run? ##
 
 Samples are tested on Wildfly and GlassFish using the Arquillian ecosystem.
 
@@ -12,18 +12,24 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 4 available container profiles:
+There are 10 available container profiles, for 5 different servers:
 
 * ``wildfly-managed-arquillian``
     
-    The default profile and it will install a Wildfly server and start up the server per sample.
+    This profile will install a Wildfly server and start up the server per sample.
+    Useful for CI servers.
+    
+* ``wildfly-embedded-arquillian``
+    
+    This profile is almost identical to wildfly-managed-arquillian. It will install the same Wildfly server and start up 
+    that server per sample again, but instead uses the Arquillian embedded connector to run it in the same JVM. 
     Useful for CI servers.
 
 * ``wildfly-remote-arquillian``
     
     This profile requires you to start up a Wildfly server outside of the build. Each sample will then
     reuse this instance to run the tests.
-    Useful for development to avoid the server start up cost per sample.
+    Useful for development to avoid the server start up cost per sample. This is the default profile.
 
 * ``glassfish-embedded-arquillian``
     
@@ -35,8 +41,95 @@ There are 4 available container profiles:
     This profile requires you to start up a GlassFish server outside of the build. Each sample will then
     reuse this instance to run the tests.
     Useful for development to avoid the server start up cost per sample.
+    
+* ``tomee-managed-arquillian``
 
-Each of the containers allow you to override the version used
+    This profile will install a TomEE server and start up that server per sample.
+    Useful for CI servers. This profile cannot connect to a running server.
+    
+    Note that the version of TomEE to be used has to be present in an
+    available maven repository. The defaults in this profile assume that the arquillian adapter and
+    the TomEE server have the same version. E.g both 7.0.0.
+    
+    To use a TomEE server that's not available in maven central, one way to use it for the samples is to
+    install it in a local .m2 as follows:
+    
+    Clone TomEE repo:
+    
+    ``git clone https://github.com/apache/tomee``
+    ``cd tomee``
+    
+    Switch to the desired version if needed, then build and install in .m2:
+    
+    ``mvn clean install -pl tomee/apache-tomee -am -Dmaven.test.skip=true``
+    
+    ``mvn clean install -pl arquillian -amd -Dmaven.test.skip=true``
+    
+    Make sure the version that's installed (see pom.xml in TomEE project) matches the ``tomee.version`` in the
+    properties section in the root pom.xml of the samples project.
+    
+* ``tomee-embedded-arquillian``
+
+    This profile uses the TomEE embedded server and runs in the same JVM as the TestClass.
+    
+* ``liberty-managed-arquillian``
+
+    This profile will start up the Liberty server per sample, and optionally connects to a running server that you
+    can start up outside of the build (with the restriction that this server has to run on the host as where
+    the tests are run using the same user).
+    
+    To connect to a running server the ``org.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer`` 
+    system property has to be set to true. E.g.
+    
+    ``-Dorg.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer=true``
+    
+    This profile requires you to set the location where Liberty is installed via the ``libertyManagedArquillian_wlpHome``
+    system property. E.g.
+    
+    ``-DlibertyManagedArquillian_wlpHome=/opt/wlp``
+    
+    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run the
+    javaee-7.0 feature E.g.
+    
+    ```xml
+    <featureManager>
+        <feature>javaee-7.0</feature>
+        <feature>localConnector-1.0</feature>
+    </featureManager>
+    ```
+    
+    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a group in Liberty's internal user registry:
+    
+    ```xml
+    <basicRegistry id="basic">
+        <group name="architect"/>
+    </basicRegistry>
+    ```
+        
+* ``liberty-embedded-arquillian``
+    
+    This profile will download and install a Liberty server and start up the server per sample.
+    Useful for CI servers. Note, this is not a real embedded server, but a regular server. It's now
+    called "embedded" because no separate install is needed as it's downloaded automatically. 
+    
+* ``weblogic-remote-arquillian``
+    
+    This profile requires you to start up a WebLogic server outside of the build. Each sample will then
+    reuse this instance to run the tests. NOTE: this has been tested on WebLogic 12.1.3, which is a Java EE 6 implementation,
+    but it has some Java EE 7 features which can be optionally activated.
+    
+    This profile requires you to set the location where WebLogic is installed via the ``weblogicRemoteArquillian_wlHome``
+    system property. E.g.
+    
+    ``-DweblogicRemoteArquillian_wlHome=/opt/wls12130``
+    
+    The default username/password are assumed to be "admin" and "admin007" respectively. This can be changed using the
+    ``weblogicRemoteArquillian_adminUserName`` and ``weblogicRemoteArquillian_adminPassword`` system properties. E.g.
+    
+    ``-DweblogicRemoteArquillian_adminUserName=myuser``
+    ``-DweblogicRemoteArquillian_adminPassword=mypassword``
+    
+Some of the containers allow you to override the version used
 
 * `-Dorg.wildfly=8.1.0.Final`
 
@@ -44,7 +137,7 @@ Each of the containers allow you to override the version used
 
 * `-Dglassfish.version=4.1`
 
-    This will change the version from 4.0 to 4.1 for GlassFish testing purposes.
+    This will change the version from 4.1.1 to 4.1 for GlassFish testing purposes.
 
 Similarly, there are 6 profiles to choose a browser to test on:
 
@@ -75,7 +168,7 @@ Similarly, there are 6 profiles to choose a browser to test on:
     To run tests on headless browser PhantomJS. If you do not specify the path of phantomjs binary via 
     ``-Dphantomjs.binary.path`` property, it will be downloaded automatically.
 
-To run them in the console do:
+**To run them in the console do**:
 
 1. In the terminal, ``mvn -Pwildfly-managed-arquillian,browser-firefox test`` at the top-level directory to start the tests
 
@@ -83,9 +176,12 @@ When developing and runing them from IDE, remember to activate the profile befor
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
 
-### Importing in Eclipse ###
+**To run only a subset of the tests do at the top-level directory**:
 
-To import the samples in an Eclipse workspace, please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
+1. Install top level dependencies: ``mvn clean install -pl "test-utils,util" -am``
+1. cd into desired module, e.g.: ``cd jaspic``
+1. Run tests against desired server, e.g.: ``mvn clean test -P liberty-embedded-arquillian``
+
 
 ## How to contribute ##
 
@@ -95,7 +191,9 @@ There is just a bunch of things you should keep in mind before sending a pull re
 
 Standard tests are jUnit based - for example [this commit](servlet/servlet-filters/src/test/java/org/javaee7/servlet/filters/FilterServletTest.java). Test classes naming must comply with surefire naming standards `**/*Test.java`, `**/*Test*.java` or `**/*TestCase.java`.
 
-However, if you fancy something new, hip and fashionable we also accept Spock specifications - [like here](/servlet/servlet-filters/src/test/groovy/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The spec files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+However, if you fancy something new, hip and fashionable it is perfectly legal to write  Spock specifications as standard JavaEE integration test. For the sake of clarity and consistency, to minimize the upfront complexity, in this project we prefare standard jUnit test. However, some Spock example are provided in the `extra/spock-tests` folder  - [like here](extra/spock-tests/src/test/java/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The `spock-tests` project also showcases the Maven configuration. In this particular case the Groovy Specification files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+
+The extras folder is not included by default, to limit Groovy dependency. If you want to import the extra samples in an Eclipse workspace (including the Spock tests), please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
 
 ### Some coding principles ###
 
