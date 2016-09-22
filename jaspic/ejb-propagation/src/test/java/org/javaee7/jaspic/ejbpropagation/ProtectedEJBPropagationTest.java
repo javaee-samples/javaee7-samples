@@ -28,14 +28,21 @@ public class ProtectedEJBPropagationTest extends ArquillianBase {
     }
 
     @Test
-    public void testProtectedServletWithLoginCallingEJB() throws IOException, SAXException {
+    public void protectedServletCallingProtectedEJB() throws IOException, SAXException {
 
-        String response = getFromServerPath("protected/servlet-protected-ejb?doLogin");
+        String response = getFromServerPath("protected/servlet-protected-ejb?doLogin=true");
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see the same
         // user name.
-        assertTrue(response.contains("web username: test"));
-        assertTrue("Web has user principal set, but EJB not.", response.contains("EJB username: test"));
+        assertTrue(
+            "User should have been authenticated in the web layer and given name \"test\", " + 
+            " but does not appear to have this name",
+            response.contains("web username: test")
+        );
+        assertTrue(
+            "Web has user principal set, but EJB not.", 
+            response.contains("EJB username: test")
+        );
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see that the
         // user has the role "architect".
@@ -50,14 +57,21 @@ public class ProtectedEJBPropagationTest extends ArquillianBase {
      * 
      */
     @Test
-    public void testPublicServletWithLoginCallingEJB() throws IOException, SAXException {
+    public void publicServletCallingProtectedEJB() throws IOException, SAXException {
 
-        String response = getFromServerPath("public/servlet-protected-ejb?doLogin");
+        String response = getFromServerPath("public/servlet-protected-ejb?doLogin=true");
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see the same
         // user name.
-        assertTrue(response.contains("web username: test"));
-        assertTrue("Web has user principal set, but EJB not.", response.contains("EJB username: test"));
+        assertTrue(
+            "User should have been authenticated in the web layer and given name \"test\", " + 
+            " but does not appear to have this name",
+            response.contains("web username: test")
+        );
+        assertTrue(
+            "Web has user principal set, but EJB not.", 
+            response.contains("EJB username: test")
+        );
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see that the
         // user has the role "architect".

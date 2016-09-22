@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+
+    <!-- 
+        This defines the data source that's used by persistence.xml to back to the JPA persistence unit. 
+        The database is embedded within this application (see the pom.xml of this project).
+     -->
+    
+    <data-source>
+        <name>java:app/MyApp/MyDS</name>
+        <!-- org.hsqldb.jdbc.JDBCDataSource is non-XA alternative -->
+        <class-name>org.hsqldb.jdbc.pool.JDBCXADataSource</class-name>
+        <url>jdbc:hsqldb:mem:realtime;user=test;password=testx</url>
+    </data-source>
+
+</web-app>
+

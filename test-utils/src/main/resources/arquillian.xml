@@ -22,6 +22,13 @@
             <property name="wlpHome">${libertyManagedArquillian_wlpHome}</property>
         </configuration>
     </container>
+    
+     <container qualifier="liberty-embedded-arquillian">
+        <configuration>
+            <property name="deployType">xml</property>
+            <property name="wlpHome">${arquillian.liberty.wlpHome}</property>
+        </configuration>
+    </container>
 
     <container qualifier="weblogic-remote-arquillian">
         <configuration>

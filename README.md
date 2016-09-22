@@ -4,7 +4,7 @@ This workspace consists of Java EE 7 Samples and unit tests. They are categorize
 
 Some samples/tests have documentation otherwise read the code. The [Java EE 7 Essentials](http://www.amazon.com/Java-EE-Essentials-Arun-Gupta/dp/1449370179/) book refer to most these samples and provide an explanation. Feel free to add docs and send a pull request.
 
-## How to run ? ##
+## How to run? ##
 
 Samples are tested on Wildfly and GlassFish using the Arquillian ecosystem.
 
@@ -12,18 +12,24 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 5 available container profiles:
+There are 10 available container profiles, for 5 different servers:
 
 * ``wildfly-managed-arquillian``
     
-    The default profile and it will install a Wildfly server and start up the server per sample.
+    This profile will install a Wildfly server and start up the server per sample.
+    Useful for CI servers.
+    
+* ``wildfly-embedded-arquillian``
+    
+    This profile is almost identical to wildfly-managed-arquillian. It will install the same Wildfly server and start up 
+    that server per sample again, but instead uses the Arquillian embedded connector to run it in the same JVM. 
     Useful for CI servers.
 
 * ``wildfly-remote-arquillian``
     
     This profile requires you to start up a Wildfly server outside of the build. Each sample will then
     reuse this instance to run the tests.
-    Useful for development to avoid the server start up cost per sample.
+    Useful for development to avoid the server start up cost per sample. This is the default profile.
 
 * ``glassfish-embedded-arquillian``
     
@@ -36,9 +42,39 @@ There are 5 available container profiles:
     reuse this instance to run the tests.
     Useful for development to avoid the server start up cost per sample.
     
+* ``tomee-managed-arquillian``
+
+    This profile will install a TomEE server and start up that server per sample.
+    Useful for CI servers. This profile cannot connect to a running server.
+    
+    Note that the version of TomEE to be used has to be present in an
+    available maven repository. The defaults in this profile assume that the arquillian adapter and
+    the TomEE server have the same version. E.g both 7.0.0.
+    
+    To use a TomEE server that's not available in maven central, one way to use it for the samples is to
+    install it in a local .m2 as follows:
+    
+    Clone TomEE repo:
+    
+    ``git clone https://github.com/apache/tomee``
+    ``cd tomee``
+    
+    Switch to the desired version if needed, then build and install in .m2:
+    
+    ``mvn clean install -pl tomee/apache-tomee -am -Dmaven.test.skip=true``
+    
+    ``mvn clean install -pl arquillian -amd -Dmaven.test.skip=true``
+    
+    Make sure the version that's installed (see pom.xml in TomEE project) matches the ``tomee.version`` in the
+    properties section in the root pom.xml of the samples project.
+    
+* ``tomee-embedded-arquillian``
+
+    This profile uses the TomEE embedded server and runs in the same JVM as the TestClass.
+    
 * ``liberty-managed-arquillian``
 
-    This profile will start up the server per sample, and optionally connects to a running server that you
+    This profile will start up the Liberty server per sample, and optionally connects to a running server that you
     can start up outside of the build (with the restriction that this server has to run on the host as where
     the tests are run using the same user).
     
@@ -52,25 +88,29 @@ There are 5 available container profiles:
     
     ``-DlibertyManagedArquillian_wlpHome=/opt/wlp``
     
-    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run at least the
-    javaee-7.0 feature and jaspic-1.1 (even though this is part of Java EE 7 already). E.g.
+    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run the
+    javaee-7.0 feature E.g.
     
     ```xml
     <featureManager>
         <feature>javaee-7.0</feature>
-        <feature>jaspic-1.1</feature>
         <feature>localConnector-1.0</feature>
     </featureManager>
     ```
     
-    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a user in Liberty's internal user registry:
+    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a group in Liberty's internal user registry:
     
     ```xml
     <basicRegistry id="basic">
-        <user name="test" password="not needed"/>
         <group name="architect"/>
     </basicRegistry>
     ```
+        
+* ``liberty-embedded-arquillian``
+    
+    This profile will download and install a Liberty server and start up the server per sample.
+    Useful for CI servers. Note, this is not a real embedded server, but a regular server. It's now
+    called "embedded" because no separate install is needed as it's downloaded automatically. 
     
 * ``weblogic-remote-arquillian``
     
@@ -97,7 +137,7 @@ Some of the containers allow you to override the version used
 
 * `-Dglassfish.version=4.1`
 
-    This will change the version from 4.0 to 4.1 for GlassFish testing purposes.
+    This will change the version from 4.1.1 to 4.1 for GlassFish testing purposes.
 
 Similarly, there are 6 profiles to choose a browser to test on:
 
@@ -128,13 +168,20 @@ Similarly, there are 6 profiles to choose a browser to test on:
     To run tests on headless browser PhantomJS. If you do not specify the path of phantomjs binary via 
     ``-Dphantomjs.binary.path`` property, it will be downloaded automatically.
 
-To run them in the console do:
+**To run them in the console do**:
 
 1. In the terminal, ``mvn -Pwildfly-managed-arquillian,browser-firefox test`` at the top-level directory to start the tests
 
 When developing and runing them from IDE, remember to activate the profile before running the test.
 
 To learn more about Arquillian please refer to the [Arquillian Guides](http://arquillian.org/guides/)
+
+**To run only a subset of the tests do at the top-level directory**:
+
+1. Install top level dependencies: ``mvn clean install -pl "test-utils,util" -am``
+1. cd into desired module, e.g.: ``cd jaspic``
+1. Run tests against desired server, e.g.: ``mvn clean test -P liberty-embedded-arquillian``
+
 
 ## How to contribute ##
 

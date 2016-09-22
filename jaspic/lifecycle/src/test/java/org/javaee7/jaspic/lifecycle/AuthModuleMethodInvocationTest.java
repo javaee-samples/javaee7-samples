@@ -73,7 +73,7 @@ public class AuthModuleMethodInvocationTest extends ArquillianBase {
         // Note that we don't explicitly log-in; the test SAM uses for this test does that automatically before the resource
         // (servlet)
         // is invoked. Once we reach the Servlet we should be logged-in and can proceed to logout.
-        String response = getFromServerPath("protected/servlet?doLogout");
+        String response = getFromServerPath("protected/servlet?doLogout=true");
 
         assertTrue("SAM method cleanSubject not called, but should have been.",
             response.contains("cleanSubject invoked"));

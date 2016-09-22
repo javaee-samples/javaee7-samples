@@ -32,7 +32,7 @@ public class CustomPrincipalPublicTest extends ArquillianBase {
 
         // JASPIC has to be able to authenticate a user when accessing a public (non-protected) resource.
 
-        String response = getFromServerPath("public/servlet?doLogin");
+        String response = getFromServerPath("public/servlet?doLogin=true");
 
         // Has to be logged-in with the right principal
         assertTrue(
@@ -41,51 +41,11 @@ public class CustomPrincipalPublicTest extends ArquillianBase {
         );
         assertTrue(
             "Username is correct, but the expected role 'architect' is not present.",
-            response.contains("web user has role \"architect\": true"));
-        
+            response.contains("web user has role \"architect\": true")
+        );
         assertTrue(
             "Username and roles are correct, but principal type is not the expected custom type.",
             response.contains("isCustomPrincipal: true")
-        );
-    }
-
-    @Test
-    public void testPublicPageNotRememberLogin() throws IOException, SAXException {
-
-        // -------------------- Request 1 ---------------------------
-
-        String response = getFromServerPath("public/servlet");
-
-        // Not logged-in
-        assertTrue(response.contains("web username: null"));
-        assertTrue(response.contains("web user has role \"architect\": false"));
-
-        // -------------------- Request 2 ---------------------------
-
-        response = getFromServerPath("public/servlet?doLogin");
-
-        // Now has to be logged-in
-        assertTrue(
-            "Username is not the expected one 'test'",
-            response.contains("web username: test")
-        );
-        assertTrue(
-            "Username is correct, but the expected role 'architect' is not present.",
-            response.contains("web user has role \"architect\": true")
-        );
-
-        // -------------------- Request 3 ---------------------------
-
-        response = getFromServerPath("public/servlet");
-
-        // Not logged-in
-        assertTrue(
-            "Should not be authenticated, but username was not null. Did the container remember it from previous request?",
-            response.contains("web username: null")
-        );
-        assertTrue(
-            "Request was not authenticated (username correctly null), but unauthenticated user incorrectly has role 'architect'",
-            response.contains("web user has role \"architect\": false")
         );
     }
 

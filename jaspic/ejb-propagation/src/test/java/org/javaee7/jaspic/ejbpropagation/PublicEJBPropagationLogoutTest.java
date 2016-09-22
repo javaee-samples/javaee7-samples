@@ -3,15 +3,12 @@ package org.javaee7.jaspic.ejbpropagation;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.xml.sax.SAXException;
 
 /**
  * This tests that the established authenticated identity propagates correctly
@@ -31,18 +28,24 @@ public class PublicEJBPropagationLogoutTest extends ArquillianBase {
     }
 
     @Test
-    public void testProtectedServletWithLoginCallingEJB() throws IOException, SAXException {
+    public void publicServletCallingPublicEJBThenLogout() {
 
-        String response = getFromServerPath("public/servlet-public-ejb-logout?doLogin");
+        String response = getFromServerPath("public/servlet-public-ejb-logout?doLogin=true");
 
         System.out.println(response);
 
         // Both the web (HttpServletRequest) and EJB (EJBContext) should see the
-        // same
-        // user name.
+        // same user name.
 
-        assertTrue(response.contains("web username: test"));
-        assertTrue("Web has user principal set, but EJB not.", response.contains("EJB username: test"));
+        assertTrue(
+            "User should have been authenticated in the web layer and given name \"test\", " + 
+            " but does not appear to have this name",
+            response.contains("web username: test")
+        );
+        assertTrue(
+            "Web has user principal set, but EJB not.", 
+            response.contains("EJB username: test")
+        );
 
         
         // After logging out, both the web and EJB should no longer see the user

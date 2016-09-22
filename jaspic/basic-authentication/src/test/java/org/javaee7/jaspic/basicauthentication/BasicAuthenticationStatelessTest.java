@@ -41,6 +41,7 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
         // Not logged-in thus should not be accessible.
         assertFalse(response.contains("This is a protected servlet"));
 
+        
         // -------------------- Request 2 ---------------------------
 
         // JASPIC is stateless and login (re-authenticate) has to happen for every request
@@ -50,13 +51,16 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
         // we're not authenticated and it will deny further attempts to authenticate. This may happen when
         // the container does not correctly recognize the JASPIC protocol for "do nothing".
 
-        response = getFromServerPath("protected/servlet?doLogin");
+        response = getFromServerPath("protected/servlet?doLogin=true");
 
         // Now has to be logged-in so page is accessible
-        assertTrue("Could not access protected page, but should be able to. "
-            + "Did the container remember the previously set 'unauthenticated identity'?",
-            response.contains("This is a protected servlet"));
+        assertTrue(
+            "Could not access protected page, but should be able to. " + 
+            "Did the container remember the previously set 'unauthenticated identity'?",
+            response.contains("This is a protected servlet")
+        );
 
+        
         // -------------------- Request 3 ---------------------------
 
         // JASPIC is stateless and login (re-authenticate) has to happen for every request
@@ -66,9 +70,11 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
         response = getFromServerPath("protected/servlet");
 
         // Not logged-in thus should not be accessible.
-        assertFalse("Could access protected page, but should not be able to. "
-            + "Did the container remember the authenticated identity that was set in previous request?",
-            response.contains("This is a protected servlet"));
+        assertFalse(
+            "Could access protected page, but should not be able to. " + 
+            "Did the container remember the authenticated identity that was set in previous request?",
+            response.contains("This is a protected servlet")
+        );
     }
 
     /**
@@ -81,8 +87,9 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
         // -------------------- Request 1 ---------------------------
 
         // Start with doing a login
-        String response = getFromServerPath("protected/servlet?doLogin");
+        String response = getFromServerPath("protected/servlet?doLogin=true");
 
+        
         // -------------------- Request 2 ---------------------------
 
         // JASPIC is stateless and login (re-authenticate) has to happen for every request
@@ -94,9 +101,66 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
         response = getFromServerPath("protected/servlet");
 
         // Not logged-in thus should not be accessible.
-        assertFalse("Could access protected page, but should not be able to. "
-            + "Did the container remember the authenticated identity that was set in previous request?",
-            response.contains("This is a protected servlet"));
+        assertFalse(
+            "Could access protected page, but should not be able to. " + 
+            "Did the container remember the authenticated identity that was set in the previous request?",
+            response.contains("This is a protected servlet")
+        );
+    }
+    
+    /**
+     * Tests that access to a public page does not depend on the authenticated identity that was established in a previous
+     * request.
+     */
+    @Test
+    public void testPublicAccessIsStateless() throws IOException, SAXException {
+
+        // -------------------- Request 1 ---------------------------
+
+        String response = getFromServerPath("public/servlet");
+
+        // Establish that we're initially not logged-in
+        assertTrue(
+            "Not authenticated, but a username other than null was encountered. " +
+            "This is not correct.",
+            response.contains("web username: null")
+        );
+        assertTrue(
+            "Not authenticated, but the user seems to have the role \"architect\". " +
+            "This is not correct.",
+            response.contains("web user has role \"architect\": false")
+        );
+
+        
+        // -------------------- Request 2 ---------------------------
+
+        response = getFromServerPath("public/servlet?doLogin=true");
+
+        // Now has to be logged-in
+        assertTrue(
+            "User should have been authenticated and given name \"test\", " + 
+            " but does not appear to have this name",
+            response.contains("web username: test")
+        );
+        assertTrue(response.contains("web user has role \"architect\": true"));
+
+        
+        // -------------------- Request 3 ---------------------------
+
+        // Accessing public page without login
+        response = getFromServerPath("public/servlet");
+
+        // No details should linger around
+        assertTrue(
+            "Should not be authenticated, but a username other than null was encountered. " +
+            "Did the container remember the authenticated identity that was set in the previous request?",    
+            response.contains("web username: null")
+        );
+        assertTrue(
+            "The unauthenticated user has the role 'architect', which should not be the case. " + 
+            "The container seemed to have remembered it from the previous request.",
+            response.contains("web user has role \"architect\": false")
+        );
     }
 
     /**
@@ -104,27 +168,34 @@ public class BasicAuthenticationStatelessTest extends ArquillianBase {
      * authenticated identity are remembered
      */
     @Test
-    public void testUserIdentityIsStateless() throws IOException, SAXException {
+    public void testProtectedThenPublicAccessIsStateless() throws IOException, SAXException {
 
         // -------------------- Request 1 ---------------------------
 
         // Accessing protected page with login
-        String response = getFromServerPath("protected/servlet?doLogin");
+        String response = getFromServerPath("protected/servlet?doLogin=true");
 
+        
         // -------------------- Request 2 ---------------------------
 
         // Accessing public page without login
         response = getFromServerPath("public/servlet");
 
         // No details should linger around
-        assertFalse("User principal was 'test', but it should be null here. "
-            + "The container seemed to have remembered it from the previous request.",
-            response.contains("web username: test"));
-        assertTrue("User principal was not null, but it should be null here. ",
-            response.contains("web username: null"));
-        assertTrue("The unauthenticated user has the role 'architect', which should not be the case. "
-            + "The container seemed to have remembered it from the previous request.",
-            response.contains("web user has role \"architect\": false"));
+        assertFalse(
+            "User principal was 'test', but it should be null here. " +
+            "The container seemed to have remembered it from the previous request.",
+            response.contains("web username: test")
+        );
+        assertTrue(
+            "User principal was not null, but it should be null here. ",
+            response.contains("web username: null")
+        );
+        assertTrue(
+            "The unauthenticated user has the role 'architect', which should not be the case. " + 
+            "The container seemed to have remembered it from the previous request.",
+            response.contains("web user has role \"architect\": false")
+        );
     }
 
 }
