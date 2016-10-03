@@ -45,6 +45,10 @@ public class TestLifecycleAuthModule implements ServerAuthModule {
 
         try {
             response.getWriter().write("validateRequest invoked\n");
+            
+            boolean isMandatory = Boolean.valueOf((String) messageInfo.getMap().get("javax.security.auth.message.MessagePolicy.isMandatory"));
+            
+            response.getWriter().write("isMandatory: " + isMandatory + "\n");
 
             handler.handle(new Callback[] {
                 new CallerPrincipalCallback(clientSubject, "test"),

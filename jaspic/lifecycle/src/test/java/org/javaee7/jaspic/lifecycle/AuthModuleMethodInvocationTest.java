@@ -56,10 +56,14 @@ public class AuthModuleMethodInvocationTest extends ArquillianBase {
         assertTrue("SAM method secureResponse not called, but should have been.",
             response.contains("secureResponse invoked"));
 
+        int validateRequestIndex = response.indexOf("validateRequest invoked");
+        int resourceIndex = response.indexOf("Resource invoked");
+        int secureResponseIndex = response.indexOf("secureResponse invoked");
+        
         // Finally the order should be correct. More than a few implementations call secureResponse before the resource is
         // invoked.
         assertTrue("SAM methods called in wrong order",
-            response.contains("validateRequest invoked\nResource invoked\nsecureResponse invoked\n"));
+            validateRequestIndex < resourceIndex && resourceIndex <  secureResponseIndex);
     }
 
     /**
