@@ -54,9 +54,11 @@ public class GreetingTest {
 		instance.destroy(bean);
 
 		// use Instance<T>#select()
-		Greeting anotherBean = instance.select(new AnnotationLiteral<Default>() {}).get();
+		Instance<Greeting> anotherInstance = instance.select(new AnnotationLiteral<Default>() {
+		});
+		Greeting anotherBean = anotherInstance.get();
 		assertThat(anotherBean, instanceOf(SimpleGreeting.class));
-		instance.destroy(anotherBean);
+		anotherInstance.destroy(anotherBean);
 	}
 }
 
