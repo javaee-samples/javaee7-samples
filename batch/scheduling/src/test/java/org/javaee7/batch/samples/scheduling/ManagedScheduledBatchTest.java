@@ -61,7 +61,7 @@ public class ManagedScheduledBatchTest {
                 MyManagedScheduledBatchBean.class,
                 MyManagedScheduledBatchAlternative.class)
             .addAsWebInfResource(
-                new StringAsset(beansXml.createAlternatives().clazz(
+                new StringAsset(beansXml.getOrCreateAlternatives().clazz(
                     MyManagedScheduledBatchAlternative.class.getName()).up().exportAsString()),
                 beansXml.getDescriptorName())
             .addAsResource("META-INF/batch-jobs/myJob.xml");
