@@ -1,4 +1,3 @@
-<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -38,18 +37,44 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+package org.javaee7.cdi.vetoed;
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CDI @Vetoed</title>
-    </head>
-    <body>
-        <h1>CDI @Vetoed</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Greeting Service</a>.
-    </body>
-</html>
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
+
+/**
+ * @author Radim Hanus
+ */
+@RunWith(Arquillian.class)
+public class GreetingTest {
+	@Deployment
+	public static Archive<?> deploy() {
+		return ShrinkWrap.create(JavaArchive.class)
+				.addClasses(Greeting.class, SimpleGreeting.class, FancyGreeting.class)
+				.addAsManifestResource("beans.xml");
+	}
+
+	@Inject
+	private Greeting bean;
+
+	@Test
+	public void should_bean_be_injected() throws Exception {
+		assertThat(bean, is(notNullValue()));
+	}
+
+	@Test
+	public void should_bean_be_fancy() throws Exception {
+		// SimpleGreeting bean is vetoed
+		assertThat(bean, instanceOf(FancyGreeting.class));
+	}
+}
