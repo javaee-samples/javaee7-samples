@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>Resource Validation</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>Client</a>.
+        Invoke the <a href="${pageContext.request.contextPath}/TestServlet">Client</a>.
     </body>
 </html>

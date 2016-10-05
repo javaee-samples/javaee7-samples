@@ -9,6 +9,6 @@
     </head>
     <body>
         <h1>Simple Servlet</h1>
-        Call the <a href="${pageContext.request.contextPath}/SimpleServlet"/>servlet</a>.
+        Call the <a href="${pageContext.request.contextPath}/SimpleServlet">servlet</a>.
     </body>
 </html>

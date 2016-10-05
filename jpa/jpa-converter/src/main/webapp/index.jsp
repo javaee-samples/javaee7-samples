@@ -51,7 +51,7 @@
     <body>
         <h1>JPA 2.1 Converter</h1>
         
-        <a href="${pageContext.request.contextPath}/TestServlet"/>List & Add</a> employees.
+        <a href="${pageContext.request.contextPath}/TestServlet">List & Add</a> employees.
 
     </body>
 </html>

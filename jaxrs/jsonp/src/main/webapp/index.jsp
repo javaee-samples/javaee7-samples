@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>JSON-P using JAX-RS</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>endpoint</a>.
+        Invoke the <a href="${pageContext.request.contextPath}/TestServlet">endpoint</a>.
     </body>
 </html>

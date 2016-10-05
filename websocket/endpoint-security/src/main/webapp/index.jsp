@@ -57,8 +57,8 @@
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
         </div>
-        <p/>If you see this page that means you've entered the username/password 
-        credentials correctly. Make sure to create the user by giving the command.<p/><p/>
+        <p>If you see this page that means you've entered the username/password
+        credentials correctly. Make sure to create the user by giving the command.</p><br/>
         Make sure to create a user:<br><br>
         
         For WildFly: Invoke "./bin/add-user.sh -a -u u1 -p p1 -g g1"<br>

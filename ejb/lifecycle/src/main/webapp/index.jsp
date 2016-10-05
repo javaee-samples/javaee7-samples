@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>EJB : Lifecycle Callbacks</h1>
-        <a href="${pageContext.request.contextPath}/TestServlet"/>Call beans</a>.
+        <a href="${pageContext.request.contextPath}/TestServlet">Call beans</a>.
     </body>
 </html>

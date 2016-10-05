@@ -57,7 +57,7 @@
                 <input id="myField" value="WebSocket" type="text"><br>
             </form>
         </div>
-        <p/>Look for HttpSession id and creation time in server.log.
+        <p>Look for HttpSession id and creation time in server.log.</p>
         <div id="output"></div>
         <script language="javascript" type="text/javascript" src="websocket.js">
         </script>

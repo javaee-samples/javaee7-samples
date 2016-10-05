@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>Servlet : Metadata Complete</h1>
-        Call the <a href="${pageContext.request.contextPath}/TestServlet"/>servlet</a>. <br><br>@WebServlet is ignored, instead the servlet-mapping from "web.xml" is used.
+        Call the <a href="${pageContext.request.contextPath}/TestServlet">servlet</a>. <br><br>@WebServlet is ignored, instead the servlet-mapping from "web.xml" is used.
     </body>
 </html>

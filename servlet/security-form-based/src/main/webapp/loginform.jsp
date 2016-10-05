@@ -53,8 +53,8 @@
         <h1>Form-Based Login Page</h1>
 
         <form method="POST" action="j_security_check">
-            Username: <input type="text" name="j_username"> <p/>
-            Password: <input type="password" name="j_password" autocomplete="off"> <p/>
+            Username: <input type="text" name="j_username"> <br/>
+            Password: <input type="password" name="j_password" autocomplete="off"> <br/>
             <input type="submit" value="Submit" name="submitButton">
             <input type="reset" value="Reset">
         </form>

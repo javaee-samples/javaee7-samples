@@ -51,6 +51,6 @@
     <body>
         <h1>JPA 2.1 Unsynchronized Persistence Context</h1>
         
-        <a href="${pageContext.request.contextPath}/TestServlet"/>Add & List</a> employees.
+        <a href="${pageContext.request.contextPath}/TestServlet">Add & List</a> employees.
     </body>
 </html>

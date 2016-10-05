@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>JSON Binding in JAX-RS using Moxy</h1>
-        Invoke the <a href="${pageContext.request.contextPath}/TestServlet"/>endpoint</a>.
+        Invoke the <a href="${pageContext.request.contextPath}/TestServlet">endpoint</a>.
     </body>
 </html>

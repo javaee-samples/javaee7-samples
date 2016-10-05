@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>CDI : Exclude Filter</h1>
-        <a href="${pageContext.request.contextPath}/TestServlet"/>Invoke</a> the bean.
+        <a href="${pageContext.request.contextPath}/TestServlet">Invoke</a> the bean.
     </body>
 </html>

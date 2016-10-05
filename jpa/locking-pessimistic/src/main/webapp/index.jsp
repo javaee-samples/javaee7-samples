@@ -50,6 +50,6 @@
     </head>
     <body>
         <h1>JPA Pessimistic Locking</h1>
-        <a href="${pageContext.request.contextPath}/TestServlet"/>CRUD entity</a>.
+        <a href="${pageContext.request.contextPath}/TestServlet">CRUD entity</a>.
     </body>
 </html>
