@@ -15,6 +15,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <maven.test.skip>false</maven.test.skip>
+        <skipTests>false</skipTests>
+        
+        <skipEJB>${skipTests}</skipEJB>
+        <skipCDI>${skipTests}</skipCDI>
+        <skipJSF>${skipTests}</skipJSF>
+        <skipJACC>${skipTests}</skipJACC>
         
         <!-- 
         	Application Server versions 
