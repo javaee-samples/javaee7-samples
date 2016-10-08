@@ -63,6 +63,10 @@
         <!-- Tests that an established authenticated identity by JASPIC propagates correctly to the EJB layer -->
         <module>ejb-propagation</module>
         
+        <!-- Tests that an established authenticated identity by JASPIC via the register session feature propagates 
+            correctly to the EJB layer -->
+        <module>ejb-register-session</module>
+        
         <!-- Tests that an established authenticated identity by JASPIC propagates correctly to a JACC provider -->
         <module>jacc-propagation</module>
         
@@ -81,4 +85,5 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
 </project>

@@ -6,12 +6,9 @@
         <groupId>org.javaee7</groupId>
         <artifactId>jaspic</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.javaee7</groupId>
     <artifactId>jaspic-dispatching-jsf-cdi</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jaspic - dispatching JSF CDI</name>
 
@@ -22,4 +19,17 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skipJSF}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
 </project>

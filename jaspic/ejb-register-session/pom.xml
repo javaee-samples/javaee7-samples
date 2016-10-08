@@ -8,9 +8,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>jaspic-ejb-propagation</artifactId>
+    <artifactId>jaspic-ejb-register-session</artifactId>
     <packaging>war</packaging>
-    <name>Java EE 7 Sample: jaspic - ejb-propagation</name>
+    
+    <name>Java EE 7 Sample: jaspic - ejb-register-session</name>
 
     <dependencies>
         <dependency>
