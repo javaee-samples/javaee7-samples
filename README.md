@@ -152,7 +152,7 @@ There are 11 available container profiles, for 6 different servers:
     
 The containers that download and install a server allow you to override the version used, e.g.:
 
-* `-wildfly.version=8.1.0.Final`
+* `-Dwildfly.version=8.1.0.Final`
 
     This will change the version from the current one (e.g. 10.1.0.Final) to 8.1.0.Final for WildFly.
 
