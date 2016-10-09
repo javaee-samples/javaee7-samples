@@ -17,13 +17,13 @@ There are 11 available container profiles, for 6 different servers:
 * ``wildfly-managed-arquillian``
     
     This profile will install a Wildfly server and start up the server per sample.
-    Useful for CI servers.
+    Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
     
 * ``wildfly-embedded-arquillian``
     
     This profile is almost identical to wildfly-managed-arquillian. It will install the same Wildfly server and start up 
     that server per sample again, but instead uses the Arquillian embedded connector to run it in the same JVM. 
-    Useful for CI servers.
+    Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
 
 * ``wildfly-remote-arquillian``
     
@@ -98,13 +98,15 @@ There are 11 available container profiles, for 6 different servers:
     </featureManager>
     ```
     
-    For the JASPIC tests to even be attempted to be executed a cheat is needed that creates a group in Liberty's internal user registry:
+    For older versions of Liberty (pre 16.0.0.0) for the JASPIC tests to even be attempted to be executed a cheat is needed that creates a group in Liberty's internal user registry:
     
     ```xml
     <basicRegistry id="basic">
         <group name="architect"/>
     </basicRegistry>
     ```
+    
+    This cheat is not needed for the latest versions of Liberty (16.0.0.0/2016.7 and later)
         
 * ``liberty-embedded-arquillian``
     
@@ -144,8 +146,16 @@ There are 11 available container profiles, for 6 different servers:
     JAVA_OPTS="$JAVA_OPTS -Djava.rmi.server.hostname=localhost "
     ```
     
+    This profile also requires you to set a username (``tomcat``) and password (``manager``) for the management application in 
+    ``tomcat-users.xml``. See the file ``test-utils/src/main/resources/tomcat-users.xml`` in this repository for a full example.
+    
     Be aware that this should *only* be done for a Tomcat instance that's used exclusively for testing, as the above will make
     the Tomcat installation **totally insecure!**
+    
+* ``tomcat-ci-managed``
+
+    This profile will install a Tomcat server and start up the server per sample.
+    Useful for CI servers. The Tomcat version that's used can be set via the ``tomcat.version`` property.
       
 
     
