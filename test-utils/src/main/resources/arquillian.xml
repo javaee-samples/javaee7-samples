@@ -61,4 +61,15 @@
         </configuration>
     </container>
 
+    <container qualifier="tomcat-ci-managed">
+        <configuration>
+            <property name="catalinaHome">${arquillian.tomcat.catalinaHome}</property>
+            <property name="catalinaBase">${arquillian.tomcat.catalinaHome}</property>
+            <property name="user">tomcat</property>
+            <property name="pass">manager</property>
+        </configuration>
+    </container>
+    
+    
+
 </arquillian>
