@@ -6,11 +6,9 @@
         <groupId>org.javaee7</groupId>
         <artifactId>jaspic</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>jaspic-register-session</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jaspic - register-session</name>
 

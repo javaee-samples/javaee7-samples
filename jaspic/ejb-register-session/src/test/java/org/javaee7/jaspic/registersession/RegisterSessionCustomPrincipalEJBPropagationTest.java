@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
 
 /**
- * Variant of the {@link RegisterSessionCustomPrincipalTest}, where it's tested
+ * Variant of the RegisterSessionCustomPrincipalTest, where it's tested
  * if the authenticated identity restored by the runtime correctly propagates 
  * to EJB.
  * 

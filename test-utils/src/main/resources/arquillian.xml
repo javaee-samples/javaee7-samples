@@ -50,5 +50,15 @@
             <property name="jmxClientJarPath">${wlHome}/wlserver/server/lib/wljmxclient.jar</property>
         </configuration>
     </container>
+    
+    <container qualifier="tomcat-remote">
+        <configuration>
+            <property name="jmxPort">8089</property>
+            <property name="host">localhost</property>
+            <property name="port">8080</property>
+            <property name="user">tomcat</property>
+            <property name="pass">manager</property>
+        </configuration>
+    </container>
 
 </arquillian>

@@ -12,7 +12,7 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile and one profile for browser can be active at a given time otherwise there will be dependency conflicts.
 
-There are 10 available container profiles, for 5 different servers:
+There are 11 available container profiles, for 6 different servers:
 
 * ``wildfly-managed-arquillian``
     
@@ -115,8 +115,7 @@ There are 10 available container profiles, for 5 different servers:
 * ``weblogic-remote-arquillian``
     
     This profile requires you to start up a WebLogic server outside of the build. Each sample will then
-    reuse this instance to run the tests. NOTE: this has been tested on WebLogic 12.1.3, which is a Java EE 6 implementation,
-    but it has some Java EE 7 features which can be optionally activated.
+    reuse this instance to run the tests.
     
     This profile requires you to set the location where WebLogic is installed via the ``weblogicRemoteArquillian_wlHome``
     system property. E.g.
@@ -129,15 +128,37 @@ There are 10 available container profiles, for 5 different servers:
     ``-DweblogicRemoteArquillian_adminUserName=myuser``
     ``-DweblogicRemoteArquillian_adminPassword=mypassword``
     
-Some of the containers allow you to override the version used
+* ``tomcat-remote``
 
-* `-Dorg.wildfly=8.1.0.Final`
+    This profile requires you to start up a plain Tomcat (8.5 or 9) server outside of the build. Each sample will then
+    reuse this instance to run the tests.
+    
+    Tomcat supports samples that make use of Servlet, JSP, Expression Language (EL), WebSocket and JASPIC.
+    
+    This profile requires you to enable JMX in Tomcat. This can be done by adding the following to ``[tomcat home]/bin/catalina.sh``:
+    
+    ```
+    JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote=true "
+    JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false "
+    JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
+    JAVA_OPTS="$JAVA_OPTS -Djava.rmi.server.hostname=localhost "
+    ```
+    
+    Be aware that this should *only* be done for a Tomcat instance that's used exclusively for testing, as the above will make
+    the Tomcat installation **totally insecure!**
+      
 
-    This will change the version from 8.0.0 to 8.1.0.Final for WildFly.
+    
+    
+The containers that download and install a server allow you to override the version used, e.g.:
+
+* `-Dwildfly.version=8.1.0.Final`
+
+    This will change the version from the current one (e.g. 10.1.0.Final) to 8.1.0.Final for WildFly.
 
 * `-Dglassfish.version=4.1`
 
-    This will change the version from 4.1.1 to 4.1 for GlassFish testing purposes.
+    This will change the version from the current one (e.g 4.1.1) to 4.1 for GlassFish testing purposes.
 
 Similarly, there are 6 profiles to choose a browser to test on:
 
@@ -191,9 +212,8 @@ There is just a bunch of things you should keep in mind before sending a pull re
 
 Standard tests are jUnit based - for example [this commit](servlet/servlet-filters/src/test/java/org/javaee7/servlet/filters/FilterServletTest.java). Test classes naming must comply with surefire naming standards `**/*Test.java`, `**/*Test*.java` or `**/*TestCase.java`.
 
-However, if you fancy something new, hip and fashionable it is perfectly legal to write  Spock specifications as standard JavaEE integration test. For the sake of clarity and consistency, to minimize the upfront complexity, in this project we prefare standard jUnit test. However, some Spock example are provided in the `extra/spock-tests` folder  - [like here](extra/spock-tests/src/test/java/org/javaee7/servlet/filters/FilterServletSpecification.groovy). The `spock-tests` project also showcases the Maven configuration. In this particular case the Groovy Specification files are included in the maven test phase if and only if you follow Spock naming convention and give your `Specification` suffix the magic will happen.
+For the sake of clarity and consistency, and to minimize the upfront complexity, we prefer standard jUnit tests using Java, with as additional helpers HtmlUnit, Hamcrest and of course Arquillian. Please don't use alternatives for these technologies. If any new dependency has to be introduced into this project it should provide something that's not covered by these existing dependencies.
 
-The extras folder is not included by default, to limit Groovy dependency. If you want to import the extra samples in an Eclipse workspace (including the Spock tests), please install the [Groovy plugins for your Eclipse version](http://groovy.codehaus.org/Eclipse+Plugin) first, then import the sample projects you want using File>Import>Existing Maven Projects. 
 
 ### Some coding principles ###
 
@@ -209,9 +229,7 @@ That's it! Welcome in the community!
 
 ## CI Job ##
 
-* [WildFly](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-wildfly-8.1/)
-* [GlassFish](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-glassfish-4.1/)
-* [TomEE](https://javaee-support.ci.cloudbees.com/job/javaee7-samples-tomee-2.0/)
+CI jobs are executed by [Travis](https://travis-ci.org/javaee-samples/javaee7-samples). Note that by the very nature of the samples provided here it's perfectly normal that not all tests pass. This normally would indicate a bug in the server on which the samples are executed. If you think it's really the test that's faulty, then please submit an issue or provide a PR with a fix.
 
 ## Run each sample in Docker
 

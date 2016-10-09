@@ -15,6 +15,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <maven.test.skip>false</maven.test.skip>
+        <skipTests>false</skipTests>
+        
+        <skipEJB>${skipTests}</skipEJB>
+        <skipCDI>${skipTests}</skipCDI>
+        <skipJSF>${skipTests}</skipJSF>
+        <skipJACC>${skipTests}</skipJACC>
         
         <!-- 
         	Application Server versions 
@@ -527,6 +533,7 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            
             <dependencies>
                 <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
                      to connect from a the client to the websocket server.
@@ -1051,7 +1058,41 @@
                 </plugins>
             </build>
         </profile>
-        
+
+
+        <profile>
+            <id>tomcat-remote</id>
+    
+            <properties> 
+                <skipEJB>true</skipEJB>
+                <skipCDI>true</skipCDI>
+                <skipJSF>true</skipJSF>
+                <skipJACC>true</skipJACC>
+            </properties> 
+    
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-remote-7</artifactId>
+                    <version>1.0.0.CR7</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>tomcat-remote</arquillian.launch>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            
+        </profile>
 
 
         <!-- Browser profiles. Used for UI testing -->
