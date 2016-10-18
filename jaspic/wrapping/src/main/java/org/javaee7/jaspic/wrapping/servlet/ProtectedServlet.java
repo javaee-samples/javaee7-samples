@@ -26,9 +26,9 @@ public class ProtectedServlet extends HttpServlet {
 
         Writer writer = response.getWriter();
 
-        writer.write("request isWrapped: " + request.getAttribute("isWrapped"));
+        writer.write("servlet request isWrapped: " + request.getAttribute("isWrapped"));
         writer.write("\n");
-        writer.write("response isWrapped: " + response.getHeader("isWrapped"));
+        writer.write("servlet response isWrapped: " + response.getHeader("isWrapped"));
     }
 
 }
