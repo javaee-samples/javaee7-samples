@@ -2,6 +2,7 @@ package org.javaee7.jaspic.basicauthentication;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
+
+import com.gargoylesoftware.htmlunit.WebResponse;
 
 /**
  * This tests that we can login from a protected resource (a resource for which
@@ -31,13 +34,21 @@ public class BasicAuthenticationProtectedTest extends ArquillianBase {
     @Test
     public void testProtectedPageNotLoggedin() throws IOException, SAXException {
 
-        String response = getFromServerPath("protected/servlet");
+        WebResponse response = getResponseFromServerPath("protected/servlet");
 
         // Not logged-in thus should not be accessible.
         assertFalse(
             "Not authenticated, so should not have been able to access protected resource",
-            response.contains("This is a protected servlet")
+            response.getContentAsString().contains("This is a protected servlet")
         );
+        
+        // Not logged-in thus should get a 403
+        assertEquals(
+            "Not authenticated, so should have got a 403 response",
+            403, 
+            response.getStatusCode()
+        );
+
     }
 
     @Test
