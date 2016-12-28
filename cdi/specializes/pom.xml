@@ -9,5 +9,5 @@
         <relativePath>../pom.xml</relativePath>        
     </parent>
     <artifactId>cdi-specializes</artifactId>
-    <name>Java EE 7 Sample: CDI - @Specializes</name>
+    <name>Java EE 7 Sample: CDI - specializes</name>
 </project>
