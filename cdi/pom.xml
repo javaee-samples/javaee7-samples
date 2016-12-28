@@ -38,6 +38,8 @@
         <module>events-conditional-reception</module>
         <module>instance</module>
         <module>instance-qualifiers</module>
+        <module>specializes</module>
+        <module>specializes-qualifiers</module>
     </modules>
 
     <dependencies>

@@ -27,6 +27,8 @@ The [JSR 346](https://jcp.org/en/jsr/detail?id=346) updates and clarifications t
  - events-conditional-reception
  - instance
  - instance-qualifiers
+ - specializes
+ - specializes-qualifiers
 
 ## How to run
 
