@@ -3,6 +3,7 @@ package org.javaee7.jaspic.dispatching.sam;
 import static javax.security.auth.message.AuthStatus.SEND_CONTINUE;
 import static javax.security.auth.message.AuthStatus.SEND_SUCCESS;
 import static javax.security.auth.message.AuthStatus.SUCCESS;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -44,26 +45,34 @@ public class TestServerAuthModule implements ServerAuthModule {
         try {
             HttpServletRequest request = (HttpServletRequest) messageInfo.getRequestMessage();
             HttpServletResponse response = (HttpServletResponse) messageInfo.getResponseMessage();
-
+            
             if ("include".equals(request.getParameter("dispatch"))) {
                 
-                String target = "/includedServlet";
-                if ("jsf".equals(request.getParameter("tech"))) {
-                    target = "/include.jsf";
-                } else  if ("jsfcdi".equals(request.getParameter("tech"))) {
-                    target = "/include-cdi.jsf";
+            	if(messageInfo.getMap().get("javax.security.auth.message.MessagePolicy.isMandatory").equals("true")) {
+                	//Since we do not set a principal, authentication is unsuccessful 
+
+            		response.setStatus(SC_UNAUTHORIZED);
+                	return SEND_CONTINUE;
+                } else {
+            	
+	                String target = "/includedServlet";
+	                if ("jsf".equals(request.getParameter("tech"))) {
+	                    target = "/include.jsf";
+	                } else  if ("jsfcdi".equals(request.getParameter("tech"))) {
+	                    target = "/include-cdi.jsf";
+	                }
+	                
+	                request.getRequestDispatcher(target)
+	                       .include(request, response);
+	
+	                // "Do nothing", required protocol when returning SUCCESS
+	                handler.handle(new Callback[] { new CallerPrincipalCallback(clientSubject, (Principal) null) });
+	
+	                // When using includes, the response stays open and the main
+	                // resource can also
+	                // write to the response
+	                return SUCCESS;
                 }
-                
-                request.getRequestDispatcher(target)
-                       .include(request, response);
-
-                // "Do nothing", required protocol when returning SUCCESS
-                handler.handle(new Callback[] { new CallerPrincipalCallback(clientSubject, (Principal) null) });
-
-                // When using includes, the response stays open and the main
-                // resource can also
-                // write to the response
-                return SUCCESS;
 
             } else {
                 

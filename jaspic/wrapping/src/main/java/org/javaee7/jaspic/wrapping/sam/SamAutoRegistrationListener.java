@@ -20,7 +20,7 @@ public class SamAutoRegistrationListener extends BaseServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        JaspicUtils.registerSAM(sce.getServletContext(), new TestWrappingServerAuthModule());
+        JaspicUtils.registerSAM(sce.getServletContext(), TestWrappingServerAuthModule.class);
         
         sce.getServletContext()
            .addFilter("Programmatic filter", ProgrammaticFilter.class)

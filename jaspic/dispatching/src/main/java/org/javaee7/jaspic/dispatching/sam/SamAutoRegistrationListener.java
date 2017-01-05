@@ -16,7 +16,7 @@ public class SamAutoRegistrationListener extends BaseServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        JaspicUtils.registerSAM(sce.getServletContext(), new TestServerAuthModule());
+        JaspicUtils.registerSAM(sce.getServletContext(), TestServerAuthModule.class);
     }
 
 }

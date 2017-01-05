@@ -22,21 +22,21 @@ public class TestServerAuthConfig implements ServerAuthConfig {
     private String appContext;
     private CallbackHandler handler;
     private Map<String, String> providerProperties;
-    private ServerAuthModule serverAuthModule;
+    private Class<? extends ServerAuthModule> serverAuthModuleClass;
 
     public TestServerAuthConfig(String layer, String appContext, CallbackHandler handler,
-        Map<String, String> providerProperties, ServerAuthModule serverAuthModule) {
+        Map<String, String> providerProperties, Class<? extends ServerAuthModule> serverAuthModuleClass) {
         this.layer = layer;
         this.appContext = appContext;
         this.handler = handler;
         this.providerProperties = providerProperties;
-        this.serverAuthModule = serverAuthModule;
+        this.serverAuthModuleClass = serverAuthModuleClass;
     }
 
     @Override
     public ServerAuthContext getAuthContext(String authContextID, Subject serviceSubject,
         @SuppressWarnings("rawtypes") Map properties) throws AuthException {
-        return new TestServerAuthContext(handler, serverAuthModule);
+        return new TestServerAuthContext(handler, serverAuthModuleClass);
     }
 
     // ### The methods below mostly just return what has been passed into the
