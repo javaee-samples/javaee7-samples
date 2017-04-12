@@ -19,7 +19,7 @@ There are 14 available container profiles, for 6 different servers:
   * ``payara-ci-managed``
     
       This profile will install a Payara server and start up the server per sample.
-      Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
+      Useful for CI servers. The Payara version that's used can be set via the ``payara.version`` property.
       This is the default profile and does not have to be specified explicitly.
 
   * ``payara-embedded``
