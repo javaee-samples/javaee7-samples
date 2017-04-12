@@ -32,6 +32,13 @@ There are 14 available container profiles, for 6 different servers:
       This profile requires you to start up a Payara server outside of the build. Each sample will then
       reuse this instance to run the tests.
       Useful for development to avoid the server start up cost per sample.
+      
+      This profile supports for some tests to set the location where Payara is installed via the ``glassfishRemote_gfHome``
+      system property. E.g.
+    
+      ``-DglassfishRemote_gfHome=/opt/payara171``
+      
+      This is used for sending asadmin commands to create container resources, such as users in an identity store.
 
   * ``glassfish-embedded``
     
@@ -43,6 +50,13 @@ There are 14 available container profiles, for 6 different servers:
       This profile requires you to start up a GlassFish server outside of the build. Each sample will then
       reuse this instance to run the tests.
       Useful for development to avoid the server start up cost per sample.
+      
+      This profile supports for some tests to set the location where GlassFish is installed via the ``glassfishRemote_gfHome``
+      system property. E.g.
+    
+      ``-DglassfishRemote_gfHome=/opt/glassfish41``
+      
+      This is used for sending asadmin commands to create container resources, such as users in an identity store.
 
 * WildFly
 
