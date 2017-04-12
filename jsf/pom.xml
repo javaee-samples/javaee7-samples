@@ -6,12 +6,12 @@
         <groupId>org.javaee7</groupId>
         <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>jsf</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    
     <name>Java EE 7 Sample: jsf</name>
 
     <modules>
@@ -31,18 +31,11 @@
         <module>passthrough</module>
         <module>radio-buttons</module>
         <module>resource-handling</module>
-        <module>simple-facelet</module>
         <module>server-extension</module>
         <module>viewscoped</module>
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jboss.arquillian.graphene</groupId>
-            <artifactId>graphene-webdriver</artifactId>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.javaee7</groupId>
             <artifactId>test-utils</artifactId>
