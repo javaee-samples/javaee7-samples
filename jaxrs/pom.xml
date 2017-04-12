@@ -6,15 +6,13 @@
         <groupId>org.javaee7</groupId>
         <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>jaxrs</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 Sample: jaxrs</name>
 
     <modules>
-        <module>angularjs</module>
         <module>async-client</module>
         <module>async-server</module>
         <module>beanvalidation</module>

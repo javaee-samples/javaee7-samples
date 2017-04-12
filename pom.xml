@@ -703,6 +703,16 @@
                 </dependency>
             </dependencies>
             <build>
+                 <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javaEEServer>glassfish-remote</javaEEServer>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                   </plugins>
                 <testResources>
                     <testResource>
                         <directory>src/test/resources</directory>

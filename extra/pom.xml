@@ -15,6 +15,7 @@
     <name>Java EE 7 Samples: extras</name>
 
     <modules>
+        <module>angularjs</module>
         <module>camel</module>
         <module>nosql</module>
         <module>quartz</module>
