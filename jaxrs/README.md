@@ -4,7 +4,6 @@ The [JSR 339](https://jcp.org/en/jsr/detail?id=339) specifies the next version o
 
 ## Samples ##
 
- - angularjs
  - async-client
  - async-server
  - beanvalidation
