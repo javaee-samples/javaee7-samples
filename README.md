@@ -15,170 +15,180 @@ Only one container profile can be active at a given time otherwise there will be
 
 There are 14 available container profiles, for 6 different servers:
 
-* ``payara-ci-managed``
+* Payara and GlassFish
+  * ``payara-ci-managed``
     
-    This profile will install a Payara server and start up the server per sample.
-    Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
-    This is the default profile and does not have to be specified explicitly.
+      This profile will install a Payara server and start up the server per sample.
+      Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
+      This is the default profile and does not have to be specified explicitly.
 
-* ``payara-embedded``
+  * ``payara-embedded``
     
-    This profile uses the Payara embedded server and runs in the same JVM as the TestClass.
-    Useful for development, but has the downside of server startup per sample.
+      This profile uses the Payara embedded server and runs in the same JVM as the TestClass.
+      Useful for development, but has the downside of server startup per sample.
 
-* ``payara-remote``
+  * ``payara-remote``
     
-    This profile requires you to start up a Payara server outside of the build. Each sample will then
-    reuse this instance to run the tests.
-    Useful for development to avoid the server start up cost per sample.
+      This profile requires you to start up a Payara server outside of the build. Each sample will then
+      reuse this instance to run the tests.
+      Useful for development to avoid the server start up cost per sample.
 
-* ``glassfish-embedded``
+  * ``glassfish-embedded``
     
-    This profile uses the GlassFish embedded server and runs in the same JVM as the TestClass.
-    Useful for development, but has the downside of server startup per sample.
+      This profile uses the GlassFish embedded server and runs in the same JVM as the TestClass.
+      Useful for development, but has the downside of server startup per sample.
 
-* ``glassfish-remote``
+  * ``glassfish-remote``
     
-    This profile requires you to start up a GlassFish server outside of the build. Each sample will then
-    reuse this instance to run the tests.
-    Useful for development to avoid the server start up cost per sample.
+      This profile requires you to start up a GlassFish server outside of the build. Each sample will then
+      reuse this instance to run the tests.
+      Useful for development to avoid the server start up cost per sample.
 
-* ``wildfly-ci-managed``
-    
-    This profile will install a Wildfly server and start up the server per sample.
-    Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
-    
-* ``wildfly-embedded``
-    
-    This profile is almost identical to wildfly-ci-managed. It will install the same Wildfly server and start up 
-    that server per sample again, but instead uses the Arquillian embedded connector to run it in the same JVM. 
-    Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
+* WildFly
 
-* ``wildfly-remote``
+  * ``wildfly-ci-managed``
     
-    This profile requires you to start up a Wildfly server outside of the build. Each sample will then
-    reuse this instance to run the tests.
-    Useful for development to avoid the server start up cost per sample.
+      This profile will install a Wildfly server and start up the server per sample.
+      Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
     
-* ``tomee-ci-managed``
+  * ``wildfly-embedded``
+    
+      This profile is almost identical to wildfly-ci-managed. It will install the same Wildfly server and start up 
+      that server per sample again, but instead uses the Arquillian embedded connector to run it in the same JVM. 
+      Useful for CI servers. The WildFly version that's used can be set via the ``wildfly.version`` property.
 
-    This profile will install a TomEE server and start up that server per sample.
-    Useful for CI servers. This profile cannot connect to a running server.
+  * ``wildfly-remote``
     
-    Note that the version of TomEE to be used has to be present in an
-    available maven repository. The defaults in this profile assume that the arquillian adapter and
-    the TomEE server have the same version. E.g both 7.0.0.
+      This profile requires you to start up a Wildfly server outside of the build. Each sample will then
+      reuse this instance to run the tests.
+      Useful for development to avoid the server start up cost per sample.
+      
+* TomEE
     
-    To use a TomEE server that's not available in maven central, one way to use it for the samples is to
-    install it in a local .m2 as follows:
-    
-    Clone TomEE repo:
-    
-    ``git clone https://github.com/apache/tomee``
-    ``cd tomee``
-    
-    Switch to the desired version if needed, then build and install in .m2:
-    
-    ``mvn clean install -pl tomee/apache-tomee -am -Dmaven.test.skip=true``
-    
-    ``mvn clean install -pl arquillian -amd -Dmaven.test.skip=true``
-    
-    Make sure the version that's installed (see pom.xml in TomEE project) matches the ``tomee.version`` in the
-    properties section in the root pom.xml of the samples project.
-    
-* ``tomee-embedded``
+  * ``tomee-ci-managed``
 
-    This profile uses the TomEE embedded server and runs in the same JVM as the TestClass.
+      This profile will install a TomEE server and start up that server per sample.
+      Useful for CI servers. This profile cannot connect to a running server.
     
-* ``liberty-managed``
+      Note that the version of TomEE to be used has to be present in an
+      available maven repository. The defaults in this profile assume that the arquillian adapter and
+      the TomEE server have the same version. E.g both 7.0.0.
+    
+      To use a TomEE server that's not available in maven central, one way to use it for the samples is to
+      install it in a local .m2 as follows:
+    
+      Clone TomEE repo:
+    
+      ``git clone https://github.com/apache/tomee``
+      ``cd tomee``
+    
+      Switch to the desired version if needed, then build and install in .m2:
+    
+      ``mvn clean install -pl tomee/apache-tomee -am -Dmaven.test.skip=true``
+    
+      ``mvn clean install -pl arquillian -amd -Dmaven.test.skip=true``
+    
+      Make sure the version that's installed (see pom.xml in TomEE project) matches the ``tomee.version`` in the
+      properties section in the root pom.xml of the samples project.
+    
+  * ``tomee-embedded``
 
-    This profile will start up the Liberty server per sample, and optionally connects to a running server that you
-    can start up outside of the build (with the restriction that this server has to run on the host as where
-    the tests are run using the same user).
+      This profile uses the TomEE embedded server and runs in the same JVM as the TestClass.
+      
+* Liberty
     
-    To connect to a running server the ``org.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer`` 
-    system property has to be set to true. E.g.
+  * ``liberty-managed``
+
+      This profile will start up the Liberty server per sample, and optionally connects to a running server that you
+      can start up outside of the build (with the restriction that this server has to run on the host as where
+      the tests are run using the same user).
     
-    ``-Dorg.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer=true``
+      To connect to a running server the ``org.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer`` 
+      system property has to be set to true. E.g.
     
-    This profile requires you to set the location where Liberty is installed via the ``libertyManagedArquillian_wlpHome``
-    system property. E.g.
+      ``-Dorg.jboss.arquillian.container.was.wlp_managed_8_5.allowConnectingToRunningServer=true``
     
-    ``-DlibertyManagedArquillian_wlpHome=/opt/wlp``
+      This profile requires you to set the location where Liberty is installed via the ``libertyManagedArquillian_wlpHome``
+      system property. E.g.
     
-    This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run the
-    javaee-7.0 feature E.g.
+      ``-DlibertyManagedArquillian_wlpHome=/opt/wlp``
     
-    ```xml
-    <featureManager>
-        <feature>javaee-7.0</feature>
-        <feature>localConnector-1.0</feature>
-    </featureManager>
-    ```
+      This profile also requires the localConnector feature to be configured in server.xml, and if all tests are to be run the
+      javaee-7.0 feature E.g.
     
-    For older versions of Liberty (pre 16.0.0.0) for the JASPIC tests to even be attempted to be executed a cheat is needed that creates a group in Liberty's internal user registry:
+      ```xml
+      <featureManager>
+          <feature>javaee-7.0</feature>
+          <feature>localConnector-1.0</feature>
+      </featureManager>
+      ```
     
-    ```xml
-    <basicRegistry id="basic">
-        <group name="architect"/>
-    </basicRegistry>
-    ```
+      For older versions of Liberty (pre 16.0.0.0) for the JASPIC tests to even be attempted to be executed a cheat is needed that creates a group in Liberty's internal user registry:
     
-    This cheat is not needed for the latest versions of Liberty (16.0.0.0/2016.7 and later)
+      ```xml
+      <basicRegistry id="basic">
+          <group name="architect"/>
+      </basicRegistry>
+      ```
+    
+      This cheat is not needed for the latest versions of Liberty (16.0.0.0/2016.7 and later)
         
-* ``liberty-ci-managed``
+  * ``liberty-ci-managed``
     
-    This profile will download and install a Liberty server and start up the server per sample.
-    Useful for CI servers. Note, this is not a real embedded server, but a regular server. It's now
-    called "embedded" because no separate install is needed as it's downloaded automatically. 
+      This profile will download and install a Liberty server and start up the server per sample.
+      Useful for CI servers. Note, this is not a real embedded server, but a regular server. It's now
+      called "embedded" because no separate install is needed as it's downloaded automatically. 
+      
+* Weblogic
     
-* ``weblogic-remote``
+  * ``weblogic-remote``
     
-    This profile requires you to start up a WebLogic server outside of the build. Each sample will then
-    reuse this instance to run the tests.
+      This profile requires you to start up a WebLogic server outside of the build. Each sample will then
+      reuse this instance to run the tests.
     
-    This profile requires you to set the location where WebLogic is installed via the ``weblogicRemoteArquillian_wlHome``
-    system property. E.g.
+      This profile requires you to set the location where WebLogic is installed via the ``weblogicRemoteArquillian_wlHome``
+      system property. E.g.
     
     ``-DweblogicRemoteArquillian_wlHome=/opt/wls12210``
     
-    The default username/password are assumed to be "admin" and "admin007" respectively. This can be changed using the
-    ``weblogicRemoteArquillian_adminUserName`` and ``weblogicRemoteArquillian_adminPassword`` system properties. E.g.
+      The default username/password are assumed to be "admin" and "admin007" respectively. This can be changed using the
+      ``weblogicRemoteArquillian_adminUserName`` and ``weblogicRemoteArquillian_adminPassword`` system properties. E.g.
     
-    ``-DweblogicRemoteArquillian_adminUserName=myuser``
-    ``-DweblogicRemoteArquillian_adminPassword=mypassword``
-    
-* ``tomcat-remote``
-
-    This profile requires you to start up a plain Tomcat (8.5 or 9) server outside of the build. Each sample will then
-    reuse this instance to run the tests.
-    
-    Tomcat supports samples that make use of Servlet, JSP, Expression Language (EL), WebSocket and JASPIC.
-    
-    This profile requires you to enable JMX in Tomcat. This can be done by adding the following to ``[tomcat home]/bin/catalina.sh``:
-    
-    ```
-    JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote=true "
-    JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false "
-    JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
-    JAVA_OPTS="$JAVA_OPTS -Djava.rmi.server.hostname=localhost "
-    ```
-    
-    This profile also requires you to set a username (``tomcat``) and password (``manager``) for the management application in 
-    ``tomcat-users.xml``. See the file ``test-utils/src/main/resources/tomcat-users.xml`` in this repository for a full example.
-    
-    Be aware that this should *only* be done for a Tomcat instance that's used exclusively for testing, as the above will make
-    the Tomcat installation **totally insecure!**
-    
-* ``tomcat-ci-managed``
-
-    This profile will install a Tomcat server and start up the server per sample.
-    Useful for CI servers. The Tomcat version that's used can be set via the ``tomcat.version`` property.
+      ``-DweblogicRemoteArquillian_adminUserName=myuser``
+      ``-DweblogicRemoteArquillian_adminPassword=mypassword``
       
+* Tomcat
+    
+  * ``tomcat-remote``
 
+      This profile requires you to start up a plain Tomcat (8.5 or 9) server outside of the build. Each sample will then
+      reuse this instance to run the tests.
     
+      Tomcat supports samples that make use of Servlet, JSP, Expression Language (EL), WebSocket and JASPIC.
     
-The containers that download and install a server allow you to override the version used, e.g.:
+      This profile requires you to enable JMX in Tomcat. This can be done by adding the following to ``[tomcat home]/bin/catalina.sh``:
+    
+      ```
+      JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote=true "
+      JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false "
+      JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
+      JAVA_OPTS="$JAVA_OPTS -Djava.rmi.server.hostname=localhost "
+      ```
+    
+      This profile also requires you to set a username (``tomcat``) and password (``manager``) for the management application in 
+      ``tomcat-users.xml``. See the file ``test-utils/src/main/resources/tomcat-users.xml`` in this repository for a full example.
+    
+      Be aware that this should *only* be done for a Tomcat instance that's used exclusively for testing, as the above will make
+      the Tomcat installation **totally insecure!**
+    
+  * ``tomcat-ci-managed``
+
+      This profile will install a Tomcat server and start up the server per sample.
+      Useful for CI servers. The Tomcat version that's used can be set via the ``tomcat.version`` property.
+      
+   
+    
+The containers that download and install a server (the \*-ci-managed profiles) allow you to override the version used, e.g.:
 
 * `-Dpayara.version=4.1.1.163`
 
