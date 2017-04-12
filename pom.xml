@@ -26,8 +26,8 @@
         	Application Server versions 
         	(these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
+        <payara.version>4.1.1.171.1</payara.version>
         <glassfish.version>4.1.1</glassfish.version>
-        <payara.version>4.1.1.164</payara.version>
         <liberty.version>16.0.0.3</liberty.version>
         <wildfly.version>10.1.0.Final</wildfly.version>
         <tomee.version>7.0.1</tomee.version>
@@ -65,7 +65,6 @@
       <module>servlet</module>
       <module>validation</module>
       <module>websocket</module>
-      <!-- module>extra</module -->
       <module>util</module>
     </modules>
 
@@ -78,20 +77,6 @@
                 <version>1.1.11.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.extension</groupId>
-                <artifactId>arquillian-drone-bom</artifactId>
-                <version>2.0.1.Final</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.graphene</groupId>
-                <artifactId>graphene-webdriver</artifactId>
-                <version>2.1.0.Final</version>
-                <type>pom</type>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
@@ -170,11 +155,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
             <version>1.5</version>
@@ -186,6 +166,7 @@
             <version>1.2.1</version>
             <scope>test</scope>
         </dependency>
+        <!-- TODO: remove this dependency, only htmlunit should be needed -->
         <dependency>
             <groupId>httpunit</groupId>
             <artifactId>httpunit</artifactId>
@@ -231,7 +212,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.6.1</version>
                 <configuration>
                     <source>${java.min.version}</source>
                     <target>${java.min.version}</target>
@@ -300,12 +281,338 @@
     
     <!-- Profiles for the application servers against which the samples are run -->
     
-    
-    <!-- ###  JBOSS / WILDFLY  ### -->
 
     <profiles>
+        
+        <!-- ###  PAYARA  ### -->
+        
+        
         <profile>
-            <id>wildfly-embedded-arquillian</id>
+            <id>payara-ci-managed</id>
+            
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-managed-3.1</artifactId>
+                    <version>1.0.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>fish.payara.distributions</groupId>
+                                            <artifactId>payara</artifactId>
+                                            <version>${payara.version}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                            
+                            <execution>
+                                <id>copy</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.jboss.classfilewriter</groupId>
+                                            <artifactId>jboss-classfilewriter</artifactId>
+                                            <version>1.2.1.Final</version>
+                                            <overWrite>true</overWrite>
+                                            <outputDirectory>${project.build.directory}/payara41/glassfish/modules</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <stripClassifier>true</stripClassifier>
+                                    <stripVersion>true</stripVersion>
+                                </configuration>
+                            </execution>
+                            
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <GLASSFISH_HOME>${project.build.directory}/payara41</GLASSFISH_HOME>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>payara-embedded</id>
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.extras</groupId>
+                    <artifactId>payara-embedded-all</artifactId>
+                    <version>${payara.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.json</artifactId>
+                    <version>1.0.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-client</artifactId>
+                    <version>1.13</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-container-grizzly-client</artifactId>
+                    <version>1.13</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-client</artifactId>
+                    <version>2.25</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                    <version>1.0.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-glassfish-embedded</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>payara-remote</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.json</artifactId>
+                    <version>1.0.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-client</artifactId>
+                    <version>1.13</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-container-grizzly-client</artifactId>
+                    <version>1.13</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-client</artifactId>
+                    <version>2.25</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.media</groupId>
+                    <artifactId>jersey-media-json-jackson</artifactId>
+                    <version>2.25</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.media</groupId>
+                    <artifactId>jersey-media-json-processing</artifactId>
+                    <version>2.25</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                    <version>1.0.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-glassfish-remote</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+            </build>
+        </profile>
+        
+        
+        
+        <!-- ###  GLASSFISH  ### -->
+        
+        <profile>
+            <id>glassfish-embedded</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.glassfish.main.extras</groupId>
+                    <artifactId>glassfish-embedded-all</artifactId>
+                    <version>${glassfish.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.json</artifactId>
+                    <version>1.0.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-container-grizzly-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-client</artifactId>
+                    <version>2.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                    <version>1.0.0.CR4</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-glassfish-embedded</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>glassfish-remote</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.json</artifactId>
+                    <version>1.0.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.tyrus</groupId>
+                    <artifactId>tyrus-container-grizzly-client</artifactId>
+                    <version>1.3</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-client</artifactId>
+                    <version>2.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.media</groupId>
+                    <artifactId>jersey-media-json-jackson</artifactId>
+                    <version>2.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.media</groupId>
+                    <artifactId>jersey-media-json-processing</artifactId>
+                    <version>2.4</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                    <version>1.0.0.CR4</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                 <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javaEEServer>glassfish-remote</javaEEServer>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                   </plugins>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-glassfish-remote</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+            </build>
+        </profile>
+
+        
+        
+        <!-- ###  JBOSS / WILDFLY  ### -->
+    
+        <profile>
+            <id>wildfly-embedded</id>
             <properties>
                 <serverProfile>standalone-full.xml</serverProfile>
                 <serverRoot>${project.build.directory}/wildfly-${wildfly.version}</serverRoot>
@@ -421,7 +728,7 @@
         </profile>
         
         <profile>
-            <id>wildfly-managed-arquillian</id>
+            <id>wildfly-ci-managed</id>
             <properties>
                 <serverProfile>standalone-full.xml</serverProfile>
                 <serverRoot>${project.build.directory}/wildfly-${wildfly.version}</serverRoot>
@@ -531,10 +838,7 @@
         </profile>
         
         <profile>
-            <id>wildfly-remote-arquillian</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>wildfly-remote</id>
             
             <dependencies>
                 <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
@@ -597,259 +901,16 @@
                     </testResource>
                 </testResources>
             </build>
-        </profile>
-        
-        
-        
-        <!-- ###  GLASSFISH  ### -->
-        
-        <profile>
-            <id>glassfish-embedded-arquillian</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.glassfish.main.extras</groupId>
-                    <artifactId>glassfish-embedded-all</artifactId>
-                    <version>${glassfish.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
-                    <version>1.0.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                    <version>2.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                    <version>1.0.0.CR4</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-embedded</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-        
-        <profile>
-            <id>glassfish-remote-arquillian</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
-                    <version>1.0.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                    <version>2.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-jackson</artifactId>
-                    <version>2.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-processing</artifactId>
-                    <version>2.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>1.0.0.CR4</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                 <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <javaEEServer>glassfish-remote</javaEEServer>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                   </plugins>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-remote</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-
-        
+        </profile>        
+                 
+                 
                         
-        <!-- ###  PAYARA  ### -->
-        
-        <profile>
-            <id>payara-embedded-arquillian</id>
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-embedded-all</artifactId>
-                    <version>${payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
-                    <version>1.0.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                    <version>2.25</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                    <version>1.0.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-embedded</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-        
-        <profile>
-            <id>payara-remote-arquillian</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
-                    <version>1.0.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                    <version>2.25</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-jackson</artifactId>
-                    <version>2.25</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-processing</artifactId>
-                    <version>2.25</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>1.0.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-remote</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
         
         
         <!-- ###  TOMEE  ### -->
         
         <profile>
-            <id>tomee-embedded-arquillian</id>
+            <id>tomee-embedded</id>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
@@ -907,7 +968,7 @@
         </profile>
         
         <profile>
-            <id>tomee-managed-arquillian</id>
+            <id>tomee-ci-managed</id>
             
             <repositories>
                 <repository>
@@ -1016,7 +1077,7 @@
         <!-- ###  LIBERTY  ### -->
 
         <profile>
-            <id>liberty-managed-arquillian</id> <!-- Can also be used as remote -->
+            <id>liberty-managed</id> <!-- Can also be used as remote -->
             
             <dependencies>
                 <dependency>
@@ -1062,7 +1123,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <arquillian.launch>liberty-managed-arquillian</arquillian.launch>
+                                <arquillian.launch>liberty-managed</arquillian.launch>
                                 <useEarForJaspic>true</useEarForJaspic>
                             </systemPropertyVariables>
                         </configuration>
@@ -1073,7 +1134,7 @@
         
         
         <profile>
-            <id>liberty-embedded-arquillian</id>
+            <id>liberty-ci-managed</id>
 
             <dependencies>
                 <dependency>
@@ -1142,7 +1203,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <arquillian.launch>liberty-embedded-arquillian</arquillian.launch>
+                                <arquillian.launch>liberty-ci-managed</arquillian.launch>
                                 <arquillian.liberty.wlpHome>${project.build.directory}/wlp</arquillian.liberty.wlpHome>
                             </systemPropertyVariables>
                         </configuration>
@@ -1156,7 +1217,7 @@
         <!-- ###  WEBLOGIC  ### -->
         
         <profile>
-            <id>weblogic-remote-arquillian</id>
+            <id>weblogic-remote</id>
         
             <properties>
                 <!-- Default username/password that instructions in README.md ask to use 
@@ -1188,7 +1249,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <arquillian.launch>weblogic-remote-arquillian</arquillian.launch>
+                                <arquillian.launch>weblogic-remote</arquillian.launch>
                                 <wlHome>${weblogicRemoteArquillian_wlHome}</wlHome>
                                 <adminUrl>${weblogicRemoteArquillian_adminUrl}</adminUrl>
                                 <adminUserName>${weblogicRemoteArquillian_adminUserName}</adminUserName>
@@ -1348,49 +1409,6 @@
             </build>
         </profile>
 
-
-
-        <!-- Browser profiles. Used for UI testing -->
-        
-        <profile>
-            <id>browser-firefox</id>
-            <properties>
-                <browser>firefox</browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-chrome</id>
-            <properties>
-                <browser>chrome</browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-ie</id>
-            <properties>
-                <browser>internetExplorer</browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-safari</id>
-            <properties>
-                <browser>safari</browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-opera</id>
-            <properties>
-                <browser>opera</browser>
-            </properties>
-        </profile>
-        <profile>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <id>browser-phantomjs</id>
-            <properties>
-                <browser>phantomjs</browser>
-            </properties>
-        </profile>
 
 
         <!-- 

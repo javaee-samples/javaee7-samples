@@ -15,7 +15,7 @@
         </configuration>
     </container>
 
-    <container qualifier="liberty-managed-arquillian">
+    <container qualifier="liberty-managed">
         <configuration>
             <!-- Has to be "xml", otherwise user registry in server.xml won't be processed -->
             <property name="deployType">xml</property>
@@ -23,14 +23,14 @@
         </configuration>
     </container>
     
-     <container qualifier="liberty-embedded-arquillian">
+     <container qualifier="liberty-ci-managed">
         <configuration>
             <property name="deployType">xml</property>
             <property name="wlpHome">${arquillian.liberty.wlpHome}</property>
         </configuration>
     </container>
 
-    <container qualifier="weblogic-remote-arquillian">
+    <container qualifier="weblogic-remote">
         <configuration>
             <property name="adminUrl">${adminUrl}</property>
             <property name="adminUserName">${adminUserName}</property>

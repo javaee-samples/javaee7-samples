@@ -19,15 +19,85 @@
         <module>camel</module>
         <module>nosql</module>
         <module>quartz</module>
+        <module>simple-facelet</module>
         <module>twitter-search</module>
         <module>webjars</module>
         <module>spock-tests</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-drone-bom</artifactId>
+                <version>2.0.1.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.graphene</groupId>
+                <artifactId>graphene-webdriver</artifactId>
+                <version>2.1.0.Final</version>
+                <type>pom</type>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <dependencies>
         <dependency>
             <groupId>org.javaee7</groupId>
             <artifactId>test-utils</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+    
+    <!-- Browser profiles. Used for UI testing -->
+    <profiles>    
+        <profile>
+            <id>browser-firefox</id>
+            <properties>
+                <browser>firefox</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-chrome</id>
+            <properties>
+                <browser>chrome</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-ie</id>
+            <properties>
+                <browser>internetExplorer</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-safari</id>
+            <properties>
+                <browser>safari</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-opera</id>
+            <properties>
+                <browser>opera</browser>
+            </properties>
+        </profile>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <id>browser-phantomjs</id>
+            <properties>
+                <browser>phantomjs</browser>
+            </properties>
+        </profile>
+    </profiles>
+    
 </project>
