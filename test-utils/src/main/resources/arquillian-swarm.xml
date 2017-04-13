@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://jboss.org/schema/arquillian" xsi:schemaLocation="http://jboss.org/schema/arquillian
+    http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+    <!--
+      - must be in a separate file because in-container tests need to use Swarm's DaemonProtocol,
+      - but arquillian.xml sets the default protocol to "Servlet 3.0" and there's no way to override that
+      - (see https://issues.jboss.org/browse/ARQ-579)
+      -->
+    <container qualifier="wildfly-swarm" default="true">
+        <configuration>
+            <property name="host">localhost</property>
+            <property name="port">${swarm.arquillian.daemon.port:12345}</property>
+        </configuration>
+    </container>
+
+</arquillian>

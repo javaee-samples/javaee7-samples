@@ -13,7 +13,7 @@ A brief instruction how to clone, build, import and run the samples on your loca
 
 Only one container profile can be active at a given time otherwise there will be dependency conflicts.
 
-There are 14 available container profiles, for 6 different servers:
+There are 16 available container profiles, for 6 different servers:
 
 * Payara and GlassFish
   * ``payara-ci-managed``
@@ -77,6 +77,13 @@ There are 14 available container profiles, for 6 different servers:
       reuse this instance to run the tests.
       Useful for development to avoid the server start up cost per sample.
       
+  * ``wildfly-swarm``
+
+      This profile uses WildFly Swarm, which allows building uberjars that contain just enough of the WildFly
+      application server. Here, the parts of WildFly that are included are selected based on inspecting the application
+      and looking for the Java EE APIs that are actually used. The WildFly Swarm version that's used can be set via
+      the ``wildfly.swarm.version`` property.
+
 * TomEE
     
   * ``tomee-ci-managed``
