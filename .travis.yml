@@ -28,4 +28,4 @@ env:
   
 install: mvn install --quiet -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
-script: cd $TESTFOLDER && mvn -q --fail-at-end install -B 2>&1
+script: mvn --quiet --batch-mode --fail-at-end --projects $TESTFOLDER --also-make-dependents install 2>&1 
