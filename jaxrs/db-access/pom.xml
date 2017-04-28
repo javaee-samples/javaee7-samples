@@ -11,4 +11,16 @@
     <artifactId>jaxrs-db-access</artifactId>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jaxrs - db-access</name>
+
+    <profiles>
+        <profile>
+            <id>wildfly-swarm</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>

@@ -30,6 +30,7 @@
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.3</liberty.version>
         <wildfly.version>10.1.0.Final</wildfly.version>
+        <wildfly.swarm.version>2017.4.0</wildfly.swarm.version>
         <tomee.version>7.0.1</tomee.version>
         <tomcat.version>8.5.6</tomcat.version>
     </properties>
@@ -89,6 +90,11 @@
                 <version>1.0-SNAPSHOT</version>
                 <type>jar</type>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.195</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -903,8 +909,82 @@
             </build>
         </profile>        
                  
-                 
-                        
+        <profile>
+            <id>wildfly-swarm</id>
+
+            <dependencies>
+                <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer()
+                     to connect from a the client to the websocket server.
+                -->
+                <dependency>
+                    <groupId>io.undertow</groupId>
+                    <artifactId>undertow-websockets-jsr</artifactId>
+                    <version>1.4.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <!-- Needed for jaxrs tests that use ClientBuilder to connect from a client
+                     to the JAX-RS server.
+                -->
+                <dependency>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-client</artifactId>
+                    <version>3.0.19.Final</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <!-- Without this exception will be thrown about missing tracef method -->
+                <dependency>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                    <version>3.3.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-jaxb-provider</artifactId>
+                    <version>3.0.19.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-json-p-provider</artifactId>
+                    <version>3.0.19.Final</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <!-- The actual Arquillian container -->
+                <dependency>
+                    <groupId>org.wildfly.swarm</groupId>
+                    <artifactId>arquillian</artifactId>
+                    <version>${wildfly.swarm.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-wildfly-swarm</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.xml>arquillian-swarm.xml</arquillian.xml>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         
         
         <!-- ###  TOMEE  ### -->
