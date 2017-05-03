@@ -1,10 +1,14 @@
 package org.javaee7.jpa.datasourcedefinition_applicationxml_pu;
 
+import static org.jboss.shrinkwrap.api.ArchivePaths.create;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import javax.ejb.EJB;
+import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 
 import org.javaee7.jpa.datasourcedefinition_applicationxml_pu.entity.TestEntity;
@@ -12,6 +16,8 @@ import org.javaee7.jpa.datasourcedefinition_applicationxml_pu.service.TestServic
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -32,9 +38,6 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class DataSourceDefinitionApplicationXMLPuEJBTest {
-
-    @Inject
-    private TestService testService;
 
     @Deployment
     public static Archive<?> deploy() {
@@ -69,12 +72,15 @@ public class DataSourceDefinitionApplicationXMLPuEJBTest {
                 create(WebArchive.class, "test.war")
                     // This class containing the test
                     .addClass(DataSourceDefinitionApplicationXMLPuEJBTest.class)
+                    .addAsWebInfResource(INSTANCE, create("beans.xml"))
 
             );
     }
 
     @Test
     public void insertAndQueryEntity() throws Exception {
+        
+        TestService testService = CDI.current().select(TestService.class).get();
 
         testService.saveNewEntity();
 
