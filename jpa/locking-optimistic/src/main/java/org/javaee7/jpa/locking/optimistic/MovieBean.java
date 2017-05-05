@@ -39,19 +39,22 @@
  */
 package org.javaee7.jpa.locking.optimistic;
 
+import static javax.ejb.TransactionAttributeType.REQUIRED;
+import static javax.persistence.LockModeType.OPTIMISTIC;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * @author Arun Gupta
  */
 @Stateless
 public class MovieBean {
+    
     @PersistenceContext
     private EntityManager em;
 
@@ -63,21 +66,37 @@ public class MovieBean {
         return em.find(Movie.class, id);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(REQUIRED)
     public Movie readMovie(Integer id) {
-        return em.find(Movie.class, id, LockModeType.OPTIMISTIC);
+        return em.find(Movie.class, id, OPTIMISTIC);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(REQUIRED)
     public void updateMovie(Integer id, String name) {
         Movie movie = findMovie(id);
-        em.lock(movie, LockModeType.OPTIMISTIC);
+        em.lock(movie, OPTIMISTIC);
+        movie.setName(name);
+        em.merge(movie);
+        em.flush();
+    }
+    
+    public void updateMovie2(Integer id, String name) {
+        Movie movie = findMovie(id);
+        em.lock(movie, OPTIMISTIC);
+        movie.setName(name);
+        em.merge(movie);
+        em.flush();
+    }
+    
+    @TransactionAttribute(REQUIRED)
+    public void updateMovie(Movie movie, String name) {
+        em.lock(movie, OPTIMISTIC);
         movie.setName(name);
         em.merge(movie);
         em.flush();
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(REQUIRED)
     public void deleteMovie(Integer id) {
         em.remove(findMovie(id));
     }

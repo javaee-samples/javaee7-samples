@@ -1,5 +1,19 @@
 package org.javaee7.jpa.locking.optimistic;
 
+import static java.lang.Thread.sleep;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+import javax.enterprise.concurrent.ManagedExecutorService;
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -10,25 +24,17 @@ import org.jboss.shrinkwrap.descriptor.api.beans10.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.annotation.Resource;
-import javax.enterprise.concurrent.ManagedScheduledExecutorService;
-import javax.inject.Inject;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.*;
-
 /**
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
 public class LockingOptimisticTest {
+    
     @Inject
     private MovieBean movieBean;
 
     @Resource
-    private ManagedScheduledExecutorService executor;
+    private ManagedExecutorService executor;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -42,12 +48,17 @@ public class LockingOptimisticTest {
                 new StringAsset(beansXml.getOrCreateAlternatives()
                     .clazz(MovieBeanAlternative.class.getName()).up().exportAsString()),
                 beansXml.getDescriptorName());
+        
         System.out.println(war.toString(true));
+        
         return war;
     }
 
     @Test
     public void testLockingOptimisticUpdateAndRead() throws Exception {
+        
+        System.out.println("Enter testLockingOptimisticUpdateAndRead");
+        
         resetCountDownLatches();
         List<Movie> movies = movieBean.listMovies();
         assertFalse(movies.isEmpty());
@@ -70,12 +81,15 @@ public class LockingOptimisticTest {
             }
         });
 
-        assertTrue(testCountDownLatch.await(10, TimeUnit.SECONDS));
+        assertTrue(testCountDownLatch.await(10, SECONDS));
         assertEquals("INCEPTION UR", movieBean.findMovie(3).getName());
     }
 
     @Test
     public void testLockingOptimisticReadAndUpdate() throws Exception {
+        
+        System.out.println("Enter testLockingOptimisticReadAndUpdate");
+        
         resetCountDownLatches();
         List<Movie> movies = movieBean.listMovies();
         assertFalse(movies.isEmpty());
@@ -108,19 +122,27 @@ public class LockingOptimisticTest {
 
     @Test
     public void testLockingOptimisticDelete() throws Exception {
+        
+        System.out.println("Enter testLockingOptimisticDelete");
+        
         resetCountDownLatches();
         List<Movie> movies = movieBean.listMovies();
         assertFalse(movies.isEmpty());
 
-        final CountDownLatch testCountDownLatch = new CountDownLatch(1);
+        final CountDownLatch testCountDownLatch1 = new CountDownLatch(1);
+        final CountDownLatch testCountDownLatch2 = new CountDownLatch(1);
 
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                
+                System.out.println("Update thread " + Thread.currentThread().getId() + " at " + System.nanoTime());
+                
                 try {
-                    movieBean.updateMovie(3, "INCEPTION");
+                    testCountDownLatch1.countDown();
+                    movieBean.updateMovie2(3, "INCEPTION");
                 } catch (RuntimeException e) { // Should throw an javax.persistence.OptimisticLockException? The Exception is wrapped around an javax.ejb.EJBException
-                    testCountDownLatch.countDown();
+                    testCountDownLatch2.countDown();
                 }
             }
         });
@@ -128,12 +150,19 @@ public class LockingOptimisticTest {
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                System.out.println("Delete thread " + Thread.currentThread().getId() + " at " + System.nanoTime());
+                try {
+                    testCountDownLatch1.await(10, SECONDS);
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 movieBean.deleteMovie(3);
                 MovieBeanAlternative.lockCountDownLatch.countDown();
             }
         });
 
-        assertTrue(testCountDownLatch.await(10, TimeUnit.SECONDS));
+        assertTrue(testCountDownLatch2.await(20, SECONDS));
     }
 
     private void resetCountDownLatches() {
