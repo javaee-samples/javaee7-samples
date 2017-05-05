@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name="Child1")
 public class Child {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    
+    @SuppressWarnings("unused")
+    private int dummy = 1;
 
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
