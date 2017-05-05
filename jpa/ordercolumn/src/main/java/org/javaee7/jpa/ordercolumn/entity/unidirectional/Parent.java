@@ -20,6 +20,9 @@ public class Parent {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    
+    @SuppressWarnings("unused")
+    private int dummy = 1;
 
     @OneToMany(cascade = ALL, fetch = EAGER)
     @OrderColumn

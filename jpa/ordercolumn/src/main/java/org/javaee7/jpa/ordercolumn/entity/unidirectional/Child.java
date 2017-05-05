@@ -12,6 +12,9 @@ public class Child {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    
+    @SuppressWarnings("unused")
+    private int dummy = 1;
 
     public Long getId() {
         return id;

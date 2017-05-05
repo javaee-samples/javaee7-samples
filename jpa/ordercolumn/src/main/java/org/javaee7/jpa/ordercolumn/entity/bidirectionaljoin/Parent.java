@@ -14,12 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
-@Entity
+@Entity(name="Parent1")
 public class Parent {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    
+    @SuppressWarnings("unused")
+    private int dummy = 1;
 
     @OneToMany(cascade = ALL, fetch = EAGER)
     @OrderColumn
