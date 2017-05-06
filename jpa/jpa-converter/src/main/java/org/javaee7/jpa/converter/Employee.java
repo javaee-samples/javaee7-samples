@@ -1,7 +1,7 @@
 package org.javaee7.jpa.converter;
 
 import java.io.Serializable;
-import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -19,6 +19,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 })
 public class Employee implements Serializable {
+    
     private static final long serialVersionUID = 1L;
 
     @Id

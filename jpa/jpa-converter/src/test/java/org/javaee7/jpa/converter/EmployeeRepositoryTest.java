@@ -1,42 +1,37 @@
 package org.javaee7.jpa.converter;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.Filters;
-import org.jboss.shrinkwrap.api.GenericArchive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.FileAsset;
-import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static java.util.Arrays.asList;
+import static org.jboss.shrinkwrap.api.ArchivePaths.create;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
+import static org.junit.Assert.assertTrue;
 
-import javax.inject.Inject;
-import java.io.File;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import javax.inject.Inject;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class EmployeeRepositoryTest {
 
     @Deployment
-    public static Archive<?> createDeployment() {
-        final File[] assertJ = Maven.resolver().loadPomFromFile("pom.xml")
-            .resolve("org.assertj:assertj-core")
-            .withTransitivity()
-            .asFile();
-
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "employee-card-converter-sample.jar")
-            .addPackage(Employee.class.getPackage())
-            .addAsManifestResource("test-persistence.xml", "persistence.xml")
-            .merge(metaInfFolder(), "/META-INF", Filters.include(".*\\.sql"));
-        mergeDependencies(archive, assertJ);
-
-        return archive;
-
+    public static WebArchive createDeployment() {
+        WebArchive war = create(WebArchive.class)
+                .addPackage("org.javaee7.jpa.converter")
+                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("META-INF/create.sql")
+                .addAsResource("META-INF/drop.sql")
+                .addAsResource("META-INF/load.sql")
+                .addAsWebInfResource(INSTANCE, create("beans.xml"));
+            
+            System.out.println(war.toString(true));
+            
+            return war;
     }
 
     @Inject
@@ -44,33 +39,27 @@ public class EmployeeRepositoryTest {
 
     @Test
     public void should_return_all_employee_records() throws Exception {
-        // when
-        final List<Employee> employees = repository.all();
+        
+        // When
+        final List<Employee> actualEmployees = repository.all();
 
-        // then
-        assertThat(employees).hasSize(6)
-            .contains(employee("Leonard", "11-22-33-44"), employee("Sheldon", "22-33-44-55"),
-                employee("Penny", "33-44-55-66"), employee("Raj", "44-55-66-77"),
-                employee("Howard", "55-66-77-88"), employee("Bernadette", "66-77-88-99"));
-    }
-
-    // -- Test utility methods
-
-    private static Employee employee(String name, String creditCardNumber) {
-        final CreditCard creditCard = new CreditCard(creditCardNumber);
-        return new Employee(name, creditCard);
-    }
-
-    private static void mergeDependencies(JavaArchive archive, File... dependencies) {
-        for (File file : dependencies) {
-            archive.merge(ShrinkWrap.createFromZipFile(JavaArchive.class, file));
+        // Then
+        assertTrue(actualEmployees.size() == 6);
+        
+        List<Employee> expectedEmployees = asList(
+            employee("Leonard", "11-22-33-44"), employee("Sheldon", "22-33-44-55"),
+            employee("Penny", "33-44-55-66"), employee("Raj", "44-55-66-77"),
+            employee("Howard", "55-66-77-88"), employee("Bernadette", "66-77-88-99"));
+        
+        for (Employee employee : expectedEmployees) {
+            assertTrue(actualEmployees.contains(employee));
         }
     }
 
-    private static GenericArchive metaInfFolder() {
-        return ShrinkWrap.create(GenericArchive.class)
-            .as(ExplodedImporter.class)
-            .importDirectory("src/main/resources/META-INF")
-            .as(GenericArchive.class);
+    // -- Test utility method
+
+    private static Employee employee(String name, String creditCardNumber) {
+        return new Employee(name, new CreditCard(creditCardNumber));
     }
+   
 }
