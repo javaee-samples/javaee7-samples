@@ -6,7 +6,10 @@ import java.io.Serializable;
  * @author Arun Gupta
  */
 public class CreditCard implements Serializable {
-    String cardNumber;
+
+    private static final long serialVersionUID = 1L;
+    
+    private String cardNumber;
 
     public CreditCard() {
     }
