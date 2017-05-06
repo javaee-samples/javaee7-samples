@@ -1,24 +1,30 @@
 package org.javaee7.jpa.pu.typesafe;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.jboss.shrinkwrap.api.ArchivePaths.create;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author Roberto Cortez
  */
 @RunWith(Arquillian.class)
 public class PuTypesafeTest {
+    
     @Inject
     private MySessionBean bean;
 
@@ -31,13 +37,16 @@ public class PuTypesafeTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class)
+        WebArchive war = create(WebArchive.class)
             .addPackage("org.javaee7.jpa.pu.typesafe")
             .addAsResource("META-INF/persistence.xml")
             .addAsResource("META-INF/create.sql")
             .addAsResource("META-INF/drop.sql")
-            .addAsResource("META-INF/load.sql");
+            .addAsResource("META-INF/load.sql")
+            .addAsWebInfResource(INSTANCE, create("beans.xml"));
+        
         System.out.println(war.toString(true));
+        
         return war;
     }
 

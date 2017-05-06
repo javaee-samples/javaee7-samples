@@ -1,5 +1,6 @@
 package org.javaee7.jpa.dynamicnamedquery;
 
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -10,7 +11,6 @@ import org.javaee7.jpa.dynamicnamedquery.entity.TestEntity;
 import org.javaee7.jpa.dynamicnamedquery.service.TestService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +31,9 @@ public class DynamicNamedQueryTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class).addPackages(true, "org.javaee7.jpa.dynamicnamedquery")
-            .addAsResource("META-INF/persistence.xml");
+        return create(WebArchive.class)
+                  .addPackages(true, "org.javaee7.jpa.dynamicnamedquery")
+                  .addAsResource("META-INF/persistence.xml");
     }
 
     @Test
