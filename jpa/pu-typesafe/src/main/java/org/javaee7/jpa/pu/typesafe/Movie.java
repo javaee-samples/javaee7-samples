@@ -39,10 +39,15 @@
  */
 package org.javaee7.jpa.pu.typesafe;
 
-import javax.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * @author Arun Gupta
@@ -53,6 +58,9 @@ import java.io.Serializable;
     @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
 })
 public class Movie implements Serializable {
+   
+    private static final long serialVersionUID = 1L;
+
     @Id
     @NotNull
     private Integer id;
