@@ -6,13 +6,12 @@
         <artifactId>jpa</artifactId>
         <groupId>org.javaee7</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
     <artifactId>jpa-schema-gen-scripts-generate</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    
     <name>Java EE 7 Sample: jpa - schema-gen-scripts-generate</name>
+    
     <build>
         <resources>
             <resource>
