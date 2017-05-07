@@ -26,6 +26,7 @@ public class CliCommands {
         
         String gfHome = System.getProperty("glassfishRemote_gfHome");
         if (gfHome == null) {
+            logger.info("glassfishRemote_gfHome not specified");
             return -1;
         }
         

@@ -3,7 +3,6 @@
 <glassfish-web-app error-url="">
     <security-role-mapping>
         <role-name>g1</role-name>
-        <principal-name>g1</principal-name>
         <group-name>g1</group-name>
     </security-role-mapping>
 </glassfish-web-app>

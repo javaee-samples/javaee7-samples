@@ -1,21 +1,23 @@
 package org.javaee7.servlet.programmatic.login;
 
-import com.gargoylesoftware.htmlunit.HttpMethod;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.javaee7.ServerOperations.addUsersToContainerIdentityStore;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author Arun Gupta
@@ -30,10 +32,12 @@ public class LoginServletTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class).
+        
+        addUsersToContainerIdentityStore();
+        
+        return create(WebArchive.class).
             addClass(LoginServlet.class).
             addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
-        return war;
     }
 
     @Test
@@ -41,28 +45,24 @@ public class LoginServletTest {
         WebClient webClient = new WebClient();
         HtmlPage page = webClient.getPage(base + "/LoginServlet");
         String responseText = page.asText();
+        System.out.println("testUnauthenticatedRequest:\n" + responseText + "\n");
 
-        //        WebRequest request = new WebRequest(new URL(base + "/LoginServlet"), HttpMethod.GET);
-        //        WebResponse response = webClient.getWebConnection().getResponse(request);
-        //        String responseText = response.getContentAsString();
-
-        assert (responseText.contains("isUserInRole?false"));
-        assert (responseText.contains("getRemoteUser?null"));
-        assert (responseText.contains("getUserPrincipal?null"));
-        assert (responseText.contains("getAuthType?null"));
+        assertTrue(responseText.contains("isUserInRole?false"));
+        assertTrue(responseText.contains("getRemoteUser?null"));
+        assertTrue(responseText.contains("getUserPrincipal?null"));
+        assertTrue(responseText.contains("getAuthType?null"));
     }
 
     @Test
     public void testAuthenticatedRequest() throws IOException, SAXException {
         WebClient webClient = new WebClient();
-        WebRequest request = new WebRequest(new URL(base + "/LoginServlet?user=u1&password=p1"), HttpMethod.GET);
-        WebResponse response = webClient.getWebConnection().getResponse(request);
-        String responseText = response.getContentAsString();
-        System.out.println(responseText);
+        HtmlPage page = webClient.getPage(base + "/LoginServlet?user=u1&password=p1");
+        String responseText = page.asText();
+        System.out.println("testAuthenticatedRequest:\n" + responseText + "\n");
 
-        assert (responseText.contains("isUserInRole?true"));
-        assert (responseText.contains("getRemoteUser?u1"));
-        assert (responseText.contains("getUserPrincipal?u1"));
-        assert (responseText.contains("getAuthType?BASIC"));
+        assertTrue(responseText.contains("isUserInRole?true"));
+        assertTrue(responseText.contains("getRemoteUser?u1"));
+        assertTrue(responseText.contains("getUserPrincipal?u1"));
+        assertTrue(responseText.contains("getAuthType?BASIC"));
     }
 }

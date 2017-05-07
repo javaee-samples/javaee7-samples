@@ -3,7 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    
+    
+    <!-- The main artifact of this sample: the deny-uncovered-http-methods element  -->
     <deny-uncovered-http-methods/>
+    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>SecureServlet</web-resource-name>
