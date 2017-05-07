@@ -6,34 +6,35 @@
         <groupId>org.javaee7</groupId>
         <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>servlet</artifactId>
     <packaging>pom</packaging>
+    
     <name>Java EE 7 Sample: servlet</name>
 
     <modules>
-        <module>cookies</module>
+    	<module>simple-servlet</module>
         <module>async-servlet</module>
+        <module>servlet-filters</module>
+        <module>cookies</module>
         <module>error-mapping</module>
         <module>event-listeners</module>
         <module>metadata-complete</module>
+        <module>web-fragment</module>
         <module>nonblocking</module>
         <module>protocol-handler</module>
         <module>resource-packaging</module>
-        <module>servlet-filters</module>
         <module>file-upload</module>
-        <module>web-fragment</module>
+        <module>programmatic-registration</module>
+        
+        <!-- Security samples assuming the container identity store -->
         <module>security-basicauth</module>
         <module>security-form-based</module>
         <module>security-programmatic</module>
         <module>security-deny-uncovered</module>
-<!--        <module>security-annotated</module>
-        <module>security-digest</module>-->
+		<module>security-annotated</module>
         <module>security-basicauth-omission</module>
-        <module>programmatic-registration</module>
-        <module>simple-servlet</module>
     </modules>
 
     <dependencies>
