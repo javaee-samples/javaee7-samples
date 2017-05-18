@@ -1,7 +1,5 @@
 package org.javaee7.cdi.bean.injection;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.enterprise.inject.spi.Extension;
 import javax.inject.Inject;
 import org.javaee7.cdi.bean.injection.beans.impl.AfterBeanDiscoveryBean;

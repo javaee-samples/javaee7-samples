@@ -19,8 +19,8 @@ import javax.enterprise.util.AnnotationLiteral;
  * @author Matt Gill
  */
 public class TestBeanProducer implements Bean<TestBean> {
-    
-    private InjectionTarget<TestBean> injectionTarget;
+
+    private final InjectionTarget<TestBean> injectionTarget;
 
     public TestBeanProducer(InjectionTarget<?> target) {
         this.injectionTarget = (InjectionTarget<TestBean>) target;
@@ -42,8 +42,10 @@ public class TestBeanProducer implements Bean<TestBean> {
     @Override
     public Set<Annotation> getQualifiers() {
         Set<Annotation> qualifiers = new HashSet<>();
-        qualifiers.add(new AnnotationLiteral<Default>() {});
-        qualifiers.add(new AnnotationLiteral<Any>() {});
+        qualifiers.add(new AnnotationLiteral<Default>() {
+        });
+        qualifiers.add(new AnnotationLiteral<Any>() {
+        });
         return qualifiers;
     }
 
