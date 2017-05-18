@@ -1,6 +1,5 @@
 package org.javaee7.cdi.bean.injection.beans;
 
-import org.javaee7.cdi.bean.injection.beans.impl.AfterBeanDiscoveryBean;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import static java.util.Arrays.asList;
@@ -19,23 +18,23 @@ import javax.enterprise.util.AnnotationLiteral;
 /**
  * @author Matt Gill
  */
-public class TestBeanProducer implements Bean<AfterBeanDiscoveryBean> {
+public class TestBeanProducer implements Bean<TestBean> {
     
-    private InjectionTarget<AfterBeanDiscoveryBean> injectionTarget;
+    private InjectionTarget<TestBean> injectionTarget;
 
-    public TestBeanProducer(InjectionTarget<AfterBeanDiscoveryBean> target) {
-        this.injectionTarget = target;
+    public TestBeanProducer(InjectionTarget<?> target) {
+        this.injectionTarget = (InjectionTarget<TestBean>) target;
     }
 
     @Override
     public String getName() {
-        return "testBean";
+        return null;
     }
 
     @Override
     public Set<Type> getTypes() {
         Set<Type> types = new HashSet<>();
-        types.add(AfterBeanDiscoveryBean.class);
+        types.add(TestBean.class);
         types.add(Object.class);
         return types;
     }
@@ -50,7 +49,7 @@ public class TestBeanProducer implements Bean<AfterBeanDiscoveryBean> {
 
     @Override
     public Class<?> getBeanClass() {
-        return AfterBeanDiscoveryBean.class;
+        return TestBean.class;
     }
 
     @Override
@@ -74,15 +73,15 @@ public class TestBeanProducer implements Bean<AfterBeanDiscoveryBean> {
     }
 
     @Override
-    public AfterBeanDiscoveryBean create(CreationalContext<AfterBeanDiscoveryBean> creationalContext) {
-        AfterBeanDiscoveryBean bean = injectionTarget.produce(creationalContext);
+    public TestBean create(CreationalContext<TestBean> creationalContext) {
+        TestBean bean = injectionTarget.produce(creationalContext);
         injectionTarget.inject(bean, creationalContext);
         injectionTarget.postConstruct(bean);
         return bean;
     }
 
     @Override
-    public void destroy(AfterBeanDiscoveryBean instance, CreationalContext<AfterBeanDiscoveryBean> creationalContext) {
+    public void destroy(TestBean instance, CreationalContext<TestBean> creationalContext) {
         injectionTarget.preDestroy(instance);
         injectionTarget.dispose(instance);
         creationalContext.release();

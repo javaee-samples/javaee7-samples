@@ -9,7 +9,7 @@ import org.javaee7.cdi.bean.injection.beans.TestBean;
  * @author Matt Gill
  */
 @Dependent
-public class AfterBeanDiscoveryBean implements TestBean{
+public class AfterTypeDiscoveryBean implements TestBean{
     
     @PersistenceContext(unitName = "testUnit")
     private EntityManager em1;

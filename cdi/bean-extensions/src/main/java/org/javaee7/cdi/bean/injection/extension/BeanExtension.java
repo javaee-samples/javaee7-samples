@@ -10,6 +10,8 @@ import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.InjectionTarget;
 import org.javaee7.cdi.bean.injection.beans.impl.AfterBeanDiscoveryBean;
+import org.javaee7.cdi.bean.injection.beans.impl.AfterTypeDiscoveryBean;
+import org.javaee7.cdi.bean.injection.beans.impl.BeforeBeanDiscoveryBean;
 
 /**
  * @author Matt Gill
@@ -17,21 +19,21 @@ import org.javaee7.cdi.bean.injection.beans.impl.AfterBeanDiscoveryBean;
 public class BeanExtension implements Extension {
 
     void beforeBeanDiscovery(BeanManager bm, @Observes BeforeBeanDiscovery event) {
-        final AnnotatedType<?> type = bm.createAnnotatedType(AfterBeanDiscoveryBean.class);
+        final AnnotatedType<?> type = bm.createAnnotatedType(BeforeBeanDiscoveryBean.class);
 
         event.addAnnotatedType(type);
     }
 
     void afterTypeDiscovery(BeanManager bm, @Observes AfterTypeDiscovery event) {
-        final AnnotatedType<?> type = bm.createAnnotatedType(AfterBeanDiscoveryBean.class);
+        final AnnotatedType<?> type = bm.createAnnotatedType(AfterTypeDiscoveryBean.class);
 
         event.addAnnotatedType(type, type.getJavaClass().getName() + "#");
     }
 
     void afterBeanDiscovery(BeanManager bm, @Observes AfterBeanDiscovery event) {
-        final AnnotatedType<AfterBeanDiscoveryBean> type = bm.createAnnotatedType(AfterBeanDiscoveryBean.class);
+        final AnnotatedType<?> type = bm.createAnnotatedType(AfterBeanDiscoveryBean.class);
         
-        final InjectionTarget<AfterBeanDiscoveryBean> it = bm.createInjectionTarget(type);
+        final InjectionTarget<?> it = bm.createInjectionTarget(type);
         
         event.addBean(new TestBeanProducer(it));
     }
