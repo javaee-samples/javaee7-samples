@@ -10,9 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.javaee7</groupId>
     <artifactId>cdi-bean-extensions</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     
     <name>Java EE 7 Sample: cdi - bean-extensions</name>

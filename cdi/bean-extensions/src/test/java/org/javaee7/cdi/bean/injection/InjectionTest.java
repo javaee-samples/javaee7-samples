@@ -1,17 +1,15 @@
 package org.javaee7.cdi.bean.injection;
 
-import javax.enterprise.inject.spi.Extension;
 import javax.inject.Inject;
 import org.javaee7.cdi.bean.injection.beans.impl.AfterBeanDiscoveryBean;
 import org.javaee7.cdi.bean.injection.beans.impl.AfterTypeDiscoveryBean;
 import org.javaee7.cdi.bean.injection.beans.impl.BeforeBeanDiscoveryBean;
 import org.javaee7.cdi.bean.injection.beans.impl.RegularBean;
-import org.javaee7.cdi.bean.injection.extension.BeanExtension;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -25,11 +23,19 @@ public class InjectionTest {
 
     @Deployment
     public static Archive<?> deploy() {
+        
+        JavaArchive extensionJar = ShrinkWrap.create(JavaArchive.class, "bean-extension.jar")
+                .addPackage("org.javaee7.cdi.bean.injection.extension");
 
-        return ShrinkWrap.create(WebArchive.class)
-                .addPackages(true, "org.javaee7.cdi.bean.injection")
-                .addAsWebInfResource("beans.xml")
-                .addAsManifestResource(new StringAsset(BeanExtension.class.getName()), "services/" + Extension.class.getName());
+        WebArchive war = ShrinkWrap.create(WebArchive.class, "bean-extension-test.war")
+                .addPackages(true, "org.javaee7.cdi.bean.injection.beans")
+                .addAsResource("WEB-INF/beans.xml")
+                .addAsResource("META-INF/persistence.xml")
+                .addAsLibrary(extensionJar);
+        
+        System.out.println(war.toString(true));
+        
+        return war;
     }
 
     @Inject
