@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.javaee7.jaspic.registersession.sam.MyPrincipal;
 
@@ -40,6 +41,13 @@ public class ProtectedServlet extends HttpServlet {
         response.getWriter().write("isCustomPrincipal: " + isCustomPrincipal + "\n");
         response.getWriter().write("web username: " + webName + "\n");
         response.getWriter().write("web user has role \"architect\": " + webHasRole + "\n");
+        
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            response.getWriter().write("Session ID: " + session.getId());
+        } else {
+            response.getWriter().write("No session");
+        }
 
     }
 
