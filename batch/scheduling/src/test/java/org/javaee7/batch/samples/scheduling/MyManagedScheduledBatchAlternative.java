@@ -11,6 +11,7 @@ import javax.enterprise.inject.Alternative;
 @Stateless
 @Local(MyManagedScheduledBatch.class)
 public class MyManagedScheduledBatchAlternative extends MyManagedScheduledBatchBean {
+   
     @Override
     protected MyJob createJob() {
         return new MyJobAlternative();

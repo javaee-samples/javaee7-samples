@@ -1,17 +1,20 @@
 package org.javaee7.batch.samples.scheduling;
 
+import static java.util.Calendar.SECOND;
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static javax.batch.runtime.BatchStatus.COMPLETED;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.BatchStatus;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.enterprise.concurrent.LastExecution;
 import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import javax.enterprise.concurrent.Trigger;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author arungupta
@@ -19,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 @Stateless
 @Local(MyManagedScheduledBatch.class)
 public class MyManagedScheduledBatchBean implements MyManagedScheduledBatch {
+    
     @Resource
     private ManagedScheduledExecutorService executor;
 
@@ -40,7 +44,7 @@ public class MyManagedScheduledBatchBean implements MyManagedScheduledBatch {
                     cal.setTime(lastExecutionInfo.getRunStart());
                 }
 
-                cal.add(Calendar.SECOND, 10);
+                cal.add(SECOND, 10);
                 return cal.getTime();
             }
 
@@ -50,7 +54,7 @@ public class MyManagedScheduledBatchBean implements MyManagedScheduledBatch {
 
                 for (Long executedBatch : executedBatchs) {
                     if (!BatchRuntime.getJobOperator().getJobExecution(executedBatch).getBatchStatus().equals(
-                        BatchStatus.COMPLETED)) {
+                        COMPLETED)) {
                         return true;
                     }
                 }
@@ -62,7 +66,7 @@ public class MyManagedScheduledBatchBean implements MyManagedScheduledBatch {
     }
 
     public void runJob2() {
-        executor.scheduleWithFixedDelay(new MyJob(), 1, 2, TimeUnit.MINUTES);
+        executor.scheduleWithFixedDelay(new MyJob(), 1, 2, MINUTES);
     }
 
     protected MyJob createJob() {

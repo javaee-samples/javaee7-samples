@@ -9,6 +9,7 @@ import java.util.Properties;
  * @author arungupta
  */
 public class MyJob implements Runnable {
+    
     public static List<Long> executedBatchs = new ArrayList<>();
 
     public void run() {
