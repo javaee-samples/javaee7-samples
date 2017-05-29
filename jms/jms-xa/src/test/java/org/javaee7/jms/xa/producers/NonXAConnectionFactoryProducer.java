@@ -1,14 +1,12 @@
 package org.javaee7.jms.xa.producers;
 
 import javax.annotation.Resource;
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.jms.ConnectionFactory;
 
-public class ConnectionFactoryProducer {
+public class NonXAConnectionFactoryProducer {
 
-    @Default
     @Produces
-    @Resource(lookup = "java:/ConnectionFactory")
+    @Resource(lookup = "java:app/jms/nonXAconnectionFactory")
     private ConnectionFactory connectionFactory;
 }

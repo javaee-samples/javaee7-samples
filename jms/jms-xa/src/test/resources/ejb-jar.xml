@@ -4,16 +4,17 @@
 
     <interceptors>
         <interceptor>
-            <interceptor-class>org.javaee7.jms.xa.ReceptionSynchronizer</interceptor-class>
+            <interceptor-class>org.javaee7.jms.xa.utils.ReceptionSynchronizer</interceptor-class>
             <around-invoke>
                 <method-name>invoke</method-name>
             </around-invoke>
         </interceptor>
     </interceptors>
+    
     <assembly-descriptor>
         <interceptor-binding>
-            <ejb-name>JMSMailman</ejb-name>
-            <interceptor-class>org.javaee7.jms.xa.ReceptionSynchronizer</interceptor-class>
+            <ejb-name>JMSListener</ejb-name>
+            <interceptor-class>org.javaee7.jms.xa.utils.ReceptionSynchronizer</interceptor-class>
         </interceptor-binding>
     </assembly-descriptor>
 </ejb-jar>

@@ -4,32 +4,42 @@ import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSConnectionFactoryDefinition;
+import javax.jms.JMSConnectionFactoryDefinitions;
 import javax.jms.JMSContext;
 import javax.jms.JMSDestinationDefinition;
 import javax.jms.Queue;
 
 @JMSDestinationDefinition(
-    name = Mailman.CLASSIC_QUEUE,
-    resourceAdapter = "jmsra",
-    interfaceName = "javax.jms.Queue",
-    destinationName = "classicQueue",
-    description = "My Sync Queue")
+    name = "java:app/jms/queue", 
+    interfaceName = "javax.jms.Queue"
+)
+@JMSConnectionFactoryDefinitions(
+    value = {
+        // Will be selected via the NonXAConnectionFactoryProducer
+        @JMSConnectionFactoryDefinition(
+            name = "java:app/jms/nonXAconnectionFactory",
+            transactional = false
+        ),
+        
+        // Will be selected via the XAConnectionFactoryProducer
+        @JMSConnectionFactoryDefinition(
+            name = "java:app/jms/xaConnectionFactory"
+        )
+    }        
+)
 @Singleton
-public class Mailman {
+public class JMSSender {
 
-    public static final String CLASSIC_QUEUE = "java:jboss/jms/classicQueue";
-
-    @SuppressWarnings("CdiInjectionPointsInspection")
     @Inject
-    ConnectionFactory connectionFactory;
+    private ConnectionFactory connectionFactory;
 
-    @Resource(mappedName = CLASSIC_QUEUE)
-    Queue demoQueue;
+    @Resource(lookup = "java:app/jms/queue")
+    private Queue queue;
 
-    public void sendMessage(String payload)
-    {
+    public void sendMessage(String payload) {
         try (JMSContext context = connectionFactory.createContext()) {
-            context.createProducer().send(demoQueue, payload);
+            context.createProducer().send(queue, payload);
         }
     }
 }

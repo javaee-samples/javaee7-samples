@@ -7,6 +7,6 @@ import javax.jms.ConnectionFactory;
 public class XAConnectionFactoryProducer {
 
     @Produces
-    @Resource(lookup = "java:/JmsXA")
+    @Resource(lookup = "java:app/jms/xaConnectionFactory")
     private ConnectionFactory connectionFactory;
 }
