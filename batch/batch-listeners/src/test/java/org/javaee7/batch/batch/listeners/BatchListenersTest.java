@@ -17,6 +17,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import static javax.batch.runtime.BatchRuntime.getJobOperator;
+import static javax.batch.runtime.BatchStatus.COMPLETED;
+import static org.javaee7.util.BatchTestHelper.keepTestAlive;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -140,11 +143,23 @@ public class BatchListenersTest {
      */
     @Test
     public void testBatchListeners() throws Exception {
-        JobOperator jobOperator = BatchRuntime.getJobOperator();
-        Long executionId = jobOperator.start("myJob", new Properties());
-        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
-
-        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
+        
+        JobOperator jobOperator = null;
+        Long executionId = null;
+        JobExecution jobExecution = null;
+        for (int i = 0; i<3; i++) {
+            jobOperator = getJobOperator();
+            executionId = jobOperator.start("myJob", new Properties());
+            jobExecution = jobOperator.getJobExecution(executionId);
+            
+            jobExecution = keepTestAlive(jobExecution);
+            
+            if (COMPLETED.equals(jobExecution.getBatchStatus())) {
+                break;
+            }
+            
+            System.out.println("Execution did not complete, trying again");
+        }
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {

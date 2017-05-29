@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static javax.batch.runtime.BatchRuntime.getJobOperator;
+import static javax.batch.runtime.BatchStatus.COMPLETED;
+import static org.javaee7.util.BatchTestHelper.keepTestAlive;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -82,11 +85,22 @@ public class BatchChunkPartitionTest {
      */
     @Test
     public void testBatchChunkPartition() throws Exception {
-        JobOperator jobOperator = BatchRuntime.getJobOperator();
-        Long executionId = jobOperator.start("myJob", new Properties());
-        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
-
-        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
+        JobOperator jobOperator = null;
+        Long executionId = null;
+        JobExecution jobExecution = null;
+        for (int i = 0; i<3; i++) {
+            jobOperator = getJobOperator();
+            executionId = jobOperator.start("myJob", new Properties());
+            jobExecution = jobOperator.getJobExecution(executionId);
+            
+            jobExecution = keepTestAlive(jobExecution);
+            
+            if (COMPLETED.equals(jobExecution.getBatchStatus())) {
+                break;
+            }
+            
+            System.out.println("Execution did not complete, trying again");
+        }
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {
@@ -95,11 +109,14 @@ public class BatchChunkPartitionTest {
 
                 // <1> The read count should be 20 elements. Check +MyItemReader+.
                 assertEquals(20L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                
                 // <2> The write count should be 10. Only half of the elements read are processed to be written.
                 assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                
                 // Number of elements by the item count value on myJob.xml, plus an additional transaction for the
                 // remaining elements by each partition.
                 long commitCount = (10L / 3 + (10 % 3 > 0 ? 1 : 0)) * 2;
+                
                 // <3> The commit count should be 8. Checkpoint is on every 3rd read, 4 commits for read elements and 2 partitions.
                 assertEquals(commitCount, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
             }

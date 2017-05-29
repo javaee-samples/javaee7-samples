@@ -64,6 +64,7 @@ public class MyItemReader extends AbstractItemReader {
             COUNT++;
             return new MyInputRecord(Integer.valueOf(tokens.nextToken()));
         }
+
         return null;
     }
 }

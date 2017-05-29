@@ -1,18 +1,19 @@
 package org.javaee7.util;
 
-import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.BatchStatus;
-import javax.batch.runtime.JobExecution;
-import javax.batch.runtime.Metric;
+import static javax.batch.runtime.BatchStatus.COMPLETED;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.batch.runtime.BatchRuntime;
+import javax.batch.runtime.JobExecution;
+import javax.batch.runtime.Metric;
 
 /**
  * @author Roberto Cortez
  */
 public final class BatchTestHelper {
-    private static final int MAX_TRIES = 10;
+    private static final int MAX_TRIES = 20;
     private static final int THREAD_SLEEP = 1000;
 
     private BatchTestHelper() {
@@ -29,8 +30,10 @@ public final class BatchTestHelper {
      * @throws InterruptedException thrown by Thread.sleep.
      */
     public static JobExecution keepTestAlive(JobExecution jobExecution) throws InterruptedException {
+        System.out.println(" * Entering keepTestAlive, completed is: " + jobExecution.getBatchStatus().equals(COMPLETED));
+        
         int maxTries = 0;
-        while (!jobExecution.getBatchStatus().equals(BatchStatus.COMPLETED)) {
+        while (!jobExecution.getBatchStatus().equals(COMPLETED)) {
             if (maxTries < MAX_TRIES) {
                 maxTries++;
                 Thread.sleep(THREAD_SLEEP);
@@ -39,6 +42,8 @@ public final class BatchTestHelper {
                 break;
             }
         }
+        
+        System.out.println(" * Exiting keepTestAlive, completed is: " + jobExecution.getBatchStatus().equals(COMPLETED));
         return jobExecution;
     }
 

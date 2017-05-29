@@ -6,10 +6,11 @@
         <groupId>org.javaee7</groupId>
         <artifactId>batch</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
+    
     <artifactId>batch-chunk-exception</artifactId>
     <packaging>war</packaging>
+    
     <name>Java EE 7 Sample: batch - chunk-exception</name>
     <description>Chunk Exception Handling - Retrying and Skipping</description>
 

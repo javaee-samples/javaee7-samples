@@ -1,24 +1,34 @@
 package org.javaee7.batch.chunk.checkpoint;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static javax.batch.runtime.BatchRuntime.getJobOperator;
+import static javax.batch.runtime.BatchStatus.COMPLETED;
+import static javax.batch.runtime.Metric.MetricType.COMMIT_COUNT;
+import static javax.batch.runtime.Metric.MetricType.READ_COUNT;
+import static javax.batch.runtime.Metric.MetricType.WRITE_COUNT;
+import static org.javaee7.batch.chunk.checkpoint.MyCheckpointAlgorithm.checkpointCountDownLatch;
+import static org.javaee7.util.BatchTestHelper.getMetricsMap;
+import static org.javaee7.util.BatchTestHelper.keepTestAlive;
+import static org.jboss.shrinkwrap.api.ArchivePaths.create;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
+import java.util.Properties;
+
+import javax.batch.operations.JobOperator;
+import javax.batch.runtime.JobExecution;
+import javax.batch.runtime.Metric;
+import javax.batch.runtime.StepExecution;
+
 import org.javaee7.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.batch.operations.JobOperator;
-import javax.batch.runtime.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * The Batch specification provides a Chunk Oriented processing style. This style is defined by enclosing into a
@@ -47,6 +57,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(Arquillian.class)
 public class BatchChunkCheckpointTest {
+    
     /**
      * We're just going to deploy the application as a +web archive+. Note the inclusion of the following files:
      *
@@ -59,12 +70,14 @@ public class BatchChunkCheckpointTest {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class)
+        WebArchive war = create(WebArchive.class)
             .addClass(BatchTestHelper.class)
             .addPackage("org.javaee7.batch.chunk.checkpoint")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsWebInfResource(INSTANCE, create("beans.xml"))
             .addAsResource("META-INF/batch-jobs/myJob.xml");
-        System.out.println(war.toString(true));
+        
+        System.out.println("\nBatchChunkCheckpointTest test war content: \n" + war.toString(true) + "\n");
+        
         return war;
     }
 
@@ -79,29 +92,43 @@ public class BatchChunkCheckpointTest {
      */
     @Test
     public void testBatchChunkCheckpoint() throws Exception {
-        JobOperator jobOperator = BatchRuntime.getJobOperator();
-        Long executionId = jobOperator.start("myJob", new Properties());
-        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
+        
+        JobOperator jobOperator = null;
+        Long executionId = null;
+        JobExecution jobExecution = null;
+        for (int i = 0; i<3; i++) {
+            jobOperator = getJobOperator();
+            executionId = jobOperator.start("myJob", new Properties());
+            jobExecution = jobOperator.getJobExecution(executionId);
+            
+            jobExecution = keepTestAlive(jobExecution);
+            
+            if (COMPLETED.equals(jobExecution.getBatchStatus())) {
+                break;
+            }
+            
+            System.out.println("Execution did not complete, trying again");
+        }
 
-        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
-
-        List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
-        for (StepExecution stepExecution : stepExecutions) {
+        for (StepExecution stepExecution : jobOperator.getStepExecutions(executionId)) {
             if (stepExecution.getStepName().equals("myStep")) {
-                Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
+                Map<Metric.MetricType, Long> metricsMap = getMetricsMap(stepExecution.getMetrics());
 
                 // <1> The read count should be 10 elements. Check +MyItemReader+.
-                assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                assertEquals(10L, metricsMap.get(READ_COUNT).longValue());
+                
                 // <2> The write count should be 5. Only half of the elements read are processed to be written.
-                assertEquals(10L / 2L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                assertEquals(10L / 2L, metricsMap.get(WRITE_COUNT).longValue());
+                
                 // <3> The commit count should be 3. Checkpoint is on every 5th read, plus one final read-commit.
-                assertEquals(10L / 5L + 1, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
+                assertEquals(10L / 5L + 1, metricsMap.get(COMMIT_COUNT).longValue());
             }
         }
 
         // <4> The checkpoint algorithm should be checked 10 times. One for each element read.
-        assertTrue(MyCheckpointAlgorithm.checkpointCountDownLatch.await(0, TimeUnit.SECONDS));
+        assertTrue(checkpointCountDownLatch.await(0, SECONDS));
+        
         // <5> Job should be completed.
-        assertEquals(jobExecution.getBatchStatus(), BatchStatus.COMPLETED);
+        assertEquals(jobExecution.getBatchStatus(), COMPLETED);
     }
 }
