@@ -1,17 +1,19 @@
-package org.javaee7.jms.xa;
+package org.javaee7.jms.xa.utils;
 
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
 
 /**
- * Allows test to wait until a method is invoked. Note that this gets applied as EJB interceptor, and therefore
- * returning from {@link #waitFor(Class, String) } does not guarantee that the bean's transaction
- * is already committed.
+ * Allows test to wait until a method is invoked. Note that this gets applied as EJB interceptor,
+ * and therefore returning from {@link #waitFor(Class, String) } does not guarantee that the bean's
+ * transaction is already committed.
  *
  * @author Patrik Dudits
  */
@@ -19,13 +21,11 @@ public class ReceptionSynchronizer {
 
     private final static Map<Method, CountDownLatch> barrier = new HashMap<>();
 
-    public static void clear()
-    {
+    public static void clear() {
         barrier.clear();
     }
 
-    public static void waitFor(Class<?> clazz, String methodName) throws InterruptedException
-    {
+    public static void waitFor(Class<?> clazz, String methodName) throws InterruptedException {
         Method method = null;
         for (Method declaredMethod : clazz.getDeclaredMethods()) {
             if (methodName.equals(declaredMethod.getName())) {
@@ -36,14 +36,15 @@ public class ReceptionSynchronizer {
                 }
             }
         }
+        
         if (method == null) {
             throw new IllegalArgumentException(methodName + " not found in " + clazz.getSimpleName());
         }
+        
         waitFor(method);
     }
 
-    private static void waitFor(Method method) throws InterruptedException
-    {
+    private static void waitFor(Method method) throws InterruptedException {
         CountDownLatch latch = null;
         synchronized (barrier) {
             if (barrier.containsKey(method)) {
@@ -58,14 +59,14 @@ public class ReceptionSynchronizer {
                 barrier.put(method, latch);
             }
         }
-        if (!latch.await(2, TimeUnit.SECONDS)) {
-            throw new AssertionError("Expected method has not been invoked");
+        
+        if (!latch.await(3, SECONDS)) {
+            throw new AssertionError("Timeout wating for " + method.getName() + " to be invoked");
         }
     }
 
     @AroundInvoke
-    public Object invoke(InvocationContext ctx) throws Exception
-    {
+    public Object invoke(InvocationContext ctx) throws Exception {
         try {
             System.out.println("Intercepting " + ctx.getMethod().toGenericString());
             return ctx.proceed();
@@ -74,12 +75,11 @@ public class ReceptionSynchronizer {
         }
     }
 
-    void registerInvocation(Method m)
-    {
+    void registerInvocation(Method method) {
         CountDownLatch latch = null;
         synchronized (barrier) {
-            if (barrier.containsKey(m)) {
-                latch = barrier.get(m);
+            if (barrier.containsKey(method)) {
+                latch = barrier.get(method);
             }
         }
         if (latch != null) {

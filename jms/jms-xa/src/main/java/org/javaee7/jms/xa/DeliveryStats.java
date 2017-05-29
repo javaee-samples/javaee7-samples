@@ -7,18 +7,15 @@ public class DeliveryStats {
 
     private long deliveredMessagesCount;
 
-    public long getDeliveredMessagesCount()
-    {
+    public long getDeliveredMessagesCount() {
         return deliveredMessagesCount;
     }
 
-    public void messageDelivered()
-    {
+    public void messageDelivered() {
         deliveredMessagesCount++;
     }
 
-    public void reset()
-    {
+    public void reset() {
         deliveredMessagesCount = 0L;
     }
 }

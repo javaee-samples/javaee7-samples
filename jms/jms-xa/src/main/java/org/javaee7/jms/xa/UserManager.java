@@ -4,7 +4,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 @Stateless
 public class UserManager {
@@ -13,14 +12,14 @@ public class UserManager {
     private EntityManager entityManager;
 
     @Inject
-    private Mailman mailman;
+    private JMSSender jmsSender;
 
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
-    public User register(String email)
-    {
-        final User user = new User(email);
+    public User register(String email) {
+        User user = new User(email);
+        
         entityManager.persist(user);
-        mailman.sendMessage("Hello " + email);
+        jmsSender.sendMessage("Hello " + email);
+        
         return user;
     }
 }
