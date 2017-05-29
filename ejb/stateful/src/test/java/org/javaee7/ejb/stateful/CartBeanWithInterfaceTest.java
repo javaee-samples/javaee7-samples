@@ -1,26 +1,25 @@
 package org.javaee7.ejb.stateful;
 
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.ejb.EJB;
+
 import org.javaee7.ejb.stateful.remote.Cart;
 import org.javaee7.ejb.stateful.remote.CartBeanWithInterface;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.ejb.EJB;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * @author rafos
@@ -36,7 +35,7 @@ public class CartBeanWithInterfaceTest {
         return ShrinkWrap.create(JavaArchive.class)
             .addClass(Cart.class)
             .addClass(CartBeanWithInterface.class)
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addAsManifestResource(INSTANCE, "beans.xml");
     }
 
     /**
