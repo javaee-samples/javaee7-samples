@@ -1,35 +1,33 @@
 package org.javaee7.jaxrs.security.declarative;
 
+import static com.gargoylesoftware.htmlunit.HttpMethod.POST;
+import static com.gargoylesoftware.htmlunit.HttpMethod.PUT;
+import static com.gargoylesoftware.htmlunit.util.UrlUtils.toUrlUnsafe;
+import static org.javaee7.ServerOperations.addUsersToContainerIdentityStore;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.javaee7.CliCommands;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
 
-import com.meterware.httpunit.AuthorizationRequiredException;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpException;
-import com.meterware.httpunit.PostMethodWebRequest;
-import com.meterware.httpunit.PutMethodWebRequest;
-import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebResponse;
+import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.TextPage;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
 
 /**
  * @author Arun Gupta
@@ -41,6 +39,22 @@ public class MyResourceTest {
     private URL base;
 
     private static final String WEBAPP_SRC = "src/main/webapp";
+    
+    private WebClient webClient;
+    private DefaultCredentialsProvider correctCreds = new DefaultCredentialsProvider();
+    private DefaultCredentialsProvider incorrectCreds = new DefaultCredentialsProvider();
+    
+    @Before
+    public void setup() {
+        webClient = new WebClient();
+        correctCreds.addCredentials("u1", "p1");
+        incorrectCreds.addCredentials("random", "random");
+    }
+    
+    @After
+    public void tearDown() {
+        webClient.closeAllWindows();
+    }
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -48,108 +62,71 @@ public class MyResourceTest {
         addUsersToContainerIdentityStore();
         
         return ShrinkWrap.create(WebArchive.class)
-            .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
-            .addClasses(MyApplication.class, MyResource.class);
+                         .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
+                         .addClasses(MyApplication.class, MyResource.class);
     }
 
     @Test
     public void testGetWithCorrectCredentials() throws IOException, SAXException {
-        WebConversation conv = new WebConversation();
-        conv.setAuthentication("file", "u1", "p1");
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/webresources/myresource");
-        WebResponse response = null;
-        try {
-            response = conv.getResponse(getRequest);
-        } catch (AuthorizationRequiredException e) {
-            fail(e.getMessage());
-        }
-        assertNotNull(response);
-        assertTrue(response.getText().contains("get"));
+        webClient.setCredentialsProvider(correctCreds);
+        TextPage page = webClient.getPage(base + "webresources/myresource");
+        
+        assertTrue(page.getContent() .contains("get"));
     }
 
     @Test
     public void testGetSubResourceWithCorrectCredentials() throws IOException, SAXException {
-        WebConversation conv = new WebConversation();
-        conv.setAuthentication("file", "u1", "p1");
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/webresources/myresource/1");
-        WebResponse response = null;
-        try {
-            response = conv.getResponse(getRequest);
-        } catch (AuthorizationRequiredException e) {
-            fail(e.getMessage());
-        }
-        assertNotNull(response);
+        webClient.setCredentialsProvider(correctCreds);
+        TextPage page = webClient.getPage(base + "webresources/myresource/1");
         
-        assertTrue(response.getText().contains("get1"));
+        assertTrue(page.getContent() .contains("get1"));
     }
 
     @Test
     public void testGetWithIncorrectCredentials() throws IOException, SAXException {
-        WebConversation conv = new WebConversation();
-        conv.setAuthentication("file", "random", "random");
-        GetMethodWebRequest getRequest = new GetMethodWebRequest(base + "/webresources/myresource");
+        webClient.setCredentialsProvider(incorrectCreds);
+        
         try {
-            WebResponse response = conv.getResponse(getRequest);
-        } catch (AuthorizationRequiredException e) {
-            assertNotNull(e);
+            webClient.getPage(base + "webresources/myresource");
+        } catch (FailingHttpStatusCodeException e) {
+            assertEquals(401, e.getStatusCode());
             return;
         }
+        
         fail("GET can be called with incorrect credentials");
     }
 
     @Test
     public void testPost() throws IOException, SAXException {
-        WebConversation conv = new WebConversation();
-        conv.setAuthentication("file", "u1", "p1");
-        PostMethodWebRequest postRequest = new PostMethodWebRequest(base + "/webresources/myresource");
+        webClient.setCredentialsProvider(correctCreds);
+        
         try {
-            WebResponse response = conv.getResponse(postRequest);
-        } catch (HttpException e) {
-            assertNotNull(e);
-            assertEquals(403, e.getResponseCode());
+            WebRequest postRequest = new WebRequest(toUrlUnsafe(base + "webresources/myresource"), POST);
+            postRequest.setRequestBody("name=myname");
+            webClient.getPage(postRequest);
+        } catch (FailingHttpStatusCodeException e) {
+            assertEquals(403, e.getStatusCode());
             return;
         }
+        
+        // All methods are excluded except for GET 
         fail("POST is not authorized and can still be called");
     }
 
     @Test
     public void testPut() throws IOException, SAXException {
-        WebConversation conv = new WebConversation();
-        conv.setAuthentication("file", "u1", "p1");
-        byte[] bytes = new byte[8];
-        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        PutMethodWebRequest putRequest = new PutMethodWebRequest(base + "/webresources/myresource", bais, "text/plain");
+        webClient.setCredentialsProvider(correctCreds);
+        
         try {
-            WebResponse response = conv.getResponse(putRequest);
-        } catch (HttpException e) {
-            assertNotNull(e);
-            assertEquals(403, e.getResponseCode());
+            WebRequest postRequest = new WebRequest(toUrlUnsafe(base + "webresources/myresource"), PUT);
+            postRequest.setRequestBody("name=myname");
+            webClient.getPage(postRequest);
+        } catch (FailingHttpStatusCodeException e) {
+            assertEquals(403, e.getStatusCode());
             return;
         }
+        
+        // All methods are excluded except for GET 
         fail("PUT is not authorized and can still be called");
-    }
-    
-    private static void addUsersToContainerIdentityStore() {
-        
-        // TODO: abstract adding container managed users to utility class
-        // TODO: consider PR for sending CLI commands to Arquillian
-        
-        String javaEEServer = System.getProperty("javaEEServer");
-        
-        if ("glassfish-remote".equals(javaEEServer)) {
-            List<String> cmd = new ArrayList<>();
-            
-            cmd.add("create-file-user");
-            cmd.add("--groups");
-            cmd.add("g1");
-            cmd.add("--passwordfile");
-            cmd.add(Paths.get("").toAbsolutePath() + "/src/test/resources/password.txt");
-            
-            cmd.add("u1");
-            
-            CliCommands.payaraGlassFish(cmd);
-        } 
-        
-        // TODO: support other servers than Payara and GlassFish
     }
 }
