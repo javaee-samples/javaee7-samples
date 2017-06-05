@@ -23,6 +23,7 @@ import org.junit.runner.Description;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebResponse;
 
 /**
  * 
@@ -35,7 +36,7 @@ public class ArquillianBase {
     private static final Logger logger = Logger.getLogger(ArquillianBase.class.getName());
     
     private WebClient webClient;
-    private String response;
+    private WebResponse response;
     
     @Rule
     public TestWatcher ruleExample = new TestWatcher() {
@@ -51,7 +52,7 @@ public class ArquillianBase {
                 
                 "\nLast response: " +
                 
-                "\n\n"  + formatHTML(response) + "\n\n");
+                "\n\n"  + formatHTML(response.getContentAsString()) + "\n\n");
             
         }
     };
@@ -140,11 +141,22 @@ public class ArquillianBase {
      * @return the raw content as a string as returned by the server
      */
     protected String getFromServerPath(final String path) {
+       return getResponseFromServerPath(path).getContentAsString();
+    }
+    
+    /**
+     * Gets the response from the path that's relative to the base URL on which the Arquillian test
+     * archive is deployed.
+     * 
+     * @param path the path relative to the URL on which the Arquillian test is deployed
+     * @return the response as returned by the server
+     */
+    protected WebResponse getResponseFromServerPath(final String path) {
         response = null;
         for (int i=0; i<=3; i++) {
             try {
-                response = webClient.getPage(base + path).getWebResponse().getContentAsString();
-                if (!response.contains("The response wrapper must wrap the response obtained from getResponse()")) {
+                response = webClient.getPage(base + path).getWebResponse();
+                if (!response.getContentAsString().contains("The response wrapper must wrap the response obtained from getResponse()")) {
                     return response;
                 }
             } catch (FailingHttpStatusCodeException | IOException e) {
