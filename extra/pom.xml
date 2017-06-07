@@ -17,8 +17,10 @@
     <modules>
         <module>angularjs</module>
         <module>camel</module>
+        <module>moxy</module>
         <module>nosql</module>
         <module>quartz</module>
+        <module>server-sent-events</module>
         <module>simple-facelet</module>
         <module>twitter-search</module>
         <module>webjars</module>
