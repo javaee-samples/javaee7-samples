@@ -39,14 +39,16 @@
  */
 package org.javaee7.jaxrs.readerwriter.injection;
 
+import static java.util.logging.Level.SEVERE;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
@@ -60,10 +62,13 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Consumes(MyObject.MIME_TYPE)
+@RequestScoped
 public class MyReader implements MessageBodyReader<MyObject> {
+    
+    private static final Logger logger = Logger.getLogger(MyReader.class.getName());
 
     @Inject
-    AnotherObject another;
+    private AnotherObject another;
 
     @Override
     public boolean isReadable(Class<?> type, Type type1, Annotation[] antns, MediaType mt) {
@@ -72,19 +77,23 @@ public class MyReader implements MessageBodyReader<MyObject> {
     }
 
     @Override
-    public MyObject readFrom(Class<MyObject> type,
-        Type type1,
-        Annotation[] antns,
-        MediaType mt, MultivaluedMap<String, String> mm,
-        InputStream in) throws IOException, WebApplicationException {
+    public MyObject readFrom(
+                        Class<MyObject> type, 
+                        Type genericType, 
+                        Annotation[] annotations, 
+                        MediaType mediaType, 
+                        MultivaluedMap<String, String> mm, 
+                        InputStream entityStream) throws IOException, WebApplicationException {
+        
         try {
-            ObjectInputStream ois = new ObjectInputStream(in);
-            MyObject mo = (MyObject) ois.readObject();
-            mo.setIndex(another.getValue());
-            return mo;
+            MyObject myObject = (MyObject) new ObjectInputStream(entityStream).readObject();
+            myObject.setIndex(another.getValue());
+            
+            return myObject;
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MyReader.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(SEVERE, null, ex);
         }
+        
         return null;
     }
 }

@@ -44,6 +44,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -56,6 +58,7 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Produces(MyObject.MIME_TYPE)
+@RequestScoped
 public class MyWriter implements MessageBodyWriter<MyObject> {
 
     @Override
@@ -74,14 +77,15 @@ public class MyWriter implements MessageBodyWriter<MyObject> {
     }
 
     @Override
-    public void writeTo(MyObject t,
-        Class<?> type,
-        Type type1,
-        Annotation[] antns,
-        MediaType mt,
-        MultivaluedMap<String, Object> mm,
-        OutputStream out) throws IOException, WebApplicationException {
-        ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(t);
+    public void writeTo(
+                    MyObject myObject,
+                    Class<?> type,
+                    Type genericType,
+                    Annotation[] annotations,
+                    MediaType mediaType,
+                    MultivaluedMap<String, Object> httpHeaders,
+                    OutputStream entityStream) throws IOException, WebApplicationException {
+        
+        new ObjectOutputStream(entityStream).writeObject(myObject);
     }
 }
