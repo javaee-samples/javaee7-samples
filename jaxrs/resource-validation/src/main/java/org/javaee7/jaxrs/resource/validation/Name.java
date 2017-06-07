@@ -39,25 +39,33 @@
  */
 package org.javaee7.jaxrs.resource.validation;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Arun Gupta
  */
 @XmlRootElement
+@XmlAccessorType(FIELD)
 public class Name {
 
     @NotNull
     @Size(min = 1)
+    @XmlElement(required = true)
     private String firstName;
 
     @NotNull
     @Size(min = 1)
+    @XmlElement(required = true)
     private String lastName;
 
     @Email
+    @XmlElement(required = true)
     private String email;
 
     public Name() {
@@ -66,6 +74,18 @@ public class Name {
     public Name(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 

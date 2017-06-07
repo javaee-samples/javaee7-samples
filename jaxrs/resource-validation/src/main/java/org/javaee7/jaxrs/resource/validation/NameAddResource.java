@@ -39,6 +39,8 @@
  */
 package org.javaee7.jaxrs.resource.validation;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -53,7 +55,7 @@ public class NameAddResource {
     static final String PATH = "/nameadd";
 
     @POST
-    @Consumes("application/json")
+    @Consumes(APPLICATION_XML)
     public String addUser(@Valid Name name) {
         return name.getFirstName() + " " + name.getLastName() + " with email " + name.getEmail() + " added";
     }

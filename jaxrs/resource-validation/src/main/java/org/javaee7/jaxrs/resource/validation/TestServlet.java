@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,6 +61,8 @@ import javax.ws.rs.core.Response;
  */
 @WebServlet(urlPatterns = { "/TestServlet" })
 public class TestServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 8732053426774472750L;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
