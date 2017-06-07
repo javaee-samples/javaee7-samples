@@ -39,11 +39,14 @@
  */
 package org.javaee7.jaxrs.resource.validation;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import javax.validation.constraints.NotNull;
@@ -53,9 +56,8 @@ import javax.validation.constraints.Size;
  * @author Arun Gupta
  */
 @Documented
-@Target({ ElementType.ANNOTATION_TYPE,
-    ElementType.TYPE })
-@Retention(RetentionPolicy.RUNTIME)
+@Target({ ANNOTATION_TYPE, TYPE })
+@Retention(RUNTIME)
 @Constraint(validatedBy = EmailValidator.class)
 @Size(min = 1, message = "{org.javaee7.jaxrs.resource_validation.min_size}")
 @NotNull(message = "{org.javaee7.jaxrs.resource_validation.cannot_be_null}")

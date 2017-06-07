@@ -45,8 +45,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * @author Arun Gupta
  */
-public class EmailValidator
-    implements ConstraintValidator<Email, String> {
+public class EmailValidator implements ConstraintValidator<Email, String> {
 
     @Override
     public void initialize(Email constraintAnnotation) {

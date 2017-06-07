@@ -69,7 +69,7 @@ public class NameResource1 {
         this.email = email;
     }
 
-    //    @Email
+    // @Email
     public String getEmail() {
         return email;
     }
