@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.javaee7.jca.filewatch;
+package org.javaee7.jca.filewatch.event;
 
 import java.io.File;
 
@@ -45,5 +45,10 @@ public class FileEvent {
 
     public Type getType() {
         return type;
+    }
+    
+    @Override
+    public String toString() {
+        return "Type: " + type.name() + " File: " + file.getName();  
     }
 }

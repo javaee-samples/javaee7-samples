@@ -2,7 +2,7 @@
 
 ### What is this?
 
-This sample project demonstrates that writing (and testing) JCA resource adapter is fairly easy. We implemented Message Driven Bean which observes certain directory for files which are created, updated or deleted.
+This sample project demonstrates that writing (and testing) a JCA resource adapter is fairly easy. We implemented a Message Driven Bean which observes a certain directory for files which are created, updated or deleted.
 
 It's tested using:
 

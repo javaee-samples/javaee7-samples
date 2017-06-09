@@ -38,8 +38,7 @@ public class FileSystemWatcherActivationSpec implements ActivationSpec {
     }
 
     @Override
-    public void setResourceAdapter(ResourceAdapter resourceAdapter)
-        throws ResourceException {
+    public void setResourceAdapter(ResourceAdapter resourceAdapter) throws ResourceException {
         this.resourceAdapter = resourceAdapter;
     }
 
