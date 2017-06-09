@@ -16,15 +16,28 @@
  */
 package org.javaee7.jca.filewatch.adapter;
 
+import static java.lang.System.out;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+
+import java.lang.reflect.Method;
+import java.nio.file.ClosedWatchServiceException;
+import java.nio.file.Path;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchEvent.Kind;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.util.List;
+
 import javax.resource.spi.endpoint.MessageEndpoint;
 import javax.resource.spi.endpoint.MessageEndpointFactory;
 import javax.resource.spi.work.Work;
 import javax.resource.spi.work.WorkException;
-import java.lang.reflect.Method;
-import java.nio.file.*;
-import java.util.List;
 
-import org.javaee7.jca.filewatch.event.*;
+import org.javaee7.jca.filewatch.event.Created;
+import org.javaee7.jca.filewatch.event.Deleted;
+import org.javaee7.jca.filewatch.event.Modified;
 
 /**
  * @author Robert Panzer (robert.panzer@me.com)
@@ -36,8 +49,7 @@ final class WatchingThread extends Thread {
 
     private FileSystemWatcherResourceAdapter resourceAdapter;
 
-    WatchingThread(WatchService watchService,
-        FileSystemWatcherResourceAdapter ra) {
+    WatchingThread(WatchService watchService, FileSystemWatcherResourceAdapter ra) {
         this.watchService = watchService;
         this.resourceAdapter = ra;
     }
@@ -61,23 +73,16 @@ final class WatchingThread extends Thread {
     private void dispatchEvents(List<WatchEvent<?>> events, MessageEndpointFactory messageEndpointFactory) {
         for (WatchEvent<?> event : events) {
             Path path = (Path) event.context();
+            
+            out.println("Watch thread received event of kind: " + event.kind() + " for " + path.getFileName());
 
             try {
                 MessageEndpoint endpoint = messageEndpointFactory.createEndpoint(null);
                 Class<?> beanClass = resourceAdapter.getBeanClass(messageEndpointFactory);
-                for (Method m : beanClass.getMethods()) {
-                    if (StandardWatchEventKinds.ENTRY_CREATE.equals(event.kind())
-                        && m.isAnnotationPresent(Created.class)
-                        && path.toString().matches(m.getAnnotation(Created.class).value())) {
-                        invoke(endpoint, m, path);
-                    } else if (StandardWatchEventKinds.ENTRY_DELETE.equals(event.kind())
-                        && m.isAnnotationPresent(Deleted.class)
-                        && path.toString().matches(m.getAnnotation(Deleted.class).value())) {
-                        invoke(endpoint, m, path);
-                    } else if (StandardWatchEventKinds.ENTRY_MODIFY.equals(event.kind())
-                        && m.isAnnotationPresent(Modified.class)
-                        && path.toString().matches(m.getAnnotation(Modified.class).value())) {
-                        invoke(endpoint, m, path);
+                
+                for (Method beanClassMethod : beanClass.getMethods()) {
+                    if (methodIsForEvent(path.toString(), beanClassMethod, event.kind())) {
+                        invoke(endpoint, beanClassMethod, path);
                     }
                 }
             } catch (Exception e) {
@@ -86,18 +91,23 @@ final class WatchingThread extends Thread {
         }
     }
 
-    private void invoke(final MessageEndpoint endpoint, final Method m, final Path path) throws WorkException {
+    private void invoke(final MessageEndpoint endpoint, final Method beanClassMethod, final Path path) throws WorkException {
+        
+        out.println("Watch thread scheduling endpoint call via workmanager for method: " + beanClassMethod.getName() + " and file" + path.getFileName());
+        
         resourceAdapter.getBootstrapContext().getWorkManager().scheduleWork(new Work() {
 
             @Override
             public void run() {
                 try {
-                    Method endpointMethod = endpoint.getClass().getMethod(m.getName(), m.getParameterTypes());
-                    endpoint.beforeDelivery(endpointMethod);
-
-                    endpointMethod.invoke(endpoint, path.toFile());
-
-                    endpoint.afterDelivery();
+                    try {
+                        endpoint.beforeDelivery(beanClassMethod);
+    
+                        beanClassMethod.invoke(endpoint, path.toFile());
+                    
+                    } finally {
+                        endpoint.afterDelivery();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -107,5 +117,32 @@ final class WatchingThread extends Thread {
             public void release() {
             }
         });
+    }
+    
+    private boolean methodIsForEvent(String path, Method method, Kind<?> eventKind) {
+        return
+            (
+                ENTRY_CREATE.equals(eventKind) && 
+                method.isAnnotationPresent(Created.class) && 
+                path.matches(method.getAnnotation(Created.class).value())
+            ) 
+            
+            ||
+            
+            (
+                ENTRY_DELETE.equals(eventKind) && 
+                method.isAnnotationPresent(Deleted.class) && 
+                path.matches(method.getAnnotation(Deleted.class).value())
+            )
+            
+            ||
+            
+            (
+                ENTRY_MODIFY.equals(eventKind) && 
+                method.isAnnotationPresent(Modified.class) && 
+                path.matches(method.getAnnotation(Modified.class).value())
+            )
+            
+            ;
     }
 }

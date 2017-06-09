@@ -16,14 +16,27 @@
  */
 package org.javaee7.jca.filewatch.adapter;
 
-import javax.resource.ResourceException;
-import javax.resource.spi.*;
-import javax.resource.spi.endpoint.MessageEndpointFactory;
-import javax.transaction.xa.XAResource;
+import static java.lang.System.out;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.resource.ResourceException;
+import javax.resource.spi.ActivationSpec;
+import javax.resource.spi.BootstrapContext;
+import javax.resource.spi.Connector;
+import javax.resource.spi.ResourceAdapter;
+import javax.resource.spi.ResourceAdapterInternalException;
+import javax.resource.spi.endpoint.MessageEndpointFactory;
+import javax.transaction.xa.XAResource;
 
 /**
  * @author Robert Panzer (robert.panzer@me.com)
@@ -32,25 +45,41 @@ import java.util.concurrent.ConcurrentHashMap;
 @Connector
 public class FileSystemWatcherResourceAdapter implements ResourceAdapter {
 
-    FileSystem fileSystem;
-
-    WatchService watchService;
-
-    Map<WatchKey, MessageEndpointFactory> listeners = new ConcurrentHashMap<>();
-
-    Map<MessageEndpointFactory, Class<?>> endpointFactoryToBeanClass = new ConcurrentHashMap<>();
-
     private BootstrapContext bootstrapContext;
+    
+    private FileSystem fileSystem;
+    private WatchService watchService;
+    private Map<WatchKey, MessageEndpointFactory> listeners = new ConcurrentHashMap<>();
+    private Map<MessageEndpointFactory, Class<?>> endpointFactoryToBeanClass = new ConcurrentHashMap<>();
+    
+    @Override
+    public void start(BootstrapContext bootstrapContext) throws ResourceAdapterInternalException {
+        
+        out.println(this.getClass().getSimpleName() + " resource adapater started");
+        
+        this.bootstrapContext = bootstrapContext;
+
+        try {
+            fileSystem = FileSystems.getDefault();
+            watchService = fileSystem.newWatchService();
+        } catch (IOException e) {
+            throw new ResourceAdapterInternalException(e);
+        }
+
+        new WatchingThread(watchService, this).start();
+    }
 
     @Override
     public void endpointActivation(MessageEndpointFactory endpointFactory, ActivationSpec activationSpec) throws ResourceException {
+        
+        out.println(this.getClass().getSimpleName() + " resource adapater endpoint activated for " + endpointFactory.getEndpointClass());
+        
         FileSystemWatcherActivationSpec fsWatcherAS = (FileSystemWatcherActivationSpec) activationSpec;
 
         try {
-            WatchKey watchKey = fileSystem.getPath(fsWatcherAS.getDir())
-                .register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
-                    StandardWatchEventKinds.ENTRY_DELETE,
-                    StandardWatchEventKinds.ENTRY_MODIFY);
+            WatchKey watchKey = 
+                fileSystem.getPath(fsWatcherAS.getDir())
+                          .register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
 
             listeners.put(watchKey, endpointFactory);
 
@@ -62,6 +91,9 @@ public class FileSystemWatcherResourceAdapter implements ResourceAdapter {
 
     @Override
     public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec activationSpec) {
+        
+        out.println(this.getClass().getSimpleName() + " resource adapater endpoint deactivated for " + endpointFactory.getEndpointClass());
+        
         for (WatchKey watchKey : listeners.keySet()) {
             if (listeners.get(watchKey) == endpointFactory) {
                 listeners.remove(watchKey);
@@ -77,21 +109,10 @@ public class FileSystemWatcherResourceAdapter implements ResourceAdapter {
     }
 
     @Override
-    public void start(BootstrapContext bootstrapContext) throws ResourceAdapterInternalException {
-        this.bootstrapContext = bootstrapContext;
-
-        try {
-            fileSystem = FileSystems.getDefault();
-            watchService = fileSystem.newWatchService();
-        } catch (IOException e) {
-            throw new ResourceAdapterInternalException(e);
-        }
-
-        new WatchingThread(watchService, this).start();
-    }
-
-    @Override
     public void stop() {
+        
+        out.println(this.getClass().getSimpleName() + " resource adapater stopping");
+        
         try {
             watchService.close();
         } catch (IOException e) {

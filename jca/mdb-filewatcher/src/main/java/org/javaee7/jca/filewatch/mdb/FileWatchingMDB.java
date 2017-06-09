@@ -14,20 +14,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.javaee7.jca.filewatch;
+package org.javaee7.jca.filewatch.mdb;
 
-import org.javaee7.jca.filewatch.adapter.FileSystemWatcher;
-import org.javaee7.jca.filewatch.event.Created;
-import org.javaee7.jca.filewatch.event.Deleted;
+import static java.lang.System.out;
+import static org.javaee7.jca.filewatch.event.FileEvent.Type.CREATED;
+import static org.javaee7.jca.filewatch.event.FileEvent.Type.DELETED;
+
+import java.io.File;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import java.io.File;
 
-import static org.javaee7.jca.filewatch.FileEvent.Type.CREATED;
-import static org.javaee7.jca.filewatch.FileEvent.Type.DELETED;
+import org.javaee7.jca.filewatch.adapter.FileSystemWatcher;
+import org.javaee7.jca.filewatch.event.Created;
+import org.javaee7.jca.filewatch.event.Deleted;
+import org.javaee7.jca.filewatch.event.FileEvent;
 
 /**
  * @author Robert Panzer (robert.panzer@me.com)
@@ -40,17 +43,20 @@ public class FileWatchingMDB implements FileSystemWatcher {
     private Event<FileEvent> fileEvent;
 
     @Created(".*\\.txt")
-    public void onNewTextFile(final File f) {
-        fileEvent.fire(new FileEvent(CREATED, f));
+    public void onNewTextFile(File file) {
+        out.println("MDB called for new text file: " + file.getName());
+        fileEvent.fire(new FileEvent(CREATED, file));
     }
 
     @Created(".*\\.pdf")
-    public void onNewPdfFile(final File f) {
-        fileEvent.fire(new FileEvent(CREATED, f));
+    public void onNewPdfFile(File file) {
+        out.println("MDB called for new PDF file: " + file.getName());
+        fileEvent.fire(new FileEvent(CREATED, file));
     }
 
     @Deleted(".*\\.txt")
-    public void onDeleteTextFile(final File f) {
-        fileEvent.fire(new FileEvent(DELETED, f));
+    public void onDeleteTextFile(File file) {
+        out.println("MDB called for text file deleted: " + file.getName());
+        fileEvent.fire(new FileEvent(DELETED, file));
     }
 }

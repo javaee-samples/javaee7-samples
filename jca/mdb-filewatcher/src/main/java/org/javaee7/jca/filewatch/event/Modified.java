@@ -16,13 +16,14 @@
  */
 package org.javaee7.jca.filewatch.event;
 
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author Robert Panzer (robert.panzer@me.com)
  */
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RUNTIME)
 public @interface Modified {
 
     public String value() default ".*";
