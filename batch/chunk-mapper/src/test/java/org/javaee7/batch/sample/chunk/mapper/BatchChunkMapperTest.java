@@ -1,5 +1,24 @@
 package org.javaee7.batch.sample.chunk.mapper;
 
+import static java.lang.Thread.sleep;
+import static javax.batch.runtime.BatchRuntime.getJobOperator;
+import static javax.batch.runtime.BatchStatus.COMPLETED;
+import static javax.batch.runtime.Metric.MetricType.COMMIT_COUNT;
+import static javax.batch.runtime.Metric.MetricType.READ_COUNT;
+import static javax.batch.runtime.Metric.MetricType.WRITE_COUNT;
+import static org.javaee7.batch.sample.chunk.mapper.MyItemReader.totalReaders;
+import static org.javaee7.util.BatchTestHelper.keepTestAlive;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.batch.operations.JobOperator;
+import javax.batch.runtime.JobExecution;
+import javax.batch.runtime.Metric;
+import javax.batch.runtime.StepExecution;
+
 import org.javaee7.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -9,17 +28,6 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.batch.operations.JobOperator;
-import javax.batch.runtime.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import static javax.batch.runtime.BatchRuntime.getJobOperator;
-import static javax.batch.runtime.BatchStatus.COMPLETED;
-import static org.javaee7.util.BatchTestHelper.keepTestAlive;
-import static org.junit.Assert.assertEquals;
 
 /**
  * The Batch specification provides a Chunk Oriented processing style. This style is defined by enclosing into a
@@ -74,7 +82,9 @@ public class BatchChunkMapperTest {
             .addPackage("org.javaee7.batch.sample.chunk.mapper")
             .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
             .addAsResource("META-INF/batch-jobs/myJob.xml");
+        
         System.out.println(war.toString(true));
+        
         return war;
     }
 
@@ -93,19 +103,13 @@ public class BatchChunkMapperTest {
         JobOperator jobOperator = null;
         Long executionId = null;
         JobExecution jobExecution = null;
-        for (int i = 0; i<3; i++) {
-            jobOperator = getJobOperator();
-            executionId = jobOperator.start("myJob", new Properties());
-            jobExecution = jobOperator.getJobExecution(executionId);
+        jobOperator = getJobOperator();
+        executionId = jobOperator.start("myJob", new Properties());
+        jobExecution = jobOperator.getJobExecution(executionId);
+        
+        jobExecution = keepTestAlive(jobExecution);
             
-            jobExecution = keepTestAlive(jobExecution);
-            
-            if (COMPLETED.equals(jobExecution.getBatchStatus())) {
-                break;
-            }
-            
-            System.out.println("Execution did not complete, trying again");
-        }
+        sleep(1000);
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {
@@ -113,20 +117,24 @@ public class BatchChunkMapperTest {
                 Map<Metric.MetricType, Long> metricsMap = BatchTestHelper.getMetricsMap(stepExecution.getMetrics());
 
                 // <1> The read count should be 20 elements. Check +MyItemReader+.
-                assertEquals(20L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                assertEquals(20L, metricsMap.get(READ_COUNT).longValue());
+                
                 // <2> The write count should be 10. Only half of the elements read are processed to be written.
-                assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                assertEquals(10L, metricsMap.get(WRITE_COUNT).longValue());
+                
                 // Number of elements by the item count value on myJob.xml, plus an additional transaction for the
                 // remaining elements by each partition.
                 long commitCount = (10L / 3 + (10 % 3 > 0 ? 1 : 0)) * 2;
+                
                 // <3> The commit count should be 8. Checkpoint is on every 3rd read, 4 commits for read elements and 2 partitions.
-                assertEquals(commitCount, metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
+                assertEquals(commitCount, metricsMap.get(COMMIT_COUNT).longValue());
             }
         }
 
         // <4> Make sure that all the partitions were created.
-        assertEquals(2L, MyItemReader.totalReaders);
+        assertEquals(2L, totalReaders);
+        
         // <5> Job should be completed.
-        assertEquals(BatchStatus.COMPLETED, jobExecution.getBatchStatus());
+        assertEquals(COMPLETED, jobExecution.getBatchStatus());
     }
 }
