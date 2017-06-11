@@ -14,15 +14,4 @@
     
     <description>Scheduling a Batch Job</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-            <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.javaee7</groupId>
-            <artifactId>test-utils</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 </project>

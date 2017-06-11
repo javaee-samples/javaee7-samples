@@ -1,18 +1,24 @@
 package org.javaee7.batch.sample.chunk.mapper;
 
-import static java.lang.Thread.sleep;
+import static com.jayway.awaitility.Awaitility.await;
+import static com.jayway.awaitility.Duration.FIVE_HUNDRED_MILLISECONDS;
+import static com.jayway.awaitility.Duration.ONE_MINUTE;
 import static javax.batch.runtime.BatchRuntime.getJobOperator;
 import static javax.batch.runtime.BatchStatus.COMPLETED;
+import static javax.batch.runtime.BatchStatus.STARTED;
 import static javax.batch.runtime.Metric.MetricType.COMMIT_COUNT;
 import static javax.batch.runtime.Metric.MetricType.READ_COUNT;
 import static javax.batch.runtime.Metric.MetricType.WRITE_COUNT;
+import static org.javaee7.Libraries.awaitability;
 import static org.javaee7.batch.sample.chunk.mapper.MyItemReader.totalReaders;
-import static org.javaee7.util.BatchTestHelper.keepTestAlive;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.Callable;
 
 import javax.batch.operations.JobOperator;
 import javax.batch.runtime.JobExecution;
@@ -23,8 +29,6 @@ import org.javaee7.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,11 +81,12 @@ public class BatchChunkMapperTest {
      */
     @Deployment
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class)
+        WebArchive war = create(WebArchive.class)
             .addClass(BatchTestHelper.class)
             .addPackage("org.javaee7.batch.sample.chunk.mapper")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-            .addAsResource("META-INF/batch-jobs/myJob.xml");
+            .addAsWebInfResource(INSTANCE, ArchivePaths.create("beans.xml"))
+            .addAsResource("META-INF/batch-jobs/myJob.xml")
+            .addAsLibraries(awaitability());
         
         System.out.println(war.toString(true));
         
@@ -100,16 +105,17 @@ public class BatchChunkMapperTest {
      */
     @Test
     public void testBatchChunkMapper() throws Exception {
-        JobOperator jobOperator = null;
-        Long executionId = null;
-        JobExecution jobExecution = null;
-        jobOperator = getJobOperator();
-        executionId = jobOperator.start("myJob", new Properties());
-        jobExecution = jobOperator.getJobExecution(executionId);
+        JobOperator jobOperator = getJobOperator();
+        Long executionId = jobOperator.start("myJob", new Properties());
+        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
         
-        jobExecution = keepTestAlive(jobExecution);
+        final JobExecution lastExecution = BatchTestHelper.keepTestAlive(jobExecution);
             
-        sleep(1000);
+        await().atMost(ONE_MINUTE)
+        .with().pollInterval(FIVE_HUNDRED_MILLISECONDS)
+        .until(                                                                                                                                                                                      new Callable<Boolean>() { @Override public Boolean call() throws Exception {
+            return lastExecution.getBatchStatus() != STARTED;                                                                                                                                        }}
+         );
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {
@@ -135,6 +141,6 @@ public class BatchChunkMapperTest {
         assertEquals(2L, totalReaders);
         
         // <5> Job should be completed.
-        assertEquals(COMPLETED, jobExecution.getBatchStatus());
+        assertEquals(COMPLETED, lastExecution.getBatchStatus());
     }
 }
