@@ -6,9 +6,8 @@
         <groupId>org.javaee7</groupId>
         <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>batch</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 Sample: batch</name>
@@ -36,6 +35,10 @@
             <groupId>org.javaee7</groupId>
             <artifactId>test-utils</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+            <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,5 +1,18 @@
 package org.javaee7.batch.chunk.optional.processor;
 
+import static javax.batch.runtime.BatchRuntime.getJobOperator;
+import static javax.batch.runtime.BatchStatus.COMPLETED;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.batch.operations.JobOperator;
+import javax.batch.runtime.JobExecution;
+import javax.batch.runtime.Metric;
+import javax.batch.runtime.StepExecution;
+
 import org.javaee7.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -9,17 +22,6 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.batch.operations.JobOperator;
-import javax.batch.runtime.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import static javax.batch.runtime.BatchRuntime.getJobOperator;
-import static javax.batch.runtime.BatchStatus.COMPLETED;
-import static org.javaee7.util.BatchTestHelper.keepTestAlive;
-import static org.junit.Assert.assertEquals;
 
 /**
  * The Batch specification provides a Chunk Oriented processing style. This style is defined by enclosing into a
@@ -68,22 +70,11 @@ public class BatchChunkOptionalProcessorTest {
      */
     @Test
     public void testBatchChunkOptionalProcessor() throws Exception {
-        JobOperator jobOperator = null;
-        Long executionId = null;
-        JobExecution jobExecution = null;
-        for (int i = 0; i<3; i++) {
-            jobOperator = getJobOperator();
-            executionId = jobOperator.start("myJob", new Properties());
-            jobExecution = jobOperator.getJobExecution(executionId);
-            
-            jobExecution = keepTestAlive(jobExecution);
-            
-            if (COMPLETED.equals(jobExecution.getBatchStatus())) {
-                break;
-            }
-            
-            System.out.println("Execution did not complete, trying again");
-        }
+        JobOperator jobOperator = getJobOperator();
+        Long executionId = jobOperator.start("myJob", new Properties());
+        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
+        
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         List<StepExecution> stepExecutions = jobOperator.getStepExecutions(executionId);
         for (StepExecution stepExecution : stepExecutions) {
@@ -92,8 +83,10 @@ public class BatchChunkOptionalProcessorTest {
 
                 // <1> The read count should be 10 elements. Check +MyItemReader+.
                 assertEquals(10L, metricsMap.get(Metric.MetricType.READ_COUNT).longValue());
+                
                 // <2> The write count should be same 10 read elements.
                 assertEquals(10L, metricsMap.get(Metric.MetricType.WRITE_COUNT).longValue());
+                
                 // <3> The commit count should be 4. Checkpoint is on every 3rd read, 4 commits for read elements.
                 assertEquals(10L / 3 + (10L % 3 > 0 ? 1 : 0),
                     metricsMap.get(Metric.MetricType.COMMIT_COUNT).longValue());
@@ -101,6 +94,6 @@ public class BatchChunkOptionalProcessorTest {
         }
 
         // <4> Job should be completed.
-        assertEquals(BatchStatus.COMPLETED, jobExecution.getBatchStatus());
+        assertEquals(COMPLETED, jobExecution.getBatchStatus());
     }
 }

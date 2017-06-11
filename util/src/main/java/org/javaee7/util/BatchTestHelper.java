@@ -13,7 +13,7 @@ import javax.batch.runtime.Metric;
  * @author Roberto Cortez
  */
 public final class BatchTestHelper {
-    private static final int MAX_TRIES = 20;
+    private static final int MAX_TRIES = 40;
     private static final int THREAD_SLEEP = 1000;
 
     private BatchTestHelper() {
@@ -42,8 +42,10 @@ public final class BatchTestHelper {
                 break;
             }
         }
+        Thread.sleep(THREAD_SLEEP);
         
         System.out.println(" * Exiting keepTestAlive, completed is: " + jobExecution.getBatchStatus().equals(COMPLETED));
+        
         return jobExecution;
     }
 

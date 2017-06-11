@@ -8,7 +8,6 @@ import static javax.batch.runtime.Metric.MetricType.READ_COUNT;
 import static javax.batch.runtime.Metric.MetricType.WRITE_COUNT;
 import static org.javaee7.batch.chunk.checkpoint.MyCheckpointAlgorithm.checkpointCountDownLatch;
 import static org.javaee7.util.BatchTestHelper.getMetricsMap;
-import static org.javaee7.util.BatchTestHelper.keepTestAlive;
 import static org.jboss.shrinkwrap.api.ArchivePaths.create;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
@@ -93,22 +92,11 @@ public class BatchChunkCheckpointTest {
     @Test
     public void testBatchChunkCheckpoint() throws Exception {
         
-        JobOperator jobOperator = null;
-        Long executionId = null;
-        JobExecution jobExecution = null;
-        for (int i = 0; i<3; i++) {
-            jobOperator = getJobOperator();
-            executionId = jobOperator.start("myJob", new Properties());
-            jobExecution = jobOperator.getJobExecution(executionId);
-            
-            jobExecution = keepTestAlive(jobExecution);
-            
-            if (COMPLETED.equals(jobExecution.getBatchStatus())) {
-                break;
-            }
-            
-            System.out.println("Execution did not complete, trying again");
-        }
+        JobOperator jobOperator = getJobOperator();
+        Long executionId = jobOperator.start("myJob", new Properties());
+        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
+        
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         for (StepExecution stepExecution : jobOperator.getStepExecutions(executionId)) {
             if (stepExecution.getStepName().equals("myStep")) {

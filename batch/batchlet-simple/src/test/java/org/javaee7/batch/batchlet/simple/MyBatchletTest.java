@@ -1,5 +1,6 @@
 package org.javaee7.batch.batchlet.simple;
 
+import static javax.batch.runtime.BatchRuntime.getJobOperator;
 import static javax.batch.runtime.BatchStatus.COMPLETED;
 import static org.jboss.shrinkwrap.api.ArchivePaths.create;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
@@ -9,7 +10,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.Properties;
 
 import javax.batch.operations.JobOperator;
-import javax.batch.runtime.BatchRuntime;
 import javax.batch.runtime.JobExecution;
 
 import org.javaee7.util.BatchTestHelper;
@@ -80,21 +80,11 @@ public class MyBatchletTest {
     @Test
     public void testBatchletProcess() throws Exception {
         
-        JobExecution jobExecution = null;
+        JobOperator jobOperator = getJobOperator();
+        Long executionId = jobOperator.start("myJob", new Properties());
+        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
         
-        for (int i = 0; i<3; i++) {
-            JobOperator jobOperator = BatchRuntime.getJobOperator();
-            Long executionId = jobOperator.start("myJob", new Properties());
-            jobExecution = jobOperator.getJobExecution(executionId);
-    
-            jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
-            
-            if (COMPLETED.equals(jobExecution.getBatchStatus())) {
-                break;
-            }
-            
-            System.out.println("Execution did not complete, trying again");
-        }
+        jobExecution = BatchTestHelper.keepTestAlive(jobExecution);
 
         // <1> Job should be completed.
         assertEquals(jobExecution.getBatchStatus(), COMPLETED);
