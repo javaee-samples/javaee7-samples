@@ -5,6 +5,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
 class WithinWindowMatcher extends BaseMatcher<Long> {
+    
     private final long timeout;
     private final long tolerance;
 
@@ -21,10 +22,9 @@ class WithinWindowMatcher extends BaseMatcher<Long> {
 
     @Override
     public void describeTo(Description description) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public static Matcher<Long> withinWindow(final long timeout, final long tolerance) {
+    public static Matcher<Long> withinWindow(long timeout, long tolerance) {
         return new WithinWindowMatcher(timeout, tolerance);
     }
 }
