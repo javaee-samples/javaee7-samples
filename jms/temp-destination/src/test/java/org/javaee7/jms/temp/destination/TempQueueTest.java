@@ -1,14 +1,15 @@
 package org.javaee7.jms.temp.destination;
 
+import static org.junit.Assert.assertEquals;
+
+import javax.ejb.EJB;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.ejb.EJB;
 
 /**
  * Temporary queues are JMS queues that exist for the lifetime of single JMS connection.
@@ -44,14 +45,13 @@ public class TempQueueTest {
     }
 
     @EJB
-    JmsClient client;
+    private JmsClient client;
 
     /**
      * We invoke the client, and verify that the response is processed
      */
     @Test
     public void testRequestResposne() {
-        String response = client.process("Hello");
-        Assert.assertEquals("Processed: Hello", response);
+        assertEquals("Processed: Hello", client.process("Hello"));
     }
 }
