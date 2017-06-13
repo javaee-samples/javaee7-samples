@@ -18,7 +18,11 @@ public class UserManager {
         User user = new User(email);
         
         entityManager.persist(user);
-        jmsSender.sendMessage("Hello " + email);
+        
+        String msg = "Hello " + email + " " + System.currentTimeMillis();
+        
+        System.out.println("Sending JMS message " + msg);
+        jmsSender.sendMessage(msg);
         
         return user;
     }
