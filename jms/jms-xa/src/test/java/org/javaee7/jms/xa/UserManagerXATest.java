@@ -1,15 +1,14 @@
 package org.javaee7.jms.xa;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.javaee7.jms.xa.DeliveryStats.countDownLatch;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.javaee7.jms.xa.producers.XAConnectionFactoryProducer;
 import org.javaee7.jms.xa.utils.AbstractUserManagerTest;
-import org.javaee7.jms.xa.utils.ReceptionSynchronizer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,12 +18,6 @@ public class UserManagerXATest extends AbstractUserManagerTest {
     @Deployment
     public static WebArchive createDeployment() {
         return createWebArchive().addClass(XAConnectionFactoryProducer.class);
-    }
-
-    @Before
-    public void reset() {
-        deliveryStats.reset();
-        assertEquals(0L, deliveryStats.getDeliveredMessagesCount());
     }
     
     @Test
@@ -36,22 +29,22 @@ public class UserManagerXATest extends AbstractUserManagerTest {
             logger.info("Got expected exception " + e);
         }
         
-        try {
-            ReceptionSynchronizer.waitFor(JMSListener.class, "onMessage");
-            fail("Method should not have been invoked");
-        } catch (AssertionError error) {
-            logger.info("Got expected error " + error);
-            logger.info("Message should not have been delivered due to transaction rollback");
-        }
+        // Wait for at most 30 seconds for the JMS method to NOT be called, since we're testing for something
+        // to NOT happen we can never be 100% sure, but 30 seconds should cover almost all cases.
+        countDownLatch.await(30, SECONDS);
         
+        assertEquals("countDownLatch was decreased meaning JMS method was called, but should not have been.", 1, countDownLatch.getCount());
         assertEquals("Message should not be delivered due to transaction rollback", 0L, deliveryStats.getDeliveredMessagesCount());
     }
 
     @Test
     public void happyPathXA() throws Exception {
         userManager.register("bernard@itcrowd.pl");
-        ReceptionSynchronizer.waitFor(JMSListener.class, "onMessage");
         
+        // Wait for at most 90 seconds for the JMS method to be called
+        countDownLatch.await(90, SECONDS);
+        
+        assertEquals("Timeout expired and countDownLatch did not reach 0 (so JMS method not called)", 0, countDownLatch.getCount());
         assertEquals(1L, deliveryStats.getDeliveredMessagesCount());
     }
 }
