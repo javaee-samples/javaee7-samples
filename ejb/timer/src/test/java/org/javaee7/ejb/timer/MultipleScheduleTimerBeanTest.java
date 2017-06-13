@@ -25,7 +25,7 @@ import org.junit.runner.RunWith;
 public class MultipleScheduleTimerBeanTest {
 
     private static final long TIMEOUT = 0l;
-    private static final long TOLERANCE = 1000l;
+    private static final long TOLERANCE = 4000l;
 
     @Inject
     private PingsListener pings;
@@ -47,14 +47,15 @@ public class MultipleScheduleTimerBeanTest {
         Ping secondPing = pings.getPings().get(1);
         Ping thirdPing = pings.getPings().get(2);
 
-        long delay = secondPing.getTime() - firstPing.getTime();
-        System.out.println("Actual timeout = " + delay);
+        long timeBetweenFirstAndSecondPing = secondPing.getTime() - firstPing.getTime();
+        System.out.println("Actual timeout = " + timeBetweenFirstAndSecondPing);
         
-        long delay2 = thirdPing.getTime() - secondPing.getTime();
-        System.out.println("Actual timeout = " + delay2);
+        long timeBetweenSecondAndThirdPing = thirdPing.getTime() - secondPing.getTime();
+        System.out.println("Actual timeout = " + timeBetweenSecondAndThirdPing);
         
-        long smallerDelay = min(delay, delay2);
+        long smallerDelay = min(timeBetweenFirstAndSecondPing, timeBetweenSecondAndThirdPing);
         
+        // Note; this is quite sensitive to slow CI systems.
         assertThat(smallerDelay, is(withinWindow(TIMEOUT, TOLERANCE)));
     }
 }
