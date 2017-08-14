@@ -57,11 +57,11 @@ public class MyBean implements Serializable {
     @Size(min = 3, message = "At least 3 characters")
     private String name;
 
-    @Min(18)
-    @Max(25)
+    @Min(value=18, message= "must be greater than or equal to 18")
+    @Max(value=25, message= "must be less than or equal to 25")
     private int age;
 
-    @Pattern(regexp = "[0-9]{5}")
+    @Pattern(regexp = "[0-9]{5}", message= "must match \"[0-9]{5}\"")
     private String zip;
 
     public String getName() {
