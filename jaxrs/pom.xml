@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.javaee7</groupId>
@@ -30,14 +29,12 @@
         <module>jsonp</module>
         <module>link</module>
         <module>mapping-exceptions</module>
-        <!--<module>moxy</module>-->
         <module>paramconverter</module>
         <module>readerwriter</module>
         <module>readerwriter-json</module>
         <module>request-binding</module>
         <module>resource-validation</module>
         <module>server-negotiation</module>
-        <!--<module>server-sent-event</module>-->
         <module>singleton</module>
         <module>readerwriter-injection</module>
         <module>jaxrs-security-declarative</module>
