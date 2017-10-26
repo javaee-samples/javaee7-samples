@@ -27,7 +27,7 @@ public class AsyncTest {
     private final int messageReceiveTimeoutInMillis = 10000;
 
     @Test
-    public void testAsync() throws Exception {
+    public void testAsync() throws InterruptedException {
         asyncSender.sendMessage("Fire!");
         ReceptionSynchronizer.waitFor(MessageReceiverAsync.class, "onMessage" , messageReceiveTimeoutInMillis);
         // unless we timed out, the test passes

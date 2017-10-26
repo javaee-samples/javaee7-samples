@@ -39,6 +39,7 @@
  */
 package org.javaee7.jms.send.receive.classic;
 
+import java.util.concurrent.TimeoutException;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jms.Connection;
@@ -53,6 +54,7 @@ import org.javaee7.jms.send.receive.Resources;
 
 /**
  * Synchronized message receiver using classic API.
+ *
  * @author Arun Gupta
  */
 @Stateless
@@ -64,26 +66,27 @@ public class ClassicMessageReceiver {
     @Resource(mappedName = Resources.CLASSIC_QUEUE)
     Queue demoQueue;
 
-    public String receiveMessage(int timeoutInMillis) {
+    /**
+     * Waits to receive a message from the JMS queue. Times out after a given
+     * number of milliseconds.
+     *
+     * @param timeoutInMillis The number of milliseconds this method will wait
+     * before throwing an exception.
+     * @return The contents of the message.
+     * @throws JMSException if an error occurs in accessing the queue.
+     * @throws TimeoutException if the timeout is reached.
+     */
+    public String receiveMessage(int timeoutInMillis) throws JMSException, TimeoutException {
         String response = null;
-        Connection connection = null;
-        try {
-            connection = connectionFactory.createConnection();
+        try (Connection connection = connectionFactory.createConnection()) {
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageConsumer messageConsumer = session.createConsumer(demoQueue);
             Message message = messageConsumer.receive(timeoutInMillis);
-            response = message.getBody(String.class);
-        } catch (JMSException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (JMSException ex) {
-                    ex.printStackTrace();
-                }
+            if (message == null) {
+                throw new TimeoutException("No message received after " + timeoutInMillis + "ms");
             }
+            response = message.getBody(String.class);
         }
         return response;
     }

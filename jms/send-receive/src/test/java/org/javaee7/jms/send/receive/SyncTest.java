@@ -1,11 +1,14 @@
 package org.javaee7.jms.send.receive;
 
+import java.util.concurrent.TimeoutException;
 import org.javaee7.jms.send.receive.classic.ClassicMessageSender;
 import org.javaee7.jms.send.receive.classic.ClassicMessageReceiver;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import javax.ejb.EJB;
+import javax.jms.JMSException;
+import javax.jms.JMSRuntimeException;
 
 import org.javaee7.jms.send.receive.simple.MessageReceiverSync;
 import org.javaee7.jms.send.receive.simple.MessageSenderSync;
@@ -44,7 +47,7 @@ public class SyncTest {
     private final int messageReceiveTimeoutInMillis = 10000;
 
     @Test
-    public void testClassicApi() {
+    public void testClassicApi() throws JMSException, TimeoutException {
         String message = "The test message over JMS 1.1 API";
         classicSender.sendMessage(message);
 
@@ -52,7 +55,7 @@ public class SyncTest {
     }
 
     @Test
-    public void testContainerManagedJmsContext() {
+    public void testContainerManagedJmsContext() throws JMSRuntimeException, TimeoutException {
         String message = "Test message over container-managed JMSContext";
         simpleSender.sendMessage(message);
 
@@ -60,7 +63,7 @@ public class SyncTest {
     }
 
     @Test
-    public void testAppManagedJmsContext() {
+    public void testAppManagedJmsContext() throws JMSRuntimeException, TimeoutException {
         String message = "The test message over app-managed JMSContext";
         appManagedSender.sendMessage(message);
 
@@ -68,7 +71,7 @@ public class SyncTest {
     }
 
     @Test
-    public void testMultipleSendAndReceive() {
+    public void testMultipleSendAndReceive() throws JMSRuntimeException, TimeoutException {
         simpleSender.sendMessage("1");
         simpleSender.sendMessage("2");
         assertEquals("1", simpleReceiver.receiveMessage(messageReceiveTimeoutInMillis));
