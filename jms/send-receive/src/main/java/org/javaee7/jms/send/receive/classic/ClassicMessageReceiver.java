@@ -64,7 +64,7 @@ public class ClassicMessageReceiver {
     @Resource(mappedName = Resources.CLASSIC_QUEUE)
     Queue demoQueue;
 
-    public String receiveMessage() {
+    public String receiveMessage(int timeoutInMillis) {
         String response = null;
         Connection connection = null;
         try {
@@ -72,7 +72,7 @@ public class ClassicMessageReceiver {
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageConsumer messageConsumer = session.createConsumer(demoQueue);
-            Message message = messageConsumer.receive(5000);
+            Message message = messageConsumer.receive(timeoutInMillis);
             response = message.getBody(String.class);
         } catch (JMSException ex) {
             ex.printStackTrace();

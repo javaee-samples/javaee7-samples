@@ -19,9 +19,9 @@ public class MessageReceiverAppManaged {
     @Resource(mappedName = Resources.SYNC_APP_MANAGED_QUEUE)
     Queue myQueue;
 
-    public String receiveMessage() {
+    public String receiveMessage(int timeoutInMillis) {
         try (JMSContext context = factory.createContext()) {
-            return context.createConsumer(myQueue).receiveBody(String.class, 1000);
+            return context.createConsumer(myQueue).receiveBody(String.class, timeoutInMillis);
         }
     }
 }

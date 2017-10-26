@@ -1,11 +1,7 @@
 package org.javaee7.jms.send.receive.mdb;
 
 import org.javaee7.jms.send.receive.simple.MessageSenderAsync;
-import org.javaee7.jms.send.receive.mdb.MessageReceiverAsync;
-import org.javaee7.jms.send.receive.simple.MessageSenderSync;
-import org.javaee7.jms.send.receive.simple.MessageReceiverSync;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -27,11 +23,13 @@ public class AsyncTest {
 
     @EJB
     MessageSenderAsync asyncSender;
+    
+    private final int messageReceiveTimeoutInMillis = 10000;
 
     @Test
     public void testAsync() throws Exception {
         asyncSender.sendMessage("Fire!");
-        ReceptionSynchronizer.waitFor(MessageReceiverAsync.class, "onMessage");
+        ReceptionSynchronizer.waitFor(MessageReceiverAsync.class, "onMessage" , messageReceiveTimeoutInMillis);
         // unless we timed out, the test passes
     }
 

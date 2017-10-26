@@ -64,17 +64,17 @@ public class MessageReceiverSync {
     @Resource(mappedName = Resources.SYNC_CONTAINER_MANAGED_QUEUE)
     Queue myQueue;
 
-    public String receiveMessage() {
-        return context.createConsumer(myQueue).receiveBody(String.class, 1000);
+    public String receiveMessage(int timeoutInMillis) {
+        return context.createConsumer(myQueue).receiveBody(String.class, timeoutInMillis);
     }
 
-    public void receiveAll() {
+    public void receiveAll(int timeoutInMillis) {
         System.out.println("--> Receiving redundant messages ...");
         try {
             QueueBrowser browser = context.createBrowser(myQueue);
             while (browser.getEnumeration().hasMoreElements()) {
                 System.out.println("--> here is one");
-                context.createConsumer(myQueue).receiveBody(String.class, 1000);
+                context.createConsumer(myQueue).receiveBody(String.class, timeoutInMillis);
             }
         } catch (JMSException ex) {
             Logger.getLogger(MessageReceiverSync.class.getName()).log(Level.SEVERE, null, ex);
