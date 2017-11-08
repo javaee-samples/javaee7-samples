@@ -18,6 +18,7 @@
         <module>vetoed</module>
         <module>pkg-level</module>
         <module>decorators</module>
+        <module>dynamic-interceptor</module>
         <module>bean-discovery-all</module>
         <module>bean-discovery-annotated</module>
         <module>bean-discovery-none</module>
