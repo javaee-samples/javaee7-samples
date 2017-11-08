@@ -63,7 +63,7 @@ public class ReceptionSynchronizer {
         }
     }
 
-    public static void waitFor(Class<?> clazz, String methodName) throws InterruptedException {
+    public static void waitFor(Class<?> clazz, String methodName, int timeoutInMillis) throws InterruptedException {
         Method method = null;
         for (Method declaredMethod : clazz.getDeclaredMethods()) {
             if (methodName.equals(declaredMethod.getName())) {
@@ -77,10 +77,10 @@ public class ReceptionSynchronizer {
         if (method == null) {
             throw new IllegalArgumentException(methodName + " not found in " + clazz.getSimpleName());
         }
-        waitFor(method);
+        waitFor(method, timeoutInMillis);
     }
 
-    private static void waitFor(Method method) throws InterruptedException {
+    private static void waitFor(Method method, int timeoutInMillis) throws InterruptedException {
         CountDownLatch latch;
         synchronized (barrier) {
             if (barrier.containsKey(method)) {
@@ -95,8 +95,8 @@ public class ReceptionSynchronizer {
                 barrier.put(method, latch);
             }
         }
-        if (!latch.await(2, TimeUnit.SECONDS)) {
-            throw new AssertionError("Expected method has not been invoked");
+        if (!latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+            throw new AssertionError("Expected method has not been invoked in " + timeoutInMillis + "ms");
         }
     }
 

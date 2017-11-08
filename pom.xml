@@ -173,22 +173,26 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
+            <version>1.1.7.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
+            <version>1.1.7.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <version>2.1.1</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+            <version>2.1.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -366,13 +370,12 @@
                     <version>2.25.1</version>
                     <scope>test</scope>
                 </dependency>
-                
-                 <!-- The actual Arquillian connector -->
+
+                   <!-- The actual Arquillian connector -->
                 <dependency>
-                    <groupId>org.omnifaces</groupId>
-                    <artifactId>arquillian-payara-server-4-managed</artifactId> 
-                    <version>1.0-beta-SNAPSHOT</version> 
-                    <scope>test</scope>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-managed</artifactId>
+                    <version>1.0.Beta2</version>
                 </dependency>
             </dependencies>
             
@@ -1607,3 +1610,4 @@
     </reporting>
 
 </project>
+

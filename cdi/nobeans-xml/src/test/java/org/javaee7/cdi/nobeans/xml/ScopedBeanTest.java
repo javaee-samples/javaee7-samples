@@ -5,6 +5,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -21,8 +22,11 @@ import static org.junit.Assert.assertThat;
 public class ScopedBeanTest {
     @Deployment
     public static Archive<?> deploy() {
-        return ShrinkWrap.create(JavaArchive.class)
+        JavaArchive library = ShrinkWrap.create(JavaArchive.class)
             .addClass(ScopedBean.class);
+
+        return ShrinkWrap.create(WebArchive.class).
+                addAsLibraries(library);
     }
 
     @Inject
