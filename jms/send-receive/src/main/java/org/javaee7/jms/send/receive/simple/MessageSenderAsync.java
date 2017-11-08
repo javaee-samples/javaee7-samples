@@ -47,6 +47,8 @@ import javax.inject.Inject;
 import javax.jms.CompletionListener;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
+import javax.jms.JMSProducer;
+import javax.jms.JMSRuntimeException;
 import javax.jms.Message;
 import javax.jms.Queue;
 
@@ -54,6 +56,7 @@ import org.javaee7.jms.send.receive.Resources;
 
 /**
  * Asynchronous message sending is not supported in Java EE 7.
+ *
  * @author Arun Gupta
  */
 @Stateless
@@ -66,9 +69,17 @@ public class MessageSenderAsync {
     @Resource(lookup = Resources.ASYNC_QUEUE)
     Queue asyncQueue;
 
-    public void sendMessage(String message) {
+    /**
+     * Send a message to the JMS queue. Prin
+     *
+     * @param message the contents of the message.
+     * @throws JMSRuntimeException if an error occurs in accessing the queue.
+     */
+    public void sendMessage(String message) throws JMSRuntimeException {
+        JMSProducer producer = context.createProducer();
+        
         try {
-            context.createProducer().setAsync(new CompletionListener() {
+            producer.setAsync(new CompletionListener() {
                 @Override
                 public void onCompletion(Message msg) {
                     try {
@@ -87,10 +98,10 @@ public class MessageSenderAsync {
                     }
                 }
             });
-        } catch (RuntimeException e) {
-            System.out.println("Caught RuntimeException trying to invoke setAsync - not permitted in Java EE");
+        } catch (JMSRuntimeException ex) {
+            System.out.println("Caught RuntimeException trying to invoke setAsync - not permitted in Java EE. Resorting to synchronous sending...");
         }
 
-        context.createProducer().send(asyncQueue, message);
+        producer.send(asyncQueue, message);
     }
 }

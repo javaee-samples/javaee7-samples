@@ -26,7 +26,7 @@ public class ReceptionSynchronizerTest {
                 cut.registerInvocation(method);
             }
         }, 1, TimeUnit.SECONDS);
-        ReceptionSynchronizer.waitFor(ReceptionSynchronizerTest.class, "testWaiting");
+        ReceptionSynchronizer.waitFor(ReceptionSynchronizerTest.class, "testWaiting", 2000);
         long waitTime = System.currentTimeMillis() - startTime;
         assertTrue("Waited more than 950ms", waitTime > 950);
         assertTrue("Waited no longer than 1050ms", waitTime < 1050);

@@ -52,14 +52,14 @@ import org.javaee7.jms.send.receive.Resources;
 
 /**
  * A message driven bean with newly standardized activation config properties.
+ *
  * @author Arun Gupta
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup",
-        propertyValue = Resources.ASYNC_QUEUE),
+            propertyValue = Resources.ASYNC_QUEUE),
     @ActivationConfigProperty(propertyName = "destinationType",
-        propertyValue = "javax.jms.Queue"),
-})
+            propertyValue = "javax.jms.Queue"),})
 public class MessageReceiverAsync implements MessageListener {
 
     @Override
