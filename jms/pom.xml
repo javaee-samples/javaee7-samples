@@ -37,6 +37,17 @@
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
                 </dependency>
+               <dependency>
+	          <groupId>org.javaee7</groupId>
+                  <artifactId>test-utils</artifactId>
+	          <version>${project.version}</version>
+	          <exclusions>
+		     <exclusion>
+		         <groupId>fish.payara.arquillian</groupId>
+		         <artifactId>arquillian-payara-server-4-managed</artifactId>
+		     </exclusion>
+                  </exclusions>
+              </dependency>
             </dependencies>
         </profile>
     </profiles>
