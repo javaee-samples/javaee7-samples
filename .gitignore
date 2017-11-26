@@ -53,6 +53,7 @@ nbbuild/
 dist/
 nbdist/
 nbactions.xml
+nbactions-*.xml
 nb-configuration.xml
  
 ######################
