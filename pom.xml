@@ -10,6 +10,7 @@
     <name>Java EE 7 Sample: javaee7-samples</name>
 
     <properties>
+	<arquillian.version>1.1.14.Final</arquillian.version>
         <java.min.version>1.7</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,11 +27,11 @@
             Application Server versions 
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
-        <payara.version>4.1.2.173-SNAPSHOT</payara.version>
+        <payara.version>4.1.2.173</payara.version>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.3</liberty.version>
         <wildfly.version>10.1.0.Final</wildfly.version>
-        <wildfly.swarm.version>2017.4.0</wildfly.swarm.version>
+        <wildfly.swarm.version>2017.11.0</wildfly.swarm.version>
         <tomee.version>7.0.1</tomee.version>
         <tomcat.version>8.5.6</tomcat.version>
     </properties>
@@ -86,14 +87,14 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.11.Final</version>
+                <version>${arquillian.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-test-api</artifactId>
-                <version>1.1.11.Final</version>
+                <version>${arquillian.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.javaee7</groupId>
@@ -402,13 +403,12 @@
                     <version>2.25.1</version>
                     <scope>test</scope>
                 </dependency>
-                
-                 <!-- The actual Arquillian connector -->
+
+                   <!-- The actual Arquillian connector -->
                 <dependency>
-                    <groupId>org.omnifaces</groupId>
-                    <artifactId>arquillian-payara-server-4-managed</artifactId> 
-                    <version>1.0-beta-SNAPSHOT</version> 
-                    <scope>test</scope>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-managed</artifactId>
+                    <version>1.0.Beta2</version>
                 </dependency>
             </dependencies>
             
@@ -1643,3 +1643,4 @@
     </reporting>
 
 </project>
+

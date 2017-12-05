@@ -53,6 +53,7 @@ import org.javaee7.jms.send.receive.Resources;
 
 /**
  * Sending a message using classic JMS API.
+ *
  * @author Arun Gupta
  */
 @Stateless
@@ -64,25 +65,19 @@ public class ClassicMessageSender {
     @Resource(mappedName = Resources.CLASSIC_QUEUE)
     Queue demoQueue;
 
-    public void sendMessage(String payload) {
-        Connection connection = null;
-        try {
-            connection = connectionFactory.createConnection();
+    /**
+     * Send a message to the JMS queue.
+     *
+     * @param payload the contents of the message.
+     * @throws JMSException if an error occurs in accessing the queue.
+     */
+    public void sendMessage(String payload) throws JMSException {
+        try (Connection connection = connectionFactory.createConnection()) {
             connection.start();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Session session = connection.createSession(Session.AUTO_ACKNOWLEDGE);
             MessageProducer messageProducer = session.createProducer(demoQueue);
             TextMessage textMessage = session.createTextMessage(payload);
             messageProducer.send(textMessage);
-        } catch (JMSException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (JMSException ex) {
-                    ex.printStackTrace();
-                }
-            }
         }
     }
 }

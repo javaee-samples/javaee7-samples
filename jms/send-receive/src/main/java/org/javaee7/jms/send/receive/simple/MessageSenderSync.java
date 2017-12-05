@@ -43,12 +43,14 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
+import javax.jms.JMSRuntimeException;
 import javax.jms.Queue;
 
 import org.javaee7.jms.send.receive.Resources;
 
 /**
  * Synchronous message sending with container-managed JMSContext.
+ *
  * @author Arun Gupta
  */
 @Stateless
@@ -61,7 +63,13 @@ public class MessageSenderSync {
     @Resource(mappedName = Resources.SYNC_CONTAINER_MANAGED_QUEUE)
     Queue syncQueue;
 
-    public void sendMessage(String message) {
+    /**
+     * Send a message to the JMS queue.
+     *
+     * @param message the contents of the message.
+     * @throws JMSRuntimeException if an error occurs in accessing the queue.
+     */
+    public void sendMessage(String message) throws JMSRuntimeException {
         context.createProducer().send(syncQueue, message);
     }
 }

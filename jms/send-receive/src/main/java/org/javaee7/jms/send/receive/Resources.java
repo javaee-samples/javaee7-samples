@@ -31,8 +31,8 @@ import javax.jms.JMSDestinationDefinitions;
         description = "My Sync Queue for Container-managed JMSContext")
 })
 public class Resources {
-    public static final String SYNC_APP_MANAGED_QUEUE = "java:global/jms/mySyncAppQueue";
-    public static final String SYNC_CONTAINER_MANAGED_QUEUE = "java:global/jms/mySyncContainerQueue";
-    public static final String ASYNC_QUEUE = "java:global/jms/myAsyncQueue";
-    public static final String CLASSIC_QUEUE = "java:global/jms/classicQueue";
+    public static final String SYNC_APP_MANAGED_QUEUE = "java:app/jms/mySyncAppQueue";
+    public static final String SYNC_CONTAINER_MANAGED_QUEUE = "java:app/jms/mySyncContainerQueue";
+    public static final String ASYNC_QUEUE = "java:app/jms/myAsyncQueue";
+    public static final String CLASSIC_QUEUE = "java:app/jms/classicQueue";
 }
