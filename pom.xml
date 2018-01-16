@@ -22,6 +22,7 @@
         <skipCDI>${skipTests}</skipCDI>
         <skipJSF>${skipTests}</skipJSF>
         <skipJACC>${skipTests}</skipJACC>
+        <skipJMS>${skipTests}</skipJMS>
         
         <!-- 
             Application Server versions 
@@ -425,6 +426,11 @@
 
         <profile>
             <id>payara-micro-managed</id>
+
+            <properties>
+                <skipJMS>true</skipJMS>
+            </properties>
+
             <dependencies>
                 <!-- The Arquillian connector -->
                 <dependency>
@@ -434,6 +440,7 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+
             <build>
                 <plugins>
                     <!-- Download Payara Micro and copy to target directory -->
