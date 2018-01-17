@@ -22,12 +22,14 @@
         <skipCDI>${skipTests}</skipCDI>
         <skipJSF>${skipTests}</skipJSF>
         <skipJACC>${skipTests}</skipJACC>
+        <skipJMS>${skipTests}</skipJMS>
         
         <!-- 
             Application Server versions 
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.173</payara.version>
+        <payara.micro.version>5.Beta1</payara.micro.version>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.3</liberty.version>
         <wildfly.version>10.1.0.Final</wildfly.version>
@@ -416,6 +418,63 @@
                                 <javaEEServer>payara-remote</javaEEServer>
                                 <arquillian.launch>payara</arquillian.launch>
                             </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>payara-micro-managed</id>
+
+            <properties>
+                <skipJMS>true</skipJMS>
+            </properties>
+
+            <dependencies>
+                <!-- The Arquillian connector -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-micro-4-managed</artifactId> 
+                    <version>1.0.Beta2</version> 
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <!-- Download Payara Micro and copy to target directory -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>fish.payara.extras</groupId>
+                                            <artifactId>payara-micro</artifactId>
+                                            <version>${payara.micro.version}</version>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${session.executionRootDirectory}/target/</outputDirectory>
+                                            <destFileName>payara-micro-${payara.micro.version}.jar</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Configure Payara Micro Runtime -->
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <MICRO_JAR>${session.executionRootDirectory}/target/payara-micro-${payara.micro.version}.jar</MICRO_JAR>
+                            </environmentVariables>
                         </configuration>
                     </plugin>
                 </plugins>
