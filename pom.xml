@@ -335,10 +335,6 @@
         <profile>
             <id>payara-ci-managed</id>
             
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            
             <dependencies>
                 
                 <!-- WebSocket client dependencies -->
