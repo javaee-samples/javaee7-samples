@@ -50,7 +50,7 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <skipTests>${skipJMS}</skipTests>
+                    <skipTests>${skipJPA}</skipTests>
                 </configuration>
             </plugin>
         </plugins>
