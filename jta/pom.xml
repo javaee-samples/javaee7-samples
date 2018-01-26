@@ -14,6 +14,23 @@
     <packaging>pom</packaging>
     <name>Java EE 7 Sample: jta</name>        
 
+    <modules>
+        <module>transactional</module>
+        <module>tx-exception</module>
+        <module>user-transaction</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skipJTA}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.javaee7</groupId>
@@ -31,28 +48,6 @@
                     <artifactId>h2</artifactId>
                 </dependency>
             </dependencies>
-        </profile>
-        
-        <profile>
-            <id>stable</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            
-            <modules>
-                <module>transactional</module>
-                <module>user-transaction</module>
-            </modules>
-        </profile>
-        
-        <profile>
-            <id>all</id>
-            
-            <modules>
-                <module>transactional</module>
-                <module>tx-exception</module>
-                <module>user-transaction</module>
-            </modules>
         </profile>
     </profiles>
 </project>

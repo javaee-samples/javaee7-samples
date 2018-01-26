@@ -13,4 +13,21 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jta - tx-exception</name>
+    
+    <profiles>
+        <profile>
+            <id>stable</id>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

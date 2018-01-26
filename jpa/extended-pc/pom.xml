@@ -11,4 +11,21 @@
     <artifactId>jpa-extended-pc</artifactId>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jpa - extended-pc</name>
+    
+    <profiles>
+        <profile>
+            <id>stable</id>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

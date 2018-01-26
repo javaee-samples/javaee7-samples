@@ -11,11 +11,27 @@
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jpa - datasourcedefinition-applicationxml-pu</name>
 
+    <profiles>
+        <profile>
+            <id>stable</id>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.3.173</version>
         </dependency>
     </dependencies>
 </project>

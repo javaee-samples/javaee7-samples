@@ -14,6 +14,48 @@
     
     <name>Java EE 7 Sample: jpa</name>
 
+    <modules>
+        <module>aggregate-function-in-select</module>
+        <module>criteria</module>
+        <module>datasourcedefinition</module>
+        <module>datasourcedefinition-webxml-pu</module>
+        <module>datasourcedefinition-annotation-pu</module>
+        <module>datasourcedefinition-applicationxml-pu</module>
+        <module>dynamic-named-query</module>
+        <module>entitygraph</module>
+        <module>listeners</module>
+        <module>listeners-injection</module>
+        <module>multiple-pu</module>
+        <module>storedprocedure</module>
+        <module>jndi-context</module>
+        <module>locking-optimistic</module>
+        <module>locking-pessimistic</module>
+        <module>ordercolumn</module>
+        <module>pu-typesafe</module>
+        <module>schema-gen-metadata</module>
+        <module>schema-gen-scripts</module>
+        <module>schema-gen-scripts-external</module>
+        <module>schema-gen-scripts-generate</module>
+        <module>schema-gen-index</module>
+        <module>native-sql</module>
+        <module>native-sql-resultset-mapping</module>
+        <module>unsynchronized-pc</module>
+        <module>extended-pc</module>
+        <module>jpa-converter</module>
+        <module>default-datasource</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skipJMS}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.javaee7</groupId>
@@ -40,68 +82,14 @@
             </activation>
         
             <modules>
-                <module>aggregate-function-in-select</module>
-                <module>criteria</module>
-                <module>datasourcedefinition</module>
-                <module>datasourcedefinition-webxml-pu</module>
-                <module>datasourcedefinition-annotation-pu</module>
-                <module>dynamic-named-query</module>
-                <module>entitygraph</module>
-                <module>listeners</module>
-                <module>listeners-injection</module>
-                <module>multiple-pu</module>
-                <module>storedprocedure</module>
-                <module>jndi-context</module>
-                <module>locking-optimistic</module>
-                <module>locking-pessimistic</module>
-                <module>ordercolumn</module>
-                <module>pu-typesafe</module>
-                <module>schema-gen-metadata</module>
-                <module>schema-gen-scripts</module>
-                <module>schema-gen-scripts-external</module>
-                <module>schema-gen-scripts-generate</module>
-                <module>schema-gen-index</module>
-                <module>native-sql</module>
-                <module>native-sql-resultset-mapping</module>
-                <module>unsynchronized-pc</module>
-                <module>jpa-converter</module>
-                <module>default-datasource</module>
+                
             </modules>
         </profile>
         
         <profile>
             <id>all</id>
         
-            <modules>
-                <module>aggregate-function-in-select</module>
-                <module>criteria</module>
-                <module>datasourcedefinition</module>
-                <module>datasourcedefinition-webxml-pu</module>
-                <module>datasourcedefinition-annotation-pu</module>
-                <module>datasourcedefinition-applicationxml-pu</module>
-                <module>dynamic-named-query</module>
-                <module>entitygraph</module>
-                <module>listeners</module>
-                <module>listeners-injection</module>
-                <module>multiple-pu</module>
-                <module>storedprocedure</module>
-                <module>jndi-context</module>
-                <module>locking-optimistic</module>
-                <module>locking-pessimistic</module>
-                <module>ordercolumn</module>
-                <module>pu-typesafe</module>
-                <module>schema-gen-metadata</module>
-                <module>schema-gen-scripts</module>
-                <module>schema-gen-scripts-external</module>
-                <module>schema-gen-scripts-generate</module>
-                <module>schema-gen-index</module>
-                <module>native-sql</module>
-                <module>native-sql-resultset-mapping</module>
-                <module>unsynchronized-pc</module>
-                <module>extended-pc</module>
-                <module>jpa-converter</module>
-                <module>default-datasource</module>
-            </modules>
+            
         </profile>
     </profiles>
 </project>
