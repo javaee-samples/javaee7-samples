@@ -88,14 +88,14 @@ public class FormTest {
     @Test
     public void testMaintainPostParamsAfterAuth() throws Exception {
         
-        String PARAM_VALUE = "example11";
+        String PARAM_VALUE = "example";
         String PARAM_LENGTH = Integer.toString(PARAM_VALUE.length());
     	
         // Unauthenticated page
     	HtmlPage unauthenticatedPage = webClient.getPage(base + "/form.html");
     	HtmlForm unauthenticatedForm = unauthenticatedPage.getForms().get(0);
     	unauthenticatedForm.getInputByName("name").setValueAttribute(PARAM_VALUE);
-    	HtmlSubmitInput unauthenticatedSubmitButton = unauthenticatedForm.getInputByName("submitButton");
+    	HtmlSubmitInput unauthenticatedSubmitButton = unauthenticatedForm.getInputByValue("Submit");
     	
     	// we request an protected page, so we are presented the login page.    	
     	HtmlPage loginPage = unauthenticatedSubmitButton.click();
@@ -105,8 +105,8 @@ public class FormTest {
         HtmlSubmitInput submitButton = loginForm.getInputByName("submitButton");
         
         HtmlPage receivePage = submitButton.click();        
-        assertEquals(PARAM_VALUE, receivePage.getElementById("param").getTextContent());
         assertEquals(PARAM_LENGTH, receivePage.getElementById("paramLength").getTextContent());
         assertEquals(PARAM_LENGTH, receivePage.getElementById("arrayLength").getTextContent());
+        assertEquals(PARAM_VALUE, receivePage.getElementById("param").getTextContent());
     }
 }

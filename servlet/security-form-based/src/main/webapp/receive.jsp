@@ -25,7 +25,7 @@ int paramDataLength = paramData.length;
 
 
 Hello <span id="param"><%= param %></span><br/>
-paramLegnth <span id="paramLength"><%= paramLength %></span>
+paramLegnth <span id="paramLength"><%= paramLength %></span><br/>
 paramDataLength <span id="arrayLength"><%= paramDataLength %></span>
 
 
