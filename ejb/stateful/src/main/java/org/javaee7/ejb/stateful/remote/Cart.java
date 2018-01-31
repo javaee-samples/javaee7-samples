@@ -40,12 +40,12 @@
 package org.javaee7.ejb.stateful.remote;
 
 import java.util.List;
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
 /**
  * @author Arun Gupta
  */
-@Remote
+@Local
 public interface Cart {
 
     public void addItem(String item);
