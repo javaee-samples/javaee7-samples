@@ -426,6 +426,7 @@
 
             <properties>
                 <skipJMS>true</skipJMS>
+                <skipJAXWS>true</skipJAXWS>
             </properties>
 
             <dependencies>
