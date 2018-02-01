@@ -15,6 +15,7 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -36,7 +37,7 @@ public class EncoderEndpointTest {
      * Arquillian specific method for creating a file which can be deployed
      * while executing the test.
      */
-    @Deployment(testable = false)
+    @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
             .addClasses(MyEndpoint.class,
@@ -46,6 +47,7 @@ public class EncoderEndpointTest {
     }
 
     @Test
+    @RunAsClient
     public void testEndpointEmptyJSONArray() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         final Session session = connectToServer(MyEndpointClientEmptyJSONArray.class);
         assertNotNull(session);
@@ -54,6 +56,7 @@ public class EncoderEndpointTest {
     }
 
     @Test
+    @RunAsClient
     public void testEndpointEmptyJSONObject() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         String JSON = "{\"apple\":\"red\",\"banana\":\"yellow\"}";
         Session session = connectToServer(MyEndpointClientJSONObject.class);
