@@ -28,8 +28,8 @@
             Application Server versions 
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
-        <payara.version>4.1.2.173</payara.version>
-        <payara.micro.version>5.Beta1</payara.micro.version>
+        <payara.version>4.1.2.174</payara.version>
+        <payara.micro.version>5.Beta2</payara.micro.version>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.3</liberty.version>
         <wildfly.version>10.1.0.Final</wildfly.version>
@@ -56,6 +56,20 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
+		<repository>
+			<id>payara-milestones</id>
+			<name>Payara Milestones</name>
+			
+			<url>https://raw.github.com/payara/Payara_PatchedProjects/master</url>
+			
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 
         <repository>
             <id>ossrh</id>
@@ -130,6 +144,12 @@
                 <artifactId>h2</artifactId>
                 <version>1.4.195</version>
             </dependency>
+            <dependency>
+				<groupId>fish.payara.arquillian</groupId>
+   					<artifactId>payara-client-ee7</artifactId>
+   					<version>1.0.Beta3-m1</version>
+   					<scope>test</scope>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -341,40 +361,17 @@
             
             <dependencies>
                 
-                <!-- WebSocket client dependencies -->
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-            
-            
-	            <!-- JAX-RS client API dependencies -->
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-jackson</artifactId>
-                    <version>2.25.1</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-processing</artifactId>
-                    <version>2.25.1</version>
-                    <scope>test</scope>
-                </dependency>
+                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+				<dependency>
+					<groupId>fish.payara.arquillian</groupId>
+    					<artifactId>payara-client-ee7</artifactId>
+				</dependency>
 
-                   <!-- The actual Arquillian connector -->
+                <!-- The actual Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-4-managed</artifactId>
-                    <version>1.0.Beta2</version>
+                    <version>1.0.Beta3-m1</version>
                 </dependency>
             </dependencies>
             
@@ -432,11 +429,17 @@
             </properties>
 
             <dependencies>
+            		<!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+				<dependency>
+					<groupId>fish.payara.arquillian</groupId>
+    					<artifactId>payara-client-ee7</artifactId>
+				</dependency>
+            
                 <!-- The Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-4-managed</artifactId> 
-                    <version>1.0.Beta2</version> 
+                    <artifactId>arquillian-payara-micro-5-managed</artifactId> 
+                    <version>1.0.Beta3-m1</version> 
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -484,36 +487,11 @@
         <profile>
             <id>payara-embedded</id>
             <dependencies>
-                <dependency>
-                    <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-embedded-all</artifactId>
-                    <version>${payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
-                    <version>1.0.4</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                    <version>2.25</version>
-                    <scope>test</scope>
-                </dependency>
+                <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+				<dependency>
+					<groupId>fish.payara.arquillian</groupId>
+    					<artifactId>payara-client-ee7</artifactId>
+				</dependency>
                 
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
@@ -540,46 +518,17 @@
             <id>payara-remote</id>
             
             <dependencies>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
-                    <version>1.0.4</version>
-                    <scope>test</scope>
-                </dependency>
-                
-                <!-- WebSocket client dependencies -->
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>1.13</version>
-                    <scope>test</scope>
-                </dependency>
-   
-   				<!-- JAX-RS client API dependencies -->
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-jackson</artifactId>
-                    <version>2.25.1</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-processing</artifactId>
-                    <version>2.25.1</version>
-                    <scope>test</scope>
-                </dependency>
+				<!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+				<dependency>
+					<groupId>fish.payara.arquillian</groupId>
+    					<artifactId>payara-client-ee7</artifactId>
+				</dependency>
                 
                 <!-- The actual Arquillian connector -->
                 <dependency>
-                    <groupId>org.omnifaces</groupId>
+                    <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-4-remote</artifactId> 
-                    <version>1.0-beta-SNAPSHOT</version> 
+                    <version>1.0.Beta3-m1</version> 
                     <scope>test</scope>
                 </dependency>
             </dependencies>
