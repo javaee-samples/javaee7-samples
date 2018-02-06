@@ -39,12 +39,12 @@
  */
 package org.javaee7.ejb.stateless.remote;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
 /**
  * @author Arun Gupta
  */
-@Remote
+@Local
 public interface Account {
 
     public String withdraw(float amount);
