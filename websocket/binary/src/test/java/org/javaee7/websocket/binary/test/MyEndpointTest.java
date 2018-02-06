@@ -20,6 +20,7 @@ import org.javaee7.websocket.binary.MyEndpointByteBuffer;
 import org.javaee7.websocket.binary.MyEndpointClient;
 import org.javaee7.websocket.binary.MyEndpointInputStream;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -43,7 +44,7 @@ public class MyEndpointTest {
      * Arquillian specific method for creating a file which can be deployed
      * while executing the test.
      */
-    @Deployment(testable = false)
+    @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
             .addClasses(MyEndpointByteBuffer.class,
@@ -60,6 +61,7 @@ public class MyEndpointTest {
      * @throws IOException
      */
     @Test
+    @RunAsClient
     public void testEndpointByteBuffer() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointClient.latch = new CountDownLatch(1);
         Session session = connectToServer("bytebuffer");
@@ -79,6 +81,7 @@ public class MyEndpointTest {
      * @throws URISyntaxException
      */
     @Test
+    @RunAsClient
     public void testEndpointByteArray() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
         MyEndpointClient.latch = new CountDownLatch(1);
         Session session = connectToServer("bytearray");
@@ -98,6 +101,7 @@ public class MyEndpointTest {
      * @throws URISyntaxException
      */
     @Test
+    @RunAsClient
     public void testEndpointInputStream() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
         MyEndpointClient.latch = new CountDownLatch(1);
         Session session = connectToServer("inputstream");
