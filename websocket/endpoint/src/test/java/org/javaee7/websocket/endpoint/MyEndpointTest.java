@@ -17,6 +17,7 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -34,7 +35,7 @@ public class MyEndpointTest {
     @ArquillianResource
     URI base;
 
-    @Deployment(testable = false)
+    @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
             .addClasses(MyEndpointText.class,
@@ -48,6 +49,7 @@ public class MyEndpointTest {
     }
 
     @Test
+    @RunAsClient
     public void testTextEndpoint() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointTextClient.latch = new CountDownLatch(1);
         Session session = connectToServer(MyEndpointTextClient.class, "text");
@@ -57,6 +59,7 @@ public class MyEndpointTest {
     }
 
     @Test
+    @RunAsClient
     public void testEndpointByteBuffer() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
         MyEndpointByteBufferClient.latch = new CountDownLatch(1);
         Session session = connectToServer(MyEndpointByteBufferClient.class, "bytebuffer");
@@ -66,6 +69,7 @@ public class MyEndpointTest {
     }
 
     @Test
+    @RunAsClient
     public void testEndpointByteArray() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
         MyEndpointByteArrayClient.latch = new CountDownLatch(1);
         Session session = connectToServer(MyEndpointByteArrayClient.class, "bytearray");
@@ -76,6 +80,7 @@ public class MyEndpointTest {
     }
 
     @Test
+    @RunAsClient
     public void testEndpointInputStream() throws DeploymentException, IOException, URISyntaxException, InterruptedException {
         MyEndpointInputStreamClient.latch = new CountDownLatch(1);
         Session session = connectToServer(MyEndpointInputStreamClient.class, "inputstream");
