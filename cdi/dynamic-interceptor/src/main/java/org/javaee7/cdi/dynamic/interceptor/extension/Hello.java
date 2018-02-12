@@ -1,7 +1,6 @@
 package org.javaee7.cdi.dynamic.interceptor.extension;
 
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Inherited;
@@ -14,6 +13,6 @@ import javax.interceptor.InterceptorBinding;
 @Inherited
 @InterceptorBinding
 @Retention(RUNTIME)
-@Target( {METHOD, TYPE} )
+@Target(METHOD)
 public @interface Hello {
 }
