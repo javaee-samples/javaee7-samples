@@ -11,4 +11,19 @@
     <artifactId>mdb-filewatcher</artifactId>
     <name>Java EE 7 Sample: mdb-filewatcher</name>
     
+    <profiles>
+        <profile>
+            <id>stable</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
