@@ -476,9 +476,9 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <environmentVariables>
-                                <MICRO_JAR>${session.executionRootDirectory}/target/payara-micro-${payara.micro.version}.jar</MICRO_JAR>
-                            </environmentVariables>
+                            <systemProperties>
+                                <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.micro.version}.jar</payara.microJar>
+                            </systemProperties>
                         </configuration>
                     </plugin>
                 </plugins>
