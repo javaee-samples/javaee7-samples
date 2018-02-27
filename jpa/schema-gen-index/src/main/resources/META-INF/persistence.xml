@@ -7,8 +7,8 @@
     <persistence-unit name="MyPU" transaction-type="JTA">
         <properties>
             <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
-            <property name="javax.persistence.schema-generation.scripts.create-target" value="file:/tmp/create.sql"/>
-            <property name="javax.persistence.schema-generation.scripts.drop-target" value="file:/tmp/drop.sql"/>        
+            <property name="javax.persistence.schema-generation.scripts.create-target" value="file:/tmp/index-create.sql"/>
+            <property name="javax.persistence.schema-generation.scripts.drop-target" value="file:/tmp/index-drop.sql"/>        
         </properties>
     </persistence-unit>
 </persistence>

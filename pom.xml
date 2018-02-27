@@ -24,6 +24,7 @@
         <skipJACC>${skipTests}</skipJACC>
         <skipJMS>${skipTests}</skipJMS>
         <skipJAXWS>${skipTests}</skipJAXWS>
+        <skipEAR>${skipTests}</skipEAR>
         
         <!-- 
             Application Server versions 
@@ -427,6 +428,8 @@
             <properties>
                 <skipJMS>true</skipJMS>
                 <skipJAXWS>true</skipJAXWS>
+                <!-- Being a WebProfile++, Micro does not support ear archives -->
+                <skipEAR>true</skipEAR>
             </properties>
 
             <dependencies>
