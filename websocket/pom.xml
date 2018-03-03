@@ -29,6 +29,7 @@
         <module>endpoint-programmatic-injection</module>
         <!--<module>endpoint-programmatic-partial</module>-->
         <module>endpoint-security</module>
+        <module>endpoint-wss</module>
         <module>httpsession</module>
         <module>injection</module>
         <module>javase-client</module>
