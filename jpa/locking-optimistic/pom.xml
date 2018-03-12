@@ -19,4 +19,21 @@
             <artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
         </dependency>
     </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>stable</id>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile> 
+    </profiles>
 </project>

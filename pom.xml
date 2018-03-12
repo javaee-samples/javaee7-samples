@@ -546,7 +546,49 @@
         </profile>
         
         <profile>
-            <id>payara-remote</id>
+            <id>payara-server-5-remote</id>
+            
+            <dependencies>
+                <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee7</artifactId>
+                </dependency>
+                
+                <!-- The actual Arquillian connector -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-remote</artifactId> 
+                    <version>1.0.Beta3-m3</version> 
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                 <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javaEEServer>payara-remote</javaEEServer>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                   </plugins>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-glassfish-remote</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>payara-server-4-remote</id>
             
             <dependencies>
                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
