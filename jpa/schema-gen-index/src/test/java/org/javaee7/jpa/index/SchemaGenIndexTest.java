@@ -34,10 +34,10 @@ public class SchemaGenIndexTest {
 
     @Test
     public void testSchemaGenIndex() throws Exception {
-        Path create = Paths.get("/tmp/create.sql");
+        Path create = Paths.get("/tmp/index-create.sql");
         assertTrue(exists(create));
 
-        Path drop = Paths.get("/tmp/drop.sql");
+        Path drop = Paths.get("/tmp/index-drop.sql");
         assertTrue(exists(create));
 
         String line;

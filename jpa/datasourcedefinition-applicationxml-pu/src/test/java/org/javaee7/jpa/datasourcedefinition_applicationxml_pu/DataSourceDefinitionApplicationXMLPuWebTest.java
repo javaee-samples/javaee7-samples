@@ -22,11 +22,11 @@ import org.junit.runner.RunWith;
  * This tests that a data source defined via the data-source element in an EAR's application.xml can be used by JPA.
  * <p>
  * In this test the persistence unit is defined inside a web module (.war)
- * 
+ *
  * <p>
  * The actual JPA code being run is not specifically relevant; any kind of JPA operation that
- * uses the data source is okay here. 
- * 
+ * uses the data source is okay here.
+ *
  * @author Arjan Tijms
  */
 @RunWith(Arquillian.class)
@@ -39,7 +39,7 @@ public class DataSourceDefinitionApplicationXMLPuWebTest {
     public static Archive<?> deploy() {
         return
         // EAR archive
-        create(EnterpriseArchive.class, "test.ear")
+        create(EnterpriseArchive.class, "testEAR.ear")
 
             // Data-source is defined here
             .setApplicationXML("application-web.xml")
