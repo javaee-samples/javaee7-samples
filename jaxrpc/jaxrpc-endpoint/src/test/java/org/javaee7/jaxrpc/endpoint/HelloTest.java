@@ -32,10 +32,11 @@ public class HelloTest {
         WebArchive war =
             create(WebArchive.class)
                 .addClasses(HelloService.class, HelloServiceImpl.class)
+                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF/wsdl", "MyHelloService.wsdl"), "wsdl/MyHelloService.wsdl")
                 .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "mapping.xml"))
-                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
                 .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "webservices.xml"))
-                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF/wsdl", "MyHelloService.wsdl"), "wsdl/MyHelloService.wsdl");
+                .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
+                ;
 
         System.out.println(war.toString(true));
         System.out.println("************************************************************");
