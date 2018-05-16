@@ -1,14 +1,5 @@
 # Java EE 7 Samples #
 
-<hr>
-
-## Java EE / Jakarta EE Survey ##
-
-Have an opinion on what Java EE.Next / Jakarta EE should look like?
-
-:white_check_mark: Let your voice be heard and [take the survey](https://www.surveymonkey.co.uk/r/jakartaee-2018-omnifaces)! :punch:
-
-<hr>
 
 This workspace consists of Java EE 7 Samples and unit tests. They are categorized in different directories, one for each Technology/JSR.
 
