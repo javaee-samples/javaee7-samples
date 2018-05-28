@@ -1,7 +1,7 @@
-# Java EE 7 Samples: JAX-RPC 1.1#
+# Java EE 7 Samples: JAX-RPC 1.1 #
 
 The [JSR 101](https://jcp.org/en/jsr/detail?id=101) specification is the old generation web services API predating JAX-WS, which in fact was
-to become JAX-RPC 2.0,
+to become JAX-RPC 2.0.
 
 JAX-RPC 1.x is **pruned** from Java EE, and **should not be used** anymore. This sample is only provided for historical purposes.
 
