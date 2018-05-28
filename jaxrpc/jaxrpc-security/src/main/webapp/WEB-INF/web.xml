@@ -11,7 +11,7 @@
     
     <servlet>
         <servlet-name>HelloServiceServlet</servlet-name>
-        <servlet-class>org.javaee7.jaxrpc.endpoint.HelloServiceImpl</servlet-class>
+        <servlet-class>org.javaee7.jaxrpc.security.HelloServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HelloServiceServlet</servlet-name>

@@ -41,7 +41,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                   <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true"
                                     dir="." taskname="Ant-JAX-RPC server">
                                     <classpath refid="maven.compile.classpath" />
@@ -57,28 +57,7 @@
                                 <copy file="${project.build.directory}/MyHelloService.wsdl" todir="src/main/webapp/WEB-INF/wsdl" verbose="true"/>
                                 
                                 <copy file="${project.build.directory}/mapping.xml" todir="src/main/webapp/WEB-INF" verbose="true"/>
-                                    
-                            
-                            <!--  
-                                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true"
-                                    dir="." timeout="4000000" taskname="Ant-JAX-RPC">
-                                    <classpath refid="maven.compile.classpath" />
-                                    <arg value="-buildfile" />
-                                    <arg file="build.xml" />
-                                    <arg value="client" />
-                                    <jvmarg value="-Xdebug" />
-                                    <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" />
-                                </java>
-                                
-
-                                <echo>Copying generated sources</echo>
-                                <copy todir="${project.build.directory}/generated-sources/antrun" verbose="true">
-                                    <fileset dir="target/hello"/>
-                                </copy>
-                                -->
-                                
-                                
-                            </tasks>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
