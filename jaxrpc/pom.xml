@@ -13,6 +13,7 @@
 
     <modules>
         <module>jaxrpc-endpoint</module>
+        <module>jaxrpc-security</module>
     </modules>
 
     <dependencies>

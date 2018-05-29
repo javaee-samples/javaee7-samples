@@ -11,7 +11,7 @@
 
     <properties>
     <arquillian.version>1.1.14.Final</arquillian.version>
-        <java.min.version>1.7</java.min.version>
+        <java.min.version>1.8</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         

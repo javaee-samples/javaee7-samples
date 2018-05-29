@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="hello" default="client" basedir=".">
+<project name="hello" default="server" basedir=".">
 
 	<taskdef name="wscompile" classname="com.sun.xml.rpc.tools.ant.Wscompile"/>
 
@@ -14,17 +14,5 @@
 			config = "./src/main/resources/HelloService.xml">
 		</wscompile>
 	</target>
-
-	<target name="client">
-		<echo>hello</echo>
-		<wscompile 
-			client = "true"
-			verbose = "true"
-			keep = "true"
-			base = "target" 
-			features = "rpcliteral" 
-			config = "./src/main/resources/config.xml">
-		</wscompile>
-	</target>
-
+	
 </project>
