@@ -60,7 +60,7 @@ public class SecureServletTest {
     @After
     public void tearDown() {
         webClient.getCookieManager().clearCookies();
-        webClient.closeAllWindows();
+        webClient.close();
     }
 
     @Test
