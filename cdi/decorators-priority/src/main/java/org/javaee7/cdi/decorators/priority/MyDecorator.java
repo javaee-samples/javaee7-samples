@@ -37,11 +37,27 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.cdi.decorators;
+package org.javaee7.cdi.decorators.priority;
+
+import javax.annotation.Priority;
+import javax.decorator.Decorator;
+import javax.decorator.Delegate;
+import javax.inject.Inject;
 
 /**
  * @author Arun Gupta
  */
-public interface Greeting {
-    String greet(String name);
+@Decorator
+@Priority(100)
+public class MyDecorator implements Greeting {
+
+    @Inject
+    @Delegate
+    private Greeting greeting;
+
+    @Override
+    public String greet(String name) {
+        return greeting.greet(name + " very much!");
+    }
+
 }

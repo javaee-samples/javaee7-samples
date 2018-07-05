@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.cdi.decorators;
+package org.javaee7.cdi.decorators.priority;
 
 /**
  * @author Arun Gupta

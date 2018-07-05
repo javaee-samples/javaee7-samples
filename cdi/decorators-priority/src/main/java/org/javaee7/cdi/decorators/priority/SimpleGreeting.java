@@ -37,11 +37,16 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.cdi.decorators;
+package org.javaee7.cdi.decorators.priority;
 
 /**
  * @author Arun Gupta
  */
-public interface Greeting {
-    String greet(String name);
+public class SimpleGreeting implements Greeting {
+
+    @Override
+    public String greet(String name) {
+        return "Hello " + name;
+    }
+
 }

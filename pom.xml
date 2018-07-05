@@ -31,10 +31,10 @@
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
-        <payara.micro.version>5.181-SNAPSHOT</payara.micro.version>
+        <payara.micro.version>5.182</payara.micro.version>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
-        <wildfly.version>11.0.0.Final</wildfly.version>
+        <wildfly.version>13.0.0.Final</wildfly.version>
         <wildfly.swarm.version>2017.11.0</wildfly.swarm.version>
         <tomee.version>7.0.2</tomee.version>
         <tomcat.version>9.0.4</tomcat.version>
@@ -443,7 +443,7 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-micro-5-managed</artifactId> 
-                    <version>1.0.Beta3-m3</version>
+                    <version>1.0.Beta3</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
