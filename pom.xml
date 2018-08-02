@@ -35,7 +35,7 @@
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
         <wildfly.version>13.0.0.Final</wildfly.version>
-        <wildfly.swarm.version>2017.11.0</wildfly.swarm.version>
+        <wildfly.swarm.version>2.0.0.Final</wildfly.swarm.version>
         <tomee.version>7.0.2</tomee.version>
         <tomcat.version>9.0.4</tomcat.version>
     </properties>
@@ -1030,7 +1030,7 @@
 
                 <!-- The actual Arquillian container -->
                 <dependency>
-                    <groupId>org.wildfly.swarm</groupId>
+                    <groupId>io.thorntail</groupId>
                     <artifactId>arquillian</artifactId>
                     <version>${wildfly.swarm.version}</version>
                     <scope>test</scope>
