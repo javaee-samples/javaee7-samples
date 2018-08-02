@@ -46,6 +46,7 @@
          -->
         <payara.version>4.1.2.181</payara.version>
         <payara.directory.name>payara41</payara.directory.name>
+        <payara.version.major>5</payara.version.major>
         <payara.micro.version>5.181-SNAPSHOT</payara.micro.version>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
@@ -430,7 +431,7 @@
                             <systemPropertyVariables>
                                 <glassfishRemote_gfHome>${session.executionRootDirectory}/target/${payara.directory.name}</glassfishRemote_gfHome>
                                 <javaEEServer>payara-remote</javaEEServer>
-                                <arquillian.launch>payara</arquillian.launch>
+                                <arquillian.launch>payara${payara.version.major}</arquillian.launch>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
