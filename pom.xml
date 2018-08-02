@@ -45,6 +45,7 @@
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
+        <payara.directory.name>payara41</payara.directory.name>
         <payara.micro.version>5.181-SNAPSHOT</payara.micro.version>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
@@ -423,11 +424,11 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <GLASSFISH_HOME>${session.executionRootDirectory}/target/payara41</GLASSFISH_HOME>
+                                <GLASSFISH_HOME>${session.executionRootDirectory}/target/${payara.directory.name}</GLASSFISH_HOME>
                             </environmentVariables>
                             <!-- This needs tuning -->
                             <systemPropertyVariables>
-                                <glassfishRemote_gfHome>${session.executionRootDirectory}/target/payara41</glassfishRemote_gfHome>
+                                <glassfishRemote_gfHome>${session.executionRootDirectory}/target/${payara.directory.name}</glassfishRemote_gfHome>
                                 <javaEEServer>payara-remote</javaEEServer>
                                 <arquillian.launch>payara</arquillian.launch>
                             </systemPropertyVariables>
