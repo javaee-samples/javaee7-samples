@@ -359,6 +359,10 @@
         <profile>
             <id>payara-ci-managed</id>
             
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            
             <dependencies>
                  <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
