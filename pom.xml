@@ -26,6 +26,8 @@
         <skipJAXWS>${skipTests}</skipJAXWS>
         <skipEAR>${skipTests}</skipEAR>
         
+        <skipServletClientCertificate>${skipTests</skipServletClientCertificate>
+        
         <!-- 
             Application Server versions 
             (these are downloaded and installed in these versions by Maven for the CI profiles)
@@ -357,10 +359,6 @@
         <profile>
             <id>payara-ci-managed</id>
             
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            
             <dependencies>
                  <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
@@ -426,10 +424,15 @@
             <id>payara-micro-managed</id>
 
             <properties>
+                <!-- JMS and JAXWS not supported by Micro -->
                 <skipJMS>true</skipJMS>
                 <skipJAXWS>true</skipJAXWS>
+                
                 <!-- Being a WebProfile++, Micro does not support ear archives -->
                 <skipEAR>true</skipEAR>
+                
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
 
             <dependencies>
@@ -490,6 +493,12 @@
         
         <profile>
             <id>payara-embedded</id>
+            
+             <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+            
             <dependencies>
                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
@@ -566,6 +575,12 @@
         
         <profile>
             <id>glassfish-embedded</id>
+            
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+            
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish.main.extras</groupId>
@@ -694,9 +709,12 @@
     
         <profile>
             <id>wildfly-embedded</id>
+            
             <properties>
                 <serverProfile>standalone-full.xml</serverProfile>
                 <serverRoot>${project.build.directory}/wildfly-${wildfly.version}</serverRoot>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
             <dependencies>
                 <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
@@ -810,10 +828,14 @@
         
         <profile>
             <id>wildfly-ci-managed</id>
+            
             <properties>
                 <serverProfile>standalone-full.xml</serverProfile>
                 <serverRoot>${project.build.directory}/wildfly-${wildfly.version}</serverRoot>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
+            
             <dependencies>
                 <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
                      to connect from a the client to the websocket server.
@@ -921,6 +943,11 @@
         <profile>
             <id>wildfly-remote</id>
             
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+            
             <dependencies>
                 <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
                      to connect from a the client to the websocket server.
@@ -986,6 +1013,11 @@
                  
         <profile>
             <id>wildfly-swarm</id>
+            
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
 
             <dependencies>
                 <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer()
@@ -1066,6 +1098,13 @@
         
         <profile>
             <id>tomee-embedded</id>
+            
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+            
+            
             <dependencies>
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
@@ -1124,6 +1163,11 @@
         
         <profile>
             <id>tomee-ci-managed</id>
+            
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
             
             <repositories>
                 <repository>
@@ -1234,6 +1278,11 @@
         <profile>
             <id>liberty-managed</id> <!-- Can also be used as remote -->
             
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+            
             <dependencies>
                 <dependency>
                    <groupId>org.jboss.arquillian.container</groupId>
@@ -1290,6 +1339,11 @@
         
         <profile>
             <id>liberty-ci-managed</id>
+            
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
 
             <dependencies>
                 <dependency>
@@ -1387,6 +1441,9 @@
                 <!-- Default target after having installed developer zip distribution for 
                     WebLogic -->
                 <weblogicRemoteArquillian_target>myserver</weblogicRemoteArquillian_target>
+                
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
 
             <dependencies>
@@ -1429,6 +1486,8 @@
                 <skipCDI>true</skipCDI>
                 <skipJSF>true</skipJSF>
                 <skipJACC>true</skipJACC>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties> 
     
             <dependencies>
@@ -1463,6 +1522,8 @@
                 <skipCDI>true</skipCDI>
                 <skipJSF>true</skipJSF>
                 <skipJACC>true</skipJACC>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
             
             <repositories>

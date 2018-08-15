@@ -1,3 +1,4 @@
+/** Portions Copyright Payara Services Limited **/
 package org.javaee7;
 
 import java.io.FileInputStream;
@@ -230,7 +231,47 @@ public class ServerOperations {
             
             System.out.println("After sleep");
         }
-        
     }
     
+    public static void setupContainerJDBCIDigestIdentityStore() {
+        
+        String javaEEServer = System.getProperty("javaEEServer");
+        
+        if ("glassfish-remote".equals(javaEEServer) || "payara-remote".equals(javaEEServer)) {
+            
+            System.out.println("Setting up container JDBC identity store for " + javaEEServer);
+            
+            List<String> cmd = new ArrayList<>();
+            
+            cmd.add("create-auth-realm");
+            cmd.add("--classname");
+            cmd.add("com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm");
+            cmd.add("--property");
+            cmd.add(
+                "jaas-context=jdbcDigestRealm:" + 
+                "encoding=HASHED:" + 
+                "password-column=password:" + 
+                "datasource-jndi=java\\:comp/DefaultDataSource:" + 
+                "group-table=grouptable:"+ 
+                "charset=UTF-8:" + 
+                "user-table=usertable:" + 
+                "group-name-column=groupname:" + 
+                "digest-algorithm=None:" + 
+                "user-name-column=username");
+            
+            cmd.add("eesamplesdigestrealm");
+            
+            CliCommands.payaraGlassFish(cmd);
+        } else {
+            if (javaEEServer == null) {
+                System.out.println("javaEEServer not specified");
+            } else {
+                System.out.println(javaEEServer + " not supported");
+            }
+        }
+        
+        // TODO: support other servers than Payara and GlassFish
+        
+        // WildFly ./bin/add-user.sh -a -u u1 -p p1 -g g1
+    }
 }

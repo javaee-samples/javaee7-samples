@@ -28,27 +28,16 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>payara-micro-managed</id>
-            <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemProperties>
-                                <payara.extraMicroOptions>--postdeploycommandfile ${project.build.directory}/test-classes/addUsersPayara.txt</payara.extraMicroOptions>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skipServletClientCertificate}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
 </project>
