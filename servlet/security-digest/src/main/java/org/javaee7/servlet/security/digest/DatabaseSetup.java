@@ -40,27 +40,23 @@ public class DatabaseSetup implements ServletContextListener {
         
         System.out.println("ha1=" + ha1);
         
-        execute(dataSource, "DROP TABLE IF EXISTS usertable");
-        execute(dataSource, "DROP TABLE IF EXISTS grouptable");
+        tryDropTables();
         
         System.out.println("Adding user u1 with group g1 to database");
         
-        execute(dataSource, "CREATE TABLE IF NOT EXISTS usertable(username VARCHAR(32) PRIMARY KEY, password VARCHAR(127))");
-        execute(dataSource, "CREATE TABLE IF NOT EXISTS grouptable(username VARCHAR(64), groupname VARCHAR(64))");
+        execute(dataSource, "CREATE TABLE usertable(username VARCHAR(32) PRIMARY KEY, password VARCHAR(127))");
+        execute(dataSource, "CREATE TABLE grouptable(username VARCHAR(64), groupname VARCHAR(64))");
         
         execute(dataSource, "INSERT INTO usertable VALUES('u1', '" + ha1 + "')");
         
         execute(dataSource, "INSERT INTO grouptable VALUES('u1', 'g1')");
+        
+        System.out.println("Done creating DB tables");
     }
     
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        try {
-            execute(dataSource, "DROP TABLE IF EXISTS usertable");
-            execute(dataSource, "DROP TABLE IF EXISTS grouptable");
-        } catch (Exception e) {
-        }
-        
+        tryDropTables();
     }
     
     private void execute(DataSource dataSource, String query) {
@@ -72,6 +68,20 @@ public class DatabaseSetup implements ServletContextListener {
         } catch (SQLException e) {
            throw new IllegalStateException(e);
         }
+    }
+    
+    private void tryDropTables() {
+        try {
+            execute(dataSource, "DROP TABLE IF EXISTS usertable");
+            execute(dataSource, "DROP TABLE IF EXISTS grouptable");
+        } catch (Exception e) {
+            try {
+                execute(dataSource, "DROP TABLE usertable");
+                execute(dataSource, "DROP TABLE grouptable");
+            } catch (Exception ee) {
+            }
+        }
+        
     }
     
 }
