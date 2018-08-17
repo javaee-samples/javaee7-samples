@@ -26,13 +26,14 @@
         <skipJAXWS>${skipTests}</skipJAXWS>
         <skipEAR>${skipTests}</skipEAR>
         
-        <skipServletClientCertificate>${skipTests</skipServletClientCertificate>
+        <skipServletClientCertificate>${skipTests}</skipServletClientCertificate>
         
         <!-- 
             Application Server versions 
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
+        <payara_domain>payaradomain</payara_domain>
         <payara.micro.version>5.182</payara.micro.version>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
@@ -391,6 +392,8 @@
                                     <goal>unpack</goal>
                                 </goals>
                                 <configuration>
+                                    <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
+                                    <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers</markersDirectory>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>fish.payara.distributions</groupId>
@@ -416,6 +419,7 @@
                             <systemPropertyVariables>
                                 <glassfishRemote_gfHome>${session.executionRootDirectory}/target/payara41</glassfishRemote_gfHome>
                                 <javaEEServer>payara-remote</javaEEServer>
+                                <payara_domain>${payara_domain}</payara_domain>
                                 <arquillian.launch>payara</arquillian.launch>
                             </systemPropertyVariables>
                         </configuration>

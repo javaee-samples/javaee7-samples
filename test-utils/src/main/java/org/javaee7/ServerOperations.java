@@ -93,7 +93,9 @@ public class ServerOperations {
             }
             
             // TODO: support current domain
-            Path cacertsPath = gfHomePath.resolve("glassfish/domains/domain1/config/cacerts.jks");
+            String domain = System.getProperty("payara_domain", "domain1");
+            
+            Path cacertsPath = gfHomePath.resolve("glassfish/domains/" + domain + "/config/cacerts.jks");
             
             if (!cacertsPath.toFile().exists()) {
                 logger.severe("The trust store at " + cacertsPath.toAbsolutePath() + " does not exists");
@@ -174,6 +176,8 @@ public class ServerOperations {
             List<String> cmd = new ArrayList<>();
             
             cmd.add("restart-domain");
+            
+            cmd.add(System.getProperty("payara_domain", "domain1"));
             
             CliCommands.payaraGlassFish(cmd);
             
