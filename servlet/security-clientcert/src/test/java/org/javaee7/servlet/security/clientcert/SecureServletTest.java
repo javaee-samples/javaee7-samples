@@ -107,16 +107,39 @@ public class SecureServletTest {
 
     @Before
     public void setup() throws FileNotFoundException, IOException {
+        
+        // ### Ask the server for its certificate and add that to a new local trust store
+        
+        // First get the HTTPS url for which the server is listening
+        baseHttps = ServerOperations.toContainerHttps(base);
+        
+        System.out.println("***************************************");
+
+        if (baseHttps != null) {
+            System.out.println("Created " + baseHttps);
+            X509Certificate[] serverCertificateChain = getCertificateChainFromServer(baseHttps.getHost(), baseHttps.getPort());
+            createTrustStore(serverCertificateChain);
+        } else {
+            System.out.println("No https URL could be created from " + base);
+        }
+        
 
         webClient = new WebClient();
 
         // Server -> client : the trust store certificates are used to validate the certificate sent
         // by the server
-        webClient.getOptions().setSSLTrustStore(new File("clientTrustStore.jks").toURI().toURL(), "changeit", "jks");
+        
+        String trustStorePath = System.getProperty("buildDirectory", "") +  "/clientTrustStore.jks";
+        System.out.println("Reading trust store from: " + trustStorePath);
+        
+        webClient.getOptions().setSSLTrustStore(new File(trustStorePath).toURI().toURL(), "changeit", "jks");
+        
+        String keyStorePath = System.getProperty("buildDirectory", "") +  "/clientKeyStore.jks";
+        System.out.println("Reading key store from: " + keyStorePath);
 
         // Client -> Server : the key store private keys and certificates are used to sign
         // and sent a reply to the server
-        webClient.getOptions().setSSLClientCertificate(new File("clientKeyStore.jks").toURI().toURL(), "changeit", "jks");
+        webClient.getOptions().setSSLClientCertificate(new File(keyStorePath).toURI().toURL(), "changeit", "jks");
 
     }
 
@@ -128,23 +151,16 @@ public class SecureServletTest {
 
     @Test
     public void testGetWithCorrectCredentials() throws Exception {
-        // ### Ask the server for its certificate and add that to a new local trust store
-
-        // First get the HTTPS url for which the server is listening
-        baseHttps = ServerOperations.toContainerHttps(base);
-
-        if (baseHttps != null) {
-            X509Certificate[] serverCertificateChain = getCertificateChainFromServer(baseHttps.getHost(), baseHttps.getPort());
-            createTrustStore(serverCertificateChain);
-        } else {
-            log.severe("No https URL could be created from " + base);
+        try {
+            TextPage page = webClient.getPage(baseHttps + "SecureServlet");
+    
+            log.info(page.getContent());
+    
+            assertTrue("my GET", page.getContent().contains("principal C=UK, ST=lak, L=zak, O=kaz, OU=bar, CN=lfoo"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
-
-        TextPage page = webClient.getPage(baseHttps + "SecureServlet");
-
-        log.info(page.getContent());
-
-        assertTrue("my GET", page.getContent().contains("principal C=UK, ST=lak, L=zak, O=kaz, OU=bar, CN=lfoo"));
     }
 
     
@@ -244,8 +260,12 @@ public class SecureServletTest {
                     "clientKey", 
                     new PrivateKeyEntry(privateKey, new Certificate[] { certificate }),
                     new PasswordProtection("changeit".toCharArray()));
+            
+            String path = System.getProperty("buildDirectory", "") +  "/clientKeyStore.jks";
+            
+            System.out.println("Storing key store at: " + path);
 
-            keyStore.store(new FileOutputStream("clientKeyStore.jks"), "changeit".toCharArray());
+            keyStore.store(new FileOutputStream(path), "changeit".toCharArray());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -259,8 +279,12 @@ public class SecureServletTest {
             for (int i = 0; i < certificates.length; i++) {
                 keyStore.setCertificateEntry("serverCert" + i, certificates[i]);
             }
+            
+            String path = System.getProperty("buildDirectory", "") +  "/clientTrustStore.jks";
+            
+            System.out.println("Storing trust store at: " + path);
 
-            keyStore.store(new FileOutputStream("clientTrustStore.jks"), "changeit".toCharArray());
+            keyStore.store(new FileOutputStream(path), "changeit".toCharArray());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

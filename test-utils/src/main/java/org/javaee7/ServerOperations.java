@@ -145,11 +145,14 @@ public class ServerOperations {
                     url.getFile()
                 );
                 
+                System.out.println("Returning " + httpsUrl + " for " + url);
                 logger.info("Returning " + httpsUrl + " for " + url);
                 
                 return httpsUrl;
                 
             } catch (MalformedURLException e) {
+                System.out.println("Failure creating HTTPS URL");
+                e.printStackTrace();
                 logger.log(Level.SEVERE, "Failure creating HTTPS URL", e);
             }
             
