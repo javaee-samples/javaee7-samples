@@ -6,17 +6,17 @@
         <groupId>org.javaee7</groupId>
         <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>org.javaee7</groupId>
+    
     <artifactId>ejb</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <name>Java EE 7 Sample: ejb</name>
 
     <modules>
         <module>embeddable</module>
         <module>lifecycle</module>
+        <module>remote</module>
         <module>singleton</module>
         <module>stateful</module>
         <module>stateless</module>
