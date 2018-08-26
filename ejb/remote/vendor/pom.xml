@@ -6,11 +6,11 @@
 
     <parent>
         <groupId>org.javaee7</groupId>
-        <artifactId>ejb</artifactId>
+        <artifactId>ejb-remote</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>remote</artifactId>
+    <artifactId>ejb-remote-vendor</artifactId>
     <packaging>pom</packaging>
     
     <name>Java EE 7 Sample: ejb - remote - vendor</name>
