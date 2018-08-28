@@ -5,11 +5,17 @@
 
     <defaultProtocol type="Servlet 3.0"/>
     
-     <container qualifier="payara">
+    <container qualifier="payara4">
         <configuration>
             <property name="domain">payaradomain</property>
         </configuration>
-     </container>
+    </container>
+
+    <container qualifier="payara5">
+        <configuration>
+            <property name="domain">production</property>
+        </configuration>
+    </container>
 
     <container qualifier="wildfly">
         <configuration>
