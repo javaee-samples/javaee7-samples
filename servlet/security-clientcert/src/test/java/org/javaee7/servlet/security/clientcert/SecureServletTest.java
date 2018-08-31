@@ -107,12 +107,12 @@ public class SecureServletTest {
 
     @Before
     public void setup() throws FileNotFoundException, IOException {
-        
+
         // ### Ask the server for its certificate and add that to a new local trust store
-        
+
         // First get the HTTPS url for which the server is listening
         baseHttps = ServerOperations.toContainerHttps(base);
-        
+
         System.out.println("***************************************");
 
         if (baseHttps != null) {
@@ -122,18 +122,18 @@ public class SecureServletTest {
         } else {
             System.out.println("No https URL could be created from " + base);
         }
-        
+
 
         webClient = new WebClient();
 
         // Server -> client : the trust store certificates are used to validate the certificate sent
         // by the server
-        
+
         String trustStorePath = System.getProperty("buildDirectory", "") +  "/clientTrustStore.jks";
         System.out.println("Reading trust store from: " + trustStorePath);
-        
+
         webClient.getOptions().setSSLTrustStore(new File(trustStorePath).toURI().toURL(), "changeit", "jks");
-        
+
         String keyStorePath = System.getProperty("buildDirectory", "") +  "/clientKeyStore.jks";
         System.out.println("Reading key store from: " + keyStorePath);
 
@@ -153,9 +153,9 @@ public class SecureServletTest {
     public void testGetWithCorrectCredentials() throws Exception {
         try {
             TextPage page = webClient.getPage(baseHttps + "SecureServlet");
-    
+
             log.info(page.getContent());
-    
+
             assertTrue("my GET", page.getContent().contains("principal C=UK, ST=lak, L=zak, O=kaz, OU=bar, CN=lfoo"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,27 +163,30 @@ public class SecureServletTest {
         }
     }
 
-    
+
     // Private methods
-    
+
     // TODO: may move these to utility class
-    
+
     private static X509Certificate[] getCertificateChainFromServer(String host, int port) {
 
-        List<X509Certificate[]> X509Certificates = new ArrayList<>();
+        final List<X509Certificate[]> X509Certificates = new ArrayList<>();
 
         try {
             SSLContext context = SSLContext.getInstance("TLS");
 
             TrustManager interceptingTrustManager = new X509TrustManager() {
 
+                @Override
                 public X509Certificate[] getAcceptedIssuers() {
                     return new X509Certificate[] {};
                 }
 
+                @Override
                 public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                 }
 
+                @Override
                 public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                     System.out.println("**** intercepting checkServerTrusted chain" + chain + " authType " + authType);
                     X509Certificates.add(chain);
@@ -225,10 +228,10 @@ public class SecureServletTest {
                     .setProvider(provider)
                     .getCertificate(
                             new X509v3CertificateBuilder(
-                                    new X500Name("CN=lfoo, OU=bar, O=kaz, L=zak, ST=lak, C=UK"), 
+                                    new X500Name("CN=lfoo, OU=bar, O=kaz, L=zak, ST=lak, C=UK"),
                                     ONE,
-                                    Date.from(now()), 
-                                    Date.from(now().plus(1, DAYS)), 
+                                    Date.from(now()),
+                                    Date.from(now().plus(1, DAYS)),
                                     new X500Name("CN=lfoo, OU=bar, O=kaz, L=zak, ST=lak, C=UK"),
                                     SubjectPublicKeyInfo.getInstance(keys.getPublic().getEncoded()))
                     .build(
@@ -257,12 +260,12 @@ public class SecureServletTest {
             keyStore.load(null, null);
 
             keyStore.setEntry(
-                    "clientKey", 
+                    "clientKey",
                     new PrivateKeyEntry(privateKey, new Certificate[] { certificate }),
                     new PasswordProtection("changeit".toCharArray()));
-            
+
             String path = System.getProperty("buildDirectory", "") +  "/clientKeyStore.jks";
-            
+
             System.out.println("Storing key store at: " + path);
 
             keyStore.store(new FileOutputStream(path), "changeit".toCharArray());
@@ -279,9 +282,9 @@ public class SecureServletTest {
             for (int i = 0; i < certificates.length; i++) {
                 keyStore.setCertificateEntry("serverCert" + i, certificates[i]);
             }
-            
+
             String path = System.getProperty("buildDirectory", "") +  "/clientTrustStore.jks";
-            
+
             System.out.println("Storing trust store at: " + path);
 
             keyStore.store(new FileOutputStream(path), "changeit".toCharArray());
