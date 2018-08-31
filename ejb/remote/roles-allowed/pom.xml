@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>ejb-remote</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    <artifactId>ejb-remote-roles-allowed</artifactId>
+    <packaging>war</packaging>
+    
+    <name>Java EE 7 Sample: ejb - remote - Roles Allowed</name>
+
+    <profiles>
+        <profile>
+            <id>payara-ci-managed</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.javaee7.ejb.remote.vendor</groupId>
+                    <artifactId>ejb.remote.vendor.payara-glassfish</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>payara-remote</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.javaee7.ejb.remote.vendor</groupId>
+                    <artifactId>ejb.remote.vendor.payara-glassfish</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>glassfish-remote</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.javaee7.ejb.remote.vendor</groupId>
+                    <artifactId>ejb.remote.vendor.payara-glassfish</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+   
+    
+</project>
