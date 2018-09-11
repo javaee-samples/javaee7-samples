@@ -1,0 +1,11 @@
+/HelloService.java
+/HelloService_Stub.java
+/HelloService_sayHello_RequestStruct.java
+/HelloService_sayHello_RequestStruct_SOAPBuilder.java
+/HelloService_sayHello_RequestStruct_SOAPSerializer.java
+/HelloService_sayHello_ResponseStruct.java
+/HelloService_sayHello_ResponseStruct_SOAPBuilder.java
+/HelloService_sayHello_ResponseStruct_SOAPSerializer.java
+/MyHelloService.java
+/MyHelloService_Impl.java
+/MyHelloService_SerializerRegistry.java

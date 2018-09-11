@@ -4,19 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author Fermin Gallego
  *
  */
 public class EBook {
+
     private String title;
     private int numPages;
     private double price;
     private List<String> notes;
-
-    public EBook() {
-        super();
-    }
 
     public String getTitle() {
         return title;

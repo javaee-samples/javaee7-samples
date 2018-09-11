@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    
+    Maps (in a SUN specific way) security constraints to the HelloService webservice.
+
+	Copyright Payara Services Limited
+ -->
+<!DOCTYPE sun-web-app PUBLIC "-//Sun Microsystems, Inc.//DTD GlassFish Application Server 3.0 Servlet 3.0//EN" "http://www.sun.com/software/appserver/dtds/sun-web-app_3_0-0.dtd">
+<sun-web-app>
+    <servlet>
+        <servlet-name>HelloServiceServlet</servlet-name>
+        <webservice-endpoint>
+            <port-component-name>HelloService</port-component-name>
+            <endpoint-address-uri>hello</endpoint-address-uri>
+            
+            <!-- 
+                Sets the provider to "XWS_ServerProvider", which is defined in GF/Payara's domain.xml 
+                as the XWS default JAuth module (a JASPIC precursor) "com.sun.xml.wss.provider.ServerSecurityAuthModule".
+                
+                This module on its turn reads the "wss-server-config-2.0.xml" file (embedded in the XWS jar). That
+                file is the server equivalent of the src/test/resources/client-security.xml uses in this sample.
+            
+            -->
+            <message-security-binding auth-layer="SOAP" provider-id="XWS_ServerProvider">
+                <message-security>
+                    <message/>
+                    <!-- 
+                        Only the request is protected here, and only the sender (not the body). 
+                        The response comes back in plain text.
+                    -->
+                    <request-protection auth-source="sender" />
+                </message-security>
+            </message-security-binding>
+        </webservice-endpoint>
+    </servlet>
+</sun-web-app>

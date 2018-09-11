@@ -6,17 +6,11 @@
         <groupId>org.javaee7</groupId>
         <artifactId>batch</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
+    
     <artifactId>batch-chunk-partition</artifactId>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: batch - chunk-partition</name>
     <description>Chunk Processing - Read, Process, Write in multiple Threads</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.javaee7</groupId>
-            <artifactId>util</artifactId>
-        </dependency>
-    </dependencies>
 </project>

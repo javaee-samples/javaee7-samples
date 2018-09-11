@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>org.javaee7</groupId>
     <artifactId>samples-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <name>Java EE 7 Sample: javaee7-samples</name>
 
     <properties>
@@ -14,10 +14,10 @@
         <java.min.version>1.7</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
-        
+
         <!-- Module Skip Properties -->
         <skipBatch>${skipTests}</skipBatch>
         <skipCDI>${skipTests}</skipCDI>
@@ -39,34 +39,38 @@
         <skipServlet>${skipTests}</skipServlet>
         <skipValidation>${skipTests}</skipValidation>
         <skipWebsocket>${skipTests}</skipWebsocket>
-        
-        <!-- 
-            Application Server versions 
+        <skipEAR>${skipTests}</skipEAR>
+
+        <skipServletClientCertificate>${skipTests}</skipServletClientCertificate>
+
+        <!--
+            Application Server versions
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
         <payara.directory.name>payara41</payara.directory.name>
         <payara.version.major>4</payara.version.major>
         <payara.micro.version>5.181-SNAPSHOT</payara.micro.version>
+        <payara_domain>payaradomain</payara_domain>
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
-        <wildfly.version>11.0.0.Final</wildfly.version>
-        <wildfly.swarm.version>2017.11.0</wildfly.swarm.version>
+        <wildfly.version>13.0.0.Final</wildfly.version>
+        <wildfly.swarm.version>2.0.0.Final</wildfly.swarm.version>
         <tomee.version>7.0.2</tomee.version>
         <tomcat.version>9.0.4</tomcat.version>
     </properties>
-    
+
     <prerequisites>
         <maven>${maven.min.version}</maven>
     </prerequisites>
-    
+
     <repositories>
         <repository>
             <id>central</id>
             <name>Central Repository</name>
-            
+
             <url>https://repo.maven.apache.org/maven2</url>
-            
+
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -78,9 +82,9 @@
         <repository>
             <id>payara-milestones</id>
             <name>Payara Milestones</name>
-            
+
             <url>https://raw.github.com/payara/Payara_PatchedProjects/master</url>
-            
+
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -92,9 +96,9 @@
         <repository>
             <id>ossrh</id>
             <name>Sonatype-snapshot</name>
-            
+
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            
+
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -151,13 +155,6 @@
                 <version>${arquillian.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.javaee7</groupId>
-                <artifactId>util</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>jar</type>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.195</version>
@@ -173,7 +170,7 @@
 
 
     <dependencies>
-    
+
         <!-- The Java EE 7 API, which is the main and only API which this project is
              providing samples for.
          -->
@@ -254,7 +251,7 @@
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.13</version>
+            <version>2.31</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -359,25 +356,25 @@
             </plugins>
         </pluginManagement>
     </build>
-    
-    
-    
+
+
+
     <!-- Profiles for the application servers against which the samples are run -->
-    
+
 
     <profiles>
 
-        
+
         <!-- ###  PAYARA  ### -->
 
 
         <profile>
             <id>payara-ci-managed</id>
-            
+
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            
+
             <dependencies>
                  <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
@@ -392,7 +389,7 @@
                     <version>1.0.Beta3-m1</version>
                 </dependency>
             </dependencies>
-            
+
             <build>
                 <plugins>
                     <plugin>
@@ -406,6 +403,8 @@
                                     <goal>unpack</goal>
                                 </goals>
                                 <configuration>
+                                    <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
+                                    <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers</markersDirectory>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>fish.payara.distributions</groupId>
@@ -432,6 +431,7 @@
                                 <glassfishRemote_gfHome>${session.executionRootDirectory}/target/${payara.directory.name}</glassfishRemote_gfHome>
                                 <javaEEServer>payara-remote</javaEEServer>
                                 <arquillian.launch>payara${payara.version.major}</arquillian.launch>
+                                <payara_domain>${payara_domain}</payara_domain>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -443,8 +443,15 @@
             <id>payara-micro-managed</id>
 
             <properties>
+                <!-- JMS and JAXWS not supported by Micro -->
                 <skipJMS>true</skipJMS>
                 <skipJAXWS>true</skipJAXWS>
+
+                <!-- Being a WebProfile++, Micro does not support ear archives -->
+                <skipEAR>true</skipEAR>
+
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
 
             <dependencies>
@@ -453,15 +460,15 @@
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-client-ee7</artifactId>
                 </dependency>
-            
+
                 <!-- The Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-5-managed</artifactId> 
-                    <version>1.0.Beta3-m3</version>
+                    <artifactId>arquillian-payara-micro-5-managed</artifactId>
+                    <version>1.0.Beta3</version>
                     <scope>test</scope>
                 </dependency>
-                
+
                 <!-- WebSocket client dependencies -->
                 <dependency>
                     <groupId>org.glassfish.tyrus</groupId>
@@ -516,16 +523,22 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>payara-embedded</id>
+
+             <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
             <dependencies>
                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                         <artifactId>payara-client-ee7</artifactId>
                 </dependency>
-                
+
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
@@ -546,22 +559,22 @@
                 </testResources>
             </build>
         </profile>
-        
+
         <profile>
             <id>payara-server-5-remote</id>
-            
+
             <dependencies>
                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-client-ee7</artifactId>
                 </dependency>
-                
+
                 <!-- The actual Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-remote</artifactId> 
-                    <version>1.0.Beta3-m3</version> 
+                    <artifactId>arquillian-payara-server-4-remote</artifactId>
+                    <version>1.0.Beta3-m3</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -588,22 +601,22 @@
                 </testResources>
             </build>
         </profile>
-        
+
         <profile>
             <id>payara-server-4-remote</id>
-            
+
             <dependencies>
                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-client-ee7</artifactId>
                 </dependency>
-                
+
                 <!-- The actual Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-remote</artifactId> 
-                    <version>1.0.Beta2</version> 
+                    <artifactId>arquillian-payara-server-4-remote</artifactId>
+                    <version>1.0.Beta2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -630,13 +643,19 @@
                 </testResources>
             </build>
         </profile>
-        
-        
-        
+
+
+
         <!-- ###  GLASSFISH  ### -->
-        
+
         <profile>
             <id>glassfish-embedded</id>
+
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish.main.extras</groupId>
@@ -688,7 +707,7 @@
                 </testResources>
             </build>
         </profile>
-        
+
         <profile>
             <id>glassfish-remote</id>
             <dependencies>
@@ -759,18 +778,21 @@
             </build>
         </profile>
 
-        
-        
+
+
         <!-- ###  JBOSS / WILDFLY  ### -->
-    
+
         <profile>
             <id>wildfly-embedded</id>
+
             <properties>
                 <serverProfile>standalone-full.xml</serverProfile>
                 <serverRoot>${project.build.directory}/wildfly-${wildfly.version}</serverRoot>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
             <dependencies>
-                <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
+                <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer()
                      to connect from a the client to the websocket server.
                 -->
                 <dependency>
@@ -779,7 +801,7 @@
                     <version>1.4.0.Final</version>
                     <scope>test</scope>
                 </dependency>
-            
+
                 <!-- Needed for jaxrs tests that use ClientBuilder to connect from a client
                      to the JAX-RS server.
                 -->
@@ -789,7 +811,7 @@
                     <version>3.0.19.Final</version>
                     <scope>test</scope>
                 </dependency>
-                
+
                 <!-- Without this exception will be thrown about missing tracef method -->
                 <dependency>
                     <groupId>org.jboss.logging</groupId>
@@ -809,9 +831,9 @@
                     <version>3.0.19.Final</version>
                     <scope>test</scope>
                 </dependency>
-            
+
                 <!-- The actual Arquillian container (server connector) -->
-                <!-- 
+                <!--
                     Note, this is not a true embedded container, as it still needs a separately installed
                     JBoss/Wildfly. The difference with wildfly-arquillian-container-managed is that this runs
                     within the same process/jvm as where the tests run.
@@ -878,15 +900,19 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>wildfly-ci-managed</id>
+
             <properties>
                 <serverProfile>standalone-full.xml</serverProfile>
                 <serverRoot>${project.build.directory}/wildfly-${wildfly.version}</serverRoot>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
+
             <dependencies>
-                <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
+                <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer()
                      to connect from a the client to the websocket server.
                 -->
                 <dependency>
@@ -895,7 +921,7 @@
                     <version>1.4.0.Final</version>
                     <scope>test</scope>
                 </dependency>
-            
+
                 <!-- Needed for jaxrs tests that use ClientBuilder to connect from a client
                      to the JAX-RS server.
                 -->
@@ -905,7 +931,7 @@
                     <version>3.0.19.Final</version>
                     <scope>test</scope>
                 </dependency>
-                
+
                 <!-- Without this exception will be thrown about missing tracef method -->
                 <dependency>
                     <groupId>org.jboss.logging</groupId>
@@ -925,7 +951,7 @@
                     <version>3.0.19.Final</version>
                     <scope>test</scope>
                 </dependency>
-                
+
                 <!-- The actual Arquillian container (server connector) -->
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
@@ -988,12 +1014,17 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>wildfly-remote</id>
-            
+
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
             <dependencies>
-                <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer() 
+                <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer()
                      to connect from a the client to the websocket server.
                 -->
                 <dependency>
@@ -1002,7 +1033,7 @@
                     <version>1.4.0.Final</version>
                     <scope>test</scope>
                 </dependency>
-            
+
                 <!-- Needed for jaxrs tests that use ClientBuilder to connect from a client
                      to the JAX-RS server.
                 -->
@@ -1012,7 +1043,7 @@
                     <version>3.0.19.Final</version>
                     <scope>test</scope>
                 </dependency>
-                
+
                 <!-- Without this exception will be thrown about missing tracef method -->
                 <dependency>
                     <groupId>org.jboss.logging</groupId>
@@ -1032,7 +1063,7 @@
                     <version>3.0.19.Final</version>
                     <scope>test</scope>
                 </dependency>
-                
+
                 <!-- The actual Arquillian container (server connector) -->
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
@@ -1053,10 +1084,15 @@
                     </testResource>
                 </testResources>
             </build>
-        </profile>        
-                 
+        </profile>
+
         <profile>
             <id>wildfly-swarm</id>
+
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
 
             <dependencies>
                 <!-- Needed for websocket tests that use ContainerProvider.getWebSocketContainer()
@@ -1101,7 +1137,7 @@
 
                 <!-- The actual Arquillian container -->
                 <dependency>
-                    <groupId>org.wildfly.swarm</groupId>
+                    <groupId>io.thorntail</groupId>
                     <artifactId>arquillian</artifactId>
                     <version>${wildfly.swarm.version}</version>
                     <scope>test</scope>
@@ -1131,12 +1167,19 @@
             </build>
         </profile>
 
-        
-        
+
+
         <!-- ###  TOMEE  ### -->
-        
+
         <profile>
             <id>tomee-embedded</id>
+
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
+
             <dependencies>
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
@@ -1192,25 +1235,30 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>tomee-ci-managed</id>
-            
+
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
             <repositories>
                 <repository>
-                    <id>apache.snapshots</id> 
-                    <url>https://repository.apache.org/content/repositories/snapshots/</url> 
-                    <releases> 
-                        <enabled>false</enabled> 
-                    </releases> 
-                    <snapshots> 
-                        <enabled>true</enabled> 
-                    </snapshots> 
-                </repository> 
+                    <id>apache.snapshots</id>
+                    <url>https://repository.apache.org/content/repositories/snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
             </repositories>
-            
+
             <dependencies>
-                
+
                 <!-- The arquillian "remote" adapter that installs and starts/stops TomEE and deploys/undeploys tests  -->
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
@@ -1223,7 +1271,7 @@
                         </exclusion>
                     </exclusions>
                 </dependency>
-                
+
                 <!-- The version of TomEE that the "remote" adapter is going to install and use.
                      Note that the adapter does *not* connect to an existing user installed TomEE
                      instance.
@@ -1235,7 +1283,7 @@
                     <type>zip</type>
                     <classifier>plus</classifier>
                 </dependency>
-                
+
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
@@ -1249,7 +1297,7 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-            
+
             <build>
                 <plugins>
                     <plugin>
@@ -1257,10 +1305,10 @@
                         <configuration>
                             <argLine>-DTOMEE_LOCK_FILE=${user.dir}/.tomee-ports.lock</argLine>
                             <systemPropertyVariables>
-                                
+
                                 <!--
                                     TomEE Remote Arquillian Adapter Configuration
-                                    
+
                                     The TomEE adapter can be directly configured via system properties
                                     without requiring to shuffle these to the arquillian.xml file.
                                 -->
@@ -1270,7 +1318,7 @@
                                 <tomee.httpPort>-1</tomee.httpPort>
                                 <tomee.httpsPort>-1</tomee.httpsPort>
                                 <tomee.ajpPort>-1</tomee.ajpPort>
-                                
+
                                 <!-- Configure arquillian adapter here to do it once without any other module -->
                                 <tomee.dir>target/tomee/server</tomee.dir>
                                 <tomee.appWorkingDir>target/tomee/arquillian</tomee.appWorkingDir>
@@ -1304,25 +1352,30 @@
 
         <profile>
             <id>liberty-managed</id> <!-- Can also be used as remote -->
-            
+
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
             <dependencies>
                 <dependency>
                    <groupId>org.jboss.arquillian.container</groupId>
                    <artifactId>arquillian-wlp-managed-8.5</artifactId>
                    <version>1.0.0.Beta2</version>
-                </dependency>        
+                </dependency>
                 <dependency>
                    <groupId>org.glassfish.tyrus</groupId>
                    <artifactId>tyrus-client</artifactId>
                    <version>1.3</version>
                    <scope>test</scope>
-                </dependency>        
+                </dependency>
                 <dependency>
                    <groupId>org.glassfish</groupId>
                    <artifactId>javax.json</artifactId>
                    <version>1.0.4</version>
                    <scope>test</scope>
-                </dependency>            
+                </dependency>
                 <dependency>
                    <groupId>org.glassfish.tyrus</groupId>
                    <artifactId>tyrus-container-grizzly-client</artifactId>
@@ -1357,10 +1410,15 @@
                 </plugins>
             </build>
         </profile>
-        
-        
+
+
         <profile>
             <id>liberty-ci-managed</id>
+
+            <properties>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
 
             <dependencies>
                 <dependency>
@@ -1437,27 +1495,30 @@
                 </plugins>
             </build>
         </profile>
-        
-        
-        
+
+
+
         <!-- ###  WEBLOGIC  ### -->
-        
+
         <profile>
             <id>weblogic-remote</id>
-        
+
             <properties>
-                <!-- Default username/password that instructions in README.md ask to use 
-                    when starting up WebLogic for the first time. Note that WebLogic does not 
+                <!-- Default username/password that instructions in README.md ask to use
+                    when starting up WebLogic for the first time. Note that WebLogic does not
                     have any default username/password of its own. -->
                 <weblogicRemoteArquillian_adminUserName>admin</weblogicRemoteArquillian_adminUserName>
                 <weblogicRemoteArquillian_adminPassword>admin007</weblogicRemoteArquillian_adminPassword>
-        
+
                 <!-- Default host and port when running WLS locally -->
                 <weblogicRemoteArquillian_adminUrl>t3://localhost:7001</weblogicRemoteArquillian_adminUrl>
-        
-                <!-- Default target after having installed developer zip distribution for 
+
+                <!-- Default target after having installed developer zip distribution for
                     WebLogic -->
                 <weblogicRemoteArquillian_target>myserver</weblogicRemoteArquillian_target>
+
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
 
             <dependencies>
@@ -1494,14 +1555,16 @@
 
         <profile>
             <id>tomcat-remote</id>
-    
-            <properties> 
+
+            <properties>
                 <skipEJB>true</skipEJB>
                 <skipCDI>true</skipCDI>
                 <skipJSF>true</skipJSF>
                 <skipJACC>true</skipJACC>
-            </properties> 
-    
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
@@ -1510,7 +1573,7 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-            
+
             <build>
                 <plugins>
                     <plugin>
@@ -1529,37 +1592,39 @@
         <profile>
             <id>tomcat-ci-managed</id>
 
-            <properties> 
+            <properties>
                 <skipEJB>true</skipEJB>
                 <skipCDI>true</skipCDI>
                 <skipJSF>true</skipJSF>
                 <skipJACC>true</skipJACC>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
-            
+
             <repositories>
                 <!-- Released versions of Tomcat -->
                 <repository>
-                    <id>apache.public</id> 
-                    <url>https://repository.apache.org/content/repositories/public/</url> 
-                    <releases> 
-                        <enabled>true</enabled> 
-                    </releases> 
-                    <snapshots> 
-                        <enabled>false</enabled> 
-                    </snapshots> 
+                    <id>apache.public</id>
+                    <url>https://repository.apache.org/content/repositories/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
                 </repository>
-                
+
                 <!-- About to be released version of Tomcat -->
                 <repository>
-                    <id>apache.staging</id> 
-                    <url>https://repository.apache.org/content/repositories/staging/</url> 
-                    <releases> 
-                        <enabled>true</enabled> 
-                    </releases> 
-                    <snapshots> 
-                        <enabled>false</enabled> 
-                    </snapshots> 
-                </repository> 
+                    <id>apache.staging</id>
+                    <url>https://repository.apache.org/content/repositories/staging/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
             </repositories>
 
             <dependencies>
@@ -1637,10 +1702,10 @@
 
 
 
-        <!-- 
-            Activate this profile to download javadoc and sources jars. run: 
-            mvn process-resources -Ddownload Notice: This feature has been removed with 
-            plugin version 2.5, so keep this plugin configuration in a profile section. 
+        <!--
+            Activate this profile to download javadoc and sources jars. run:
+            mvn process-resources -Ddownload Notice: This feature has been removed with
+            plugin version 2.5, so keep this plugin configuration in a profile section.
         -->
         <profile>
             <id>javadocs</id>
@@ -1690,4 +1755,3 @@
     </reporting>
 
 </project>
-

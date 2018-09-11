@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hello" default="server" basedir=".">
+
+	<taskdef name="wscompile" classname="com.sun.xml.rpc.tools.ant.Wscompile"/>
+
+	<target name="server">
+		<wscompile 
+			verbose = "true"
+			define = "true"
+			mapping = "target/mapping.xml"
+			keep = "true"
+			base = "target" 
+			nonClassDir = "target"
+			config = "./src/main/resources/HelloService.xml">
+		</wscompile>
+	</target>
+	
+</project>

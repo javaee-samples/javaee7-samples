@@ -1,10 +1,12 @@
 package org.javaee7.jpa.defaultdatasource;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -15,13 +17,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "EMPLOYEE_SCHEMA_DEFAULT_DATASOURCE")
-@NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-})
+@NamedQueries(
+    @NamedQuery(
+        name = "Employee.findAll",
+        query = "SELECT e FROM Employee e") )
 public class Employee implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private int id;
 
     @Column(length = 40)

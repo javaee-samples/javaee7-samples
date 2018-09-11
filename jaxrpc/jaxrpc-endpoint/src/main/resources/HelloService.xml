@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://java.sun.com/xml/ns/jax-rpc/ri/config">
+    <service packageName="org.javaee7.jaxrpc.endpoint" name="MyHelloService" 
+        targetNamespace="urn:sample" typeNamespace="urn:sample">
+        <interface name="org.javaee7.jaxrpc.endpoint.HelloService" />
+    </service>
+</configuration>

@@ -1,0 +1,14 @@
+<!-- 
+    This configuration file is used by wscompile and the client target.
+    See build.xml in the root of this module.
+    
+    It is used for generating the client stubs based on the given .wsdl into the "stub" package. Note 
+    that these stubs are augmented with the security instructions in the client-security.xml file.
+    
+    These stubs will generate the full SOAP request that is being sent to the server.
+     
+    Copyright Payara Services Limited
+ -->
+<configuration xmlns="http://java.sun.com/xml/ns/jax-rpc/ri/config">
+    <wsdl location="./src/main/webapp/WEB-INF/wsdl/MyHelloService.wsdl" packageName="stub"/>
+</configuration>

@@ -59,7 +59,7 @@ public class FormTest {
     public void tearDown() {
         WebClient webClient = loginForm.getPage().getWebClient();
         webClient.getCookieManager().clearCookies();
-        webClient.closeAllWindows();
+        webClient.close();
     }
 
     @Test

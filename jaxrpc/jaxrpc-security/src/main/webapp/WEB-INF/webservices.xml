@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    This file links the .wsdl, mapping.xml and webservice implementation class (via a Servlet name defined in web.xml)
+    all together.
+
+    Copyright Payara Services Limited
+-->
+<webservices xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="1.1" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://www.ibm.com/webservices/xsd/j2ee_web_services_1_1.xsd">
+    <webservice-description>
+        
+        <webservice-description-name>MyHelloService</webservice-description-name>
+        
+        <wsdl-file>WEB-INF/wsdl/MyHelloService.wsdl</wsdl-file>
+        <jaxrpc-mapping-file>WEB-INF/mapping.xml</jaxrpc-mapping-file>
+        
+        <port-component>
+             <port-component-name>HelloService</port-component-name>
+             <wsdl-port xmlns:my="urn:sample">my:HelloServicePort</wsdl-port>
+             <service-endpoint-interface>org.javaee7.jaxrpc.security.HelloService</service-endpoint-interface>
+             <service-impl-bean>
+                <servlet-link>HelloServiceServlet</servlet-link>
+             </service-impl-bean>
+         </port-component> 
+        
+    </webservice-description>
+</webservices>

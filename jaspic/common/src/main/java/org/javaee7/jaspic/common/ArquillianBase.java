@@ -119,7 +119,7 @@ public class ArquillianBase {
     @After
     public void tearDown() {
         webClient.getCookieManager().clearCookies();
-        webClient.closeAllWindows();
+        webClient.close();
     }
     
     

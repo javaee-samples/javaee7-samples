@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    This configuration file is used by wscompile and the server target.
+    See build.xml in the root of this module.
+    
+    It is used for generating the .wsdl file that describes the interface in excruciating detail, and the mapping.xml
+    file which, baggars belief, contains even more detail about the interface.
+     
+    Copyright Payara Services Limited
+ -->
+<configuration xmlns="http://java.sun.com/xml/ns/jax-rpc/ri/config">
+    <service packageName="org.javaee7.jaxrpc.security" name="MyHelloService" targetNamespace="urn:sample" typeNamespace="urn:sample">
+        <interface name="org.javaee7.jaxrpc.security.HelloService" />
+    </service>
+</configuration>
