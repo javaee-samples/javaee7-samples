@@ -116,7 +116,6 @@
      -->
     <modules>
         <module>test-utils</module>
-        <module>util</module>
         <module>batch</module>
         <module>cdi</module>
         <module>concurrency</module>
