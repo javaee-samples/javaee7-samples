@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+	This ant build file will be called by the Maven main build file, which will set the classpath
+	needed to executed the tasks correctly.
+	
+	Copyright Payara Services Limited
+
+-->
+<project name="hello" default="client" basedir=".">
+
+	<taskdef name="wscompile" classname="com.sun.xml.rpc.tools.ant.Wscompile"/>
+
+	<target name="server">
+		<echo>wscompile server</echo>
+		<wscompile 
+			verbose = "true"
+			define = "true"
+			mapping = "target/mapping.xml"
+			keep = "true"
+			base = "target" 
+			nonClassDir = "target"
+			config = "./src/main/resources/wscompile-server-config.xml">
+		</wscompile>
+	</target>
+
+	<target name="client">
+		<echo>wscompile client</echo>
+		<wscompile 
+			client = "true"
+			verbose = "true"
+			keep = "true"
+			base = "target" 
+			security = "./src/test/resources/client-security.xml"
+			config = "./src/test/resources/wscompile-client-config.xml">
+		</wscompile>
+	</target>
+
+</project>

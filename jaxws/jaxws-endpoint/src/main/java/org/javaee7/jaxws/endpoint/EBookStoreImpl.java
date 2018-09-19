@@ -7,11 +7,12 @@ import java.util.List;
 import javax.jws.WebService;
 
 /**
- * 
+ *
  * @author Fermin Gallego
  *
  */
-@WebService(endpointInterface = "org.javaee7.jaxws.endpoint.EBookStore",
+@WebService(
+    endpointInterface = "org.javaee7.jaxws.endpoint.EBookStore",
     serviceName = "EBookStoreImplService")
 public class EBookStoreImpl implements EBookStore {
 
@@ -41,7 +42,6 @@ public class EBookStoreImpl implements EBookStore {
     @Override
     public void saveBook(EBook eBook) {
         eBookCollection.put(eBook.getTitle(), eBook);
-
     }
 
     @Override

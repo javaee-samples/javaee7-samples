@@ -17,6 +17,7 @@
         <module>beanvalidation</module>
         <module>beanparam</module>
         <module>client-negotiation</module>
+        <module>db-access</module>
         <module>dynamicfilter</module>
         <module>fileupload</module>
         <module>filter</module>
@@ -35,10 +36,11 @@
         <module>request-binding</module>
         <module>resource-validation</module>
         <module>server-negotiation</module>
+        <module>simple-get</module>
         <module>singleton</module>
         <module>readerwriter-injection</module>
         <module>jaxrs-security-declarative</module>
-        <module>db-access</module>
+        
     </modules>
 
     <build>

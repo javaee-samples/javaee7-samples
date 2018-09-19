@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    This configuration file is used by wscompile and the client target.
+    See build.xml in the root of this module.
+    
+    It is used for by the security plug-in of the wscompile tool (com.sun.xml.rpc.plugins.SecurityPlugin) to augment
+    the generated stubs with hooks that on their turn translate the security instructions in this file into the security
+    header in the SOAP request.
+     
+    Copyright Payara Services Limited
+ -->
+<xwss:JAXRPCSecurity xmlns:xwss="http://java.sun.com/xml/ns/xwss/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/xwss/config https://cdn.rawgit.com/arjantijms/xsd/b7afd231/xwssconfig.xsd">
+
+    <xwss:Service>
+        <xwss:SecurityConfiguration dumpMessages="true">
+
+            <!-- 
+                Specifies that the header should contain username / password credentials.
+                
+                NOTE: This *MUST* be put in this XML file before the xwss:Encrypt tag, as the
+                XWS processor of this file will process the file sequentially and will otherwise
+                not find the xwss:UsernameToken element.
+            
+             -->
+            <xwss:UsernameToken digestPassword="false" useNonce="true" />
+
+            <!-- Adds a timestamp to the header and an expiration time  -->
+            <xwss:Timestamp />
+
+            <!-- 
+                Specifies that the UsernameToken element in the header should be encrypted using a X.509
+                certificate. 
+             -->
+            <xwss:Encrypt>
+                <!-- Specifies a token is being used. Note that the s1as alias name will be ignored in our impl. -->
+                <xwss:X509Token certificateAlias="s1as" />
+                
+                <xwss:KeyEncryptionMethod algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5" />
+                
+                <!-- Specifies that "UsernameToken" is the target for the encryption -->
+                <xwss:Target type="qname">{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken</xwss:Target>
+            </xwss:Encrypt>
+        </xwss:SecurityConfiguration>
+    </xwss:Service>
+
+    <!-- 
+        Specifies the callback handler. The processor code (called by the generated stubs) will call this handler
+        with callbacks to obtain the actual username, password and the X.509 certificate used for encryption.
+     -->
+    <xwss:SecurityEnvironmentHandler>
+        org.javaee7.jaxrpc.security.ClientTestCallbackHandler
+    </xwss:SecurityEnvironmentHandler>
+
+</xwss:JAXRPCSecurity> 

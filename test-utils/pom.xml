@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <properties>
-	<arquillian.version>1.1.14.Final</arquillian.version>
+        <arquillian.version>1.1.14.Final</arquillian.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
-    
+
     <groupId>org.javaee7</groupId>
     <artifactId>test-utils</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -30,6 +30,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
@@ -43,5 +49,5 @@
             <artifactId>shrinkwrap-resolver-api-maven</artifactId>
         </dependency>
     </dependencies>
-    
+
 </project>

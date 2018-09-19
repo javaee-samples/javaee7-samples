@@ -1,6 +1,6 @@
 # Java EE 7 Samples: Servlet 3.1#
 
-The [JSR 340](https://jcp.org/en/jsr/detail?id=340) specifies the next version of Java Servlets - Java Servlets 3.1. 
+The [JSR 340](https://jcp.org/en/jsr/detail?id=340) specifies the previous version of Java Servlets - Java Servlets 3.1. 
 
 ## Samples ##
 
@@ -17,6 +17,8 @@ The [JSR 340](https://jcp.org/en/jsr/detail?id=340) specifies the next version o
  - web-fragment
  - security-basicauth
  - security-form-based
+ - security-digest
+ - security-clientcert
  - security-programmatic
  - security-deny-uncovered
  - security-basicauth-omission
