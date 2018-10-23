@@ -4,6 +4,7 @@ package org.javaee7.servlet.security.clientcert;
 import static java.math.BigInteger.ONE;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.util.logging.Level.FINEST;
 import static org.javaee7.ServerOperations.addCertificateToContainerTrustStore;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertTrue;
@@ -38,6 +39,9 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.impl.Jdk14Logger;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
@@ -82,7 +86,13 @@ public class SecureServletTest {
         Security.addProvider(provider);
 
         // Enable to get detailed logging about the SSL handshake
-        // System.setProperty("javax.net.debug", "ssl:handshake");
+        
+        // For an explanation of the TLS handshake see: https://tls.ulfheim.net
+        
+        if (System.getProperty("ssl.debug") != null) {
+            enableSSLDebug();
+        }
+        
 
         System.out.println("################################################################");
 
@@ -91,12 +101,14 @@ public class SecureServletTest {
         // Generate a Private/Public key pair for the client
         KeyPair clientKeyPair = generateRandomKeys();
 
-        // Create a certificate containing the public key and signed with the private key
+        // Create a certificate containing the client public key and signed with the private key
         X509Certificate clientCertificate = createSelfSignedCertificate(clientKeyPair);
 
-        // Create a new local key store containing the private key and the certificate
+        // Create a new local key store containing the client private key and the certificate
         createKeyStore(clientKeyPair.getPrivate(), clientCertificate);
 
+        // Add the client certificate that we just generated to the trust store of the server.
+        // That way the server will trust our certificate.
         addCertificateToContainerTrustStore(clientCertificate);
 
         return create(WebArchive.class)
@@ -125,7 +137,7 @@ public class SecureServletTest {
 
 
         webClient = new WebClient();
-
+        
         // Server -> client : the trust store certificates are used to validate the certificate sent
         // by the server
 
@@ -141,6 +153,7 @@ public class SecureServletTest {
         // and sent a reply to the server
         webClient.getOptions().setSSLClientCertificate(new File(keyStorePath).toURI().toURL(), "changeit", "jks");
 
+        
     }
 
     @After
@@ -198,7 +211,7 @@ public class SecureServletTest {
             SSLSocketFactory factory = context.getSocketFactory();
 
             try (SSLSocket socket = (SSLSocket) factory.createSocket(host, port)) {
-                socket.setSoTimeout(15000);
+                socket.setSoTimeout(0);
                 socket.startHandshake();
                 socket.close();
             }
@@ -291,6 +304,19 @@ public class SecureServletTest {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    
+    private static void enableSSLDebug() {
+        System.setProperty("javax.net.debug", "ssl:handshake");
+        
+        System.getProperties().put("org.apache.commons.logging.simplelog.defaultlog", "debug");
+        Logger.getLogger("com.gargoylesoftware.htmlunit.httpclient.HtmlUnitSSLConnectionSocketFactory").setLevel(FINEST);
+        Logger.getLogger("org.apache.http.conn.ssl.SSLConnectionSocketFactory").setLevel(FINEST);
+        Log logger = LogFactory.getLog(org.apache.http.conn.ssl.SSLConnectionSocketFactory.class);
+        ((Jdk14Logger) logger).getLogger().setLevel(FINEST);
+        logger = LogFactory.getLog(com.gargoylesoftware.htmlunit.httpclient.HtmlUnitSSLConnectionSocketFactory.class);
+        ((Jdk14Logger) logger).getLogger().setLevel(FINEST);
+        Logger.getGlobal().getParent().getHandlers()[0].setLevel(FINEST);
     }
 
 }
