@@ -49,7 +49,9 @@
          -->
         <payara.version>4.1.2.181</payara.version>
         <payara.version.major>4</payara.version.major>
-        <payara.micro.version>5.181-SNAPSHOT</payara.micro.version>
+        <payara_domain>payaradomain</payara_domain>
+        <payara.micro.version>5.182</payara.micro.version>
+        <glassfish.client.version>5.0</glassfish.client.version> <!-- For remote EJB for Payara and Glassfish -->
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
         <wildfly.version>13.0.0.Final</wildfly.version>
