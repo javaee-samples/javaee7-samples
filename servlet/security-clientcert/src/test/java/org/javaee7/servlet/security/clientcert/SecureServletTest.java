@@ -211,7 +211,7 @@ public class SecureServletTest {
             SSLSocketFactory factory = context.getSocketFactory();
 
             try (SSLSocket socket = (SSLSocket) factory.createSocket(host, port)) {
-                socket.setSoTimeout(0);
+                socket.setSoTimeout(15000);
                 socket.startHandshake();
                 socket.close();
             }
