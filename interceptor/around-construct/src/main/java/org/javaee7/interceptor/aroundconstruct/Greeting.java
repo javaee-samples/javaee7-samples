@@ -7,6 +7,8 @@ public interface Greeting {
     boolean isConstructed();
 
     boolean isInitialized();
+    
+    boolean isCreated();
 
     Param getParam();
 }
