@@ -548,16 +548,17 @@
                 </dependency>
             </dependencies>
             <build>
-                 <plugins>
+                <plugins>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <javaEEServer>payara-remote</javaEEServer>
+                                <payara_domain>${payara_domain}</payara_domain>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
-                   </plugins>
+                </plugins>
                 <testResources>
                     <testResource>
                         <directory>src/test/resources</directory>
