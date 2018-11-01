@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.KeyPair;
@@ -31,6 +32,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.net.ssl.SSLContext;
@@ -131,6 +133,41 @@ public class SecureServletTest {
             System.out.println("Created " + baseHttps);
             X509Certificate[] serverCertificateChain = getCertificateChainFromServer(baseHttps.getHost(), baseHttps.getPort());
             createTrustStore(serverCertificateChain);
+            
+            if (System.getProperty("use.cnHost") != null) {
+                if (serverCertificateChain != null && serverCertificateChain.length > 0) {
+                    X509Certificate firstCert = serverCertificateChain[0];
+                    String name = firstCert.getIssuerX500Principal().getName();
+                    System.out.println("Full certificate issuer name " + name);
+                    String[] names = name.split(",");
+                    // cn should be first
+                    if (names != null && names.length > 0) {
+                        String cnNameString = names[0];
+                        String cn = cnNameString.substring(cnNameString.indexOf('=') + 1).trim();
+                        System.out.println("Issuer CN name " + cn);
+                        
+                        try {
+                            URL httpsUrl = new URL(
+                                baseHttps.getProtocol(),
+                                cn,
+                                baseHttps.getPort(),
+                                baseHttps.getFile()
+                            );
+                            
+                            System.out.println("Changing to " + httpsUrl + " from " + baseHttps);
+                            
+                            baseHttps = httpsUrl;
+                            
+                        } catch (MalformedURLException e) {
+                            System.out.println("Failure creating HTTPS URL");
+                            e.printStackTrace();
+                        }
+                        
+                    }
+                    
+                }
+            }
+            
         } else {
             System.out.println("No https URL could be created from " + base);
         }
