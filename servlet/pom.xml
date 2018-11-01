@@ -32,12 +32,13 @@
         <module>security-basicauth</module>
         <module>security-digest</module>
         <module>security-form-based</module>
-        <module>security-clientcert</module>
+	<!-- Temp Disabled due to not working with Jenkins -->
+	<!--<module>security-clientcert</module>-->
         
         
         <module>security-programmatic</module>
         <module>security-deny-uncovered</module>
-		<module>security-annotated</module>
+        <module>security-annotated</module>
         <module>security-basicauth-omission</module>
     </modules>
 
