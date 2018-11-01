@@ -449,6 +449,7 @@
                                 <javaEEServer>payara-remote</javaEEServer>
                                 <arquillian.launch>payara${payara.version.major}</arquillian.launch>
                                 <payara_domain>${payara_domain}</payara_domain>
+                                <use.cnHost>${use.cnHost}</use.cnHost>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -535,6 +536,7 @@
                             <systemProperties>
                                 <skipEAR>${skipEAR}</skipEAR>
                                 <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.micro.version}.jar</payara.microJar>
+                                <use.cnHost>${use.cnHost}</use.cnHost>
                             </systemProperties>
                         </configuration>
                     </plugin>
@@ -604,6 +606,7 @@
                             <systemPropertyVariables>
                                 <javaEEServer>payara-remote</javaEEServer>
                                 <payara_domain>${payara_domain}</payara_domain>
+                                <use.cnHost>${use.cnHost}</use.cnHost>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
