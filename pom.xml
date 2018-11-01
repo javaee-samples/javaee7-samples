@@ -48,8 +48,6 @@
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
-        <payara.version.major>4</payara.version.major>
-        <payara_domain>payaradomain</payara_domain>
         <payara.micro.version>5.182</payara.micro.version>
         <glassfish.client.version>5.0</glassfish.client.version> <!-- For remote EJB for Payara and Glassfish -->
         <glassfish.version>4.1.1</glassfish.version>
@@ -369,36 +367,26 @@
         <profile>
             <id>payara4</id>
             <activation>
-                <property>
-                    <!-- this will only activateby default or on system property ( mvn clean test .... -Dpayara.version= ), not the pom property above -->
-                    <name>payara.version.major</name>
-                    <value>4</value>
-                </property>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <payara.directory.name>payara41</payara.directory.name>
+                <payara.version.major>4</payara.version.major>
                 <payara_domain>payaradomain</payara_domain>
             </properties>
         </profile>
 
         <profile>
             <id>payara5</id>
-            <activation>
-                <property>
-                    <!-- this will only activate on system property ( mvn clean test .... -Dpayara.version= ), not the pom property above -->
-                    <name>payara.version.major</name>
-                    <value>5</value>
-                </property>
-            </activation>
             <properties>
                 <payara.directory.name>payara5</payara.directory.name>
+                <payara.version.major>5</payara.version.major>
                 <payara_domain>production</payara_domain>
             </properties>
         </profile>
 
         <profile>
-            <id>payara-ci-managed</id>
+            <id>payara-server-managed</id>
 
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -555,7 +543,7 @@
         </profile>
 
         <profile>
-            <id>payara-embedded</id>
+            <id>payara-server-embedded</id>
 
              <properties>
                 <!-- Client-cert needs complicated cert setup, which hasn't been done -->

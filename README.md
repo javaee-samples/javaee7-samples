@@ -17,18 +17,18 @@ Only one container profile can be active at a given time otherwise there will be
 There are 16 available container profiles, for 6 different servers:
 
 * Payara and GlassFish
-  * ``payara-ci-managed``
+  * ``payara-server-managed``
     
       This profile will install a Payara server and start up the server per sample.
       Useful for CI servers. The Payara version that's used can be set via the ``payara.version`` property.
       This is the default profile and does not have to be specified explicitly.
 
-  * ``payara-embedded``
+  * ``payara-server-embedded``
     
       This profile uses the Payara embedded server and runs in the same JVM as the TestClass.
       Useful for development, but has the downside of server startup per sample.
 
-  * ``payara-remote``
+  * ``payara-server-remote``
     
       This profile requires you to start up a Payara server outside of the build. Each sample will then
       reuse this instance to run the tests.
