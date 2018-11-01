@@ -32,8 +32,7 @@
         <module>security-basicauth</module>
         <module>security-digest</module>
         <module>security-form-based</module>
-	<!-- Temp Disabled due to not working with Jenkins -->
-	<!--<module>security-clientcert</module>-->
+	<module>security-clientcert</module>
         
         
         <module>security-programmatic</module>
