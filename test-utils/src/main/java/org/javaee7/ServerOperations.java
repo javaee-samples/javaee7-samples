@@ -167,6 +167,29 @@ public class ServerOperations {
         return null;
     }
     
+    public static void addContainerSystemProperty(String key, String value) {
+        String javaEEServer = System.getProperty("javaEEServer");
+        
+        if ("glassfish-remote".equals(javaEEServer) || "payara-remote".equals(javaEEServer)) {
+            
+            System.out.println("Adding system property");
+            
+            List<String> cmd = new ArrayList<>();
+            
+            cmd.add("create-jvm-options");
+            cmd.add("-D" + key + "=" + value);
+            
+            CliCommands.payaraGlassFish(cmd);
+            
+        } else {
+            if (javaEEServer == null) {
+                System.out.println("javaEEServer not specified");
+            } else {
+                System.out.println(javaEEServer + " not supported");
+            }
+        }
+    }
+    
     public static void restartContainer() {
         // Arquillian connectors can stop/start already, but not on demand by code
         

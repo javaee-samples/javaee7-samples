@@ -6,6 +6,7 @@ import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.logging.Level.FINEST;
 import static org.javaee7.ServerOperations.addCertificateToContainerTrustStore;
+import static org.javaee7.ServerOperations.addContainerSystemProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertTrue;
 
@@ -88,7 +89,7 @@ public class SecureServletTest {
         Provider provider = new BouncyCastleProvider();
         Security.addProvider(provider);
 
-        // Enable to get detailed logging about the SSL handshake
+        // Enable to get detailed logging about the SSL handshake on the client
         
         // For an explanation of the TLS handshake see: https://tls.ulfheim.net
         
@@ -109,6 +110,13 @@ public class SecureServletTest {
 
         // Create a new local key store containing the client private key and the certificate
         createKeyStore(clientKeyPair.getPrivate(), clientCertificate);
+        
+        // Enable to get detailed logging about the SSL handshake on the server
+        
+        if (System.getProperty("ssl.debug") != null) {
+            System.out.println("Setting server SSL debug on");
+            addContainerSystemProperty("javax.net.debug", "ssl:handshake");
+        }
 
         // Add the client certificate that we just generated to the trust store of the server.
         // That way the server will trust our certificate.
