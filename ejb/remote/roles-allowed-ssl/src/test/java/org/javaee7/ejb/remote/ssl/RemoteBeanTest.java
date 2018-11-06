@@ -2,6 +2,7 @@
 package org.javaee7.ejb.remote.ssl;
 
 import static org.javaee7.ServerOperations.addUsersToContainerIdentityStore;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
@@ -18,7 +19,9 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,14 +43,36 @@ public class RemoteBeanTest {
     private RemoteEJBContextProvider remoteEJBContextProvider;
 
     @Deployment
-    public static Archive<?> deployment() {
-
+    public static Archive<EnterpriseArchive> deployment() {
+        try {
         // Add user u1 with password p1 and group g1 to the container's native identity store
         addUsersToContainerIdentityStore();
+        
+        Archive<EnterpriseArchive> archive =
+                // EAR module
+                create(EnterpriseArchive.class, "my.ear")
+                    .setApplicationXML("META-INF/application.xml")
 
-        return ShrinkWrap.create(JavaArchive.class)
-                .addClasses(Bean.class, BeanRemote.class)
-                .addAsManifestResource(INSTANCE, "beans.xml");
+                    // EJB module
+                    .addAsModule(
+                        create(JavaArchive.class, "myEJB.jar")
+                            .addClasses(Bean.class, BeanRemote.class)
+                            .addAsResource("META-INF/glassfish-ejb-jar.xml")
+                            .addAsManifestResource(INSTANCE, "beans.xml")
+                    )
+
+                    // Web module
+                    .addAsModule(
+                        create(WebArchive.class, "test.war")
+                    );
+        
+            System.out.println(archive.toString(true));
+        
+            return archive;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Before

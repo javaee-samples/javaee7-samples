@@ -8,7 +8,7 @@
     </parent>
     
     <artifactId>ejb-remote-roles-allowed-ssl</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     
     <name>Java EE 7 Sample: ejb - remote - Roles Allowed</name>
 
