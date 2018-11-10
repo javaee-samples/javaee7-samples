@@ -46,7 +46,7 @@ import javax.batch.api.AbstractBatchlet;
 import javax.inject.Named;
 
 /**
- * @author Arun Gupta
+ * @author habi
  */
 @Named
 public class MyBatchlet extends AbstractBatchlet {
