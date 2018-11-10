@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
  * @author Arjan Tijms
  *
  */
+ /**
+ * 
+ * @author Habi
+ *
+ */
 @Stateless
 public class JaccRequestBean {
 
