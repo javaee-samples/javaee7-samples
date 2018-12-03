@@ -1,5 +1,5 @@
 /** Copyright Payara Services Limited **/
-package org.javaee7.servlet.security.clientcert;
+package org.javaee7.servlet.security.clientcert.jce;
 
 import static java.math.BigInteger.ONE;
 import static java.time.Instant.now;
@@ -42,7 +42,9 @@ import org.javaee7.ServerOperations;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -109,7 +111,14 @@ public class SecureServletTest {
         addCertificateToContainerTrustStore(clientCertificate);
 
         return create(WebArchive.class)
+                .addAsLibraries(Maven.resolver()
+                        .loadPomFromFile("pom.xml")
+                        .resolve("org.bouncycastle:bcprov-jdk15on", "org.bouncycastle:bcpkix-jdk15on")
+                        .withTransitivity()
+                        .as(JavaArchive.class))
+                .addClass(BouncyServlet.class)
                 .addClasses(SecureServlet.class)
+                .addClasses(MyJCECertificateFactory.class, MyJCEX509Certificate.class)
                 .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")))
                 .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "glassfish-web.xml")));
     }
@@ -179,11 +188,20 @@ public class SecureServletTest {
         System.out.println("\n*********** TEST START ***************************\n");
         
         try {
+            
+            // First do a request to install Bouncy Castle as provider
+            // This is a normal HTTP request and doesn't use certificate authentication
+            TextPage pageb = webClient.getPage(base + "BouncyServlet");
+
+            log.info("Bouncy Castle provider inserted at position: " + pageb.getContent());
+            
+            // With Bouncy Castle installed, do the request via HTTPS to the secured
+            // Servlet
             TextPage page = webClient.getPage(baseHttps + "SecureServlet");
 
             log.info(page.getContent());
-
-            assertTrue("my GET", page.getContent().contains("principal C=UK, ST=lak, L=zak, O=kaz, OU=bar, CN=lfoo"));
+            
+            assertTrue("my GET", page.getContent().contains("principal CN=u1"));
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
