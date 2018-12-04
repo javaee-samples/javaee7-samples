@@ -32,7 +32,9 @@
         <module>security-basicauth</module>
         <module>security-digest</module>
         <module>security-form-based</module>
-	<module>security-clientcert</module>
+        <module>security-clientcert</module>
+        <module>security-clientcert-jce</module>
+
         
         
         <module>security-programmatic</module>

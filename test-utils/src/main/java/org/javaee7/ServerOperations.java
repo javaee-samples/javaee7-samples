@@ -98,11 +98,12 @@ public class ServerOperations {
             Path cacertsPath = gfHomePath.resolve("glassfish/domains/" + domain + "/config/cacerts.jks");
             
             if (!cacertsPath.toFile().exists()) {
-                logger.severe("The trust store at " + cacertsPath.toAbsolutePath() + " does not exists");
+                logger.severe("The container trust store at " + cacertsPath.toAbsolutePath() + " does not exists");
+                logger.severe("Is the domain \"" + domain + "\" correct?");
                 return;
             }
             
-            logger.info("*** Adding certificate to: " + cacertsPath.toAbsolutePath());
+            logger.info("*** Adding certificate to container trust store: " + cacertsPath.toAbsolutePath());
         
             KeyStore keyStore = null;
             try (InputStream in = new FileInputStream(cacertsPath.toAbsolutePath().toFile())) {
@@ -145,8 +146,7 @@ public class ServerOperations {
                     url.getFile()
                 );
                 
-                System.out.println("Returning " + httpsUrl + " for " + url);
-                logger.info("Returning " + httpsUrl + " for " + url);
+                System.out.println("Changing base URL from " + url + " into " + httpsUrl);
                 
                 return httpsUrl;
                 
@@ -165,6 +165,29 @@ public class ServerOperations {
         }
         
         return null;
+    }
+    
+    public static void addContainerSystemProperty(String key, String value) {
+        String javaEEServer = System.getProperty("javaEEServer");
+        
+        if ("glassfish-remote".equals(javaEEServer) || "payara-remote".equals(javaEEServer)) {
+            
+            System.out.println("Adding system property");
+            
+            List<String> cmd = new ArrayList<>();
+            
+            cmd.add("create-jvm-options");
+            cmd.add("-D" + key + "=" + value);
+            
+            CliCommands.payaraGlassFish(cmd);
+            
+        } else {
+            if (javaEEServer == null) {
+                System.out.println("javaEEServer not specified");
+            } else {
+                System.out.println(javaEEServer + " not supported");
+            }
+        }
     }
     
     public static void restartContainer() {

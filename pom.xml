@@ -91,20 +91,6 @@
             </snapshots>
         </repository>
 
-        <repository>
-            <id>ossrh</id>
-            <name>Sonatype-snapshot</name>
-
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
     </repositories>
 
 
@@ -268,6 +254,12 @@
             <artifactId>awaitility</artifactId>
             <version>1.6.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.omnifaces</groupId>
+    		<artifactId>omniutils</artifactId>
+    		<version>0.10</version>
+    		<scope>test</scope>
         </dependency>
     </dependencies>
 
