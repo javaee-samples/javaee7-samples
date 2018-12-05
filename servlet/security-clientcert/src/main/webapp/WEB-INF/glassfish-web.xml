@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/** Copyright Payara Services Limited **/
+-->
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<glassfish-web-app>
+
+    <security-role-mapping>
+        <role-name>g1</role-name>
+        <group-name>g1</group-name>
+        <!-- GlassFish and Payara 5.183 and earlier -->
+        <principal-name>C=UK, ST=lak, L=zak, O=kaz, OU=bar, CN=lfoo</principal-name>
+        
+        <!-- Payara 5.184 and later -->
+        <principal-name>C=UK,ST=lak,L=zak,O=kaz,OU=bar,CN=lfoo</principal-name>
+    </security-role-mapping>
+
+</glassfish-web-app>

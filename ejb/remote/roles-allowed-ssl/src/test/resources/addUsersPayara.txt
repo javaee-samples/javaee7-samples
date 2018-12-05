@@ -1,0 +1,1 @@
+create-file-user --groups g1 --passwordfile ${project.build.directory}/test-classes/password.txt u1

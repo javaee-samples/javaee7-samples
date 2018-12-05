@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>jaxrpc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jaxrpc-security</artifactId>
+    <packaging>war</packaging>
+    <name>Java EE 7 Sample: jaxrpc - jaxrpc-security</name>
+
+    <dependencies>
+        
+        <!-- 
+            The full Metro stack contains the code from com.sun.xml.rpc:jaxrpc-impl:1.1.3 
+            and com.sun.xml.wss:xws-security:2.4.0 in an updated version (with the JDK 8 fixes).
+            Meaning it contains Wscompile and SecurityPlugin
+        -->
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        
+        <!--  
+            Include Ant and AntLauncher, so we can execute wscompile in a forked JVM, which on its turn allows
+            us to debug wscompile (a lot of debugging was needed to get this sample to eventually work)
+        -->
+        
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>1.10.3</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <finalName>jaxrpc-security</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- 
+                                    Generate the server artifacts first; the .wsdl and mapping.xml file. 
+                                -->
+                                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." taskname="Ant-JAX-RPC server">
+                                    <classpath refid="maven.compile.classpath" />
+                                    <arg value="-buildfile" />
+                                    <arg file="build.xml" />
+                                    <arg value="server" />
+                                    <!-- 
+                                    <jvmarg value="-Xdebug" />
+                                    <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" />
+                                     -->
+                                </java>
+                                
+                                <echo>Copying generated .wsdl and mapping.xml files</echo>
+
+                                <copy file="${project.build.directory}/MyHelloService.wsdl" todir="src/main/webapp/WEB-INF/wsdl" verbose="true" />
+                                <copy file="${project.build.directory}/mapping.xml" todir="src/main/webapp/WEB-INF" verbose="true" />
+
+                                <!-- 
+                                    Generate the client artifacts next. These depend on the .wsdl file generated in the
+                                    previous step
+                                -->
+                                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000"
+                                    taskname="Ant-JAX-RPC client">
+                                    <classpath refid="maven.compile.classpath" />
+                                    <arg value="-buildfile" />
+                                    <arg file="build.xml" />
+                                    <arg value="client" />
+                                    <jvmarg value="-Djavax.xml.accessExternalSchema=all" />
+                                    
+                                    <!--  
+                                    <jvmarg value="-Xdebug" />
+                                    <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" />
+                                    -->
+                                </java>
+
+                                <echo>Copying generated stub sources</echo>
+
+                                <copy todir="./src/test/java/stub" verbose="true" overwrite="true">
+                                    <fileset dir="target/stub/">
+                                        <include name="**/*.java" />
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            
+            <!-- ###  C O M P I L E  ### -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+
+                <configuration>
+                    <fork>true</fork>
+                    <compilerArgument>-XDignore.symbol.file</compilerArgument>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>compile-generated</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <configuration>
+                    <rules>
+                        <requireJavaVersion>
+                            <version>$1.8</version>
+                        </requireJavaVersion>
+                    </rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

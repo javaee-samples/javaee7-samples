@@ -6,12 +6,13 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 /**
- * 
+ *
  * @author Fermin Gallego
  *
  */
 @WebService
 public interface EBookStore {
+
     @WebMethod
     public String welcomeMessage(String name);
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    This web.xml file defines a "virtual" servlet class (the class is not really a Servlet), which is a JAX-RPC
+    specific requirement for Servlet containers to allow, so it can be mapped to a URL pattern.
+
+    Copyright Payara Services Limited
+-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+    
+    <servlet>
+        <servlet-name>HelloServiceServlet</servlet-name>
+        <servlet-class>org.javaee7.jaxrpc.security.HelloServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloServiceServlet</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+</web-app>
