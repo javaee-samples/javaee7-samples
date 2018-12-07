@@ -1670,8 +1670,6 @@
             </build>
         </profile>
 
-
-
         <!--
             Activate this profile to download javadoc and sources jars. run:
             mvn process-resources -Ddownload Notice: This feature has been removed with
