@@ -1,5 +1,6 @@
 package org.javaee7.batch.chunk.csv.database;
 
+import static java.util.Arrays.asList;
 import static javax.batch.runtime.BatchRuntime.getJobOperator;
 import static org.javaee7.util.BatchTestHelper.keepTestAlive;
 import static org.junit.Assert.assertEquals;
@@ -17,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.javaee7.CliCommands;
 import org.javaee7.util.BatchTestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -24,22 +26,26 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * The Batch specification provides a Chunk Oriented processing style. This style is defined by enclosing into a
- * transaction a set of reads, process and write operations via +javax.batch.api.chunk.ItemReader+,
- * +javax.batch.api.chunk.ItemProcessor+ and +javax.batch.api.chunk.ItemWriter+. Items are read one at a time, processed
- * and aggregated. The transaction is then committed when the defined +checkpoint-policy+ is triggered.
+ * The Batch specification provides a Chunk Oriented processing style. This
+ * style is defined by enclosing into a transaction a set of reads, process and
+ * write operations via +javax.batch.api.chunk.ItemReader+,
+ * +javax.batch.api.chunk.ItemProcessor+ and +javax.batch.api.chunk.ItemWriter+.
+ * Items are read one at a time, processed and aggregated. The transaction is
+ * then committed when the defined +checkpoint-policy+ is triggered.
  *
  * include::myJob.xml[]
  *
- * A very simple job is defined in the +myJob.xml+ file. Just a single step with a reader, a processor and a writer.
+ * A very simple job is defined in the +myJob.xml+ file. Just a single step with
+ * a reader, a processor and a writer.
  *
  * This job will read a file from the system in CSV format:
- * include::MyItemReader#open[]
- * include::MyItemReader#readItem[]
+ * include::MyItemReader#open[] include::MyItemReader#readItem[]
  *
  * Process the data by transforming it into a +Person+ object:
  * include::MyItemProcessor#processItem[]
@@ -51,7 +57,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class BatchCSVDatabaseTest {
-    
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -77,6 +83,7 @@ public class BatchCSVDatabaseTest {
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
             .addClass(BatchTestHelper.class)
+            .addClass(CliCommands.class)
             .addPackage("org.javaee7.batch.chunk.csv.database")
             .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
             .addAsResource("META-INF/batch-jobs/myJob.xml")
@@ -86,6 +93,16 @@ public class BatchCSVDatabaseTest {
             .addAsResource("META-INF/mydata.csv");
         System.out.println(war.toString(true));
         return war;
+    }
+
+    @Before
+    public void startDatabase() {
+        CliCommands.payaraGlassFish(asList("start-database", "--dbtype", "derby"));
+    }
+
+    @After
+    public void stopDatabase() {
+        CliCommands.payaraGlassFish(asList("stop-database", "--dbtype", "derby"));
     }
 
     /**
