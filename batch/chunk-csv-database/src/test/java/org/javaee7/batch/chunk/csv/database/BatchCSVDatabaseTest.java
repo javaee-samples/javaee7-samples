@@ -61,6 +61,8 @@ public class BatchCSVDatabaseTest {
     @PersistenceContext
     private EntityManager entityManager;
 
+    private boolean stopDatabaseAtEnd = false;
+
     /**
      * We're just going to deploy the application as a +web archive+. Note the inclusion of the following files:
      *
@@ -97,12 +99,16 @@ public class BatchCSVDatabaseTest {
 
     @Before
     public void startDatabase() {
-        CliCommands.payaraGlassFish(asList("start-database", "--dbtype", "derby"));
+        if (CliCommands.payaraGlassFish(asList("start-database", "--dbtype", "derby")) == 0) {
+            stopDatabaseAtEnd = true;
+        }
     }
 
     @After
     public void stopDatabase() {
-        CliCommands.payaraGlassFish(asList("stop-database", "--dbtype", "derby"));
+        if (stopDatabaseAtEnd) {
+            CliCommands.payaraGlassFish(asList("stop-database", "--dbtype", "derby"));
+        }
     }
 
     /**
