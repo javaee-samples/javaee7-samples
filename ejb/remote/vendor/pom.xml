@@ -9,11 +9,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    
-    <properties>
-    	<glassfish.client.version>5.0</glassfish.client.version>
-    </properties>
-    
     <name>Java EE 7 Sample: ejb - remote - vendor</name>
 
     <profiles>
