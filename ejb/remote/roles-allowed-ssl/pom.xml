@@ -6,15 +6,15 @@
         <artifactId>ejb-remote</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>ejb-remote-roles-allowed-ssl</artifactId>
     <packaging>jar</packaging>
-    
+
     <name>Java EE 7 Sample: ejb - remote - Roles Allowed</name>
 
     <profiles>
         <profile>
-            <id>payara-ci-managed</id>
+            <id>payara-server-managed</id>
             <dependencies>
                 <dependency>
                     <groupId>org.javaee7.ejb.remote.vendor</groupId>
@@ -25,7 +25,7 @@
         </profile>
 
         <profile>
-            <id>payara-remote</id>
+            <id>payara-server-remote</id>
             <dependencies>
                 <dependency>
                     <groupId>org.javaee7.ejb.remote.vendor</groupId>
@@ -46,6 +46,6 @@
             </dependencies>
         </profile>
     </profiles>
-   
-    
+
+
 </project>
