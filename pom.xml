@@ -10,7 +10,7 @@
     <name>Java EE 7 Sample: javaee7-samples</name>
 
     <properties>
-    <arquillian.version>1.1.14.Final</arquillian.version>
+        <arquillian.version>1.1.14.Final</arquillian.version>
         <java.min.version>1.7</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -251,12 +251,14 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
+        
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
             </testResource>
         </testResources>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
