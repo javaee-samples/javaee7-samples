@@ -26,6 +26,7 @@ import java.security.Security;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import static java.util.logging.Level.INFO;
 import java.util.logging.Logger;
 
 import org.apache.commons.logging.Log;
@@ -51,8 +52,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.omnifaces.utils.security.Certificates;
 
+import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
 
 /**
  * @author Arjan Tijms
@@ -172,11 +175,20 @@ public class SecureServletTest {
         // and sent a reply to the server
         webClient.getOptions().setSSLClientCertificate(new File(clientKeyStorePath).toURI().toURL(), "changeit", "jks");
         
+        // First do a request to install Bouncy Castle as provider
+        // This is a normal HTTP request and doesn't use certificate authentication
+        TextPage pageb = webClient.getPage(base + "BouncyServlet");
+        log.log(INFO, "Bouncy Castle provider inserted at position: {0}", pageb.getContent());
+
         System.out.println("*********** SETUP DONE ***************************\n");
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
+        // Remove Bouncy Castle as provider
+        TextPage pageb = webClient.getPage(new WebRequest(new URL(base + "BouncyServlet"), HttpMethod.DELETE));
+        log.log(INFO, "Bouncy Castle provider removed: {0}", pageb.getContent());
+
         webClient.getCookieManager().clearCookies();
         webClient.close();
         System.out.println("\n*********** TEST END ***************************\n");
@@ -184,17 +196,11 @@ public class SecureServletTest {
 
     @Test
     public void testGetWithCorrectCredentials() throws Exception {
-        
-        System.out.println("\n*********** TEST START ***************************\n");
-        
-        try {
-            
-            // First do a request to install Bouncy Castle as provider
-            // This is a normal HTTP request and doesn't use certificate authentication
-            TextPage pageb = webClient.getPage(base + "BouncyServlet");
 
-            log.info("Bouncy Castle provider inserted at position: " + pageb.getContent());
-            
+        System.out.println("\n*********** TEST START ***************************\n");
+
+        try {
+
             // With Bouncy Castle installed, do the request via HTTPS to the secured
             // Servlet
             TextPage page = webClient.getPage(baseHttps + "SecureServlet");
