@@ -101,6 +101,9 @@ public class SecureServletTest {
         // Create a new local key store containing the client private key and the certificate
         clientKeyStorePath = createTempJKSKeyStore(clientKeyPair.getPrivate(), clientCertificate);
         
+        // Only test TLS v1.2 for now
+        System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
+        
         // Enable to get detailed logging about the SSL handshake on the server
         
         if (System.getProperty("ssl.debug") != null) {
