@@ -558,7 +558,20 @@
                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                        <artifactId>payara-client-ee7</artifactId>
+                    <artifactId>payara-client-ee7</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.glassfish.grizzly</groupId>
+                            <artifactId>grizzly-http-server</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                
+                <dependency>
+                    <groupId>fish.payara.extras</groupId>
+                    <artifactId>payara-embedded-all</artifactId>
+                    <version>${payara.version}</version>
+                    <scope>provided</scope>
                 </dependency>
 
                 <dependency>
