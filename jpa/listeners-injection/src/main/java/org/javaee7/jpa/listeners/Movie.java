@@ -41,6 +41,8 @@ public class Movie implements Serializable {
     @Transient
     private Integer rating;
 
+    private Language language;
+
     public Movie() {
     }
 
