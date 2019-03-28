@@ -35,4 +35,9 @@ public class BouncyServlet extends HttpServlet {
         response.getWriter().print("pos:" + pos);
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
+    }
+
 }
