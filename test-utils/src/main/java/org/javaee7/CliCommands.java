@@ -21,8 +21,12 @@ public class CliCommands {
     
     private static final Logger logger = Logger.getLogger(CliCommands.class.getName()); 
     private static final String OS = System.getProperty("os.name").toLowerCase();
-
+    
     public static int payaraGlassFish(List<String> cliCommands) {
+        return payaraGlassFish(cliCommands, null);
+    }
+
+    public static int payaraGlassFish(List<String> cliCommands, List<String> output) {
         
         String gfHome = System.getProperty("glassfishRemote_gfHome");
         if (gfHome == null) {
@@ -60,6 +64,7 @@ public class CliCommands {
             return 
                 waitToFinish(
                     readAllInput(
+                        output,
                         destroyAtShutDown(
                             processBuilder.start())));
         } catch (IOException e) {
@@ -86,11 +91,15 @@ public class CliCommands {
         return process;
     }
     
-    public static Process readAllInput(Process process) {
+    public static Process readAllInput(List<String> output, Process process) {
         // Read any output from the process
         try (Scanner scanner = new Scanner(process.getInputStream())) {
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                String nextLine = scanner.nextLine();
+                System.out.println(nextLine);
+                if (output != null) {
+                    output.add(nextLine);
+                }
             }
         }
         

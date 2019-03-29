@@ -9,6 +9,7 @@
     
     <artifactId>jaxrs</artifactId>
     <packaging>pom</packaging>
+    
     <name>Java EE 7 Sample: jaxrs</name>
 
     <modules>
@@ -59,6 +60,7 @@
             <groupId>org.javaee7</groupId>
             <artifactId>test-utils</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

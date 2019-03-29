@@ -102,6 +102,9 @@ public class SecureServletTest {
             System.out.println("Setting server SSL debug on");
             addContainerSystemProperty("javax.net.debug", "ssl:handshake");
         }
+        
+        // Only test TLS v1.2 for now
+        System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
 
         // Add the client certificate that we just generated to the trust store of the server.
         // That way the server will trust our certificate.
