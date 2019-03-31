@@ -1,2 +1,2 @@
-CREATE TABLE MOVIE_LISTENER("ID" INTEGER not null primary key, "NAME" VARCHAR(50) not null, "ACTORS" VARCHAR(200) not null)
+CREATE TABLE MOVIE_LISTENER("ID" INTEGER not null primary key, "NAME" VARCHAR(50) not null, "ACTORS" VARCHAR(200) not null, "LANGUAGE" VARCHAR(12))
 CREATE TABLE MOVIE_RATINGS("ID" INTEGER not null primary key, "NAME" VARCHAR(50) not null, "RATING" INTEGER not null)
