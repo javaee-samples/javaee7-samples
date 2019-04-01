@@ -57,34 +57,34 @@ public class CreateEndpoint {
     private static final Logger LOG = Logger.getLogger(CreateEndpoint.class.getName());
 
     @PersistenceContext
-    EntityManager em;
+    EntityManager entityManager;
 
     @POST
     @Transactional
     public void createProduct(@FormParam("price") Double price){
         Product newProduct = new Product(price);
-        em.persist(newProduct);
-        em.flush();
+        entityManager.persist(newProduct);
+        entityManager.flush();
         LOG.log(Level.INFO, "Persisted new product: {0}", newProduct);
 
         Money money = new Money(price + 15.5);
         newProduct.setGrossPrice(money);
         newProduct.setNetPrice(money);
         LOG.log(Level.INFO, "Updated product: {0}", newProduct);
-        em.flush();
+        entityManager.flush();
     }
 
     @Transactional
     public void createProductNotSharingEmbedded(Double price){
         Product newProduct = new Product(price);
-        em.persist(newProduct);
-        em.flush();
+        entityManager.persist(newProduct);
+        entityManager.flush();
         LOG.log(Level.INFO, "Persisted new product: {0}", newProduct);
 
         Money money = new Money(price + 15.5);
         newProduct.setGrossPrice(money);
         newProduct.setNetPrice(new Money(money));
         LOG.log(Level.INFO, "Updated product: {0}", newProduct);
-        em.flush();
+        entityManager.flush();
     }
 }
