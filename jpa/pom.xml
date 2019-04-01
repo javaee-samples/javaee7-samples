@@ -41,6 +41,7 @@
         <module>extended-pc</module>
         <module>jpa-converter</module>
         <module>default-datasource</module>
+        <module>mapping-embeddable</module>
     </modules>
 
     <build>
