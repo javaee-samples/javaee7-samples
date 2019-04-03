@@ -17,9 +17,9 @@
         <plugins>
             <plugin>
                 <!-- wsgen for wsdl file generation -->
-                <groupId>org.jvnet.jax-ws-commons</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>2.3</version>
+                <groupId>com.helger.maven</groupId>
+  				<artifactId>jaxws-maven-plugin</artifactId>
+  				<version>2.6</version>
                 <executions>
                     <execution>
                         <phase>process-classes</phase>

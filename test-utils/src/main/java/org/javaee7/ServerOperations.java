@@ -91,9 +91,12 @@ public class ServerOperations {
                 logger.severe("glassfishRemote_gfHome at " + gfHome + " is not a directory");
                 return;
             }
-            
-            // TODO: support current domain
+                        
             String domain = System.getProperty("payara_domain", "domain1");
+            if (domain != null) {
+                domain = getPayaraDomainFromServer();
+                logger.info("Using domain \"" + domain + "\" obtained from server. If this is not correct use -Dpayara_domain to override.");
+            }
             
             Path cacertsPath = gfHomePath.resolve("glassfish/domains/" + domain + "/config/cacerts.jks");
             
@@ -116,6 +119,8 @@ public class ServerOperations {
             } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
                 throw new IllegalStateException(e);
             }
+            
+            restartContainer(domain);
         } else {
             if (javaEEServer == null) {
                 System.out.println("javaEEServer not specified");
@@ -124,7 +129,6 @@ public class ServerOperations {
             }
         }
         
-        restartContainer();
     }
     
     public static URL toContainerHttps(URL url) {
@@ -167,6 +171,31 @@ public class ServerOperations {
         return null;
     }
     
+    private static String getPayaraDomainFromServer() {
+    	System.out.println("Getting Payara domaain from server");
+        
+    	List<String> output = new ArrayList<>();
+        List<String> cmd = new ArrayList<>();
+        
+        cmd.add("list-domains");
+        
+        CliCommands.payaraGlassFish(cmd, output);
+        
+        String domain = null;
+        for (String line : output) {
+            if (line.contains(" not running")) {
+                continue;
+            }
+            
+            if (line.endsWith(" running")) {
+                domain = line.substring(0, line.lastIndexOf(" running"));
+                break;
+            }
+        }
+        
+        return domain;
+    }
+    
     public static void addContainerSystemProperty(String key, String value) {
         String javaEEServer = System.getProperty("javaEEServer");
         
@@ -177,7 +206,7 @@ public class ServerOperations {
             List<String> cmd = new ArrayList<>();
             
             cmd.add("create-jvm-options");
-            cmd.add("-D" + key + "=" + value);
+            cmd.add("-D" + key + "=\"" + value + "\"");
             
             CliCommands.payaraGlassFish(cmd);
             
@@ -191,6 +220,10 @@ public class ServerOperations {
     }
     
     public static void restartContainer() {
+        restartContainer(null);
+    }
+    
+    public static void restartContainer(String domain) {
         // Arquillian connectors can stop/start already, but not on demand by code
         
         String javaEEServer = System.getProperty("javaEEServer");
@@ -203,7 +236,16 @@ public class ServerOperations {
             
             cmd.add("restart-domain");
             
-            cmd.add(System.getProperty("payara_domain", "domain1"));
+            String restartDomain = domain;
+            if (restartDomain == null) {
+                restartDomain = System.getProperty("payara_domain");
+            }
+            
+            if (restartDomain == null) {
+                restartDomain = getPayaraDomainFromServer();
+            }
+            
+            cmd.add(restartDomain);
             
             CliCommands.payaraGlassFish(cmd);
             
