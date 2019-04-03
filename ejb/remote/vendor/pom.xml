@@ -4,16 +4,20 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
     
-    <groupId>org.javaee7</groupId>
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>ejb-remote</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
     <artifactId>ejb-remote-vendor</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <properties>
-    	<glassfish.client.version>5.0</glassfish.client.version>
+        <glassfish.client.version>5.0</glassfish.client.version>
         <java.min.version>1.7</java.min.version>
     </properties>
-    
+
     <name>Java EE 7 Sample: ejb - remote - vendor</name>
     
     <build>
