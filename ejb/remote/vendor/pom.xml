@@ -13,7 +13,7 @@
 
     <artifactId>ejb-remote-vendor</artifactId>
     <packaging>pom</packaging>
-    
+
     <name>Java EE 7 Sample: ejb - remote - vendor</name>
 
     <profiles>

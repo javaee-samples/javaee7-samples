@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE glassfish-ejb-jar PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 EJB 3.1//EN" "http://glassfish.org/dtds/glassfish-ejb-jar_3_1-1.dtd">
 <glassfish-ejb-jar>
-	<enterprise-beans>
-		<ejb>
-			<ejb-name>Bean</ejb-name>
-			<ior-security-config>
-				<transport-config>
-					<integrity>REQUIRED</integrity>
-					<confidentiality>REQUIRED</confidentiality>
-					<establish-trust-in-target>SUPPORTED</establish-trust-in-target>
-					<establish-trust-in-client>SUPPORTED</establish-trust-in-client>
-				</transport-config>
-				<as-context>
-					<auth-method>USERNAME_PASSWORD</auth-method>
-					<realm>default</realm>
-					<required>true</required>
-				</as-context>
-				<sas-context>
-					<caller-propagation>REQUIRED</caller-propagation>
-				</sas-context>
-			</ior-security-config>
-		</ejb>
-	</enterprise-beans>
+    <enterprise-beans>
+        <ejb>
+            <ejb-name>Bean</ejb-name>
+            <ior-security-config>
+                <transport-config>
+                    <integrity>REQUIRED</integrity>
+                    <confidentiality>REQUIRED</confidentiality>
+                    <establish-trust-in-target>SUPPORTED</establish-trust-in-target>
+                    <establish-trust-in-client>SUPPORTED</establish-trust-in-client>
+                </transport-config>
+                <as-context>
+                    <auth-method>USERNAME_PASSWORD</auth-method>
+                    <realm>default</realm>
+                    <required>true</required>
+                </as-context>
+                <sas-context>
+                    <caller-propagation>REQUIRED</caller-propagation>
+                </sas-context>
+            </ior-security-config>
+        </ejb>
+    </enterprise-beans>
 </glassfish-ejb-jar>
