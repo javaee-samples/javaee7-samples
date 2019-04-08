@@ -48,7 +48,7 @@
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
-        <payara.micro.version>5.182</payara.micro.version>
+        <payara.micro.version>5.191</payara.micro.version>
         <glassfish.client.version>5.0</glassfish.client.version> <!-- For remote EJB for Payara and Glassfish -->
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
@@ -654,6 +654,116 @@
                         <filtering>true</filtering>
                     </testResource>
                 </testResources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>payara-micro-remote</id>
+
+            <properties>
+                <!-- default port -->
+                <payara.httpPort>8080</payara.httpPort>
+                <!-- JMS and JAXWS not supported by Micro -->
+                <skipJMS>true</skipJMS>
+                <skipJAXWS>true</skipJAXWS>
+
+                <!-- Being a WebProfile++, Micro does not support ear archives -->
+                <skipEAR>true</skipEAR>
+
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
+            <dependencies>
+
+                <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+                <!-- Not needed by the container, but some tests seem to expect JAXRS client implementation to
+                be on the classpath -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee7</artifactId>
+                </dependency>
+
+                <!-- The actual Arquillian connector -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-micro-remote</artifactId>
+                    <version>1.0.Beta4-SNAPSHOT</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javaEEServer>payara-remote</javaEEServer>
+                                <payara.httpPort>${payara.httpPort}</payara.httpPort>
+                                <use.cnHost>${use.cnHost}</use.cnHost>
+                                <skipEAR>${skipEAR}</skipEAR>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- Helper profile for launching the server. Before the tests run
+                    mvn -Ppayara-micro-remote-control -N
+                 Take note of the HTTP port from the output and use it for -Dpayara.httpPort
+
+                 Afterwards stop the server with mvn -Ppayara-micro-remote-control -N payara-micro:stop -->
+            <id>payara-micro-remote-control</id>
+
+
+            <build>
+                <defaultGoal>dependency:copy payara-micro:start</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>fish.payara.arquillian</groupId>
+                                    <artifactId>payara-micro-deployer</artifactId>
+                                    <version>1.0.Beta4-SNAPSHOT</version>
+                                    <type>war</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>fish.payara.maven.plugins</groupId>
+                        <artifactId>payara-micro-maven-plugin</artifactId>
+                        <version>1.0.5</version>
+                        <configuration>
+                            <payaraVersion>${payara.micro.version}</payaraVersion>
+                            <daemon>true</daemon>
+
+                            <commandLineOptions>
+                                <option>
+                                    <key>--autoBindHttp</key>
+                                </option>
+                                <option>
+                                    <key>--deploy</key>
+                                    <value>target/dependency/payara-micro-deployer.war</value>
+                                </option>
+                                <option>
+                                    <key>--contextRoot</key>
+                                    <value>micro-deployer</value>
+                                </option>
+                                <option>
+                                    <key>--logToFile</key>
+                                    <value>target/payara-micro.log</value>
+                                </option>
+                            </commandLineOptions>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
 
