@@ -19,11 +19,27 @@
         </auth-constraint>
     </security-constraint>
     
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SecureServletWithCommonName</web-resource-name>
+            <url-pattern>/SecureServletWithCommonName</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>g2</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
     <login-config>
         <auth-method>CLIENT-CERT</auth-method>
     </login-config>
     
     <security-role>
         <role-name>g1</role-name>
+    </security-role>
+    
+    <security-role>
+        <role-name>g2</role-name>
     </security-role>
 </web-app>
