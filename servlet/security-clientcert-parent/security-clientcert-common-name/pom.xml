@@ -5,14 +5,14 @@
 
     <parent>
         <groupId>org.javaee7</groupId>
-        <artifactId>servlet</artifactId>
+        <artifactId>security-clientcert-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>servlet-security-clientcert</artifactId>
+    <artifactId>servlet-security-clientcert-common-name</artifactId>
     <packaging>war</packaging>
 
-    <name>Java EE 7 Sample: servlet - security-clientcert</name>
+    <name>Java EE 7 Sample: servlet - security-clientcert-common-name</name>
 
     <dependencies>
         <dependency>
@@ -53,7 +53,7 @@
                             <excludes>
                                 <!-- Bug to do with npn with this JDK version (_192) causes this, awaiting external fix tracked 
                                 by QA-138 -->
-                                <exclude>org.javaee7.servlet.security.clientcert.SecureServletTest</exclude>
+                                <exclude>org.javaee7.servlet.security.clientcert.SecureServletWithCommonNameTest</exclude>
                             </excludes>
                         </configuration>
                     </plugin>

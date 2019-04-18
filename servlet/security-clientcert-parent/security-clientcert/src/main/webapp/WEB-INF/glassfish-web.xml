@@ -15,10 +15,4 @@
         <principal-name>C=UK,ST=lak,L=zak,O=kaz,OU=bar,CN=lfoo</principal-name>
     </security-role-mapping>
     
-    <security-role-mapping>
-        <role-name>g2</role-name>
-        <group-name>g2</group-name>
-        <principal-name>foo</principal-name>
-    </security-role-mapping>
-
 </glassfish-web-app>
