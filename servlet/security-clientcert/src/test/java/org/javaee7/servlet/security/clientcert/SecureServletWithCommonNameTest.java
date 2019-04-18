@@ -60,7 +60,7 @@ import static org.omnifaces.utils.security.Certificates.getCertificateChainFromS
  * in Payara server that allows deployed apps to grant role mapping through
  * use of Common Name value ONLY rather than a full certificate comparison
  *
- * @author Cuba
+ * @author Cuba Stanley
  */
 @RunWith(Arquillian.class)
 public class SecureServletWithCommonNameTest {
@@ -163,11 +163,11 @@ public class SecureServletWithCommonNameTest {
             
             webClient.getOptions().setSSLTrustStore(new File(trustStorePath).toURI().toURL(), "changeit", "jks");
             
-            // If the use.cnHost property is we try to extract the host from the server
+            // If the use.cnHost property is active, we try to extract the host from the server
             // certificate and use exactly that host for our requests.
             // This is needed if a server is listening to multiple host names, for instance
             // localhost and example.com. If the certificate is for example.com, we can't
-            // localhost for the request, as that will not be accepted.
+            // use localhost for the request, as that will not be accepted.
             if (System.getProperty("use.cnHost") != null) {
                 System.out.println("use.cnHost set. Trying to grab CN from certificate and use as host for requests.");
                 baseHttps = getHostFromCertificate(serverCertificateChain, baseHttps);
@@ -197,7 +197,7 @@ public class SecureServletWithCommonNameTest {
         webClient.getCookieManager().clearCookies();
         webClient.close();
         
-        restartContainer("domain1");
+        restartContainer();
         
         System.out.println("\n*********** TEST END ***************************\n");
     }
@@ -221,8 +221,6 @@ public class SecureServletWithCommonNameTest {
 
 
     // Private methods
-
-    // TODO: may move these to utility class
 
     private static X509Certificate createSelfSignedCertificate(KeyPair keys) {
         try {

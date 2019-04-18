@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/** Copyright Payara Services Limited **/
 package org.javaee7.servlet.security.clientcert;
 
 import java.io.IOException;
@@ -14,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author cuba
+ * @author Cuba Stanley
  */
 @WebServlet(urlPatterns = { "/SecureServletWithCommonName" })
 public class SecureServletWithCommonName extends HttpServlet {

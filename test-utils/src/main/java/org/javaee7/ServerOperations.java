@@ -220,7 +220,7 @@ public class ServerOperations {
     }
     
     public static void restartContainer() {
-        restartContainer(null);
+        restartContainer(getPayaraDomainFromServer());
     }
     
     public static void restartContainer(String domain) {
