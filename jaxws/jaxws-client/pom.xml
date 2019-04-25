@@ -17,9 +17,8 @@
         <plugins>
             <plugin>
                 <!-- wsimport for web service classes generation -->
-                <groupId>org.codehaus.mojo</groupId>
+                <groupId>com.helger.maven</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
-                <version>1.11</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
@@ -29,7 +28,7 @@
                         <configuration>
                             <packageName>org.javaee7.jaxws.client.gen</packageName>
                             <wsdlFiles>
-                                <wsdlFile>../../../jaxws-endpoint/src/main/webapp/WEB-INF/wsdl/EBookStoreImplService.wsdl</wsdlFile>
+                                <wsdlFile>${basedir}/src/main/webapp/WEB-INF/wsdl/EBookStoreImplService.wsdl</wsdlFile>
                             </wsdlFiles>
                             <wsdlLocation>http://localhost:8080/jaxws-endpoint/EBookStoreImplService?wsdl</wsdlLocation>
                             <verbose>true</verbose>

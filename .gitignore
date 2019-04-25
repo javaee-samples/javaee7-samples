@@ -5,7 +5,7 @@ target/
 libs/
 tmp/
 node_modules/
-jaxws/jaxws-client/src/main/
+jaxws/jaxws-client/src/main/java
 jaxws/jaxws-endpoint/src/main/webapp/WEB-INF/wsdl/
  
 # OS Files #
