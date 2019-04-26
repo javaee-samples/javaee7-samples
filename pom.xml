@@ -38,7 +38,7 @@
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
         <wildfly.version>13.0.0.Final</wildfly.version>
-        <wildfly.swarm.version>2.0.0.Final</wildfly.swarm.version>
+        <wildfly.swarm.version>2.4.0.Final</wildfly.swarm.version>
         <tomee.version>7.0.2</tomee.version>
         <tomcat.version>9.0.4</tomcat.version>
     </properties>
