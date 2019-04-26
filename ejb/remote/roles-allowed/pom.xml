@@ -45,6 +45,20 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        <profile>
+            <id>payara-micro-remote</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
    
     
