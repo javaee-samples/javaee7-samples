@@ -670,7 +670,7 @@
                 <!-- Being a WebProfile++, Micro does not support ear archives -->
                 <skipEAR>true</skipEAR>
 
-                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <!-- Client-cert needs complicated cert setup, for which no remote management exists at this time -->
                 <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
 
@@ -710,7 +710,8 @@
         </profile>
 
         <profile>
-            <!-- Helper profile for launching the server. Before the tests run
+            <!-- Optional helper profile for launching the remote server if you're not launching it
+                 by other means. Before the tests, run
                     mvn -Ppayara-micro-remote-control -N
                  Take note of the HTTP port from the output and use it for -Dpayara.httpPort
 
@@ -741,7 +742,7 @@
                         <artifactId>payara-micro-maven-plugin</artifactId>
                         <version>1.0.5</version>
                         <configuration>
-                            <payaraVersion>${payara.micro.version}</payaraVersion>
+                            <payaraVersion>${payara.version}</payaraVersion>
                             <daemon>true</daemon>
 
                             <commandLineOptions>
