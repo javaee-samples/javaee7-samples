@@ -34,7 +34,6 @@
          -->
         <payara.version>4.1.2.181</payara.version>
         <payara_domain>payaradomain</payara_domain>
-        <payara.micro.version>5.182</payara.micro.version>
         <glassfish.client.version>5.0</glassfish.client.version> <!-- For remote EJB for Payara and Glassfish -->
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
@@ -482,10 +481,10 @@
                                         <artifactItem>
                                             <groupId>fish.payara.extras</groupId>
                                             <artifactId>payara-micro</artifactId>
-                                            <version>${payara.micro.version}</version>
+                                            <version>${payara.version}</version>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>${session.executionRootDirectory}/target/</outputDirectory>
-                                            <destFileName>payara-micro-${payara.micro.version}.jar</destFileName>
+                                            <destFileName>payara-micro-${payara.version}.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
@@ -498,7 +497,7 @@
                         <configuration>
                             <systemProperties>
                                 <skipEAR>${skipEAR}</skipEAR>
-                                <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.micro.version}.jar</payara.microJar>
+                                <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</payara.microJar>
                             </systemProperties>
                         </configuration>
                     </plugin>
