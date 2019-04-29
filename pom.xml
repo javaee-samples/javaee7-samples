@@ -23,6 +23,7 @@
         <skipCDI>${skipTests}</skipCDI>
         <skipConcurrency>${skipTests}</skipConcurrency>
         <skipEJB>${skipTests}</skipEJB>
+        <skipRemoteEJB>${skipEJB}</skipRemoteEJB>
         <skipEL>${skipTests}</skipEL>
         <skipInterceptor>${skipTests}</skipInterceptor>
         <skipJavaMail>${skipTests}</skipJavaMail>
@@ -488,6 +489,9 @@
                 <!-- Being a WebProfile++, Micro does not support ear archives -->
                 <skipEAR>true</skipEAR>
 
+                <!-- Micro doesn't have IIOP support either -->
+                <skipRemoteEJB>true</skipRemoteEJB>
+
                 <!-- Client-cert needs complicated cert setup, which hasn't been done -->
                 <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
@@ -669,6 +673,9 @@
 
                 <!-- Being a WebProfile++, Micro does not support ear archives -->
                 <skipEAR>true</skipEAR>
+
+                <!-- Micro doesn't have IIOP support either -->
+                <skipRemoteEJB>true</skipRemoteEJB>
 
                 <!-- Client-cert needs complicated cert setup, for which no remote management exists at this time -->
                 <skipServletClientCertificate>true</skipServletClientCertificate>
