@@ -1,6 +1,8 @@
 package org.javaee7.jaxws.endpoint;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,8 +11,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.javaee7.jaxws.endpoint.EBook;
-import org.javaee7.jaxws.endpoint.EBookStore;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -20,35 +20,30 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 
 /**
  * @author Fermin Gallego
  */
 @RunWith(Arquillian.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@FixMethodOrder(NAME_ASCENDING)
 public class EBookStoreTest {
+    
+    @ArquillianResource
+    private URL url;
 
     private static Service eBookStoreService;
 
-    /**
-     * Arquillian specific method for creating a file which can be deployed
-     * while executing the test.
-     *
-     * @return a war file
-     */
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).
             addPackage("org.javaee7.jaxws.endpoint");
     }
 
-    @ArquillianResource
-    private URL url;
-
     @Before
     public void setupClass() throws MalformedURLException {
         eBookStoreService = Service.create(
+            // The WSDL file used to create this service is fetched from the application we deployed
+            // above using the createDeployment() method.
             new URL(url, "EBookStoreImplService?wsdl"),
             new QName("http://endpoint.jaxws.javaee7.org/", "EBookStoreImplService"));
     }
@@ -63,6 +58,7 @@ public class EBookStoreTest {
     @Test
     public void test2SaveAndTakeBook() throws MalformedURLException {
         EBookStore eBookStore = eBookStoreService.getPort(EBookStore.class);
+        
         EBook eBook = new EBook();
         eBook.setTitle("The Lord of the Rings");
         eBook.setNumPages(1178);

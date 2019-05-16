@@ -3,6 +3,7 @@ package org.javaee7.jaxws.endpoint;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.jws.WebService;
 
@@ -16,7 +17,7 @@ import javax.jws.WebService;
     serviceName = "EBookStoreImplService")
 public class EBookStoreImpl implements EBookStore {
 
-    private HashMap<String, EBook> eBookCollection = new HashMap<String, EBook>();
+    private Map<String, EBook> eBookCollection = new HashMap<>();
 
     @Override
     public String welcomeMessage(String name) {

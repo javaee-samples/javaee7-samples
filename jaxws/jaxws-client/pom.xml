@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.javaee7</groupId>
         <artifactId>jaxws</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
+    
     <artifactId>jaxws-jaxws-client</artifactId>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jaxws - jaxws-client</name>
@@ -23,14 +22,33 @@
                     <execution>
                         <phase>generate-sources</phase>
                         <goals>
+                            <!-- 
+                                Generates JAX-WS portable artifacts used in JAX-WS clients and services. 
+                                This goal reads WSDL files and generates the required artifacts for web service development, 
+                                deployment, and invocation. 
+                            -->
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
                             <packageName>org.javaee7.jaxws.client.gen</packageName>
+                            
+                            <!-- 
+                                Could technically do the following without needing the .wsdl file in this project, but must
+                                have the jaxws-endpoint class running then during the build.
+                             -->
+                            <!-- 
+                                <wsdlUrls>
+                                    <wsdlUrl>http://localhost:8080/jaxws-endpoint/EBookStoreImplService?wsdl</wsdlUrl>
+                                </wsdlUrls>
+                            -->
+                            
+                            <!-- For convenience, use a pre-copied wsdl file instead of requesting it from the server -->
                             <wsdlFiles>
                                 <wsdlFile>${basedir}/src/main/webapp/WEB-INF/wsdl/EBookStoreImplService.wsdl</wsdlFile>
                             </wsdlFiles>
+                            <!-- Set the location in the generated Java files as-if we had fetched the wsdl file from the server -->
                             <wsdlLocation>http://localhost:8080/jaxws-endpoint/EBookStoreImplService?wsdl</wsdlLocation>
+                            
                             <verbose>true</verbose>
                             <sourceDestDir>${basedir}/src/main/java</sourceDestDir>
                             <target>2.1</target>
