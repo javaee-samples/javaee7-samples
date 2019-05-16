@@ -39,7 +39,7 @@ public class EBookStoreTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).
-            addPackage("org.javaee7.jaxws.endpoint");
+            addPackage("org.javaee7.jaxws.endpoint.ejb");
     }
 
     @Before
@@ -50,7 +50,7 @@ public class EBookStoreTest {
             // The WSDL file used to create this service is fetched from the application we deployed
             // above using the createDeployment() method.
             new URL(rootUrl, "EBookStoreImplService/EBookStoreImpl?wsdl"),
-            new QName("http://endpoint.jaxws.javaee7.org/", "EBookStoreImplService"));
+            new QName("http://ejb.endpoint.jaxws.javaee7.org/", "EBookStoreImplService"));
     }
 
     @Test

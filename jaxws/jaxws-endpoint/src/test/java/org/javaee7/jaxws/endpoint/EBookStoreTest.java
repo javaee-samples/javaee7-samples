@@ -85,15 +85,15 @@ public class EBookStoreTest {
         assertEquals("The Lord of the Rings", titleList.get(0));
     }
 
-    @Test
-    public void test4AddAppendix() {
-        EBookStore eBookStore = eBookStoreService.getPort(EBookStore.class);
-        EBook eBook = eBookStore.takeBook("Oliver Twist");
-
-        assertEquals(268, eBook.getNumPages());
-        EBook eBookResponse = eBookStore.addAppendix(eBook, 5);
-
-        assertEquals(268, eBook.getNumPages());
-        assertEquals(273, eBookResponse.getNumPages());
-    }
+//    @Test
+//    public void test4AddAppendix() {
+//        EBookStore eBookStore = eBookStoreService.getPort(EBookStore.class);
+//        EBook eBook = eBookStore.takeBook("Oliver Twist");
+//
+//        assertEquals(268, eBook.getNumPages());
+//        EBook eBookResponse = eBookStore.addAppendix(eBook, 5);
+//
+//        assertEquals(268, eBook.getNumPages());
+//        assertEquals(273, eBookResponse.getNumPages());
+//    }
 }

@@ -11,7 +11,7 @@ import javax.jws.WebService;
  *
  */
 @Stateless
-@WebService(endpointInterface = "org.javaee7.jaxws.endpoint.EBookStore")
+@WebService(endpointInterface = "org.javaee7.jaxws.endpoint.ejb.EBookStore")
 public class EBookStoreImpl implements EBookStore {
 
     @Override
