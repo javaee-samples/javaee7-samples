@@ -570,10 +570,7 @@
                             <systemProperties>
                                 <skipEAR>${skipEAR}</skipEAR>
                                 <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</payara.microJar>
-<<<<<<< HEAD
                                 <use.cnHost>${use.cnHost}</use.cnHost>
-=======
->>>>>>> 526118a5e2e0fcb6f5243cef51aeb4b711a5f01b
                             </systemProperties>
                         </configuration>
                     </plugin>
