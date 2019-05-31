@@ -49,6 +49,10 @@
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
+<<<<<<< HEAD
+=======
+        <payara_domain>payaradomain</payara_domain>
+>>>>>>> 526118a5e2e0fcb6f5243cef51aeb4b711a5f01b
         <glassfish.client.version>5.0</glassfish.client.version> <!-- For remote EJB for Payara and Glassfish -->
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
@@ -167,12 +171,12 @@
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
-                <version>1.59</version>
+                <version>1.61</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
-                <version>1.59</version>
+                <version>1.61</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -260,7 +264,7 @@
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.34.0</version>
+            <version>2.35.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -569,7 +573,10 @@
                             <systemProperties>
                                 <skipEAR>${skipEAR}</skipEAR>
                                 <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</payara.microJar>
+<<<<<<< HEAD
                                 <use.cnHost>${use.cnHost}</use.cnHost>
+=======
+>>>>>>> 526118a5e2e0fcb6f5243cef51aeb4b711a5f01b
                             </systemProperties>
                         </configuration>
                     </plugin>

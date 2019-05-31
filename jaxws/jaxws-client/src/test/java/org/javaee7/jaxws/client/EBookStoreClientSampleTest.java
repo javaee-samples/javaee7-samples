@@ -1,6 +1,7 @@
 package org.javaee7.jaxws.client;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,35 +13,29 @@ import javax.xml.namespace.QName;
 import org.javaee7.jaxws.client.gen.EBook;
 import org.javaee7.jaxws.client.gen.EBookStore;
 import org.javaee7.jaxws.client.gen.EBookStoreImplService;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 
 /**
  * @author Fermin Gallego
  */
 @RunWith(Arquillian.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@FixMethodOrder(NAME_ASCENDING)
 public class EBookStoreClientSampleTest {
+    
+    @ArquillianResource
+    private URL url;
+    
     private static EBookStoreImplService eBookStoreService;
 
-    /**
-     * Method for creating and deploying the war file from 'jaxws-endpoint' project,
-     * which contains the web service to be tested.
-     *
-     * @return a war file
-     */
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(MavenImporter.class)
@@ -48,9 +43,6 @@ public class EBookStoreClientSampleTest {
             .importBuildOutput()
             .as(WebArchive.class);
     }
-
-    @ArquillianResource
-    private URL url;
 
     @Before
     public void setUp() throws Exception {

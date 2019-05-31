@@ -186,7 +186,13 @@ public class SecureServletTest {
 
             log.info(page.getContent());
 
-            assertTrue("my GET", page.getContent().contains("principal C=UK, ST=lak, L=zak, O=kaz, OU=bar, CN=lfoo"));
+            assertTrue("my GET", 
+                    // RFC 1779
+                    page.getContent().contains("principal C=UK, ST=lak, L=zak, O=kaz, OU=bar, CN=lfoo") ||
+                    
+                    // RFC 2253
+                    page.getContent().contains("principal C=UK,ST=lak,L=zak,O=kaz,OU=bar,CN=lfoo")
+                );
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

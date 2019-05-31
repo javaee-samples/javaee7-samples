@@ -66,6 +66,10 @@ public class SecureServletTest {
     private static Logger log = Logger.getLogger(SecureServletTest.class.getName());
 
     private static final String WEBAPP_SRC = "src/main/webapp";
+    
+//    static {
+//        Security.insertProviderAt(new BouncyCastleProvider(), 1);
+//    }
 
     @ArquillianResource
     private URL base;
@@ -76,6 +80,31 @@ public class SecureServletTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() throws FileNotFoundException, IOException {
+        
+        // Note for JDK 11+, the server needs to be run with a sufficiently new version of JDK 11 or 12.
+        // Older versions throw this exception:
+        
+        //  java.lang.UnsupportedOperationException: Not supported yet.
+        //        at java.base/sun.security.ssl.HandshakeHash$CloneableHash.archived(HandshakeHash.java:616)
+        //        at java.base/sun.security.ssl.HandshakeHash$T12HandshakeHash.archived(HandshakeHash.java:546)
+        //        at java.base/sun.security.ssl.HandshakeHash.archived(HandshakeHash.java:188)
+        //        at java.base/sun.security.ssl.CertificateVerify$T12CertificateVerifyMessage.<init>(CertificateVerify.java:650)
+        //        at java.base/sun.security.ssl.CertificateVerify$T12CertificateVerifyConsumer.consume(CertificateVerify.java:771)
+        //        at java.base/sun.security.ssl.SSLHandshake.consume(SSLHandshake.java:392)
+        //        at java.base/sun.security.ssl.HandshakeContext.dispatch(HandshakeContext.java:448)
+        //        at java.base/sun.security.ssl.SSLEngineImpl$DelegatedTask$DelegatedAction.run(SSLEngineImpl.java:1065)
+        //        at java.base/sun.security.ssl.SSLEngineImpl$DelegatedTask$DelegatedAction.run(SSLEngineImpl.java:1052)
+        //        at java.base/java.security.AccessController.doPrivileged(Native Method)
+        //        at java.base/sun.security.ssl.SSLEngineImpl$DelegatedTask.run(SSLEngineImpl.java:999)
+
+        // See https://bugs.openjdk.java.net/browse/JDK-8214098
+        
+        // Works:
+        // OpenJDK Runtime Environment Zulu11.31+11-CA (build 11.0.3+7-LTS) 
+        
+        // Doesn't work:
+        // openjdk version "11.0.3" 2019-04-16
+        // OpenJDK Runtime Environment (build 11.0.3+7-Ubuntu-1ubuntu1)
 
         System.out.println("\n*********** DEPLOYMENT START ***************************");
         
@@ -134,6 +163,12 @@ public class SecureServletTest {
         
         System.out.println("\n*********** SETUP START ***************************");
         
+        String algorithms = Security.getProperty("jdk.tls.disabledAlgorithms");
+        
+        // PSS can't be used with JDK11 and 12, will likely be fixed in JDK13
+        // See https://bugs.openjdk.java.net/browse/JDK-8216039
+        Security.setProperty("jdk.tls.disabledAlgorithms",  algorithms + " ,RSASSA-PSS");
+        
         webClient = new WebClient();
 
         // First get the HTTPS URL for which the server is listening
@@ -177,6 +212,8 @@ public class SecureServletTest {
         // Client -> Server : the key store's private keys and certificates are used to sign
         // and sent a reply to the server
         webClient.getOptions().setSSLClientCertificate(new File(clientKeyStorePath).toURI().toURL(), "changeit", "jks");
+        webClient.getOptions().setTimeout(0);
+        
         
         // First do a request to install Bouncy Castle as provider
         // This is a normal HTTP request and doesn't use certificate authentication
@@ -193,6 +230,31 @@ public class SecureServletTest {
         log.log(INFO, "Bouncy Castle provider removed: {0}", pageb.getContent());
 
         webClient.getCookieManager().clearCookies();
+        
+        // Internally throws:
+        //
+        //        TransportContext.java:313|Fatal (INTERNAL_ERROR): closing inbound before receiving peer's close_notify (
+        //        "throwable" : {
+        //          javax.net.ssl.SSLException: closing inbound before receiving peer's close_notify
+        //            at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:133)
+        //            at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:117)
+        //            at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:308)
+        //            at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:264)
+        //            at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:255)
+        //            at java.base/sun.security.ssl.SSLSocketImpl.shutdownInput(SSLSocketImpl.java:645)
+        //            at java.base/sun.security.ssl.SSLSocketImpl.shutdownInput(SSLSocketImpl.java:624)
+        //            at org.apache.http.impl.BHttpConnectionBase.close(BHttpConnectionBase.java:325)
+        //            at org.apache.http.impl.conn.LoggingManagedHttpClientConnection.close(LoggingManagedHttpClientConnection.java:81)
+        //            at org.apache.http.impl.conn.CPoolEntry.closeConnection(CPoolEntry.java:70)
+        //            at org.apache.http.impl.conn.CPoolEntry.close(CPoolEntry.java:96)
+        //            at org.apache.http.pool.AbstractConnPool.shutdown(AbstractConnPool.java:148)
+        //            at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.shutdown(PoolingHttpClientConnectionManager.java:411)
+        //            at com.gargoylesoftware.htmlunit.HttpWebConnection.close(HttpWebConnection.java:1011)
+        //
+        // Visible when -Dssl.debug is used
+        //
+        // Should be fixed in JDK11.03, but isn't? 
+        // See https://stackoverflow.com/questions/52016415/jdk-11-ssl-error-on-valid-certificate-working-in-previous-versions
         webClient.close();
         System.out.println("\n*********** TEST END ***************************\n");
     }
@@ -201,6 +263,8 @@ public class SecureServletTest {
     public void testGetWithCorrectCredentials() throws Exception {
 
         System.out.println("\n*********** TEST START ***************************\n");
+        
+        Security.insertProviderAt(new BouncyCastleProvider(), 1);
 
         try {
 

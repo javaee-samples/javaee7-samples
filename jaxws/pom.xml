@@ -7,13 +7,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     
-    <groupId>org.javaee7</groupId>
     <artifactId>jaxws</artifactId>
     <packaging>pom</packaging>
     <name>Java EE 7 Sample: jaxws</name>
 
     <modules>
         <module>jaxws-endpoint</module>
+        <module>jaxws-endpoint-ejb</module>
         <module>jaxws-client</module>
     </modules>
     
