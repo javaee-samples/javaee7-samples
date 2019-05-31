@@ -1,5 +1,5 @@
 /** Copyright Payara Services Limited **/
-package org.javaee7;
+package org.javaee7.payara;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -8,6 +8,8 @@ import javax.security.auth.Subject;
 
 import com.sun.enterprise.security.auth.login.common.PasswordCredential;
 import com.sun.enterprise.security.common.ClientSecurityContext;
+
+import org.javaee7.RemoteEJBContextProvider;
 
 /**
  * This class returns a JNDI context suitable for remote lookups against the default URL

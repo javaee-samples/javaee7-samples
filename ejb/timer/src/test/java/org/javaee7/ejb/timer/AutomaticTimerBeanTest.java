@@ -7,6 +7,8 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.javaee7.ejb.timer.WithinWindowMatcher.withinWindow;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -35,7 +37,8 @@ public class AutomaticTimerBeanTest {
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
                         .resolve("com.jayway.awaitility:awaitility")
                         .withTransitivity().asFile())
-                .addClasses(WithinWindowMatcher.class, Ping.class, PingsListener.class, AutomaticTimerBean.class);
+                .addClasses(WithinWindowMatcher.class, Ping.class, PingsListener.class, AutomaticTimerBean.class)
+                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/jboss-deployment-structure.xml"));
     }
 
     @Test
