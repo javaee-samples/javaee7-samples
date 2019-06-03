@@ -1,38 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.javaee7</groupId>
         <artifactId>jaxws</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
+    
     <artifactId>jaxws-jaxws-endpoint</artifactId>
     <packaging>war</packaging>
     <name>Java EE 7 Sample: jaxws - jaxws-endpoint</name>
 
     <build>
         <finalName>jaxws-endpoint</finalName>
-        <plugins>
-            <plugin>
-                <!-- wsgen for wsdl file generation -->
-                <groupId>com.helger.maven</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>wsgen</goal>
-                        </goals>
-                        <configuration>
-                            <sei>org.javaee7.jaxws.endpoint.EBookStoreImpl</sei>
-                            <genWsdl>true</genWsdl>
-                            <resourceDestDir>${basedir}/src/main/webapp/WEB-INF/wsdl</resourceDestDir>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
 </project>

@@ -110,7 +110,7 @@ public class ServerOperations {
         
             KeyStore keyStore = null;
             try (InputStream in = new FileInputStream(cacertsPath.toAbsolutePath().toFile())) {
-                keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+                keyStore = KeyStore.getInstance("JKS");
                 keyStore.load(in, "changeit".toCharArray());
                 
                 keyStore.setCertificateEntry("arquillianClientTestCert", clientCertificate);
@@ -172,7 +172,7 @@ public class ServerOperations {
     }
     
     private static String getPayaraDomainFromServer() {
-    	System.out.println("Getting Payara domaain from server");
+    	System.out.println("Getting Payara domain from server");
         
     	List<String> output = new ArrayList<>();
         List<String> cmd = new ArrayList<>();
@@ -187,10 +187,14 @@ public class ServerOperations {
                 continue;
             }
             
-            if (line.endsWith(" running")) {
+            if (line.contains(" running")) {
                 domain = line.substring(0, line.lastIndexOf(" running"));
                 break;
             }
+        }
+        
+        if (domain == null) {
+            throw new IllegalStateException("Running domain could not be obtained for target Payara. Please specify explicitly using -Dpayara_domain");
         }
         
         return domain;
