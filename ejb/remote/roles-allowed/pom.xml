@@ -12,6 +12,17 @@
 
     <name>Java EE 7 Sample: ejb - remote - Roles Allowed</name>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skipRemoteEJB}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>payara-server-managed</id>
@@ -45,6 +56,7 @@
                 </dependency>
             </dependencies>
         </profile>
+
     </profiles>
 
 

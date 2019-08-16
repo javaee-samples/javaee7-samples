@@ -23,6 +23,7 @@
         <skipCDI>${skipTests}</skipCDI>
         <skipConcurrency>${skipTests}</skipConcurrency>
         <skipEJB>${skipTests}</skipEJB>
+        <skipRemoteEJB>${skipEJB}</skipRemoteEJB>
         <skipEL>${skipTests}</skipEL>
         <skipInterceptor>${skipTests}</skipInterceptor>
         <skipJavaMail>${skipTests}</skipJavaMail>
@@ -48,12 +49,12 @@
             (these are downloaded and installed in these versions by Maven for the CI profiles)
          -->
         <payara.version>4.1.2.181</payara.version>
-        <payara.micro.version>5.182</payara.micro.version>
+        <payara_domain>payaradomain</payara_domain>
         <glassfish.client.version>5.0</glassfish.client.version> <!-- For remote EJB for Payara and Glassfish -->
         <glassfish.version>4.1.1</glassfish.version>
         <liberty.version>16.0.0.4</liberty.version>
         <wildfly.version>13.0.0.Final</wildfly.version>
-        <wildfly.swarm.version>2.0.0.Final</wildfly.swarm.version>
+        <wildfly.swarm.version>2.4.0.Final</wildfly.swarm.version>
         <tomee.version>7.0.2</tomee.version>
         <tomcat.version>9.0.4</tomcat.version>
     </properties>
@@ -164,6 +165,16 @@
                 <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>1.61</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>1.61</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -250,7 +261,7 @@
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.34.0</version>
+            <version>2.35.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -488,6 +499,9 @@
                 <!-- Being a WebProfile++, Micro does not support ear archives -->
                 <skipEAR>true</skipEAR>
 
+                <!-- Micro doesn't have IIOP support either -->
+                <skipRemoteEJB>true</skipRemoteEJB>
+
                 <!-- Client-cert needs complicated cert setup, which hasn't been done -->
                 <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
@@ -539,10 +553,10 @@
                                         <artifactItem>
                                             <groupId>fish.payara.extras</groupId>
                                             <artifactId>payara-micro</artifactId>
-                                            <version>${payara.micro.version}</version>
+                                            <version>${payara.version}</version>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>${session.executionRootDirectory}/target/</outputDirectory>
-                                            <destFileName>payara-micro-${payara.micro.version}.jar</destFileName>
+                                            <destFileName>payara-micro-${payara.version}.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
@@ -555,7 +569,7 @@
                         <configuration>
                             <systemProperties>
                                 <skipEAR>${skipEAR}</skipEAR>
-                                <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.micro.version}.jar</payara.microJar>
+                                <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</payara.microJar>
                                 <use.cnHost>${use.cnHost}</use.cnHost>
                             </systemProperties>
                         </configuration>
@@ -654,6 +668,120 @@
                         <filtering>true</filtering>
                     </testResource>
                 </testResources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>payara-micro-remote</id>
+
+            <properties>
+                <!-- default port -->
+                <payara.httpPort>8080</payara.httpPort>
+                <!-- JMS and JAXWS not supported by Micro -->
+                <skipJMS>true</skipJMS>
+                <skipJAXWS>true</skipJAXWS>
+
+                <!-- Being a WebProfile++, Micro does not support ear archives -->
+                <skipEAR>true</skipEAR>
+
+                <!-- Micro doesn't have IIOP support either -->
+                <skipRemoteEJB>true</skipRemoteEJB>
+
+                <!-- Client-cert needs complicated cert setup, for which no remote management exists at this time -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
+            <dependencies>
+
+                <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+                <!-- Not needed by the container, but some tests seem to expect JAXRS client implementation to
+                be on the classpath -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee7</artifactId>
+                </dependency>
+
+                <!-- The actual Arquillian connector -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-micro-remote</artifactId>
+                    <version>1.0.Beta4-SNAPSHOT</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javaEEServer>payara-remote</javaEEServer>
+                                <payara.httpPort>${payara.httpPort}</payara.httpPort>
+                                <use.cnHost>${use.cnHost}</use.cnHost>
+                                <skipEAR>${skipEAR}</skipEAR>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- Optional helper profile for launching the remote server if you're not launching it
+                 by other means. Before the tests, run
+                    mvn -Ppayara-micro-remote-control -N
+                 Take note of the HTTP port from the output and use it for -Dpayara.httpPort
+
+                 Afterwards stop the server with mvn -Ppayara-micro-remote-control -N payara-micro:stop -->
+            <id>payara-micro-remote-control</id>
+
+
+            <build>
+                <defaultGoal>dependency:copy payara-micro:start</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>fish.payara.arquillian</groupId>
+                                    <artifactId>payara-micro-deployer</artifactId>
+                                    <version>1.0.Beta4-SNAPSHOT</version>
+                                    <type>war</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>fish.payara.maven.plugins</groupId>
+                        <artifactId>payara-micro-maven-plugin</artifactId>
+                        <version>1.0.5</version>
+                        <configuration>
+                            <payaraVersion>${payara.version}</payaraVersion>
+                            <daemon>true</daemon>
+
+                            <commandLineOptions>
+                                <option>
+                                    <key>--autoBindHttp</key>
+                                </option>
+                                <option>
+                                    <key>--deploy</key>
+                                    <value>target/dependency/payara-micro-deployer.war</value>
+                                </option>
+                                <option>
+                                    <key>--contextRoot</key>
+                                    <value>micro-deployer</value>
+                                </option>
+                                <option>
+                                    <key>--logToFile</key>
+                                    <value>target/payara-micro.log</value>
+                                </option>
+                            </commandLineOptions>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/ http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"
+    version="7">
+    <display-name>jaxrs-ejb-lookup-ear</display-name>
+    <initialize-in-order>true</initialize-in-order>
+    <module id="same-bean-name-1.war">
+        <web>
+            <web-uri>same-bean-name-1.war</web-uri>
+            <context-root>/same-bean-name-1</context-root>
+        </web>
+    </module>
+    <module id="same-bean-name-2.war">
+        <web>
+            <web-uri>same-bean-name-2.war</web-uri>
+            <context-root>/same-bean-name-2</context-root>
+        </web>
+    </module>
+    <module id="same-bean-name-3.war">
+        <web>
+            <web-uri>same-bean-name-3.war</web-uri>
+            <context-root>/same-bean-name-3</context-root>
+        </web>
+    </module>
+    <module id="default-interface.war">
+        <web>
+            <web-uri>default-interface.war</web-uri>
+            <context-root>/default-interface</context-root>
+        </web>
+    </module>
+    <library-directory>lib</library-directory>
+</application>

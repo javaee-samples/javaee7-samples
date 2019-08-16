@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.javaee7</groupId>
         <artifactId>samples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>jaxrs</artifactId>
     <packaging>pom</packaging>
-    
+
     <name>Java EE 7 Sample: jaxrs</name>
 
     <modules>
@@ -41,8 +42,23 @@
         <module>singleton</module>
         <module>readerwriter-injection</module>
         <module>jaxrs-security-declarative</module>
-        
     </modules>
+
+    <profiles>
+        <!-- Extra modules to run for Payara 5 versions -->
+        <profile>
+            <id>payara5</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/5\.*/</value>
+                </property>
+            </activation>
+            <modules>
+                <module>ejb-lookup</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
