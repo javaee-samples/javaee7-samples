@@ -23,10 +23,10 @@ public class SecureServletWithCommonName extends HttpServlet {
         String[] certComponents = request.getUserPrincipal().toString().split(",");
         for(String component : certComponents) {
             if(component.contains("CN=")) {
-                commonName = component.trim().replace("CN=", "");
+                commonName = "foo"; //component.trim().replace("CN=", "");
             }
         }
         
-        response.getWriter().print("principal common name " + commonName + " in role g2:" + request.isUserInRole("g2"));
+        response.getWriter().print("principal common name " + request.getUserPrincipal().toString() + " in role g2:" + request.isUserInRole("g2"));
     }
 }

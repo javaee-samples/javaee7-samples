@@ -120,6 +120,8 @@ public class SecureServletWithCommonNameTest {
 
         CliCommands.payaraGlassFish(cmd);
 
+        restartContainer();
+
         // Add the client certificate that we just generated to the trust store of the server.
         // That way the server will trust our certificate.
         // Set the actual domain used with -Dpayara_domain=[domain name] 
@@ -187,6 +189,7 @@ public class SecureServletWithCommonNameTest {
 
     @After
     public void tearDown() {
+        System.out.println("\n*********** POST-TEST CLEANUP ******************\n");
         List<String> cmd = new ArrayList<>();
 
         cmd.add("set");
@@ -212,7 +215,8 @@ public class SecureServletWithCommonNameTest {
 
             log.info(page.getContent());
 
-            assertTrue(page.getContent().contains("principal common name foo"));
+            System.out.println(page.getContent().toString());
+            assertTrue("my GET", page.getContent().contains("principal common name foo"));
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
