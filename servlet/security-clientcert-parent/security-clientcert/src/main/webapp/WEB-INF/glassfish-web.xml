@@ -14,5 +14,5 @@
         <!-- Payara 5.184 and later -->
         <principal-name>C=UK,ST=lak,L=zak,O=kaz,OU=bar,CN=lfoo</principal-name>
     </security-role-mapping>
-
+    
 </glassfish-web-app>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>servlet</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>security-clientcert-parent</artifactId>
+    <packaging>pom</packaging>
+    
+    <modules>
+        <module>security-clientcert</module>
+    </modules>
+    
+    <profiles>
+        <profile>
+            <id>payara-server-remote</id>
+            <modules>
+                <module>security-clientcert-common-name</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>payara-server-managed</id>
+            <modules>
+                <module>security-clientcert-common-name</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>payara5</id>
+            <modules>
+                <module>security-clientcert-common-name</module>
+            </modules>
+        </profile>
+    </profiles>
+    
+</project>
