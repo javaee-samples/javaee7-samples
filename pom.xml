@@ -129,7 +129,7 @@
             <dependency>
                 <groupId>fish.payara.arquillian</groupId>
                 <artifactId>payara-client-ee7</artifactId>
-                <version>1.0.Beta3-m1</version>
+                <version>1.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -379,8 +379,8 @@
                 <!-- The actual Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-managed</artifactId>
-                    <version>1.0.Beta3-m1</version>
+                    <artifactId>arquillian-payara-server-managed</artifactId>
+                    <version>1.2</version>
                 </dependency>
             </dependencies>
             
@@ -458,8 +458,8 @@
                 <!-- The Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-5-managed</artifactId> 
-                    <version>1.0.Beta3</version>
+                    <artifactId>arquillian-payara-micro-managed</artifactId>
+                    <version>1.2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -554,8 +554,8 @@
                 <!-- The actual Arquillian connector -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-remote</artifactId> 
-                    <version>1.0.Beta3-m1</version> 
+                    <artifactId>arquillian-payara-server-remote</artifactId>
+                    <version>1.2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

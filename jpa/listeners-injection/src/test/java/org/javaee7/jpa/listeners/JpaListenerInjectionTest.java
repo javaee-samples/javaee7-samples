@@ -5,11 +5,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.AbstractMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.javaee7.Parameter;
 import org.javaee7.ParameterRule;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -35,18 +35,18 @@ public class JpaListenerInjectionTest {
                 .addAsResource("META-INF/load.sql");
     }
 
-    public static final List<ImmutablePair<String, Integer>> movies = asList(
-            new ImmutablePair<>("The Matrix", 60),
-            new ImmutablePair<>("The Lord of The Rings", 70),
-            new ImmutablePair<>("Inception", 80),
-            new ImmutablePair<>("The Shining", 90)
+    public static final List<AbstractMap.SimpleImmutableEntry<String, Integer>> movies = asList(
+            new AbstractMap.SimpleImmutableEntry<>("The Matrix", 60),
+            new AbstractMap.SimpleImmutableEntry<>("The Lord of The Rings", 70),
+            new AbstractMap.SimpleImmutableEntry<>("Inception", 80),
+            new AbstractMap.SimpleImmutableEntry<>("The Shining", 90)
     );
 
     @Rule
-    public ParameterRule<ImmutablePair<String, Integer>> rule = new ParameterRule<>(movies);
+    public ParameterRule<AbstractMap.SimpleImmutableEntry<String, Integer>> rule = new ParameterRule<>(movies);
 
     @Parameter
-    private ImmutablePair<String, Integer> expectedMovie;
+    private AbstractMap.SimpleImmutableEntry<String, Integer> expectedMovie;
 
     @Inject
     private MovieBean bean;
@@ -54,8 +54,8 @@ public class JpaListenerInjectionTest {
     @Test
     public void should_provide_movie_rating_via_jpa_listener_injection() {
         // Given
-        Movie movie = bean.getMovieByName(expectedMovie.getLeft());
+        Movie movie = bean.getMovieByName(expectedMovie.getKey());
 
-        assertThat(movie.getRating(), is(equalTo(expectedMovie.getRight())));
+        assertThat(movie.getRating(), is(equalTo(expectedMovie.getValue())));
     }
 }
