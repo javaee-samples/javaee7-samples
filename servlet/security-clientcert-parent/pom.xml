@@ -11,27 +11,7 @@
     
     <modules>
         <module>security-clientcert</module>
+        <module>security-clientcert-common-name</module>
     </modules>
-    
-    <profiles>
-        <profile>
-            <id>payara-server-remote</id>
-            <modules>
-                <module>security-clientcert-common-name</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>payara-server-managed</id>
-            <modules>
-                <module>security-clientcert-common-name</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>payara5</id>
-            <modules>
-                <module>security-clientcert-common-name</module>
-            </modules>
-        </profile>
-    </profiles>
     
 </project>
