@@ -11,7 +11,7 @@
 
     <properties>
         <arquillian.version>1.4.1.Final</arquillian.version>
-        <java.min.version>1.7</java.min.version>
+        <java.min.version>1.8</java.min.version>
         <maven.min.version>3.0.0</maven.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -57,6 +57,8 @@
         <wildfly.swarm.version>2.4.0.Final</wildfly.swarm.version>
         <tomee.version>7.0.2</tomee.version>
         <tomcat.version>9.0.4</tomcat.version>
+
+        <payara.arquillian.version>1.3-SNAPSHOT</payara.arquillian.version>
     </properties>
 
     <prerequisites>
@@ -146,7 +148,7 @@
             <dependency>
                 <groupId>fish.payara.arquillian</groupId>
                 <artifactId>payara-client-ee7</artifactId>
-                <version>1.2</version>
+                <version>${payara.arquillian.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -317,8 +319,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <source>${java.min.version}</source>
-                    <target>${java.min.version}</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -344,13 +346,11 @@
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <message>At least Maven in version ${maven.min.version} is
-                                required.</message>
+                            <message>At least Maven in version ${maven.min.version} is required.</message>
                             <version>${maven.min.version}</version>
                         </requireMavenVersion>
                         <requireJavaVersion>
-                            <message>At least a JDK in version ${java.min.version} is
-                                required.</message>
+                            <message>At least a JDK in version ${java.min.version} is required.</message>
                             <version>${java.min.version}</version>
                         </requireJavaVersion>
                     </rules>
@@ -413,6 +413,7 @@
                 <payara.directory.name>payara5</payara.directory.name>
                 <payara.version.major>5</payara.version.major>
                 <payara_domain>production</payara_domain>
+                <payara.arquillian.version>2.0-SNAPSHOT</payara.arquillian.version>
             </properties>
         </profile>
 
@@ -434,7 +435,7 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-managed</artifactId>
-                    <version>1.2</version>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
 
@@ -517,7 +518,7 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-micro-managed</artifactId>
-                    <version>1.2</version>
+                    <version>${payara.arquillian.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -558,6 +559,19 @@
                                 <payara.microJar>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</payara.microJar>
                                 <use.cnHost>${use.cnHost}</use.cnHost>
                             </systemProperties>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>payara.version</property>
+                                    <message>"Payara version must be specified."</message>
+                                    <regex>^5\.(\d|-SNAPSHOT)*</regex>
+                                    <regexMessage>"This profile is only supported on Payara 5"</regexMessage>
+                                </requireProperty>
+                            </rules>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -627,7 +641,7 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-remote</artifactId>
-                    <version>1.2</version>
+                    <version>${payara.arquillian.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -691,7 +705,7 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-micro-remote</artifactId>
-                    <version>1.2</version>
+                    <version>${payara.arquillian.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -706,6 +720,19 @@
                                 <use.cnHost>${use.cnHost}</use.cnHost>
                                 <skipEAR>${skipEAR}</skipEAR>
                             </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>payara.version</property>
+                                    <message>"Payara version must be specified."</message>
+                                    <regex>^5\.(\d|-SNAPSHOT)*</regex>
+                                    <regexMessage>"This profile is only supported on Payara 5"</regexMessage>
+                                </requireProperty>
+                            </rules>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -733,7 +760,7 @@
                                 <artifactItem>
                                     <groupId>fish.payara.arquillian</groupId>
                                     <artifactId>payara-micro-deployer</artifactId>
-                                    <version>1.2</version>
+                                    <version>${payara.arquillian.version}</version>
                                     <type>war</type>
                                 </artifactItem>
                             </artifactItems>
@@ -765,6 +792,19 @@
                                     <value>target/payara-micro.log</value>
                                 </option>
                             </commandLineOptions>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>payara.version</property>
+                                    <message>"Payara version must be specified."</message>
+                                    <regex>^5\.(\d|-SNAPSHOT)*</regex>
+                                    <regexMessage>"This profile is only supported on Payara 5"</regexMessage>
+                                </requireProperty>
+                            </rules>
                         </configuration>
                     </plugin>
                 </plugins>
