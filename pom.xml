@@ -43,6 +43,7 @@
         <skipEAR>${skipTests}</skipEAR>
 
         <skipServletClientCertificate>${skipTests}</skipServletClientCertificate>
+        <skipServletClientCertificateCommonName>${skipTests}</skipServletClientCertificateCommonName>
 
         <!--
             Application Server versions
@@ -136,11 +137,6 @@
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-container-test-api</artifactId>
-                <version>${arquillian.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.197</version>
@@ -150,16 +146,6 @@
                 <artifactId>payara-client-ee7</artifactId>
                 <version>${payara.arquillian.version}</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15on</artifactId>
-                <version>1.59</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcpkix-jdk15on</artifactId>
-                <version>1.59</version>
             </dependency>
             <dependency>
                 <groupId>org.javaee7</groupId>
@@ -176,6 +162,11 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>1.61</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -198,7 +189,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -407,6 +397,7 @@
                 <payara.directory.name>payara41</payara.directory.name>
                 <payara.version.major>4</payara.version.major>
                 <payara_domain>payaradomain</payara_domain>
+                <skipServletClientCertificateCommonName>true</skipServletClientCertificateCommonName>
             </properties>
         </profile>
 
@@ -577,7 +568,7 @@
                                 <requireProperty>
                                     <property>payara.version</property>
                                     <message>"Payara version must be specified."</message>
-                                    <regex>^5\.(\d|-SNAPSHOT)*</regex>
+                                    <regex>^5.*</regex>
                                     <regexMessage>"This profile is only supported on Payara 5"</regexMessage>
                                 </requireProperty>
                             </rules>
@@ -738,7 +729,7 @@
                                 <requireProperty>
                                     <property>payara.version</property>
                                     <message>"Payara version must be specified."</message>
-                                    <regex>^5\.(\d|-SNAPSHOT)*</regex>
+                                    <regex>^5.*</regex>
                                     <regexMessage>"This profile is only supported on Payara 5"</regexMessage>
                                 </requireProperty>
                             </rules>
@@ -810,7 +801,7 @@
                                 <requireProperty>
                                     <property>payara.version</property>
                                     <message>"Payara version must be specified."</message>
-                                    <regex>^5\.(\d|-SNAPSHOT)*</regex>
+                                    <regex>^5.*</regex>
                                     <regexMessage>"This profile is only supported on Payara 5"</regexMessage>
                                 </requireProperty>
                             </rules>
