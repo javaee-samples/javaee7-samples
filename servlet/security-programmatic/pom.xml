@@ -7,10 +7,10 @@
         <artifactId>servlet</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>servlet-security-programmatic</artifactId>
     <packaging>war</packaging>
-    
+
     <name>Java EE 7 Sample: servlet - security-programmatic</name>
 
     <profiles>
@@ -36,5 +36,4 @@
             </build>
         </profile>
     </profiles>
-    
 </project>

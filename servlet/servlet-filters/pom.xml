@@ -8,7 +8,9 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
   </parent>
+
     <artifactId>servlet-servlet-filters</artifactId>
     <packaging>war</packaging>
+
     <name>Java EE 7 Sample: servlet - servlet-filters</name>
 </project>

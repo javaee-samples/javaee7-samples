@@ -39,6 +39,9 @@
  */
 package org.javaee7.servlet.filters;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -47,8 +50,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * @author Arun Gupta
@@ -57,30 +58,16 @@ import java.io.PrintWriter;
 public class FooBarFilter implements Filter {
 
     private FilterConfig filterConfig;
-
-    private void doBeforeProcessing(ServletRequest request, ServletResponse response)
-        throws IOException, ServletException {
-        try (PrintWriter out = response.getWriter()) {
-            out.print("foo--");
-            out.flush();
-        }
-    }
-
-    private void doAfterProcessing(ServletRequest request, ServletResponse response)
-        throws IOException, ServletException {
-        try (PrintWriter out = response.getWriter()) {
-            out.print("--bar");
-            out.flush();
-        }
+    
+    @Override
+    public void init(FilterConfig filterConfig) {
+        this.filterConfig = filterConfig;
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-        FilterChain chain)
-        throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
-        CharResponseWrapper wrappedResponse = new CharResponseWrapper(
-            (HttpServletResponse) response);
+        CharResponseWrapper wrappedResponse = new CharResponseWrapper((HttpServletResponse) response);
 
         doBeforeProcessing(request, wrappedResponse);
         chain.doFilter(request, wrappedResponse);
@@ -92,10 +79,19 @@ public class FooBarFilter implements Filter {
     @Override
     public void destroy() {
     }
+    
+    private void doBeforeProcessing(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+        try (PrintWriter out = response.getWriter()) {
+            out.print("foo--");
+            out.flush();
+        }
+    }
 
-    @Override
-    public void init(FilterConfig filterConfig) {
-        this.filterConfig = filterConfig;
+    private void doAfterProcessing(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+        try (PrintWriter out = response.getWriter()) {
+            out.print("--bar");
+            out.flush();
+        }
     }
 
 }

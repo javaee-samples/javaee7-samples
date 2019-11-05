@@ -44,7 +44,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,8 +51,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Arun Gupta
  */
-@WebServlet(urlPatterns = { "/TestServlet" })
-public class TestServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/ClientCookieServlet" })
+public class ClientCookieServlet extends HttpServlet {
 
     private static final long serialVersionUID = -1944396991856607131L;
 
@@ -72,35 +71,16 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Servlet ClientCookieServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ClientCookieServlet at " + request.getContextPath() + "</h1>");
             
-            if (request.getCookies() != null) {
-                for (Cookie cookie : request.getCookies()) {
-                    out.println("Found cookie: " + cookie.getName());
-                }
-            }
-
-            // General cookie
-            Cookie cookie = new Cookie("myCookieKey", "myCookieValue");
-            cookie.setMaxAge(60);
-            response.addCookie(cookie);
             
-            out.println("<br><br>Set a new cookie");
-
-            // Http only cookie
-            cookie = new Cookie("myHttpOnlyCookieKey", "myHttpOnlyCookieValue");
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(60);
-            response.addCookie(cookie);
-            
-            out.println("<br>Set a new HTTPOnly Cookie<br><br>");
-            out.println("Check what cookies are visible by");
-            out.println("<a href=\"http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()
-                    + "/index-cookies.jsp\">clicking here</a>");
-
+            out.println("<script type=\"text/javascript\">");
+            out.println("document.write(document.cookie);");
+            out.println("</script>");
+          
             out.println("</body>");
             out.println("</html>");
         }
@@ -131,15 +111,4 @@ public class TestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
-
 }

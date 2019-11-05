@@ -39,6 +39,8 @@
  */
 package org.javaee7.servlet.async;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.servlet.AsyncContext;
@@ -49,7 +51,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author Arun Gupta
@@ -57,24 +58,23 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/MyAsyncServlet", asyncSupported = true)
 public class MyAsyncServlet extends HttpServlet {
 
-    //    @Resource(lookup="java:comp/DefaultManagedExecutorService")
+    private static final long serialVersionUID = 3709640331218336841L;
+    
     @Resource
     ManagedExecutorService executor;
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        AsyncContext ac = request.startAsync();
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AsyncContext asyncContext = request.startAsync();
 
-        ac.addListener(new AsyncListener() {
+        asyncContext.addListener(new AsyncListener() {
             @Override
             public void onComplete(AsyncEvent event) throws IOException {
                 event.getSuppliedResponse().getWriter().println("onComplete");
@@ -96,29 +96,29 @@ public class MyAsyncServlet extends HttpServlet {
                 event.getSuppliedResponse().getWriter().println("onStartAsync");
             }
         });
-        executor.submit(new MyAsyncService(ac));
+        
+        executor.submit(new MyAsyncService(asyncContext));
     }
 
     class MyAsyncService implements Runnable {
 
-        AsyncContext ac;
+        AsyncContext asyncContext;
 
-        public MyAsyncService(AsyncContext ac) {
-            this.ac = ac;
+        public MyAsyncService(AsyncContext asyncContext) {
+            this.asyncContext = asyncContext;
         }
 
         @Override
         public void run() {
             try {
-                ac.getResponse().getWriter().println("Running inside MyAsyncService");
+                asyncContext.getResponse().getWriter().println("Running inside MyAsyncService");
             } catch (IOException e) {
                 throw new IllegalStateException(e);
             }
-            ac.complete();
+            asyncContext.complete();
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -128,8 +128,7 @@ public class MyAsyncServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -142,8 +141,7 @@ public class MyAsyncServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -155,5 +153,5 @@ public class MyAsyncServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 }
