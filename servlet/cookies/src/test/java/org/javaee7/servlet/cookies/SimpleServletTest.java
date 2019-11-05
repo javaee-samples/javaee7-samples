@@ -51,12 +51,6 @@ public class SimpleServletTest {
         page = webClient.getPage(base + "TestServlet");
         
         assertTrue(page.asText().contains("Found cookie: myCookieKey Found cookie: myHttpOnlyCookieKey"));
-        
-        page = webClient.getPage(base + "ClientCookieServlet");
-        webClient.waitForBackgroundJavaScript(1000);
-        
-        System.out.println(page.asText());
-        
     }
     
     @Test
@@ -68,6 +62,8 @@ public class SimpleServletTest {
         // Request page with client-side script, should now be able to read cookies client-side
         page = webClient.getPage(base + "ClientCookieServlet");
         webClient.waitForBackgroundJavaScript(1000);
+        
+        System.out.println(page.asText());
         
         assertTrue(page.asText().contains("myCookieKey"));
         assertFalse(page.asText().contains("myHttpOnlyCookieKey"));
