@@ -53,16 +53,16 @@ public class MyHttpSessionAttributeListener implements HttpSessionAttributeListe
 
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
-        System.out.println("MyHttpSessionAttributeListener.attributeAdded: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyHttpSessionAttributeListener.attributeAdded: " + event.getName());
     }
 
     @Override
     public void attributeRemoved(HttpSessionBindingEvent event) {
-        System.out.println("MyHttpSessionAttributeListener.attributeRemoved: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyHttpSessionAttributeListener.attributeRemoved: " + event.getName());
     }
 
     @Override
     public void attributeReplaced(HttpSessionBindingEvent event) {
-        System.out.println("MyHttpSessionAttributeListener.attributeReplaced: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyHttpSessionAttributeListener.attributeReplaced: " + event.getName());
     }
 }

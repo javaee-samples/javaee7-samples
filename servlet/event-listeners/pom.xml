@@ -7,11 +7,9 @@
         <artifactId>servlet</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
-  </parent>
+    </parent>
 
-    <groupId>org.javaee7</groupId>
     <artifactId>servlet-event-listeners</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>Java EE 7 Sample: servlet - event-listeners</name>

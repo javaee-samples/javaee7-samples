@@ -53,11 +53,11 @@ public class MyContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("MyContextListener.contextInitialized: " + sce.getServletContext().getContextPath());
+        TestServlet.eventBuffer.append("\nMyContextListener.contextInitialized: " + sce.getServletContext().getContextPath());
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("MyContextListener.contextDestroyed: " + sce.getServletContext().getContextPath());
+        TestServlet.eventBuffer.append("\nMyContextListener.contextDestroyed: " + sce.getServletContext().getContextPath());
     }
 }

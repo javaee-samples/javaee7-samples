@@ -51,12 +51,12 @@ public class MyHttpSessionBindingListener implements HttpSessionBindingListener 
 
     @Override
     public void valueBound(HttpSessionBindingEvent event) {
-        System.out.println("MyHttpSessionBindingListener.valueBound: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyHttpSessionBindingListener.valueBound: " + event.getName());
     }
 
     @Override
     public void valueUnbound(HttpSessionBindingEvent event) {
-        System.out.println("MyHttpSessionBindingListener.valueUnbound: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyHttpSessionBindingListener.valueUnbound: " + event.getName());
     }
 
 }

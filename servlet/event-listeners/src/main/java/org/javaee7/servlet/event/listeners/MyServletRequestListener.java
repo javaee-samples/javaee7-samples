@@ -53,11 +53,11 @@ public class MyServletRequestListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
-        System.out.println("MyServletRequestListener.requestDestroyed: " + sre.getServletContext().getContextPath());
+        TestServlet.eventBuffer.append("\nMyServletRequestListener.requestDestroyed: " + sre.getServletContext().getContextPath());
     }
 
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
-        System.out.println("MyServletRequestListener.requestInitialized: " + sre.getServletContext().getContextPath());
+        TestServlet.eventBuffer.append("\nMyServletRequestListener.requestInitialized: " + sre.getServletContext().getContextPath());
     }
 }

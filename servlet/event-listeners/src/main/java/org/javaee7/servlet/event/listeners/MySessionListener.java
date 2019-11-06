@@ -53,11 +53,11 @@ public class MySessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        System.out.println("MySessionListener.sessionCreated: " + se.getSession().getId());
+        TestServlet.eventBuffer.append("\nMySessionListener.sessionCreated: " + se.getSession().getId());
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        System.out.println("MySessionListener.sessionDestroyed: " + se.getSession().getId());
+        TestServlet.eventBuffer.append("\nMySessionListener.sessionDestroyed: " + se.getSession().getId());
     }
 }

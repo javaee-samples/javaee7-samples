@@ -53,16 +53,16 @@ public class MyContextAttributeListener implements ServletContextAttributeListen
 
     @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
-        System.out.println("MyContextAttributeListener.attributeAdded: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyContextAttributeListener.attributeAdded: " + event.getName());
     }
 
     @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
-        System.out.println("MyContextAttributeListener.attributeRemoved: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyContextAttributeListener.attributeRemoved: " + event.getName());
     }
 
     @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
-        System.out.println("MyContextAttributeListener.attributeReplaced: " + event.getName());
+        TestServlet.eventBuffer.append("\nMyContextAttributeListener.attributeReplaced: " + event.getName());
     }
 }

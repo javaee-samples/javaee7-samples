@@ -53,7 +53,7 @@ public class MySessionIdListener implements HttpSessionIdListener {
 
     @Override
     public void sessionIdChanged(HttpSessionEvent event, String oldSessionId) {
-        System.out.println("MySessionIdListener.sessionIdChanged: new=" + event.getSession().getId() + ", old=" + oldSessionId);
+        TestServlet.eventBuffer.append("\nMySessionIdListener.sessionIdChanged: new=" + event.getSession().getId() + ", old=" + oldSessionId);
     }
 
 }

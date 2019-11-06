@@ -53,17 +53,17 @@ public class MyServletRequestAttributeListener implements ServletRequestAttribut
 
     @Override
     public void attributeAdded(ServletRequestAttributeEvent srae) {
-        System.out.println("MyServletRequestAttributeListener.attributeAdded: " + srae.getName());
+        TestServlet.eventBuffer.append("\nMyServletRequestAttributeListener.attributeAdded: " + srae.getName());
     }
 
     @Override
     public void attributeRemoved(ServletRequestAttributeEvent srae) {
-        System.out.println("MyServletRequestAttributeListener.attributeRemoved: " + srae.getName());
+        TestServlet.eventBuffer.append("\nMyServletRequestAttributeListener.attributeRemoved: " + srae.getName());
     }
 
     @Override
     public void attributeReplaced(ServletRequestAttributeEvent srae) {
-        System.out.println("MyServletRequestAttributeListener.attributeReplaced: " + srae.getName());
+        TestServlet.eventBuffer.append("\nMyServletRequestAttributeListener.attributeReplaced: " + srae.getName());
     }
 
 }
