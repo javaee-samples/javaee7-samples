@@ -6,12 +6,9 @@
         <groupId>org.javaee7</groupId>
         <artifactId>servlet</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.javaee7</groupId>
     <artifactId>servlet-protocol-handler</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>Java EE 7 Sample: servlet - protocol-handler</name>
