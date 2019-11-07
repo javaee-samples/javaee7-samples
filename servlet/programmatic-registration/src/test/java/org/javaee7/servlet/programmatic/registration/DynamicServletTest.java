@@ -1,7 +1,10 @@
 package org.javaee7.servlet.programmatic.registration;
 
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -12,10 +15,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
 
-import java.io.IOException;
-import java.net.URL;
-
-import static org.junit.Assert.assertEquals;
+import com.gargoylesoftware.htmlunit.TextPage;
+import com.gargoylesoftware.htmlunit.WebClient;
 
 /**
  * @author OrelGenya
@@ -30,10 +31,10 @@ public class DynamicServletTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class).
-            addClass(DynamicServlet.class).
-            addClass(SimpleServletContextListener.class);
-        return war;
+        return ShrinkWrap.create(WebArchive.class).
+            addClasses(
+                DynamicServlet.class, 
+                SimpleServletContextListener.class);
     }
 
     @Before
@@ -44,6 +45,7 @@ public class DynamicServletTest {
     @Test
     public void testChildServlet() throws IOException, SAXException {
         TextPage page = webClient.getPage(base + "dynamic");
+        
         assertEquals("dynamic GET", page.getContent());
     }
 }
