@@ -22,6 +22,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+
 /**
  * @author Arun Gupta
  */
@@ -32,8 +33,8 @@ public class FormTest {
 
     @ArquillianResource
     private URL base;
+    private WebClient webClient;
 
-    private HtmlForm loginForm;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -44,26 +45,27 @@ public class FormTest {
             .addAsWebResource(new File(WEBAPP_SRC, "index.jsp"))
             .addAsWebResource(new File(WEBAPP_SRC, "loginerror.jsp"))
             .addAsWebResource(new File(WEBAPP_SRC, "loginform.jsp"))
+            .addAsWebResource(new File(WEBAPP_SRC, "form.html"))
+            .addAsWebResource(new File(WEBAPP_SRC, "receive.jsp"))
             .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
             .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "glassfish-web.xml"));
     }
 
     @Before
     public void setup() throws IOException {
-        WebClient webClient = new WebClient();
-        HtmlPage page = webClient.getPage(base + "/index.jsp");
-        loginForm = page.getForms().get(0);
+    	webClient = new WebClient();
     }
     
     @After
     public void tearDown() {
-        WebClient webClient = loginForm.getPage().getWebClient();
         webClient.getCookieManager().clearCookies();
         webClient.close();
     }
 
     @Test
     public void testGetWithCorrectCredentials() throws Exception {
+    	HtmlPage loginPage = webClient.getPage(base + "/index.jsp");
+    	HtmlForm loginForm = loginPage.getForms().get(0);
         loginForm.getInputByName("j_username").setValueAttribute("u1");
         loginForm.getInputByName("j_password").setValueAttribute("p1");
         HtmlSubmitInput submitButton = loginForm.getInputByName("submitButton");
@@ -74,11 +76,37 @@ public class FormTest {
 
     @Test
     public void testGetWithIncorrectCredentials() throws Exception {
+    	HtmlPage page = webClient.getPage(base + "/index.jsp");
+    	HtmlForm loginForm = page.getForms().get(0);
         loginForm.getInputByName("j_username").setValueAttribute("random");
         loginForm.getInputByName("j_password").setValueAttribute("random");
         HtmlSubmitInput submitButton = loginForm.getInputByName("submitButton");
         HtmlPage page2 = submitButton.click();
 
         assertEquals("Form-Based Login Error Page", page2.getTitleText());
+    }
+    @Test
+    public void testMaintainPostParamsAfterAuth() throws Exception {
+        
+        String PARAM_VALUE = "example";
+        String PARAM_LENGTH = Integer.toString(PARAM_VALUE.length());
+    	
+        // Unauthenticated page
+    	HtmlPage unauthenticatedPage = webClient.getPage(base + "/form.html");
+    	HtmlForm unauthenticatedForm = unauthenticatedPage.getForms().get(0);
+    	unauthenticatedForm.getInputByName("name").setValueAttribute(PARAM_VALUE);
+    	HtmlSubmitInput unauthenticatedSubmitButton = unauthenticatedForm.getInputByValue("Submit");
+    	
+    	// we request an protected page, so we are presented the login page.    	
+    	HtmlPage loginPage = unauthenticatedSubmitButton.click();
+    	HtmlForm loginForm = loginPage.getForms().get(0);
+        loginForm.getInputByName("j_username").setValueAttribute("u1");
+        loginForm.getInputByName("j_password").setValueAttribute("p1");
+        HtmlSubmitInput submitButton = loginForm.getInputByName("submitButton");
+        
+        HtmlPage receivePage = submitButton.click();        
+        assertEquals(PARAM_LENGTH, receivePage.getElementById("paramLength").getTextContent());
+        assertEquals(PARAM_LENGTH, receivePage.getElementById("arrayLength").getTextContent());
+        assertEquals(PARAM_VALUE, receivePage.getElementById("param").getTextContent());
     }
 }

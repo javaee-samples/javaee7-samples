@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sample form</title>
+	</head>	
+	<body>
+		<h1>Example</h1>
+		<p>
+		Submit your data, you must see your data after login.</p>
+		<p>This example make a test with a single parameter.
+		If you submit more parameters, only one (the last in the post body) is corrupted</p>
+		
+		<p>You must be logged out to test the bug, because the bug is in the authenticator</p>
+		
+		<form method="POST" action="receive.jsp" name="form">
+			<input type="text" id="name" name="name" value="example"/>
+			<!--  No name attribute for submit, we want to test only (and only) one parameter -->
+			<input type="submit" value="Submit"/>		
+		</form>	
+	</body>
+</html>
