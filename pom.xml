@@ -59,7 +59,7 @@
         <tomee.version>7.0.2</tomee.version>
         <tomcat.version>9.0.4</tomcat.version>
 
-        <payara.arquillian.version>1.3-SNAPSHOT</payara.arquillian.version>
+        <payara.arquillian.version>1.3</payara.arquillian.version>
     </properties>
 
     <prerequisites>
@@ -413,7 +413,7 @@
                 <payara.directory.name>payara5</payara.directory.name>
                 <payara.version.major>5</payara.version.major>
                 <payara_domain>production</payara_domain>
-                <payara.arquillian.version>2.0-SNAPSHOT</payara.arquillian.version>
+                <payara.arquillian.version>2.0</payara.arquillian.version>
             </properties>
         </profile>
 
