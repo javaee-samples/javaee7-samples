@@ -1,6 +1,5 @@
-<!-- 
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+" * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
  *
@@ -38,20 +37,51 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
+package org.javaee7.servlet.security.form.based;
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+import java.io.IOException;
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Form-based Security - Success</title>
-    </head>
-    <body>
-        <h1>Form-based Security - Success</h1>
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author Arun Gupta
+ * @author Arjan Tijms
+ */
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
-        If you reached this page that means form-based security credentials are correctly configured.
-    </body>
-</html>
+        response.getWriter().print(
+                
+            "<html>" +
+                "<head>" +
+                    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
+                    "<title>Form-Based Login Page</title>" +
+                "</head>" +
+                    
+                "<body>" +
+                    "<form method=\"POST\" action=\"j_security_check\">" +
+                        "Username: <input type=\"text\" name=\"j_username\"> <p/>" +
+                        "Password: <input type=\"password\" name=\"j_password\"> <p/>" +
+                        "<input type=\"submit\" value=\"Submit\" name=\"submitButton\">" +
+                    "</form>" +
+                "</body>" +
+            "</html>" 
+            
+            );
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.getWriter().print("my POST");
+    }
+}

@@ -41,17 +41,21 @@ public class FormTest {
         addUsersToContainerIdentityStore();
         
         return create(WebArchive.class)
-            .addAsWebResource(new File(WEBAPP_SRC, "index.jsp"))
-            .addAsWebResource(new File(WEBAPP_SRC, "loginerror.jsp"))
-            .addAsWebResource(new File(WEBAPP_SRC, "loginform.jsp"))
+            .addClasses(
+                SecureServlet.class, 
+                LoginServlet.class, 
+                ErrorServlet.class)
+            
             .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "web.xml"))
             .addAsWebInfResource(new File(WEBAPP_SRC + "/WEB-INF", "glassfish-web.xml"));
     }
 
     @Before
     public void setup() throws IOException {
+        @SuppressWarnings("resource")
         WebClient webClient = new WebClient();
-        HtmlPage page = webClient.getPage(base + "/index.jsp");
+        HtmlPage page = webClient.getPage(base + "SecureServlet");
+        
         loginForm = page.getForms().get(0);
     }
     

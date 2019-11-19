@@ -1,4 +1,3 @@
-<!-- 
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -38,29 +37,47 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
--->
+package org.javaee7.servlet.security.form.based;
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+import java.io.IOException;
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Form-Based Login Error Page</title>
-    </head>
-    <body>
-        <h1>Form-Based Login Error Page</h1>
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-        <h2>Invalid user name or password.</h2>
+/**
+ * @author Arun Gupta
+ * @author Arjan Tijms
+ */
+@WebServlet("/SecureServlet")
+public class SecureServlet extends HttpServlet {
 
-        <p>Please enter a user name or password that is authorized to access this 
-            application. For this application, make sure to create a user: <p><p>
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
-        For WildFly: Invoke "./bin/add-user.sh -a -u u1 -p p1 -g g1"<br>
-        For GlassFish: Invoke "./bin/asadmin create-file-user --groups g1 u1" and use the password "p1" when prompted.<br><br>
+        response.getWriter().print(
+                
+            "<html>" +
+                "<head>" +
+                    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
+                    "<title>Form-based Security - Success</title>" +
+                "</head>" +
+                    
+                "<body>" +
+                    "<h2>Form-based Security - Success</h2>" +
+                "</body>" +
+            "</html>" 
+            
+            );
+    }
 
-        Click here to <a href="index.jsp">Try Again</a></p>
-
-    </body>
-</html>
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.getWriter().print("my POST");
+    }
+}

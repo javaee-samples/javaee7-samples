@@ -45,16 +45,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     
-    <servlet>
-        <display-name>index</display-name>
-        <servlet-name>index</servlet-name>
-        <jsp-file>/index.jsp</jsp-file>
-    </servlet>
-    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>SecurityConstraint</web-resource-name>
-            <url-pattern>/*</url-pattern>
+            <url-pattern>/SecureServlet</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>g1</role-name>
@@ -66,10 +60,9 @@
     
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>file</realm-name>
         <form-login-config>
-            <form-login-page>/loginform.jsp</form-login-page>
-            <form-error-page>/loginerror.jsp</form-error-page>
+            <form-login-page>/LoginServlet</form-login-page>
+            <form-error-page>/ErrorServlet</form-error-page>
         </form-login-config>
     </login-config>
     
