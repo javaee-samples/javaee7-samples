@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+        <groupId>org.javaee7</groupId>
+        <artifactId>servlet</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+   <artifactId>servlet-security-allow-uncovered</artifactId>
+   <packaging>war</packaging>
+
+   <name>Java EE 7 Sample: servlet - security-allow-uncovered</name>
+
+   <profiles>
+        <profile>
+            <id>payara-micro-managed</id>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemProperties>
+                                <payara.extraMicroOptions>--postdeploycommandfile ${project.build.directory}/test-classes/addUsersPayara.txt</payara.extraMicroOptions>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

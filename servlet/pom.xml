@@ -36,6 +36,7 @@
         <module>security-clientcert-jce</module>
         <module>security-programmatic</module>
         <module>security-deny-uncovered</module>
+        <module>security-allow-uncovered</module>
 		<module>security-annotated</module>
         <module>security-basicauth-omission</module>
     </modules>
