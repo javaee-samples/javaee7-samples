@@ -5,6 +5,7 @@ import static com.gargoylesoftware.htmlunit.HttpMethod.PUT;
 import static org.javaee7.ServerOperations.addUsersToContainerIdentityStore;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -78,16 +79,21 @@ public class SecureServletTest {
         webClient.setCredentialsProvider(correctCreds);
         WebRequest request = new WebRequest(new URL(base + "SecureServlet"), POST);
         
+        TextPage p = null;
         try {
-            TextPage p = webClient.getPage(request);
+            p = webClient.getPage(request);
             System.out.println(p.getContent());
+            
+            assertFalse(
+                "POST method could be called even with deny-uncovered-http-methods", 
+                p.getContent().contains("my POST"));
         } catch (FailingHttpStatusCodeException e) {
             assertNotNull(e);
             assertEquals(403, e.getStatusCode());
             return;
         }
         
-        fail("POST method could be called even with deny-uncovered-http-methods");
+        fail("POST correctly not called, but wrong status code: " + (p != null ? p.getWebResponse().getStatusCode() : -1));
     }
 
     @Test
