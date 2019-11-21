@@ -12,6 +12,8 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -29,6 +31,8 @@ public class LoginServletTest {
 
     @ArquillianResource
     private URL base;
+    
+    WebClient webClient;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -39,12 +43,23 @@ public class LoginServletTest {
             addClass(LoginServlet.class).
             addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
     }
+    
+    @Before
+    public void setup() {
+        webClient = new WebClient();
+    }
+    
+    @After
+    public void tearDown() {
+        webClient.getCookieManager().clearCookies();
+        webClient.close();
+    }
 
     @Test
     public void testUnauthenticatedRequest() throws IOException, SAXException {
-        WebClient webClient = new WebClient();
         HtmlPage page = webClient.getPage(base + "/LoginServlet");
         String responseText = page.asText();
+        
         System.out.println("testUnauthenticatedRequest:\n" + responseText + "\n");
 
         assertTrue(responseText.contains("isUserInRole?false"));
@@ -55,14 +70,13 @@ public class LoginServletTest {
 
     @Test
     public void testAuthenticatedRequest() throws IOException, SAXException {
-        WebClient webClient = new WebClient();
         HtmlPage page = webClient.getPage(base + "/LoginServlet?user=u1&password=p1");
         String responseText = page.asText();
+        
         System.out.println("testAuthenticatedRequest:\n" + responseText + "\n");
 
         assertTrue(responseText.contains("isUserInRole?true"));
         assertTrue(responseText.contains("getRemoteUser?u1"));
         assertTrue(responseText.contains("getUserPrincipal?u1"));
-        assertTrue(responseText.contains("getAuthType?BASIC"));
     }
 }
