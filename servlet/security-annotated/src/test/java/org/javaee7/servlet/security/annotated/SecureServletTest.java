@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -29,6 +30,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 @RunWith(Arquillian.class)
 public class SecureServletTest {
+    
+    private static final String WEBAPP_SRC = "src/main/webapp";
 
     @ArquillianResource
     private URL base;
@@ -43,7 +46,8 @@ public class SecureServletTest {
         addUsersToContainerIdentityStore();
         
         return create(WebArchive.class)
-                .addClass(SecureServlet.class);
+                .addClass(SecureServlet.class)
+                .addAsWebInfResource((new File(WEBAPP_SRC + "/WEB-INF", "web.xml")));
     }
 
     @Before
