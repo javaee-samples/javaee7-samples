@@ -11,27 +11,22 @@
     
     <modules>
         <module>security-clientcert</module>
+        <module>security-clientcert-jce</module>
+        <module>security-clientcert-common-name</module>
     </modules>
-    
-    <profiles>
-        <profile>
-            <id>payara-server-remote</id>
-            <modules>
-                <module>security-clientcert-common-name</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>payara-server-managed</id>
-            <modules>
-                <module>security-clientcert-common-name</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>payara5</id>
-            <modules>
-                <module>security-clientcert-common-name</module>
-            </modules>
-        </profile>
-    </profiles>
-    
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skipServletClientCertificate}</skipTests>
+                    <systemPropertyVariables>
+                        <buildDirectory>${project.build.directory}</buildDirectory>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

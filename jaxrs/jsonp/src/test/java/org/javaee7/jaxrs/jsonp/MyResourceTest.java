@@ -52,7 +52,7 @@ public class MyResourceTest {
         client.close();
     }
 
-    @Deployment(testable = false)
+    @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
             .addClasses(
