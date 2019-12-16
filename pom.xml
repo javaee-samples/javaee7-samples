@@ -358,6 +358,54 @@
     
 
     <profiles>
+    
+        <!-- ### PIRANHA ### -->
+    
+        <profile>
+            <id>piranha-embedded</id>
+    
+            <properties> 
+                <skipEJB>true</skipEJB>
+                <skipCDI>true</skipCDI>
+                <skipJSF>true</skipJSF>
+                <skipJACC>true</skipJACC>
+                <!-- Client-cert needs complicated cert setup, which hasn't been done -->
+                <skipServletClientCertificate>true</skipServletClientCertificate>
+            </properties>
+
+            <dependencies>
+                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee7</artifactId>
+                </dependency>
+              
+                <dependency>
+                     <groupId>cloud.piranha.arquillian</groupId>
+                     <artifactId>piranha-arquillian-server</artifactId>
+                     <version>20.1.0-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+            
+             <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javaEEServer>piranha-embedded</javaEEServer>
+                                <piranha.version>19.12.0</piranha.version>
+                                <piranha.repositories>https://dl.bintray.com/piranhacloud/maven</piranha.repositories>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            
+        </profile>
+    
+    
         
         <!-- ###  PAYARA  ### -->
         

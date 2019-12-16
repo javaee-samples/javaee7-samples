@@ -56,7 +56,11 @@ public class ServerOperations {
             cmd.add("u1");
             
             CliCommands.payaraGlassFish(cmd);
-        } else {
+        } else if ("piranha-embedded".equals(javaEEServer)) {
+            System.out.println("Adding user for piranha-embedded");
+            System.setProperty("io.piranha.identitystore.callers", "<u><caller callername=\"u1\" password=\"p1\" groups=\"g1\"/></u>");
+        }
+        else {
             if (javaEEServer == null) {
                 System.out.println("javaEEServer not specified");
             } else {
