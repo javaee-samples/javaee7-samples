@@ -9,10 +9,13 @@ import static org.jsoup.parser.Parser.xmlParser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePath;
+import org.jboss.shrinkwrap.api.Node;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
@@ -69,13 +72,24 @@ public class ArquillianBase {
     }
     
     public static WebArchive defaultWebArchive() {
-        return 
-            create(WebArchive.class, "test.war")
-                .addPackages(true, "org.javaee7.jaspic")
-                .deleteClass(ArquillianBase.class)
-                .addAsWebInfResource(resource("web.xml"))
-                .addAsWebInfResource(resource("jboss-web.xml"))
-                .addAsWebInfResource(resource("glassfish-web.xml"));
+        return
+            removeTestClasses(
+                create(WebArchive.class, "test.war")
+                    .addPackages(true, "org.javaee7.jaspic")
+                    .addAsWebInfResource(resource("web.xml"))
+                    .addAsWebInfResource(resource("jboss-web.xml"))
+                    .addAsWebInfResource(resource("glassfish-web.xml")));
+    }
+    
+    private static WebArchive removeTestClasses(WebArchive archive) {
+        for (Map.Entry<ArchivePath, Node> content : archive.getContent().entrySet()) {
+            if (content.getKey().get().endsWith("Test.class")) {
+                archive.delete(content.getKey().get());
+            }
+        }
+        archive.deleteClass(ArquillianBase.class);
+        
+        return archive;
     }
     
     public static Archive<?> tryWrapEAR(WebArchive webArchive) {
