@@ -5,19 +5,39 @@
         it provides a base class for unit tests  
     -->
     <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.javaee7</groupId>
-        <artifactId>jaspic</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     
+    <groupId>org.javaee7</groupId>
     <artifactId>jaspic-common</artifactId>
+    <version>1.0-SNAPSHOT</version>
     
     <packaging>jar</packaging>
     <name>Java EE 7 Sample: jaspic - common</name>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.1.14.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
