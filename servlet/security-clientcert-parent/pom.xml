@@ -8,11 +8,12 @@
     </parent>
     <artifactId>security-clientcert-parent</artifactId>
     <packaging>pom</packaging>
-    
+
+    <name>security-clientcert-parent</name>
+
     <modules>
         <module>security-clientcert</module>
         <module>security-clientcert-jce</module>
-        <module>security-clientcert-common-name</module>
     </modules>
 
     <build>
@@ -29,4 +30,20 @@
             </plugin>
         </plugins>
     </build>
+    
+    <profiles>
+        <profile>
+            <id>5.192+</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/4.*/</value>
+                </property>
+            </activation>
+            <modules>
+                <module>security-clientcert-common-name</module>
+            </modules>
+        </profile>
+    </profiles>
+
 </project>
