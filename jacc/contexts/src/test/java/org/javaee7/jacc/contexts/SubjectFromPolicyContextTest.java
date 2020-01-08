@@ -7,7 +7,10 @@ import java.io.IOException;
 import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.javaee7.jacc.contexts.sam.SamAutoRegistrationListener;
 import org.javaee7.jacc.contexts.sam.TestServerAuthModule;
+import org.javaee7.jacc.contexts.servlet.RequestServlet;
+import org.javaee7.jacc.contexts.servlet.SubjectServlet;
 import org.javaee7.jaspic.common.ArquillianBase;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -46,8 +49,12 @@ public class SubjectFromPolicyContextTest extends ArquillianBase {
 
     @Deployment(testable = false)
     public static Archive<?> createDeployment() {
-        // TODO: Fix for Liberty which requires EARs :(
-        return ((WebArchive)defaultArchive()).addPackages(true, "org.javaee7.jacc");
+        WebArchive archive = ((WebArchive) ArquillianBase.defaultArchive())
+                .addClasses(
+                    SamAutoRegistrationListener.class, TestServerAuthModule.class,
+                    RequestServlet.class, SubjectServlet.class);
+        
+        return archive;
     }
 
     /**
