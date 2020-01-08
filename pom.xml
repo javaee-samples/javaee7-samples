@@ -366,9 +366,6 @@
     
             <properties> 
                 <skipEJB>true</skipEJB>
-                <skipCDI>true</skipCDI>
-                <skipJSF>true</skipJSF>
-                <skipJACC>true</skipJACC>
                 <!-- Client-cert needs complicated cert setup, which hasn't been done -->
                 <skipServletClientCertificate>true</skipServletClientCertificate>
             </properties>
@@ -395,8 +392,9 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <javaEEServer>piranha-embedded</javaEEServer>
-                                <piranha.version>19.12.0</piranha.version>
-                                <piranha.repositories>https://dl.bintray.com/piranhacloud/maven</piranha.repositories>
+                                <piranha.version>20.1.0-SNAPSHOT</piranha.version>
+                                <piranha.offline>true</piranha.offline>
+                                <skipEJB>${skipEJB}</skipEJB>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
