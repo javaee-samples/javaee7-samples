@@ -362,7 +362,7 @@
         <!-- ### PIRANHA ### -->
     
         <profile>
-            <id>piranha-embedded</id>
+            <id>piranha-embedded-micro</id>
     
             <properties> 
                 <skipEJB>true</skipEJB>
@@ -380,7 +380,7 @@
                 <dependency>
                      <groupId>cloud.piranha.arquillian</groupId>
                      <artifactId>piranha-arquillian-server</artifactId>
-                     <version>20.1.0-SNAPSHOT</version>
+                     <version>20.1.2</version>
                 </dependency>
             </dependencies>
             
@@ -392,8 +392,8 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <javaEEServer>piranha-embedded</javaEEServer>
-                                <piranha.version>20.1.0-SNAPSHOT</piranha.version>
-                                <piranha.offline>true</piranha.offline>
+                                <piranha.version>20.1.2</piranha.version>
+                                <piranha.offline>false</piranha.offline>
                                 <skipEJB>${skipEJB}</skipEJB>
                             </systemPropertyVariables>
                         </configuration>
