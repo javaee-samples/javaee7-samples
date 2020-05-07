@@ -1,6 +1,6 @@
 package org.javaee7.servlet.protocolhandler;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,6 +44,8 @@ public class ProtocolHandlerTest {
         // typically hang when reading.
         
         URLConnection connection = new URL(base, "UpgradeServlet").openConnection();
+        connection.setRequestProperty("Connection", "Upgrade");
+        connection.setRequestProperty("Upgrade", "echo");
         connection.setConnectTimeout(2000);
         connection.setReadTimeout(2000);
         
@@ -71,7 +73,7 @@ public class ProtocolHandlerTest {
             }
         }
         
-        assertTrue("In protocol handler".equals(response.toString()));
+        assertEquals("In protocol handler", response.toString());
     }
     
 }

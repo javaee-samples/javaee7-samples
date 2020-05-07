@@ -39,6 +39,7 @@
  */
 package org.javaee7.servlet.protocolhandler;
 
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_SWITCHING_PROTOCOLS;
 
 import java.io.IOException;
@@ -66,11 +67,16 @@ public class UpgradeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setStatus(SC_SWITCHING_PROTOCOLS);
-        response.setHeader("Connection", "Upgrade");
-        response.setHeader("Upgrade", "echo");
-        request.upgrade(MyProtocolHandler.class);
-        
-        System.out.println("Request upgraded to MyProtocolHandler");
+        String requestedUpgrade = request.getHeader("Upgrade");
+        if ("echo".equals(requestedUpgrade)) {
+            response.setStatus(SC_SWITCHING_PROTOCOLS);
+            response.setHeader("Connection", "Upgrade");
+            response.setHeader("Upgrade", "echo");
+            request.upgrade(MyProtocolHandler.class);
+
+            System.out.println("Request upgraded to MyProtocolHandler");
+        } else {
+            response.sendError(SC_BAD_REQUEST, "unknown upgrade " + requestedUpgrade);
+        }
     }
 }
