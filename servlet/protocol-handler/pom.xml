@@ -12,4 +12,19 @@
     <packaging>war</packaging>
 
     <name>Java EE 7 Sample: servlet - protocol-handler</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables combine.children="append">
+                        <!-- to request protocol upgrade, the client must send the Connection and Upgrade headers -->
+                        <sun.net.http.allowRestrictedHeaders>true</sun.net.http.allowRestrictedHeaders>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
