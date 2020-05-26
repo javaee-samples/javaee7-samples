@@ -5,7 +5,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -35,9 +35,9 @@ public class ConstructorParametersConstraintsTest {
 
     @Deployment
     public static Archive<?> deployment() {
-        return ShrinkWrap.create(JavaArchive.class)
+        return ShrinkWrap.create(WebArchive.class)
             .addClasses(MyBean2.class, MyParameter.class)
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addAsResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test
