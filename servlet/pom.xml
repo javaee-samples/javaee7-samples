@@ -27,6 +27,7 @@
         <module>resource-packaging</module>
         <module>file-upload</module>
         <module>programmatic-registration</module>
+        <module>servlet-libs</module>
         
         <!-- Security samples assuming the container identity store -->
         <module>security-basicauth</module>
