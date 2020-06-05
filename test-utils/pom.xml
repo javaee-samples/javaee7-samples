@@ -9,7 +9,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <arquillian.version>1.1.14.Final</arquillian.version>
+        <arquillian.version>1.7.0.Alpha1</arquillian.version>
         <java.min.version>1.7</java.min.version>
     </properties>
 
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
