@@ -1,22 +1,19 @@
 package org.javaee7.servlet.resource.packaging;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.startsWith;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.Logger;
 
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -29,26 +26,32 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class ResourcePackagingTest {
+    
+    Logger logger = Logger.getLogger(ResourcePackagingTest.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive deploy() throws URISyntaxException {
         return ShrinkWrap.create(WebArchive.class)
-            .addAsLibrary(new File("src/main/webapp/WEB-INF/lib/myResources.jar"), "myResources.jar");
+                         .addAsLibrary(new File("src/main/webapp/WEB-INF/lib/myResources.jar"), "myResources.jar");
     }
 
     @ArquillianResource
     private URL base;
 
     @Test
-    public void getMyResourceJarStyles() throws MalformedURLException {
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(URI.create(new URL(base, "styles.css").toExternalForm()));
-        Response response = target.request().get();
-
-        assertThat(response.getStatus(), is(equalTo(200)));
+    @RunAsClient
+    public void getMyResourceJarStyles() throws MalformedURLException, URISyntaxException {
+        Response response = 
+            ClientBuilder.newClient()
+                         .target(new URL(base, "styles.css").toURI())
+                         .request()
+                         .get();
+        
+        assertEquals(200, response.getStatus());
 
         String style = response.readEntity(String.class);
-        assertThat(style, startsWith("body {"));
+        
+        assertTrue(style.startsWith("body {"));
     }
 
 }
