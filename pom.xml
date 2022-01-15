@@ -284,6 +284,7 @@
                 <configuration>
                     <source>${java.min.version}</source>
                     <target>${java.min.version}</target>
+                	<fork>true</fork>
                 </configuration>
             </plugin>
             <plugin>
