@@ -124,7 +124,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.4.197</version>
+                <version>2.1.210</version>
             </dependency>
             <dependency>
                 <groupId>fish.payara.arquillian</groupId>
@@ -1271,7 +1271,7 @@
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
-                    <version>1.4.191</version>
+                    <version>2.1.210</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
