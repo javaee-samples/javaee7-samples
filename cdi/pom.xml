@@ -34,6 +34,7 @@
         <module>scopes</module>
         <module>alternatives</module>
         <module>alternatives-priority</module>
+        <module>alternatives-qualifiers</module>
         <module>nobeans-el-injection</module>
         <module>nobeans-el-injection-flowscoped</module>
         <module>events</module>
