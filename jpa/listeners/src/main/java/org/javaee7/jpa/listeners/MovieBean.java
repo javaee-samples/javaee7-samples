@@ -65,7 +65,9 @@ public class MovieBean {
     public void updateMovie() {
         Movie m = em.createNamedQuery("Movie.findByName", Movie.class)
             .setParameter("name", "Inception")
-            .getSingleResult();
+            .setMaxResults(1)
+            .getResultList()
+            .get(0);
         m.setName("Inception2");
         em.merge(m);
         em.flush();
@@ -74,7 +76,9 @@ public class MovieBean {
     public void deleteMovie() {
         Movie m = em.createNamedQuery("Movie.findByName", Movie.class)
             .setParameter("name", "Inception2")
-            .getSingleResult();
+            .setMaxResults(1)
+            .getResultList()
+            .get(0);
         em.remove(m);
         em.flush();
     }
