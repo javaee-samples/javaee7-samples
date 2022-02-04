@@ -37,7 +37,7 @@ public class FlowScopedBeanTest {
     @Test
     public void checkRenderedPage() throws Exception {
         WebClient webClient = new WebClient();
-        HtmlPage page = webClient.getPage(base + "/faces/myflow/index.xhtml");
+        HtmlPage page = webClient.getPage((base + "/faces/myflow/index.xhtml").replace("//faces", "/faces"));
         assertNotNull(page);
         assert (page.asText().contains("Hello there!"));
     }

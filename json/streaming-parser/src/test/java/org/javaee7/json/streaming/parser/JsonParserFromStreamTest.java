@@ -45,6 +45,7 @@ public class JsonParserFromStreamTest {
 
         assertEquals(JsonParser.Event.START_OBJECT, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
+        parser.close();
     }
 
     @Test
@@ -60,6 +61,7 @@ public class JsonParserFromStreamTest {
         assertEquals(JsonParser.Event.KEY_NAME, parser.next());
         assertEquals(JsonParser.Event.VALUE_STRING, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
+        parser.close();
     }
 
     @Test
@@ -79,6 +81,7 @@ public class JsonParserFromStreamTest {
         assertEquals(JsonParser.Event.VALUE_STRING, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
         assertEquals(JsonParser.Event.END_ARRAY, parser.next());
+        parser.close();
     }
 
     @Test
@@ -100,6 +103,7 @@ public class JsonParserFromStreamTest {
         assertEquals(JsonParser.Event.VALUE_STRING, parser.next());
         assertEquals(JsonParser.Event.END_ARRAY, parser.next());
         assertEquals(JsonParser.Event.END_OBJECT, parser.next());
+        parser.close();
     }
 
 }
