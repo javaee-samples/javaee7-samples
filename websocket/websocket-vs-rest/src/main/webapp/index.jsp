@@ -97,6 +97,5 @@
         
         <script language="javascript" type="text/javascript" src="websocket.js"> </script>
         <script language="javascript" type="text/javascript" src="rest.js"> </script>
-        </script>
     </body>
 </html>
