@@ -1,6 +1,8 @@
 package org.javaee7.jaspic.ejbpropagation.sam;
 
 import static javax.security.auth.message.AuthStatus.SUCCESS;
+import static javax.security.auth.message.AuthStatus.SEND_CONTINUE;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -43,6 +45,7 @@ public class TestServerAuthModule implements ServerAuthModule {
         throws AuthException {
 
         HttpServletRequest request = (HttpServletRequest) messageInfo.getRequestMessage();
+        HttpServletResponse response = (HttpServletResponse) messageInfo.getResponseMessage();
 
         Callback[] callbacks;
 
@@ -50,6 +53,11 @@ public class TestServerAuthModule implements ServerAuthModule {
 
             callbacks = new Callback[] { new CallerPrincipalCallback(clientSubject, "test"),
                 new GroupPrincipalCallback(clientSubject, new String[] { "architect" }) };
+        } else if(messageInfo.getMap().get("javax.security.auth.message.MessagePolicy.isMandatory").equals("true")) {
+        	
+        	// Must set error code if authentication is mandatory, but unsuccessful
+        	response.setStatus(SC_UNAUTHORIZED);
+        	return SEND_CONTINUE;
         } else {
 
             // The JASPIC protocol for "do nothing"

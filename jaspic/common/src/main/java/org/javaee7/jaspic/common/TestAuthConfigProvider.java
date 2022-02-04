@@ -22,10 +22,10 @@ public class TestAuthConfigProvider implements AuthConfigProvider {
     private static final String CALLBACK_HANDLER_PROPERTY_NAME = "authconfigprovider.client.callbackhandler";
 
     private Map<String, String> providerProperties;
-    private ServerAuthModule serverAuthModule;
+    private Class<? extends ServerAuthModule> serverAuthModuleClass;
 
-    public TestAuthConfigProvider(ServerAuthModule serverAuthModule) {
-        this.serverAuthModule = serverAuthModule;
+    public TestAuthConfigProvider(Class<? extends ServerAuthModule> serverAuthModuleClass) {
+        this.serverAuthModuleClass = serverAuthModuleClass;
     }
 
     /**
@@ -53,7 +53,7 @@ public class TestAuthConfigProvider implements AuthConfigProvider {
     public ServerAuthConfig getServerAuthConfig(String layer, String appContext, CallbackHandler handler) throws AuthException,
         SecurityException {
         return new TestServerAuthConfig(layer, appContext, handler == null ? createDefaultCallbackHandler() : handler,
-            providerProperties, serverAuthModule);
+            providerProperties, serverAuthModuleClass);
     }
 
     @Override

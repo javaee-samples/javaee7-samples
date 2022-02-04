@@ -20,8 +20,8 @@ public final class JaspicUtils {
      * 
      * @param serverAuthModule
      */
-    public static void registerSAM(ServletContext context, ServerAuthModule serverAuthModule) {
-        AuthConfigFactory.getFactory().registerConfigProvider(new TestAuthConfigProvider(serverAuthModule), "HttpServlet",
+    public static void registerSAM(ServletContext context, Class<? extends ServerAuthModule> serverAuthModuleClass) {
+        AuthConfigFactory.getFactory().registerConfigProvider(new TestAuthConfigProvider(serverAuthModuleClass), "HttpServlet",
             getAppContextID(context), "Test authentication config provider");
     }
 
